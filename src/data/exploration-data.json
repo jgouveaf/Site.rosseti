@@ -1,0 +1,69 @@
+{
+  "version": 3,
+  "world": {
+    "title": "OBSIDIAN INTERACTIVE ARCHIVE",
+    "navigation": "cinematic"
+  },
+  "interactives": [
+    {
+      "id": "monolith-signal",
+      "title": "O Sinal do Monólito",
+      "eyebrow": "REGISTRO 01 / ESTRUTURA",
+      "position": [0, 2.7, 7.8],
+      "camera": { "position": [13, 10, 30], "target": [0, 8, 0] },
+      "detailCamera": { "position": [4, 5, 20], "target": [0, 3, 7.8] },
+      "radius": 8,
+      "accent": "signal",
+      "action": "Reativar o sinal",
+      "activeAction": "Silenciar o sinal",
+      "summary": "Uma frequência de baixa intensidade percorre as nervuras minerais da estrutura.",
+      "detail": "O monólito não é uma antena. Sua matéria reage ao sinal: toque a imagem para despertar suas nervuras e revelar uma memória esquecida.",
+      "unlock": "always"
+    },
+    {
+      "id": "observatory-orbit",
+      "title": "O Observatório Orbital",
+      "eyebrow": "REGISTRO 02 / MECANISMO",
+      "position": [34, 2.7, -13],
+      "camera": { "position": [57, 19, 0], "target": [34, 8, -27] },
+      "detailCamera": { "position": [39, 6, 0], "target": [34, 3, -13] },
+      "radius": 12,
+      "accent": "accent",
+      "action": "Alinhar os anéis",
+      "activeAction": "Liberar os anéis",
+      "summary": "Anéis de orientação ainda descrevem uma trajetória impossível sobre o deserto.",
+      "detail": "A geometria sugere que o observatório não mirava o céu. Seus eixos convergem para uma coordenada abaixo da superfície do planeta.",
+      "unlock": "always"
+    },
+    {
+      "id": "archive-fragment",
+      "title": "Fragmento de Arquivo",
+      "eyebrow": "REGISTRO 03 / MEMÓRIA",
+      "position": [-34, -3.7, -23],
+      "camera": { "position": [-13, 10, -1], "target": [-34, -3, -23] },
+      "detailCamera": { "position": [-28, 0, -10], "target": [-34, -3.7, -23] },
+      "radius": 11,
+      "accent": "signal",
+      "action": "Suspender os fragmentos",
+      "activeAction": "Recolher os fragmentos",
+      "summary": "Uma lâmina de metal marcada por camadas de uma escrita sem alfabeto.",
+      "detail": "Cada camada repete uma sequência diferente. O arquivo parece armazenar eventos como peso, distância e alteração de luz, nunca como palavras.",
+      "unlock": "always"
+    },
+    {
+      "id": "buried-gate",
+      "title": "O Portal Enterrado",
+      "eyebrow": "REGISTRO 04 / LIMIAR",
+      "position": [-48.5, 2.8, 31],
+      "camera": { "position": [-60, 10, 13], "target": [-43, 3, 35] },
+      "detailCamera": { "position": [-53, 5, 20], "target": [-46, 3, 34] },
+      "radius": 10,
+      "accent": "accent",
+      "action": "Abrir o limiar",
+      "activeAction": "Fechar o limiar",
+      "summary": "Uma abertura circular se revela entre rochas e poeira negra.",
+      "detail": "Duas folhas minerais guardam uma memória luminosa. Toque a imagem ou ative o limiar para revelar o interior. O mecanismo responde a cada nova interação.",
+      "unlock": "always"
+    }
+  ]
+}

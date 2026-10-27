@@ -1,19 +1,17 @@
-# Estado da implementação — V2
+# Estado atual — Neymar
 
-## Concluído
+- Tema do Neymar em ambas as rotas.
+- Direção editorial com fundo claro, nome em grande escala, retrato recortado e fotografias reais licenciadas.
+- Scroll nativo controla o percurso e a faixa horizontal de memórias.
+- Fotos abrem conteúdo por clique; retorno por clique na foto, fundo ou Escape.
+- Nenhum elemento HTML button na experiência; imagens mantêm foco e ativação pelo teclado.
+- CSS responsivo e preferência por movimento reduzido.
+- Design system Neymar JSON integrado às cores do componente.
+- Fontes, arquivos originais e licenças identificados nos créditos.
+- OBSIDIAN preservado em src/ObsidianApp.tsx, sem fazer parte do bundle atual.
 
-- Experience com seis cenas, narrativa editorial e câmera contínua vinculada ao scroll.
-- Exploração em página independente com veículo, aceleração, frenagem, colisões, câmera de perseguição, controles de toque e quatro pontos de interesse.
-- Física carregada somente na exploração.
-- Terreno 3D procedural, rochas instanciadas, monólito detalhado, observatório, arquivo rebaixado, núcleo animado, ruínas, poeira e iluminação variável.
-- Materiais PBR com microtexturas procedurais de normal e rugosidade.
-- Navegação por teclado/toque, fallback sem WebGL, preferência por movimento reduzido e áudio iniciado apenas após interação.
-- Design system JSON integrado ao CSS e a materiais; build TypeScript e Vite com duas entradas.
+## Verificações
 
-## Limites atuais
+TypeScript e build aprovados. Roteiro Edge headless verificou as duas rotas, movimento da galeria pelo scroll, clique nas imagens, abertura/fechamento, desktop, viewport móvel sem rolagem lateral e ausência de falhas HTTP/JavaScript. Capturas visuais revisadas; não substituem medição em aparelhos reais.
 
-- Os objetos são procedurais e estilizados; ainda não há modelagem autoral de alta densidade, texturas escaneadas, HDR environment ou pós-processamento de bloom. A proximidade artística com Igloo depende de revisão visual humana.
-- A física do veículo usa um corpo rígido simplificado; as rodas não têm suspensão física independente. O terreno visual tem relevo mais detalhado que o colisor plano.
-- A cena do arquivo é um átrio rebaixado, não um interior fechado com arquitetura completa.
-- Metas de 60 FPS em desktop e 30 FPS em celular não foram medidas em hardware real.
-- A checagem de interface em navegador e console ainda não foi concluída: o controle de computador foi encerrado por não identificar a URL ativa com segurança. Build e rotas HTTP locais foram verificados separadamente.
+Atualização local; sem push ou publicação no GitHub Pages.

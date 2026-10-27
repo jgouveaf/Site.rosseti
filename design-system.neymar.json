@@ -1,0 +1,7 @@
+{
+  "name": "Neymar — Editorial Fan Experience",
+  "reference": "https://rafaelrossetti.com.br/",
+  "colors": { "paper": "#f1f0e9", "ink": "#181b17", "lime": "#cfed74", "orange": "#ef4b31" },
+  "typography": { "body": "DM Sans", "editorial": "DM Serif Display" },
+  "interaction": { "navigation": "native-scroll", "gallery": "pinned-horizontal", "open": "click-image", "close": "click-photo-or-backdrop-or-Escape", "navigationButtons": false }
+}

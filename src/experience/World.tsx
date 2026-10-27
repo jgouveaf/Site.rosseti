@@ -10,12 +10,14 @@ type WorldProps = {
   onActivate: () => void;
   reducedMotion: boolean;
   exploration?: boolean;
+  archiveActivated?: boolean;
+  observatoryAligned?: boolean;
 };
 
 const clamp = THREE.MathUtils.clamp;
 const smooth = (value: number) => value * value * (3 - 2 * value);
 
-function groundHeight(x: number, z: number) {
+export function groundHeight(x: number, z: number) {
   const grain = Math.sin(x * .11 + Math.cos(z * .055) * 1.4) * 1.05
     + Math.sin(z * .18 + x * .045) * .42
     + Math.cos(x * .37 - z * .23) * .13;
@@ -131,12 +133,12 @@ function Monolith({ progress, activated, surfaces }: { progress?: React.RefObjec
   </group>;
 }
 
-function Observatory({ reducedMotion, surfaces }: { reducedMotion: boolean; surfaces: ReturnType<typeof createSurfaceMaps> }) {
+function Observatory({ reducedMotion, surfaces, aligned = false }: { reducedMotion: boolean; surfaces: ReturnType<typeof createSurfaceMaps>; aligned?: boolean }) {
   const armature = useRef<THREE.Group>(null);
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (armature.current && !reducedMotion) {
-      armature.current.rotation.y = clock.elapsedTime * .035;
-      armature.current.rotation.z = Math.sin(clock.elapsedTime * .16) * .07;
+      armature.current.rotation.y += delta * (aligned ? .55 : .035);
+      armature.current.rotation.z = THREE.MathUtils.damp(armature.current.rotation.z, aligned ? Math.PI / 3 : Math.sin(clock.elapsedTime * .16) * .07, 2, delta);
     }
   });
   return <group position={[34, 0, -31]}>
@@ -219,7 +221,7 @@ function Dust({ reducedMotion }: { reducedMotion: boolean }) {
   return <points ref={points}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry><pointsMaterial color="#bbab97" size={.055} sizeAttenuation transparent opacity={.35} depthWrite={false} /></points>;
 }
 
-export function World({ progress, activated, onActivate, reducedMotion, exploration = false }: WorldProps) {
+export function World({ progress, activated, onActivate, reducedMotion, exploration = false, archiveActivated = activated, observatoryAligned = false }: WorldProps) {
   const sun = useRef<THREE.DirectionalLight>(null);
   const ambient = useRef<THREE.HemisphereLight>(null);
   const surfaces = useMemo(createSurfaceMaps, []);
@@ -238,8 +240,8 @@ export function World({ progress, activated, onActivate, reducedMotion, explorat
     <Terrain />
     <Geology />
     <Monolith progress={progress} activated={activated} surfaces={surfaces} />
-    <Observatory reducedMotion={reducedMotion} surfaces={surfaces} />
-    <Archive activated={activated} onActivate={onActivate} reducedMotion={reducedMotion} surfaces={surfaces} />
+    <Observatory reducedMotion={reducedMotion} surfaces={surfaces} aligned={observatoryAligned} />
+    <Archive activated={archiveActivated} onActivate={onActivate} reducedMotion={reducedMotion} surfaces={surfaces} />
     <Ruins />
     <Dust reducedMotion={reducedMotion} />
   </>;

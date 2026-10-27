@@ -1,0 +1,355 @@
+{
+  "project": {
+    "title": "NEYMAR JÚNIOR.",
+    "subtitle": "O talento é brasileiro. A história atravessa o mundo.",
+    "label": "UMA EXPERIÊNCIA DE FÃ · NÃO OFICIAL"
+  },
+  "moments": [
+    {
+      "id": "origem",
+      "number": "01",
+      "year": "2009—2013",
+      "place": "SANTOS FC · 2011",
+      "title": "O Menino da Vila.",
+      "tag": "ONDE TUDO COMEÇA",
+      "image": "inicio-2012.jpg",
+      "position": "50% 22%",
+      "text": "Neymar estreou profissionalmente em 7 de março de 2009, contra o Oeste. No Santos, a promessa ganhou repertório e protagonismo: Copa do Brasil em 2010, Libertadores em 2011 e Recopa em 2012. O futebol de rua encontrou o estádio, com mudanças de direção, dribles e a coragem de tentar o improvável.",
+      "credit": "Christophe95",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_2012.JPG",
+      "imageCaption": "Neymar em 2012, durante sua primeira passagem pelo Santos. Imagem de arquivo, posterior à estreia de 2009.",
+      "facts": [
+        "Estreia profissional · 2009",
+        "Copa do Brasil · 2010",
+        "Libertadores · 2011"
+      ],
+      "references": [
+        {
+          "label": "Santos FC · trajetória e conquistas",
+          "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
+        }
+      ]
+    },
+    {
+      "id": "confederacoes",
+      "year": "2013",
+      "place": "MARACANÃ · BRASIL",
+      "title": "O Brasil em festa.",
+      "tag": "COPA DAS CONFEDERAÇÕES",
+      "image": "confederacoes-2013.jpg",
+      "position": "52% 36%",
+      "text": "A Copa das Confederações de 2013 reuniu a seleção e sua torcida em casa. O Brasil venceu a Espanha na final do Maracanã, e Neymar fez parte de uma conquista que marcou o início de uma nova fase: pouco depois, sua trajetória seguiria para Barcelona.",
+      "imageCaption": "Neymar e Piqué disputam a bola na final de 30 de junho de 2013.",
+      "credit": "Danilo Borges / Portal da Copa",
+      "license": "CC BY 3.0 BR",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/br/",
+      "source": "https://commons.wikimedia.org/wiki/File:Pique%26neymar.jpg",
+      "facts": [
+        "Seleção Brasileira",
+        "Título · 2013"
+      ],
+      "references": [
+        {
+          "label": "Santos FC · conquistas pela seleção",
+          "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
+        },
+        {
+          "label": "PSG · trajetória de Neymar",
+          "url": "https://en.news.psg.fr/press-releases/first-team/paris-saint-germain-thank-neymar-jr-a-club-legend"
+        }
+      ],
+      "number": "02"
+    },
+    {
+      "id": "barcelona",
+      "number": "03",
+      "year": "2013—2017",
+      "place": "BARCELONA, ESPANHA",
+      "title": "O mundo como campo.",
+      "tag": "TALENTO SEM FRONTEIRAS",
+      "image": "barcelona.jpg",
+      "position": "50% 28%",
+      "text": "Neymar chegou ao Barcelona em 2013. Ao lado de Lionel Messi e Luis Suárez, formou o trio MSN. Na final da Champions League de 2015, marcou o gol que fechou a vitória por 3 a 1 sobre a Juventus. Foram quatro temporadas de futebol em alta velocidade, troca de passes e entendimento entre três talentos diferentes.",
+      "credit": "Alex Fau · recorte: Danyele",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_-_FC_Barcelona_-_2015.jpg",
+      "imageCaption": "Neymar em ação pelo Barcelona, em fevereiro de 2015.",
+      "facts": [
+        "Chegada ao Barcelona · 2013",
+        "Trio MSN",
+        "Champions League · 2015"
+      ],
+      "references": [
+        {
+          "label": "FC Barcelona · perfil histórico",
+          "url": "https://www.fcbarcelona.es/es/noticias/3925551/neymar-da-silva/amp"
+        }
+      ]
+    },
+    {
+      "id": "brasil",
+      "number": "04",
+      "year": "2016",
+      "place": "BRASIL / RIO 2016",
+      "title": "O sonho virou ouro.",
+      "tag": "A CAMISA & O SONHO",
+      "image": "ouro-2016.jpg",
+      "position": "48% 38%",
+      "text": "Nos Jogos do Rio de 2016, a seleção masculina conquistou seu primeiro ouro olímpico. Neymar participou daquele capítulo com a camisa 10, em uma campanha encerrada no Maracanã. Uma memória que pertence tanto ao jogador quanto à equipe e às arquibancadas.",
+      "credit": "Fernando Frazão / Agência Brasil",
+      "license": "CC BY 3.0 BR",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/br/",
+      "source": "https://commons.wikimedia.org/wiki/File:Brasil%20conquista%20primeiro%20ouro%20ol%C3%ADmpico%20no%20futebol%201039231-20082016-%20v9a0811%2001.jpg",
+      "imageCaption": "Registro da final entre Brasil e Alemanha no Maracanã, em 20 de agosto de 2016.",
+      "facts": [
+        "Rio 2016",
+        "Primeiro ouro olímpico do futebol masculino brasileiro"
+      ],
+      "references": [
+        {
+          "label": "Santos FC · o ouro de 2016",
+          "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
+        }
+      ]
+    },
+    {
+      "id": "paris",
+      "year": "2017—2023",
+      "place": "PARIS · FRANÇA",
+      "title": "Outra cidade. O mesmo jogo.",
+      "tag": "SEIS TEMPORADAS EM PARIS",
+      "image": "paris-2017.jpg",
+      "position": "50% 28%",
+      "text": "Em 2017, Neymar chegou ao Paris Saint-Germain. A apresentação abriu uma passagem de seis temporadas, com títulos nacionais e uma final de Champions League em 2020. No balanço publicado pelo próprio PSG em agosto de 2023, o brasileiro registrou 173 partidas e 118 gols pelo clube.",
+      "imageCaption": "Apresentação de Neymar no Paris Saint-Germain, em 4 de agosto de 2017.",
+      "credit": "Antoine Dellenbach",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar%20Jr%20Presentation%20(cropped%202).jpg",
+      "facts": [
+        "173 jogos · balanço do PSG, agosto de 2023",
+        "118 gols · mesmo recorte histórico"
+      ],
+      "references": [
+        {
+          "label": "PSG · despedida e balanço oficial",
+          "url": "https://en.news.psg.fr/press-releases/first-team/paris-saint-germain-thank-neymar-jr-a-club-legend"
+        },
+        {
+          "label": "PSG · final europeia de 2020",
+          "url": "https://en.news.psg.fr/press-releases/first-team/neymar-jr-extends-his-contract-with-paris-saint-germain-until-2025"
+        }
+      ],
+      "number": "05"
+    },
+    {
+      "id": "arabia",
+      "year": "2023—2025",
+      "place": "AL-HILAL · ARÁBIA SAUDITA",
+      "title": "Um novo horizonte.",
+      "tag": "OUTROS CAMPOS, OUTROS DESAFIOS",
+      "image": "arabia-2023.jpg",
+      "position": "50% 30%",
+      "text": "O Al-Hilal anunciou a chegada de Neymar em agosto de 2023. A experiência no futebol saudita abriu um novo capítulo fora da Europa. Em janeiro de 2025, clube e jogador anunciaram o encerramento do vínculo por acordo mútuo, antes do retorno ao Santos.",
+      "imageCaption": "Neymar com o Al-Hilal, em partida de 3 de outubro de 2023.",
+      "credit": "Meghdad Madadi / Tasnim News Agency",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar%20Jr.%20with%20Al%20Hilal%2C%203%20October%202023%20-%2001.jpg",
+      "facts": [
+        "Chegada · agosto de 2023",
+        "Fim do vínculo · janeiro de 2025"
+      ],
+      "references": [
+        {
+          "label": "Al-Hilal · fim do vínculo",
+          "url": "https://alhilal.com/en/news/al-hilal-and-neymar-agree-to-terminate-contract-by-mutual-consent"
+        },
+        {
+          "label": "PSG · transferência ao Al-Hilal",
+          "url": "https://en.news.psg.fr/press-releases/first-team/paris-saint-germain-thank-neymar-jr-a-club-legend"
+        }
+      ],
+      "number": "06"
+    },
+    {
+      "id": "retorno",
+      "year": "2025",
+      "place": "VILA BELMIRO · SANTOS FC",
+      "title": "Voltar também é seguir.",
+      "tag": "DE VOLTA À VILA",
+      "image": "retorno-2025.jpg",
+      "position": "50% 30%",
+      "text": "Em 31 de janeiro de 2025, o Santos anunciou a volta de Neymar. O retorno aproximou novamente o jogador da Vila Belmiro e de uma torcida que acompanhou seus primeiros passos profissionais. Um reencontro com as origens, agora carregado de experiências vividas em outros países.",
+      "imageCaption": "Neymar pelo Santos contra o Fortaleza, em 2 de novembro de 2025. Registro posterior ao anúncio do retorno.",
+      "credit": "BrazilianDude70",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Santos%20x%20Fortaleza%20-%2002-11-2025%2023.jpg",
+      "facts": [
+        "Retorno anunciado · 31.01.2025",
+        "Santos FC"
+      ],
+      "references": [
+        {
+          "label": "Santos FC · anúncio oficial do retorno",
+          "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
+        }
+      ],
+      "number": "07"
+    },
+    {
+      "id": "identidade",
+      "number": "08",
+      "year": "FORA DE CAMPO",
+      "place": "ALÉM DAS QUATRO LINHAS",
+      "title": "Ser, antes de tudo.",
+      "tag": "ESTILO & IDENTIDADE",
+      "image": "portrait.jpg",
+      "position": "31% 40%",
+      "text": "A identidade não termina quando acaba a partida. Moda, retratos, gestos e maneiras de ocupar a cena também contam uma história. Aqui, a fotografia mostra outro registro de Neymar: uma presença construída fora do uniforme, em diálogo com a mesma individualidade que aparece dentro de campo.",
+      "credit": "Lucho Vidales",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_Jr_Portrait_(149008871).jpeg",
+      "imageCaption": "Retrato de Neymar por Lucho Vidales, fotografado em 2015.",
+      "facts": [
+        "Retrato editorial · 2015",
+        "Fotografia · Lucho Vidales"
+      ],
+      "references": [
+        {
+          "label": "Arquivo e autoria do retrato",
+          "url": "https://commons.wikimedia.org/wiki/File:Neymar_Jr_Portrait_(149008871).jpeg"
+        }
+      ]
+    },
+    {
+      "id": "linguagem",
+      "number": "09",
+      "year": "O JEITO DE JOGAR",
+      "place": "FUTEBOL COMO EXPRESSÃO",
+      "title": "O próximo lance não tem roteiro.",
+      "tag": "DRIBLE · PASSE · IMPROVISO",
+      "image": "brasil.jpg",
+      "position": "50% 25%",
+      "text": "Mudar a direção, atrair a marcação, encontrar um passe onde parecia não existir espaço. O repertório de Neymar se reconhece nesses pequenos intervalos. Esta é uma leitura editorial do seu estilo: o drible como pergunta, o passe como conexão e o improviso como possibilidade.",
+      "credit": "Marcelo Camargo / Agência Brasil",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_Olympics_August_2016.jpg",
+      "imageCaption": "Neymar com a seleção durante os Jogos Olímpicos de 2016; imagem de arquivo.",
+      "facts": [
+        "Drible",
+        "Visão de jogo",
+        "Improviso"
+      ],
+      "references": [
+        {
+          "label": "FC Barcelona · técnica e estilo de Neymar",
+          "url": "https://www.fcbarcelona.es/es/noticias/3925551/neymar-da-silva/amp"
+        }
+      ]
+    },
+    {
+      "id": "instituto",
+      "year": "DESDE 2014",
+      "place": "BAIRRO GLÓRIA · PRAIA GRANDE",
+      "title": "Um futuro para mais gente.",
+      "tag": "INSTITUTO PROJETO NEYMAR JR.",
+      "image": "",
+      "position": "50% 50%",
+      "text": "Idealizado por Neymar e sua família, o Instituto Projeto Neymar Jr. atua no bairro Glória, em Praia Grande. A associação sem fins lucrativos amplia oportunidades para crianças, adolescentes e suas famílias por meio da educação, cultura, esporte e saúde. O legado também pode ser medido pelos caminhos que ajuda a abrir.",
+      "imageCaption": "Composição editorial autoral; não é uma fotografia documental do Instituto.",
+      "credit": "Composição editorial do projeto",
+      "license": "Informações oficiais do Instituto",
+      "licenseUrl": "https://institutoneymarjr.org.br/",
+      "source": "https://institutoneymarjr.org.br/",
+      "facts": [
+        "Educação e cultura",
+        "Esporte e saúde",
+        "Crianças, adolescentes e famílias"
+      ],
+      "references": [
+        {
+          "label": "Instituto Projeto Neymar Jr. · site oficial",
+          "url": "https://institutoneymarjr.org.br/"
+        }
+      ],
+      "number": "10"
+    }
+  ],
+  "version": 2,
+  "bio": {
+    "name": "Neymar da Silva Santos Júnior",
+    "born": "05.02.1992",
+    "hometown": "MOGI DAS CRUZES · SÃO PAULO",
+    "text": "Nascido em Mogi das Cruzes e criado na Baixada Santista, Neymar encontrou no futebol uma forma própria de se expressar. A base do Santos foi o ponto de partida para uma trajetória que atravessou países, camisas e gerações.",
+    "source": "https://www.santosfc.com.br/neymar-a-joia-santista/"
+  },
+  "gallery": [
+    "origem",
+    "confederacoes",
+    "barcelona",
+    "brasil",
+    "paris",
+    "arabia",
+    "retorno",
+    "identidade"
+  ],
+  "collage": [
+    "origem",
+    "barcelona",
+    "paris",
+    "brasil",
+    "retorno"
+  ],
+  "techniques": [
+    {
+      "word": "DRIBLAR.",
+      "text": "Mudar o caminho antes que a marcação encontre a resposta.",
+      "moment": "confederacoes"
+    },
+    {
+      "word": "CONECTAR.",
+      "text": "O passe transforma uma ideia individual em uma jogada coletiva.",
+      "moment": "barcelona"
+    },
+    {
+      "word": "INVENTAR.",
+      "text": "Há lances que começam justamente onde o roteiro termina.",
+      "moment": "linguagem"
+    }
+  ],
+  "milestones": [
+    {
+      "year": "2009",
+      "label": "PRIMEIRO JOGO PROFISSIONAL",
+      "moment": "origem"
+    },
+    {
+      "year": "2011",
+      "label": "LIBERTADORES COM O SANTOS",
+      "moment": "origem"
+    },
+    {
+      "year": "2015",
+      "label": "CHAMPIONS COM O BARCELONA",
+      "moment": "barcelona"
+    },
+    {
+      "year": "2016",
+      "label": "OURO OLÍMPICO COM O BRASIL",
+      "moment": "brasil"
+    },
+    {
+      "year": "2025",
+      "label": "REENCONTRO COM A VILA",
+      "moment": "retorno"
+    }
+  ],
+  "verifiedAt": "2026-10-27"
+}

@@ -1,11 +1,11 @@
-# Arquitetura V2
+# Arquitetura atual
 
-O projeto preserva React, TypeScript, Vite, React Three Fiber e Rapier. Há duas entradas HTML: `/` e `/exploracao/`. O componente de exploração é importado sob demanda; portanto o runtime de física não roda na narrativa.
+A entrada App renderiza NeymarExperience nas duas rotas Vite existentes. A implementação OBSIDIAN anterior foi preservada, mas não é importada pelo site ativo.
 
-Na Experience, a câmera percorre uma curva Catmull–Rom entre seis posições e seis alvos. A rolagem controla diretamente o parâmetro da curva. A luz solar e a iluminação ambiente variam com esse progresso. A geometria 3D permanece montada entre cenas, mantendo a continuidade espacial. Em movimento reduzido, a câmera responde mais diretamente e animações ornamentais são limitadas.
+O percurso usa scroll nativo. A seção da galeria tem um contêiner sticky; um listener passivo, limitado por requestAnimationFrame, converte a posição de rolagem em translação horizontal das fotos. O cálculo usa as posições reais dos cartões e é refeito no resize.
 
-O mundo compartilhado inclui terreno com alturas e cores por vértice, rochas instanciadas, monólito com nervuras e bases, observatório em escala arquitetônica, arquivo rebaixado, núcleo emissivo, ruínas e poeira. Materiais PBR usam mapas procedurais de normal e rugosidade produzidos localmente. As texturas são descartadas quando o canvas desmonta.
+Fotos são elementos focáveis com ativação por clique, Enter e espaço. A leitura ampliada usa um diálogo com foco contido, bloqueio da rolagem de fundo, retorno de foco e fechamento por Escape ou clique direto. Não há controles de caminhada nem runtime de física.
 
-Na Exploração, Rapier simula um corpo rígido dinâmico e colisores estáticos. Velocidade, direção, frenagem, reset, limites da área, câmera de perseguição e descobertas são controlados nessa página. Ao retornar, a posição de rolagem da narrativa é recuperada da sessão.
+src/data/neymar.json centraliza o conteúdo e os créditos. design-system.neymar.json fornece as cores aplicadas como variáveis CSS no componente. Os arquivos de imagem são locais, com licenças registradas e retrato de capa derivado por recorte assistido por IA.
 
-`design-system.json` fornece tokens importados por `src/design.ts`, que alimenta CSS Custom Properties e materiais 3D. O build Vite usa duas entradas e prefixo de assets para o GitHub Pages.
+CSS responde ao tamanho da tela e à preferência por movimento reduzido. A publicação mantém as duas entradas e o base path já existente do GitHub Pages.

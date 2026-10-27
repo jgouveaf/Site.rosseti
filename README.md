@@ -1,40 +1,28 @@
-# OBSIDIAN V2 — The Forgotten Civilization
+# Neymar Júnior — A arte de ser único
 
-Experiência cinematográfica 3D original sobre uma civilização alienígena perdida. A narrativa principal e a exploração com veículo são páginas independentes.
+Experiência visual de fã, não oficial, inspirada na composição editorial de https://rafaelrossetti.com.br/. O usuário navega pelo scroll nativo e abre imagens com clique direto. Não há botões de navegação.
 
-## Desenvolvimento
+## Executar
 
-Requer Node.js 20.19+.
+Requer Node.js 20.19+. Execute npm ci e npm run dev. Tanto / quanto /exploracao/ exibem a experiência do Neymar; a segunda rota foi preservada para os links já existentes.
 
-```bash
-npm ci
-npm run dev
-```
+## Interação
 
-Abra `/` para a narrativa e `/exploracao/` para o mundo explorável. Vite, módulos ES e Rapier exigem servidor local; `file://` não é suportado.
+O scroll percorre a capa, o manifesto e a galeria fotográfica horizontal fixada na tela. As fotos respondem ao cursor, revelam cor e abrem uma leitura ampliada com créditos. A foto de capa também é interativa. Clique na foto ampliada ou fora do conteúdo para voltar; Escape funciona pelo teclado.
 
-## Produção
+## Estrutura
 
-```bash
-npm run build
-npm run preview
-```
+- src/NeymarExperience.tsx: página, scroll, galeria e leitura ampliada.
+- src/neymar.css: composição responsiva, tipografia, movimento e estados de interação.
+- src/data/neymar.json: conteúdo e metadados/créditos das fotografias.
+- design-system.neymar.json: cores integradas ao componente, tipografia e interação.
+- public/images/neymar/: fotos licenciadas, recorte e CREDITS.md.
+- src/ObsidianApp.tsx e componentes anteriores: implementação OBSIDIAN preservada como fonte, sem ser carregada pelo site atual.
 
-O build gera `dist/index.html` e `dist/exploracao/index.html`. O workflow `.github/workflows/pages.yml` publica ambas no GitHub Pages após um push autorizado ao branch `main`. O caminho base de produção é `/Site.rosseti/`.
+## Build e publicação
 
-## Uso
+npm run build valida TypeScript e gera dist. npm run preview serve a produção. O workflow GitHub Pages mantém o prefixo /Site.rosseti/ e publica após push autorizado a main. Esta alteração não foi publicada automaticamente.
 
-Na página Experience, role para acompanhar seis cenas e use o menu para navegar. Na última cena, escolha reiniciar ou entrar na exploração. A aba Exploração também está sempre disponível no menu superior.
+## Imagens
 
-Na exploração, dirija com WASD ou setas, freie com espaço, reinicie com R e volte à narrativa com Escape. No celular, há controles de toque. O retorno restaura a posição anterior da narrativa. O áudio ambiente só inicia depois de selecionar SOUND ON.
-
-## Arquitetura
-
-- `src/App.tsx`: rotas, narrativa, navegação e controles de interface.
-- `src/experience/Experience.tsx`: câmera cinematográfica e canvas principal, sem física.
-- `src/experience/Exploration.tsx`: mundo explorável com Rapier e veículo.
-- `src/experience/World.tsx`: terreno, estruturas, luzes e partículas procedurais compartilhadas.
-- `src/experience/surface.ts`: mapas de normal e rugosidade originais gerados em memória.
-- `design-system.json` e `src/design.ts`: tokens centrais de cor, material e movimento.
-
-Consulte `docs/implementation-status.md` para limites e validação restante.
+Créditos e licenças aparecem em cada foto aberta e em public/images/neymar/CREDITS.md. A capa usa um recorte assistido por IA do retrato de Lucho Vidales. O projeto não indica vínculo oficial com Neymar, clubes ou fotógrafos.
