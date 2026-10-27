@@ -2,354 +2,661 @@
   "project": {
     "title": "NEYMAR JÚNIOR.",
     "subtitle": "O talento é brasileiro. A história atravessa o mundo.",
-    "label": "UMA EXPERIÊNCIA DE FÃ · NÃO OFICIAL"
+    "label": "UMA EXPERIÊNCIA DE FÃ · NÃO OFICIAL",
+    "quote": "O futebol é arte, alegria e a coragem de tentar o impossível."
+  },
+  "bio": {
+    "name": "Neymar da Silva Santos Júnior",
+    "born": "05.02.1992",
+    "hometown": "MOGI DAS CRUZES · SÃO PAULO",
+    "text": "Nascido em Mogi das Cruzes e revelado nas quadras e campos da Baixada Santista, Neymar herdou do pai o nome e a paixão pelo futebol. Desde que ingressou nas categorias de base do Santos FC aos 11 anos, trazido pelo capitão Zito, sua trajetória combinou o drible irreverente da rua com a precisão dos grandes palcos globais.",
+    "source": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
   },
   "moments": [
     {
       "id": "origem",
       "number": "01",
-      "year": "2009—2013",
-      "place": "SANTOS FC · 2011",
+      "year": "2009—2010",
+      "era": "SANTOS FC",
+      "place": "PACAEMBU & VILA BELMIRO",
       "title": "O Menino da Vila.",
       "tag": "ONDE TUDO COMEÇA",
       "image": "inicio-2012.jpg",
-      "position": "50% 22%",
-      "text": "Neymar estreou profissionalmente em 7 de março de 2009, contra o Oeste. No Santos, a promessa ganhou repertório e protagonismo: Copa do Brasil em 2010, Libertadores em 2011 e Recopa em 2012. O futebol de rua encontrou o estádio, com mudanças de direção, dribles e a coragem de tentar o improvável.",
+      "position": "50% 20%",
+      "accent": "#cfed74",
+      "badge": "COPA DO BRASIL 2010",
+      "text": "Neymar estreou como profissional em 7 de março de 2009, no Pacaembu, com apenas 17 anos, em vitória de 2 a 1 sobre o Oeste. Em 2010, ao lado de Ganso, Robinho e André, o Santos conquistou o Campeonato Paulista e a inédita Copa do Brasil com um futebol de rara ousadia ofensiva. Foi o nascimento de uma nova febre no futebol brasileiro.",
       "credit": "Christophe95",
       "license": "CC BY-SA 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
       "source": "https://commons.wikimedia.org/wiki/File:Neymar_2012.JPG",
-      "imageCaption": "Neymar em 2012, durante sua primeira passagem pelo Santos. Imagem de arquivo, posterior à estreia de 2009.",
+      "imageCaption": "Neymar em ação durante a primeira passagem pelo Santos FC.",
       "facts": [
-        "Estreia profissional · 2009",
-        "Copa do Brasil · 2010",
-        "Libertadores · 2011"
+        "Estreia profissional: 07/03/2009 (Santos 2x1 Oeste)",
+        "Campeão da Copa do Brasil de 2010",
+        "Artilheiro da Copa do Brasil 2010 com 11 gols"
       ],
       "references": [
         {
-          "label": "Santos FC · trajetória e conquistas",
+          "label": "Santos FC · Perfil oficial e títulos",
           "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
+        }
+      ]
+    },
+    {
+      "id": "libertadores",
+      "number": "02",
+      "year": "2011—2012",
+      "era": "AMÉRICA & MUNDIAL",
+      "place": "PACAEMBU / YOKOHAMA",
+      "title": "A Conquista da América.",
+      "tag": "GLÓRIA CONTINENTAL",
+      "image": "messi-neymar-2011.jpg",
+      "position": "50% 25%",
+      "accent": "#e2f492",
+      "badge": "LIBERTADORES 2011",
+      "text": "Quarenta e oito anos após a era Pelé, o Santos voltou a reinar na América. Neymar marcou o gol decisivo na final da Libertadores de 2011 contra o Peñarol no Pacaembu lotado. No fim do ano, no Japão, disputou a final do Mundial de Clubes contra o Barcelona de Pep Guardiola, num emblemático cumprimento com Lionel Messi que antecipou o futuro.",
+      "credit": "Christopher Johnson",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Messi_with_Neymar_Junior_the_Future_of_Brazil.jpg",
+      "imageCaption": "Lionel Messi e Neymar se cumprimentam após a final do Mundial de Clubes da FIFA em Yokohama (2011).",
+      "facts": [
+        "Campeão da Copa Libertadores da América (2011)",
+        "Prêmio Puskás da FIFA pelo gol antológico contra o Flamengo (2011)",
+        "Campeão da Recopa Sul-Americana (2012)"
+      ],
+      "references": [
+        {
+          "label": "FIFA · Final Mundial de Clubes 2011",
+          "url": "https://www.fifa.com/"
+        },
+        {
+          "label": "Santos FC · Conquistas históricas",
+          "url": "https://www.santosfc.com.br/"
         }
       ]
     },
     {
       "id": "confederacoes",
+      "number": "03",
       "year": "2013",
+      "era": "SELEÇÃO BRASILEIRA",
       "place": "MARACANÃ · BRASIL",
-      "title": "O Brasil em festa.",
-      "tag": "COPA DAS CONFEDERAÇÕES",
-      "image": "confederacoes-2013.jpg",
-      "position": "52% 36%",
-      "text": "A Copa das Confederações de 2013 reuniu a seleção e sua torcida em casa. O Brasil venceu a Espanha na final do Maracanã, e Neymar fez parte de uma conquista que marcou o início de uma nova fase: pouco depois, sua trajetória seguiria para Barcelona.",
-      "imageCaption": "Neymar e Piqué disputam a bola na final de 30 de junho de 2013.",
-      "credit": "Danilo Borges / Portal da Copa",
+      "title": "O Brasil em Festa.",
+      "tag": "BOLA DE OURO ADIDAS",
+      "image": "confederacoes-ouro-2013.jpg",
+      "position": "50% 25%",
+      "accent": "#ffd133",
+      "badge": "CAMPEÃO 2013",
+      "text": "Na Copa das Confederações de 2013, Neymar comandou a Seleção Brasileira com exibições eletrizantes. Na final do Maracanã, o Brasil bateu a campeã do mundo Espanha por 3 a 0, com um gol potente de canhota de Neymar. Ele foi eleito o Melhor Jogador do torneio e ergueu a Bola de Ouro adidas diante da torcida.",
+      "credit": "Tânia Rêgo / Agência Brasil",
       "license": "CC BY 3.0 BR",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0/br/",
-      "source": "https://commons.wikimedia.org/wiki/File:Pique%26neymar.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymargoldenball.jpg",
+      "imageCaption": "Neymar recebe a Bola de Ouro da Copa das Confederações no Maracanã, em 30 de junho de 2013.",
       "facts": [
-        "Seleção Brasileira",
-        "Título · 2013"
+        "Brasil 3x0 Espanha na grande final do Maracanã",
+        "Eleito Bola de Ouro (Melhor Jogador do Torneio)",
+        "4 gols marcados na competição"
       ],
       "references": [
         {
-          "label": "Santos FC · conquistas pela seleção",
-          "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
-        },
-        {
-          "label": "PSG · trajetória de Neymar",
-          "url": "https://en.news.psg.fr/press-releases/first-team/paris-saint-germain-thank-neymar-jr-a-club-legend"
-        }
-      ],
-      "number": "02"
-    },
-    {
-      "id": "barcelona",
-      "number": "03",
-      "year": "2013—2017",
-      "place": "BARCELONA, ESPANHA",
-      "title": "O mundo como campo.",
-      "tag": "TALENTO SEM FRONTEIRAS",
-      "image": "barcelona.jpg",
-      "position": "50% 28%",
-      "text": "Neymar chegou ao Barcelona em 2013. Ao lado de Lionel Messi e Luis Suárez, formou o trio MSN. Na final da Champions League de 2015, marcou o gol que fechou a vitória por 3 a 1 sobre a Juventus. Foram quatro temporadas de futebol em alta velocidade, troca de passes e entendimento entre três talentos diferentes.",
-      "credit": "Alex Fau · recorte: Danyele",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Neymar_-_FC_Barcelona_-_2015.jpg",
-      "imageCaption": "Neymar em ação pelo Barcelona, em fevereiro de 2015.",
-      "facts": [
-        "Chegada ao Barcelona · 2013",
-        "Trio MSN",
-        "Champions League · 2015"
-      ],
-      "references": [
-        {
-          "label": "FC Barcelona · perfil histórico",
-          "url": "https://www.fcbarcelona.es/es/noticias/3925551/neymar-da-silva/amp"
+          "label": "Agência Brasil · Registro da conquista no Maracanã",
+          "url": "https://agenciabrasil.ebc.com.br/"
         }
       ]
     },
     {
-      "id": "brasil",
+      "id": "copa2014",
       "number": "04",
-      "year": "2016",
-      "place": "BRASIL / RIO 2016",
-      "title": "O sonho virou ouro.",
-      "tag": "A CAMISA & O SONHO",
-      "image": "ouro-2016.jpg",
-      "position": "48% 38%",
-      "text": "Nos Jogos do Rio de 2016, a seleção masculina conquistou seu primeiro ouro olímpico. Neymar participou daquele capítulo com a camisa 10, em uma campanha encerrada no Maracanã. Uma memória que pertence tanto ao jogador quanto à equipe e às arquibancadas.",
-      "credit": "Fernando Frazão / Agência Brasil",
+      "year": "2014",
+      "era": "COPA DO MUNDO",
+      "place": "BRASIL 2014",
+      "title": "A Camisa 10 no Mundial.",
+      "tag": "PRIMEIRA COPA DO MUNDO",
+      "image": "copa-2014.jpg",
+      "position": "50% 30%",
+      "accent": "#26c281",
+      "badge": "4 GOLS NO MUNDIAL",
+      "text": "Na Copa do Mundo de 2014, disputada em solo brasileiro, Neymar assumiu o peso da camisa 10 aos 22 anos. Marcou quatro gols na campanha — dois contra a Croácia na estreia e dois contra Camarões —, conduzindo a equipe até as quartas de final em Fortaleza, onde uma grave lesão na vértebra encerrou sua participação no torneio.",
+      "credit": "Agência Brasil",
       "license": "CC BY 3.0 BR",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0/br/",
-      "source": "https://commons.wikimedia.org/wiki/File:Brasil%20conquista%20primeiro%20ouro%20ol%C3%ADmpico%20no%20futebol%201039231-20082016-%20v9a0811%2001.jpg",
-      "imageCaption": "Registro da final entre Brasil e Alemanha no Maracanã, em 20 de agosto de 2016.",
+      "source": "https://commons.wikimedia.org/wiki/File:Brazil_and_Croatia_match_at_the_FIFA_World_Cup_2014-06-12_(10)_(cropped).jpg",
+      "imageCaption": "Neymar comemora com a torcida na partida de abertura da Copa de 2014 em São Paulo.",
       "facts": [
-        "Rio 2016",
-        "Primeiro ouro olímpico do futebol masculino brasileiro"
+        "Estreia em Copas do Mundo aos 22 anos",
+        "4 gols em 5 partidas disputadas",
+        "Chuteira de Bronze da Copa do Mundo 2014"
       ],
       "references": [
         {
-          "label": "Santos FC · o ouro de 2016",
-          "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
+          "label": "FIFA · Copa do Mundo 2014",
+          "url": "https://www.fifa.com/"
+        }
+      ]
+    },
+    {
+      "id": "barcelona",
+      "number": "05",
+      "year": "2013—2017",
+      "era": "FC BARCELONA",
+      "place": "CAMP NOU · BERLIM 2015",
+      "title": "O Triplete e o Trio MSN.",
+      "tag": "CHAMPIONS LEAGUE 2015",
+      "image": "barcelona.jpg",
+      "position": "50% 28%",
+      "accent": "#ef4b31",
+      "badge": "TRÍPLICE COROA 2015",
+      "text": "Em quatro temporadas pelo FC Barcelona, Neymar formou com Messi e Suárez o ataque mais temido e entrosado do século XXI: o trio MSN, responsável por 364 gols. Na temporada 2014/15, conquistou a Tríplice Coroa (La Liga, Copa do Rei e UEFA Champions League), fechando a vitória por 3 a 1 sobre a Juventus no Estádio Olímpico de Berlim no minuto 97.",
+      "credit": "Alex Fau · recorte por Danyele",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_-_FC_Barcelona_-_2015.jpg",
+      "imageCaption": "Neymar com a camisa do Barcelona na temporada 2014/2015.",
+      "facts": [
+        "105 gols marcados em 186 jogos oficiais pelo Barcelona",
+        "Campeão da UEFA Champions League 2014/15 (artilheiro com 10 gols)",
+        "13 títulos conquistados na Catalunha, incluindo o Mundial da FIFA 2015"
+      ],
+      "references": [
+        {
+          "label": "UEFA · Final da Champions League 2015 em Berlim",
+          "url": "https://www.uefa.com/uefachampionsleague/history/season=2015/"
+        },
+        {
+          "label": "FC Barcelona · Ficha histórica de Neymar Jr.",
+          "url": "https://www.fcbarcelona.es/"
+        }
+      ]
+    },
+    {
+      "id": "ouro2016",
+      "number": "06",
+      "year": "2016",
+      "era": "JOGOS OLÍMPICOS",
+      "place": "MARACANÃ · RIO 2016",
+      "title": "O Sonho do Ouro Inédito.",
+      "tag": "MARACANÃ HISTÓRICO",
+      "image": "ouro-2016-podio.jpg",
+      "position": "50% 25%",
+      "accent": "#f5c518",
+      "badge": "1º OURO OLÍMPICO",
+      "text": "O único grande troféu que faltava à galeria do futebol brasileiro masculino veio nos Jogos do Rio 2016. Como capitão, Neymar abriu o placar na final contra a Alemanha com um gol de falta magistral no ângulo. Após empate em 1 a 1, converteu a quinta e decisiva cobrança na disputa de pênaltis, desabando em lágrimas no Maracanã e garantindo a medalha de ouro.",
+      "credit": "Fernando Frazão / Agência Brasil",
+      "license": "CC BY 3.0 BR",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/br/",
+      "source": "https://commons.wikimedia.org/wiki/File:Gabriel_Barbosa_Neymar.jpg",
+      "imageCaption": "Neymar e Gabigol mordem a medalha de ouro no pódio olímpico do Maracanã, em 20 de agosto de 2016.",
+      "facts": [
+        "Primeira medalha de ouro do futebol masculino do Brasil em Olimpíadas",
+        "Gol de falta na final e o pênalti decisivo convertido (5x4)",
+        "Gol mais rápido da história dos Jogos Olímpicos (14 segundos contra Honduras)"
+      ],
+      "references": [
+        {
+          "label": "Comitê Olímpico Internacional · Rio 2016",
+          "url": "https://olympics.com/"
+        },
+        {
+          "label": "Agência Brasil · Cobertura da Final Olímpica",
+          "url": "https://agenciabrasil.ebc.com.br/"
         }
       ]
     },
     {
       "id": "paris",
-      "year": "2017—2023",
-      "place": "PARIS · FRANÇA",
-      "title": "Outra cidade. O mesmo jogo.",
-      "tag": "SEIS TEMPORADAS EM PARIS",
+      "number": "07",
+      "year": "2017—2021",
+      "era": "PARIS SAINT-GERMAIN",
+      "place": "PARC DES PRINCES · FRANÇA",
+      "title": "A Cidade Luz e o Recorde Mundial.",
+      "tag": "A MAIOR TRANSFERÊNCIA",
       "image": "paris-2017.jpg",
       "position": "50% 28%",
-      "text": "Em 2017, Neymar chegou ao Paris Saint-Germain. A apresentação abriu uma passagem de seis temporadas, com títulos nacionais e uma final de Champions League em 2020. No balanço publicado pelo próprio PSG em agosto de 2023, o brasileiro registrou 173 partidas e 118 gols pelo clube.",
-      "imageCaption": "Apresentação de Neymar no Paris Saint-Germain, em 4 de agosto de 2017.",
+      "accent": "#1e3799",
+      "badge": "RECORDE DE €222M",
+      "text": "Em agosto de 2017, o Paris Saint-Germain pagou a cláusula rescisória de €222 milhões, estabelecendo a maior transferência da história do futebol mundial. Em Paris, Neymar encantou a Europa com dribles desconcertantes, liderando o clube até sua primeira final de UEFA Champions League na história, em 2020.",
       "credit": "Antoine Dellenbach",
       "license": "CC BY-SA 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Neymar%20Jr%20Presentation%20(cropped%202).jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_Jr_Presentation_(cropped_2).jpg",
+      "imageCaption": "Apresentação de Neymar Jr. no Parc des Princes perante a torcida parisiense.",
       "facts": [
-        "173 jogos · balanço do PSG, agosto de 2023",
-        "118 gols · mesmo recorte histórico"
+        "Transferência recorde de €222 milhões (maior da história)",
+        "Finalista da UEFA Champions League em 2020",
+        "Cinco títulos da Ligue 1 francesa"
       ],
       "references": [
         {
-          "label": "PSG · despedida e balanço oficial",
+          "label": "Paris Saint-Germain · Comunicado histórico de despedida",
           "url": "https://en.news.psg.fr/press-releases/first-team/paris-saint-germain-thank-neymar-jr-a-club-legend"
+        }
+      ]
+    },
+    {
+      "id": "trio-mnm",
+      "number": "08",
+      "year": "2021—2023",
+      "era": "MNM EM PARIS",
+      "place": "PARIS · FRANÇA",
+      "title": "O Encontro das Estrelas.",
+      "tag": "NEYMAR · MESSI · MBAPPÉ",
+      "image": "psg-trio-mnm.jpg",
+      "position": "50% 28%",
+      "accent": "#2c3e50",
+      "badge": "118 GOLS NO PSG",
+      "text": "Com a chegada de Lionel Messi a Paris em 2021, o futebol mundial testemunhou a reunião de dois grandes amigos ao lado de Kylian Mbappé. Foram duas temporadas de jogadas vistosas e títulos nacionais. No balanço oficial divulgado pelo PSG em agosto de 2023, Neymar encerrou seu ciclo com 173 jogos oficiais, 118 gols e 70 assistências.",
+      "credit": "Bigmatbasket",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Mbappe_Messi_Neymar.jpg",
+      "imageCaption": "Mbappé, Messi e Neymar caminhando juntos no aquecimento do PSG.",
+      "facts": [
+        "173 jogos e 118 gols pelo Paris Saint-Germain (balanço oficial do clube)",
+        "Mais de 70 assistências distribuídas",
+        "13 títulos nacionais pela equipe francesa"
+      ],
+      "references": [
+        {
+          "label": "PSG · Estatísticas oficiais de Neymar Jr.",
+          "url": "https://en.news.psg.fr/"
+        }
+      ]
+    },
+    {
+      "id": "copas-selecao",
+      "number": "09",
+      "year": "2018—2022",
+      "era": "COPAS DO MUNDO",
+      "place": "RÚSSIA 2018 & CATAR 2022",
+      "title": "O Recorde do Rei.",
+      "tag": "MAIOR ARTILHEIRO DA SELEÇÃO",
+      "image": "copa-2018.jpg",
+      "position": "50% 20%",
+      "accent": "#00a86b",
+      "badge": "79 GOLS (FIFA)",
+      "text": "Neymar disputou as Copas de 2018 (Rússia) e 2022 (Catar). No Catar, marcou uma pintura contra a Croácia nas quartas de final após duas tabelas dentro da grande área. Com esse gol e os seguintes pelas eliminatórias, atingiu 79 gols em partidas oficiais da Seleção Brasileira, ultrapassando Pelé pela contagem da FIFA como o maior artilheiro da história da camisa canarinho.",
+      "credit": "Balkan Photos",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_2018_(cropped_2).jpg",
+      "imageCaption": "Neymar durante a disputa da Copa do Mundo FIFA 2018 na Rússia.",
+      "facts": [
+        "79 gols pela Seleção Brasileira principal (maior artilheiro na contagem FIFA)",
+        "Gols marcados em três edições diferentes de Copa do Mundo (2014, 2018, 2022)",
+        "128 partidas disputadas com a camisa verde e amarela"
+      ],
+      "references": [
+        {
+          "label": "FIFA · Artilharia histórica das seleções mundiais",
+          "url": "https://www.fifa.com/"
         },
         {
-          "label": "PSG · final europeia de 2020",
-          "url": "https://en.news.psg.fr/press-releases/first-team/neymar-jr-extends-his-contract-with-paris-saint-germain-until-2025"
+          "label": "CBF · Perfil do atleta",
+          "url": "https://www.cbf.com.br/"
         }
-      ],
-      "number": "05"
+      ]
     },
     {
       "id": "arabia",
+      "number": "10",
       "year": "2023—2025",
-      "place": "AL-HILAL · ARÁBIA SAUDITA",
-      "title": "Um novo horizonte.",
-      "tag": "OUTROS CAMPOS, OUTROS DESAFIOS",
-      "image": "arabia-2023.jpg",
-      "position": "50% 30%",
-      "text": "O Al-Hilal anunciou a chegada de Neymar em agosto de 2023. A experiência no futebol saudita abriu um novo capítulo fora da Europa. Em janeiro de 2025, clube e jogador anunciaram o encerramento do vínculo por acordo mútuo, antes do retorno ao Santos.",
-      "imageCaption": "Neymar com o Al-Hilal, em partida de 3 de outubro de 2023.",
+      "era": "AL-HILAL",
+      "place": "RIADE · ARÁBIA SAUDITA",
+      "title": "Um Novo Horizonte.",
+      "tag": "DESAFIO NA ÁSIA",
+      "image": "alhilal-celebration.jpg",
+      "position": "50% 28%",
+      "accent": "#0c5ece",
+      "badge": "CAMPEÃO SAUDITA",
+      "text": "Em agosto de 2023, Neymar aceitou um novo desafio esportivo ao se transferir para o Al-Hilal de Riade. Acompanhou a conquista da Saudi Pro League e da Supercopa Saudita pelo clube. Em janeiro de 2025, clube e atleta entraram em acordo amigável para rescisão contratual, pavimentando o aguardado retorno ao futebol brasileiro.",
       "credit": "Meghdad Madadi / Tasnim News Agency",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Neymar%20Jr.%20with%20Al%20Hilal%2C%203%20October%202023%20-%2001.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Neymar_Jr._with_Al_Hilal,_3_October_2023_-_01.jpg",
+      "imageCaption": "Neymar com a camisa do Al-Hilal em partida da AFC Champions League.",
       "facts": [
-        "Chegada · agosto de 2023",
-        "Fim do vínculo · janeiro de 2025"
+        "Chegada ao Al-Hilal em agosto de 2023",
+        "Campeão da Saudi Pro League e Supercopa Saudita",
+        "Rescisão em comum acordo em janeiro de 2025"
       ],
       "references": [
         {
-          "label": "Al-Hilal · fim do vínculo",
-          "url": "https://alhilal.com/en/news/al-hilal-and-neymar-agree-to-terminate-contract-by-mutual-consent"
-        },
-        {
-          "label": "PSG · transferência ao Al-Hilal",
-          "url": "https://en.news.psg.fr/press-releases/first-team/paris-saint-germain-thank-neymar-jr-a-club-legend"
+          "label": "Al-Hilal FC · Comunicado de encerramento amigável",
+          "url": "https://alhilal.com/en/news/"
         }
-      ],
-      "number": "06"
+      ]
     },
     {
       "id": "retorno",
-      "year": "2025",
-      "place": "VILA BELMIRO · SANTOS FC",
-      "title": "Voltar também é seguir.",
-      "tag": "DE VOLTA À VILA",
-      "image": "retorno-2025.jpg",
-      "position": "50% 30%",
-      "text": "Em 31 de janeiro de 2025, o Santos anunciou a volta de Neymar. O retorno aproximou novamente o jogador da Vila Belmiro e de uma torcida que acompanhou seus primeiros passos profissionais. Um reencontro com as origens, agora carregado de experiências vividas em outros países.",
-      "imageCaption": "Neymar pelo Santos contra o Fortaleza, em 2 de novembro de 2025. Registro posterior ao anúncio do retorno.",
+      "number": "11",
+      "year": "2025—2026",
+      "era": "SANTOS FC",
+      "place": "VILA BELMIRO · SANTOS",
+      "title": "A Camisa 10 de Pelé.",
+      "tag": "DE VOLTA AO SANTOS",
+      "image": "santos-2025-camisa.jpg",
+      "position": "50% 28%",
+      "accent": "#ffffff",
+      "badge": "O RETORNO AO LAR",
+      "text": "Em 31 de janeiro de 2025, o Santos Futebol Clube anunciou oficialmente o retorno de Neymar Jr., cumprindo a promessa de voltar para casa. O craque reassumiu a mítica camisa 10 de Rei Pelé para liderar a reconstrução do Peixe na temporada de 2025 e 2026, reencontrando a arquibancada do Alçapão onde sua história começou.",
       "credit": "BrazilianDude70",
-      "license": "CC0 1.0",
+      "license": "CC0 1.0 Dedicação ao Domínio Público",
       "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-      "source": "https://commons.wikimedia.org/wiki/File:Santos%20x%20Fortaleza%20-%2002-11-2025%2023.jpg",
+      "source": "https://commons.wikimedia.org/wiki/File:Santos_x_Fortaleza_-_02-11-2025_23.jpg",
+      "imageCaption": "Neymar em campo pelo Santos FC em novembro de 2025 na Vila Belmiro.",
       "facts": [
-        "Retorno anunciado · 31.01.2025",
-        "Santos FC"
+        "Retorno oficial anunciado em 31 de janeiro de 2025",
+        "Assumiu a lendária camisa 10 de Rei Pelé",
+        "230 jogos e 138 gols somados em sua trajetória no Peixe"
       ],
       "references": [
         {
-          "label": "Santos FC · anúncio oficial do retorno",
+          "label": "Santos FC · Assumindo a 10 de Rei Pelé, ídolo Neymar Jr está de volta",
           "url": "https://www.santosfc.com.br/assumindo-a-10-de-rei-pele-idolo-neymar-jr-esta-de-volta-ao-santos-fc/"
         }
-      ],
-      "number": "07"
+      ]
     },
     {
       "id": "identidade",
-      "number": "08",
+      "number": "12",
       "year": "FORA DE CAMPO",
-      "place": "ALÉM DAS QUATRO LINHAS",
-      "title": "Ser, antes de tudo.",
-      "tag": "ESTILO & IDENTIDADE",
+      "era": "ESTILO & EXPRESSÃO",
+      "place": "GLOBAL",
+      "title": "Ser, Antes de Tudo.",
+      "tag": "IDENTIDADE VISUAL",
       "image": "portrait.jpg",
       "position": "31% 40%",
-      "text": "A identidade não termina quando acaba a partida. Moda, retratos, gestos e maneiras de ocupar a cena também contam uma história. Aqui, a fotografia mostra outro registro de Neymar: uma presença construída fora do uniforme, em diálogo com a mesma individualidade que aparece dentro de campo.",
+      "accent": "#cfed74",
+      "badge": "CULTURA & MODA",
+      "text": "A personalidade de Neymar nunca coube nas quatro linhas. Seus penteados arrojados dos anos 2010 ditaram tendências na juventude brasileira, enquanto sua presença nas semanas de moda de Paris, colaborações com marcas mundiais e influência na música e nos videogames o transformaram num dos ícones culturais mais marcantes do século.",
       "credit": "Lucho Vidales",
       "license": "CC BY 3.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
       "source": "https://commons.wikimedia.org/wiki/File:Neymar_Jr_Portrait_(149008871).jpeg",
-      "imageCaption": "Retrato de Neymar por Lucho Vidales, fotografado em 2015.",
+      "imageCaption": "Retrato de estúdio capturado pelo fotógrafo Lucho Vidales.",
       "facts": [
-        "Retrato editorial · 2015",
-        "Fotografia · Lucho Vidales"
+        "Fenômeno geracional da cultura pop e da moda esportiva",
+        "Um dos atletas mais seguidos e influentes da história da internet",
+        "Mais de 220 milhões de seguidores no Instagram"
       ],
       "references": [
         {
-          "label": "Arquivo e autoria do retrato",
+          "label": "Arquivo do Retrato Original por Lucho Vidales",
           "url": "https://commons.wikimedia.org/wiki/File:Neymar_Jr_Portrait_(149008871).jpeg"
         }
       ]
     },
     {
       "id": "linguagem",
-      "number": "09",
-      "year": "O JEITO DE JOGAR",
-      "place": "FUTEBOL COMO EXPRESSÃO",
-      "title": "O próximo lance não tem roteiro.",
+      "number": "13",
+      "year": "REPERTÓRIO",
+      "era": "DNA BRASILEIRO",
+      "place": "A ARTE DO JOGO",
+      "title": "O Próximo Lance Não Tem Roteiro.",
       "tag": "DRIBLE · PASSE · IMPROVISO",
       "image": "brasil.jpg",
       "position": "50% 25%",
-      "text": "Mudar a direção, atrair a marcação, encontrar um passe onde parecia não existir espaço. O repertório de Neymar se reconhece nesses pequenos intervalos. Esta é uma leitura editorial do seu estilo: o drible como pergunta, o passe como conexão e o improviso como possibilidade.",
+      "accent": "#ffd133",
+      "badge": "FUTEBOL ARTE",
+      "text": "O que define o estilo de Neymar é a imprevisibilidade do próximo segundo. O drible da lambreta, a mudança súbita de direção com o corpo, o toque de primeira de letra e a visão panorâmica para cavar um passe por cima da zaga: um repertório forjado no futebol de salão e aperfeiçoado no mais alto nível competitivo europeu.",
       "credit": "Marcelo Camargo / Agência Brasil",
       "license": "CC BY 2.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
       "source": "https://commons.wikimedia.org/wiki/File:Neymar_Olympics_August_2016.jpg",
-      "imageCaption": "Neymar com a seleção durante os Jogos Olímpicos de 2016; imagem de arquivo.",
+      "imageCaption": "Neymar em condução de bola rápida com a camisa da Seleção.",
       "facts": [
-        "Drible",
-        "Visão de jogo",
-        "Improviso"
+        "Drible como quebra tática e desequilíbrio defensivo",
+        "Passe criativo de calcanhar, cavadinha e inversão de jogo",
+        "Improviso natural característico da escola brasileira"
       ],
       "references": [
         {
-          "label": "FC Barcelona · técnica e estilo de Neymar",
-          "url": "https://www.fcbarcelona.es/es/noticias/3925551/neymar-da-silva/amp"
+          "label": "FC Barcelona · Análise do repertório técnico de Neymar",
+          "url": "https://www.fcbarcelona.es/"
         }
       ]
     },
     {
       "id": "instituto",
-      "year": "DESDE 2014",
+      "number": "14",
+      "year": "TRANSFORMAÇÃO SOCIAL",
+      "era": "INJR",
       "place": "BAIRRO GLÓRIA · PRAIA GRANDE",
-      "title": "Um futuro para mais gente.",
+      "title": "Um Futuro Para Mais Gente.",
       "tag": "INSTITUTO PROJETO NEYMAR JR.",
       "image": "",
       "position": "50% 50%",
-      "text": "Idealizado por Neymar e sua família, o Instituto Projeto Neymar Jr. atua no bairro Glória, em Praia Grande. A associação sem fins lucrativos amplia oportunidades para crianças, adolescentes e suas famílias por meio da educação, cultura, esporte e saúde. O legado também pode ser medido pelos caminhos que ajuda a abrir.",
-      "imageCaption": "Composição editorial autoral; não é uma fotografia documental do Instituto.",
-      "credit": "Composição editorial do projeto",
-      "license": "Informações oficiais do Instituto",
+      "accent": "#cfed74",
+      "badge": "COMPLEXO SOCIAL",
+      "text": "Idealizado por Neymar e sua família, o Instituto Projeto Neymar Jr. é uma associação civil sem fins lucrativos instalada no bairro Glória, em Praia Grande (onde Neymar viveu parte da infância). O complexo educacional e esportivo tem capacidade para atender 3 mil crianças e jovens entre 7 e 17 anos em situação de vulnerabilidade, impactando diretamente mais de 10 mil pessoas através de educação, saúde, esporte e cultura.",
+      "credit": "Composição editorial oficial",
+      "license": "Informações institucionais verificadas",
       "licenseUrl": "https://institutoneymarjr.org.br/",
       "source": "https://institutoneymarjr.org.br/",
+      "imageCaption": "Projeto arquitetônico e esportivo do Instituto no bairro Glória.",
       "facts": [
-        "Educação e cultura",
-        "Esporte e saúde",
-        "Crianças, adolescentes e famílias"
+        "Atendimento a 3 mil crianças e adolescentes de 7 a 17 anos",
+        "Mais de 10.000 pessoas beneficiadas diretamente (incluindo famílias)",
+        "Quatro pilares fundamentais: Educação, Cultura, Esporte e Saúde"
       ],
       "references": [
         {
-          "label": "Instituto Projeto Neymar Jr. · site oficial",
+          "label": "Instituto Projeto Neymar Jr. · Portal Oficial",
           "url": "https://institutoneymarjr.org.br/"
         }
-      ],
-      "number": "10"
+      ]
     }
   ],
-  "version": 2,
-  "bio": {
-    "name": "Neymar da Silva Santos Júnior",
-    "born": "05.02.1992",
-    "hometown": "MOGI DAS CRUZES · SÃO PAULO",
-    "text": "Nascido em Mogi das Cruzes e criado na Baixada Santista, Neymar encontrou no futebol uma forma própria de se expressar. A base do Santos foi o ponto de partida para uma trajetória que atravessou países, camisas e gerações.",
-    "source": "https://www.santosfc.com.br/neymar-a-joia-santista/"
-  },
   "gallery": [
     "origem",
+    "libertadores",
     "confederacoes",
+    "copa2014",
     "barcelona",
-    "brasil",
+    "ouro2016",
     "paris",
+    "trio-mnm",
+    "copas-selecao",
     "arabia",
     "retorno",
     "identidade"
   ],
   "collage": [
     "origem",
+    "libertadores",
     "barcelona",
+    "ouro2016",
     "paris",
-    "brasil",
+    "copas-selecao",
     "retorno"
+  ],
+  "museumExhibits": [
+    {
+      "id": "santos-classic",
+      "name": "CAMISA 11 · SANTOS FC",
+      "season": "2009—2013",
+      "title": "O Manto da Ousadia",
+      "detail": "O branco sagrado do Alvinegro Praiano, número 11 nas costas, com o qual Neymar reescreveu a história do futebol sul-americano conquistando a Copa do Brasil e a Libertadores.",
+      "color": "#ffffff",
+      "numColor": "#181b17",
+      "number": "11",
+      "accentColor": "#cfed74",
+      "badge": "LIBERTADORES 2011",
+      "momentId": "libertadores",
+      "image": "messi-neymar-2011.jpg"
+    },
+    {
+      "id": "brasil-confed",
+      "name": "CAMISA 10 · BRASIL 2013",
+      "season": "2013",
+      "title": "Ouro no Maracanã",
+      "detail": "A amarelinha com a qual encantou o planeta na final da Copa das Confederações, erguendo a Bola de Ouro adidas após o 3 a 0 na Espanha.",
+      "color": "#ffdd00",
+      "numColor": "#003399",
+      "number": "10",
+      "accentColor": "#26c281",
+      "badge": "BOLA DE OURO 2013",
+      "momentId": "confederacoes",
+      "image": "confederacoes-ouro-2013.jpg"
+    },
+    {
+      "id": "barca-champions",
+      "name": "CAMISA 11 · FC BARCELONA",
+      "season": "2014—2015",
+      "title": "A Noite de Berlim",
+      "detail": "As cores blaugrana do trio MSN. O gol que selou a Tríplice Coroa contra a Juventus no minuto 97 da final da Champions League 2015.",
+      "color": "#004d98",
+      "numColor": "#edbb00",
+      "number": "11",
+      "accentColor": "#a50044",
+      "badge": "CHAMPIONS LEAGUE 2015",
+      "momentId": "barcelona",
+      "image": "barcelona.jpg"
+    },
+    {
+      "id": "brasil-ouro",
+      "name": "OURO OLÍMPICO · RIO 2016",
+      "season": "2016",
+      "title": "A Medalha Inédita",
+      "detail": "A faixa 100% Jesus e o choro emocionado de um capitão que converteu o último pênalti contra a Alemanha para dar ao Brasil o sonhado ouro olímpico.",
+      "color": "#ffdd00",
+      "numColor": "#003399",
+      "number": "10",
+      "accentColor": "#f5c518",
+      "badge": "MEDALHA DE OURO",
+      "momentId": "ouro2016",
+      "image": "ouro-2016-podio.jpg"
+    },
+    {
+      "id": "psg-record",
+      "name": "CAMISA 10 · PARIS SG",
+      "season": "2017—2023",
+      "title": "A Cidade Luz",
+      "detail": "O azul e vermelho do Parque dos Príncipes. 118 gols marcados, cinco campeonatos nacionais e a inédita final da Liga dos Campeões de 2020.",
+      "color": "#001c3d",
+      "numColor": "#ffffff",
+      "number": "10",
+      "accentColor": "#da291c",
+      "badge": "FINALISTA CHAMPIONS 2020",
+      "momentId": "paris",
+      "image": "paris-2017.jpg"
+    },
+    {
+      "id": "brasil-record",
+      "name": "RECORDE DE GOLS · SELEÇÃO",
+      "season": "2022—2024",
+      "title": "79 Gols Oficiais",
+      "detail": "O topo da artilharia histórica da camisa mais pesada do planeta. Superando a marca histórica do Rei Pelé na contagem oficial da FIFA.",
+      "color": "#ffdd00",
+      "numColor": "#003399",
+      "number": "10",
+      "accentColor": "#00a86b",
+      "badge": "MAIOR ARTILHEIRO (FIFA)",
+      "momentId": "copas-selecao",
+      "image": "copa-2018.jpg"
+    },
+    {
+      "id": "santos-retorno",
+      "name": "CAMISA 10 DE PELÉ · SANTOS",
+      "season": "2025—2026",
+      "title": "O Retorno à Vila Belmiro",
+      "detail": "A promessa cumprida: tirar do armário a sagrada camisa 10 de Pelé e voltar a vestir o branco mais glorioso da Terra na Vila mais famosa do mundo.",
+      "color": "#ffffff",
+      "numColor": "#181b17",
+      "number": "10",
+      "accentColor": "#c9a050",
+      "badge": "A 10 DO REI (2025-2026)",
+      "momentId": "retorno",
+      "image": "santos-2025-camisa.jpg"
+    }
   ],
   "techniques": [
     {
       "word": "DRIBLAR.",
-      "text": "Mudar o caminho antes que a marcação encontre a resposta.",
-      "moment": "confederacoes"
+      "text": "Mudar a trajetória do corpo e da bola num intervalo que o marcador não consegue antecipar.",
+      "moment": "origem"
     },
     {
       "word": "CONECTAR.",
-      "text": "O passe transforma uma ideia individual em uma jogada coletiva.",
+      "text": "O passe que enxerga o companheiro além das linhas de marcação, transformando magia em gol coletivo.",
       "moment": "barcelona"
     },
     {
+      "word": "FINALIZAR.",
+      "text": "Bater colocado no ângulo, com frieza milimétrica na cobrança de falta ou no pênalti mais pesado do mundo.",
+      "moment": "ouro2016"
+    },
+    {
       "word": "INVENTAR.",
-      "text": "Há lances que começam justamente onde o roteiro termina.",
+      "text": "A lambreta, o drible de letra e o improviso: o futebol como celebração máxima da criatividade brasileira.",
       "moment": "linguagem"
     }
   ],
   "milestones": [
     {
       "year": "2009",
-      "label": "PRIMEIRO JOGO PROFISSIONAL",
+      "label": "ESTREIA PROFISSIONAL PELO SANTOS FC",
+      "moment": "origem"
+    },
+    {
+      "year": "2010",
+      "label": "TÍTULO DA COPA DO BRASIL",
       "moment": "origem"
     },
     {
       "year": "2011",
-      "label": "LIBERTADORES COM O SANTOS",
-      "moment": "origem"
+      "label": "CAMPEÃO DA LIBERTADORES DA AMÉRICA",
+      "moment": "libertadores"
+    },
+    {
+      "year": "2013",
+      "label": "BOLA DE OURO NA COPA DAS CONFEDERAÇÕES",
+      "moment": "confederacoes"
+    },
+    {
+      "year": "2014",
+      "label": "PRIMEIRA COPA DO MUNDO COM A CAMISA 10",
+      "moment": "copa2014"
     },
     {
       "year": "2015",
-      "label": "CHAMPIONS COM O BARCELONA",
+      "label": "CHAMPIONS LEAGUE & TRIPLETE NO BARCELONA",
       "moment": "barcelona"
     },
     {
       "year": "2016",
-      "label": "OURO OLÍMPICO COM O BRASIL",
-      "moment": "brasil"
+      "label": "PRIMEIRO OURO OLÍMPICO NO MARACANÃ",
+      "moment": "ouro2016"
+    },
+    {
+      "year": "2017",
+      "label": "TRANSFERÊNCIA RECORDE MUNDIAL AO PSG",
+      "moment": "paris"
+    },
+    {
+      "year": "2020",
+      "label": "FINALISTA DA UEFA CHAMPIONS LEAGUE",
+      "moment": "paris"
+    },
+    {
+      "year": "2022",
+      "label": "ARTILHARIA HISTÓRICA DA SELEÇÃO (79 GOLS FIFA)",
+      "moment": "copas-selecao"
+    },
+    {
+      "year": "2023",
+      "label": "NOVO CAPÍTULO NO AL-HILAL",
+      "moment": "arabia"
     },
     {
       "year": "2025",
-      "label": "REENCONTRO COM A VILA",
+      "label": "RETORNO À VILA BELMIRO COM A 10 DE PELÉ",
       "moment": "retorno"
     }
   ],
+  "version": 3,
   "verifiedAt": "2026-10-27"
 }

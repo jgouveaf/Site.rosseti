@@ -1,7 +1,36 @@
 {
-  "name": "Neymar — Editorial Fan Experience",
-  "reference": "https://rafaelrossetti.com.br/",
-  "colors": { "paper": "#f1f0e9", "ink": "#181b17", "lime": "#cfed74", "orange": "#ef4b31" },
-  "typography": { "body": "DM Sans", "editorial": "DM Serif Display" },
-  "interaction": { "navigation": "native-scroll", "gallery": "pinned-horizontal", "open": "click-image", "close": "click-photo-or-backdrop-or-Escape", "navigationButtons": false }
+  "name": "Neymar — Editorial & 3D Museum Fan Experience",
+  "references": [
+    "https://rafaelrossetti.com.br/ (Editorial typography, oversized headers, depth)",
+    "https://www.landonorris.com/ (Athletic energy, high-contrast black/paper, neon accents, fast pacing)",
+    "https://igloo.inc/ (Continuous scroll-driven 3D camera journey)",
+    "https://bruno-simon.com/ (Tactile 3D physics feedback, micro-interactions)"
+  ],
+  "colors": {
+    "paper": "#f1f0e9",
+    "paperLight": "#f8f8f2",
+    "paperDark": "#e3e4d7",
+    "ink": "#141712",
+    "inkPure": "#0b0d0a",
+    "lime": "#cfed74",
+    "limeBright": "#dcff57",
+    "orange": "#ef4b31",
+    "gold": "#e0ae38",
+    "blueBarca": "#004d98",
+    "bluePSG": "#001c3d",
+    "blueHilal": "#0c5ece"
+  },
+  "typography": {
+    "body": "DM Sans, sans-serif",
+    "editorial": "DM Serif Display, Georgia, serif",
+    "numbers": "DM Serif Display, serif"
+  },
+  "interaction": {
+    "navigation": "native-scroll",
+    "gallery": "pinned-horizontal",
+    "museum3D": "scroll-driven-camera-threejs",
+    "open": "click-image",
+    "close": "click-photo-or-backdrop-or-Escape",
+    "navigationButtons": false
+  }
 }
