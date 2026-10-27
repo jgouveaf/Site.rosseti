@@ -1,9 +1,11 @@
-# Arquitetura
+# Arquitetura V2
 
-O projeto usa Vite, React, TypeScript e React Three Fiber. Uma única cena WebGL persiste atrás das seis seções da narrativa. O progresso de rolagem interpola posições de câmera entre enquadramentos predefinidos; a expedição troca para câmera de perseguição.
+O projeto preserva React, TypeScript, Vite, React Three Fiber e Rapier. Há duas entradas HTML: `/` e `/exploracao/`. O componente de exploração é importado sob demanda; portanto o runtime de física não roda na narrativa.
 
-`World.tsx` separa terreno, monólito, observatório, núcleo, ruínas e partículas. As formas são procedurais e usam materiais PBR. O custo gráfico é limitado por `dpr` máximo de 1.7, partículas reduzidas no modo de movimento reduzido e uma cena compartilhada.
+Na Experience, a câmera percorre uma curva Catmull–Rom entre seis posições e seis alvos. A rolagem controla diretamente o parâmetro da curva. A luz solar e a iluminação ambiente variam com esse progresso. A geometria 3D permanece montada entre cenas, mantendo a continuidade espacial. Em movimento reduzido, a câmera responde mais diretamente e animações ornamentais são limitadas.
 
-`Experience.tsx` controla câmera e veículo. Rapier oferece corpo dinâmico e colisores estáticos; o controle aplica velocidade e direção a cada quadro. O veículo colide com estruturas centrais. A experiência tem limites exploráveis e três pontos de interesse. A física permanece carregada durante a narrativa, embora o veículo fique oculto.
+O mundo compartilhado inclui terreno com alturas e cores por vértice, rochas instanciadas, monólito com nervuras e bases, observatório em escala arquitetônica, arquivo rebaixado, núcleo emissivo, ruínas e poeira. Materiais PBR usam mapas procedurais de normal e rugosidade produzidos localmente. As texturas são descartadas quando o canvas desmonta.
 
-`App.tsx` gerencia navegação, som, ativação do núcleo, suporte a teclado/toque e fallback sem WebGL. `design-system.json` reúne a paleta, materiais, tipografia e tempos usados na interface.
+Na Exploração, Rapier simula um corpo rígido dinâmico e colisores estáticos. Velocidade, direção, frenagem, reset, limites da área, câmera de perseguição e descobertas são controlados nessa página. Ao retornar, a posição de rolagem da narrativa é recuperada da sessão.
+
+`design-system.json` fornece tokens importados por `src/design.ts`, que alimenta CSS Custom Properties e materiais 3D. O build Vite usa duas entradas e prefixo de assets para o GitHub Pages.

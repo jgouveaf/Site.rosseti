@@ -1,17 +1,17 @@
-# OBSIDIAN — The Forgotten Civilization
+# OBSIDIAN V2 — The Forgotten Civilization
 
-Experiência web 3D original com narrativa por rolagem e uma expedição controlável. O mundo, o veículo, o monólito e as estruturas são geometria procedural criada neste projeto. Nenhum arquivo dos sites de referência é distribuído aqui.
+Experiência cinematográfica 3D original sobre uma civilização alienígena perdida. A narrativa principal e a exploração com veículo são páginas independentes.
 
-## Executar
+## Desenvolvimento
 
 Requer Node.js 20.19+.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Abra o endereço local mostrado pelo Vite. O projeto usa módulos ES e WebAssembly para a física, portanto requer servidor local e não funciona por `file://`.
+Abra `/` para a narrativa e `/exploracao/` para o mundo explorável. Vite, módulos ES e Rapier exigem servidor local; `file://` não é suportado.
 
 ## Produção
 
@@ -20,25 +20,21 @@ npm run build
 npm run preview
 ```
 
-## Publicação
+O build gera `dist/index.html` e `dist/exploracao/index.html`. O workflow `.github/workflows/pages.yml` publica ambas no GitHub Pages após um push autorizado ao branch `main`. O caminho base de produção é `/Site.rosseti/`.
 
-Um push no branch `main` executa `.github/workflows/pages.yml`, compila o site e publica `dist/` no GitHub Pages. Em **Settings → Pages → Build and deployment**, selecione **GitHub Actions** como fonte de publicação. O endereço esperado é `https://jgouveaf.github.io/Site.rosseti/`.
+## Uso
 
-## Navegação
+Na página Experience, role para acompanhar seis cenas e use o menu para navegar. Na última cena, escolha reiniciar ou entrar na exploração. A aba Exploração também está sempre disponível no menu superior.
 
-- Role a página para percorrer seis capítulos.
-- Use MENU para saltar entre capítulos.
-- Em Expedition, selecione ENTER EXPEDITION. Dirija com WASD ou setas, freie com espaço, reinicie com R e saia com Escape.
-- Em dispositivos de toque, use os controles na parte inferior da tela.
-- Ative o núcleo pelo botão no capítulo The Core ou clicando no objeto 3D.
-- SOUND ON ativa um tom ambiente gerado no navegador; nenhum áudio inicia automaticamente.
+Na exploração, dirija com WASD ou setas, freie com espaço, reinicie com R e volte à narrativa com Escape. No celular, há controles de toque. O retorno restaura a posição anterior da narrativa. O áudio ambiente só inicia depois de selecionar SOUND ON.
 
-## Estrutura
+## Arquitetura
 
-- `src/App.tsx`: narrativa, navegação, estados e interface.
-- `src/experience/Experience.tsx`: cena, câmera, física, expedição e controles.
-- `src/experience/World.tsx`: mundo 3D procedural.
-- `src/styles.css`: layout, tipografia e adaptação móvel.
-- `design-system.json`: tokens e diretrizes implementadas.
+- `src/App.tsx`: rotas, narrativa, navegação e controles de interface.
+- `src/experience/Experience.tsx`: câmera cinematográfica e canvas principal, sem física.
+- `src/experience/Exploration.tsx`: mundo explorável com Rapier e veículo.
+- `src/experience/World.tsx`: terreno, estruturas, luzes e partículas procedurais compartilhadas.
+- `src/experience/surface.ts`: mapas de normal e rugosidade originais gerados em memória.
+- `design-system.json` e `src/design.ts`: tokens centrais de cor, material e movimento.
 
-Mais detalhes e limites conhecidos estão em `docs/`.
+Consulte `docs/implementation-status.md` para limites e validação restante.

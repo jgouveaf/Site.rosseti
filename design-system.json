@@ -1,36 +1,70 @@
 {
-  "version": "1.0.0",
-  "brand": "OBSIDIAN",
+  "name": "OBSIDIAN Design System V2",
+  "version": "2.0.0",
+  "referencePriority": { "igloo": 0.95, "brunoSimon": 0.05 },
+  "visualDirection": {
+    "identity": "cinematic sci-fi realism",
+    "composition": "monumental and minimal",
+    "interfaceDensity": "low",
+    "visualFidelity": "high",
+    "mainExperience": "cinematic storytelling",
+    "exploration": "separate interactive world"
+  },
   "colors": {
-    "background": "#08090B",
-    "surface": "#15171B",
-    "surfaceElevated": "#202329",
-    "primary": "#E7E0D2",
-    "secondary": "#898D96",
-    "accent": "#C99D70",
-    "accentBright": "#F1C59A",
-    "signal": "#79B8C8",
-    "border": "#393B41",
-    "danger": "#D06C66",
-    "white": "#F6F3EC",
-    "black": "#050506"
+    "background": "#090A0C",
+    "surface": "#151719",
+    "surfaceElevated": "#22252A",
+    "foreground": "#E9E7E1",
+    "muted": "#92959B",
+    "accent": "#A8957B",
+    "signal": "#83A9B2",
+    "border": "#393D42",
+    "sand": "#302b29",
+    "stone": "#17191b",
+    "metal": "#4a4a48"
   },
   "typography": {
-    "display": "Space Grotesk, sans-serif",
-    "body": "Inter, sans-serif",
-    "technical": "IBM Plex Mono, monospace"
+    "display": "Space Grotesk",
+    "body": "Inter",
+    "technical": "IBM Plex Mono",
+    "style": "editorial, architectural, minimal"
+  },
+  "camera": {
+    "motion": "cinematic",
+    "easing": "smooth",
+    "scrollDriven": true,
+    "continuousTransitions": true,
+    "collisionAvoidance": true
+  },
+  "rendering": {
+    "renderer": "WebGL",
+    "physicallyBasedMaterials": true,
+    "atmosphericFog": true,
+    "shadowQuality": "adaptive",
+    "toneMapping": "ACESFilmic",
+    "bloom": "subtle",
+    "adaptiveResolution": true
+  },
+  "navigation": {
+    "routes": ["/", "/exploracao"],
+    "menu": ["Experience", "Exploração"]
   },
   "motion": {
+    "scrollBased": true,
+    "cameraPathInterpolation": true,
+    "reducedMotionSupport": true,
+    "avoidAbruptTransitions": true,
     "cinematic": "cubic-bezier(.16,1,.3,1)",
-    "interface": "cubic-bezier(.22,1,.36,1)",
-    "fast": "200ms",
-    "normal": "600ms",
-    "slow": "1200ms"
+    "interface": "cubic-bezier(.22,1,.36,1)"
+  },
+  "responsive": {
+    "desktop": "full cinematic experience",
+    "tablet": "optimized cinematic experience",
+    "mobile": "adaptive simplified 3D experience"
   },
   "materials": {
-    "obsidian": { "color": "#111317", "roughness": 0.24, "metalness": 0.14 },
-    "ancientMetal": { "color": "#45484D", "roughness": 0.38, "metalness": 0.86 },
-    "sand": { "color": "#38312D", "roughness": 0.94, "metalness": 0 },
-    "energy": { "color": "#79B8C8", "intensity": 1.8 }
+    "obsidian": { "roughness": 0.38, "metalness": 0.18 },
+    "ancientMetal": { "roughness": 0.47, "metalness": 0.73 },
+    "sand": { "roughness": 0.97, "metalness": 0 }
   }
 }

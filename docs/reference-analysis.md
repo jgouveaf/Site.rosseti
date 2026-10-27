@@ -1,8 +1,7 @@
-# Análise das referências locais
+# Referências e diferenças que orientaram a V2
 
-Foram encontrados os dois diretórios informados:
+Os diretórios locais indicados foram encontrados. A captura Igloo contém um projeto Vite com Three.js, GSAP, recursos 3D comprimidos, workers e WASM. A captura Bruno Simon também usa Three.js, geometria de veículo e um servidor local requerido para preservar as animações. Essas estruturas foram consultadas como evidência técnica e conceitual; nenhum código, marca, modelo, textura ou outro arquivo das referências foi incorporado ao OBSIDIAN.
 
-- `C:\Users\26012129\Downloads\igloo.inc (1)\igloo.inc`: captura local com `index.html` grande, bundle JavaScript, recursos 3D comprimidos, texturas, fontes, workers e decodificadores WASM. A captura é útil como referência para progressão cinematográfica, escala das composições, tipografia em camadas e atmosfera. O wrapper da captura e recursos de origem tornam sua fidelidade funcional dependente do ambiente em que for servido.
-- `C:\Users\26012129\Downloads\bruno-simon.com\bruno-simon.com`: captura local com `serve.py`, instrução explícita de que a página só anima quando servida localmente, geometria de veículo e ambientes 3D. É referência conceitual para condução, câmera de perseguição e exploração.
+O V1 compartilhava uma cena única para a narrativa e o veículo, com HUD de condução dentro do scroll. Seus principais volumes eram primitivos lisos, os materiais tinham pouca variação e a câmera saltava entre enquadramentos simples. A V2 separa a exploração em uma página própria, move Rapier para seu carregamento sob demanda, amplia a escala das estruturas, introduz microtexturas originais e interpola câmera e iluminação ao longo do scroll.
 
-O OBSIDIAN usa geometria procedural, código e textos próprios. Nenhum código, logotipo, modelo, textura ou outro asset das referências foi copiado.
+A composição buscada é de poucos elementos editoriais sobre arquitetura monumental, com contraste contido e ambiente de deserto escuro. A referência Igloo informa a prioridade de escala, ritmo e espacialidade; a referência Bruno Simon informa apenas a mecânica de exploração. A avaliação visual final dessa direção ainda precisa ser feita no navegador.
