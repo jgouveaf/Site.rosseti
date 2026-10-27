@@ -20,6 +20,10 @@ npm run build
 npm run preview
 ```
 
+## Publicação
+
+Um push no branch `main` executa `.github/workflows/pages.yml`, compila o site e publica `dist/` no GitHub Pages. Em **Settings → Pages → Build and deployment**, selecione **GitHub Actions** como fonte de publicação. O endereço esperado é `https://jgouveaf.github.io/Site.rosseti/`.
+
 ## Navegação
 
 - Role a página para percorrer seis capítulos.
