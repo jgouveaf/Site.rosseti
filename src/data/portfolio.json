@@ -1,0 +1,742 @@
+{
+  "profile": {
+    "name": "João Gouvêa",
+    "age": 15,
+    "school": "FECAP",
+    "schoolYear": "1º ano do Ensino Médio",
+    "course": "Inteligência Artificial",
+    "english": "B2"
+  },
+  "sports": {
+    "swimmingMedals": 16,
+    "tableTennisMedals": 10,
+    "futsalClubs": [
+      "Kogachi",
+      "Democrático Futsal"
+    ]
+  },
+  "photos": [
+    {
+      "id": "unity",
+      "title": "GameDev com Unity",
+      "category": "Programação",
+      "year": 2025,
+      "src": "media/photos/unity.webp",
+      "thumb": "media/photos/unity-small.webp",
+      "width": 810,
+      "height": 1800,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "formatura-turma",
+      "title": "Uma conquista compartilhada",
+      "category": "Pessoal",
+      "year": 2026,
+      "src": "media/photos/formatura-turma.webp",
+      "thumb": "media/photos/formatura-turma-small.webp",
+      "width": 1800,
+      "height": 951,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "formatura",
+      "title": "Registro de formatura",
+      "category": "Pessoal",
+      "year": 2026,
+      "src": "media/photos/formatura.webp",
+      "thumb": "media/photos/formatura-small.webp",
+      "width": 810,
+      "height": 1800,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "liga-escolar",
+      "title": "Medalha da Liga Escolar SP",
+      "category": "Esportes",
+      "year": null,
+      "src": "media/photos/liga-escolar.webp",
+      "thumb": "media/photos/liga-escolar-small.webp",
+      "width": 1061,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "mancini",
+      "title": "Medalha Team Mancini",
+      "category": "Esportes",
+      "year": null,
+      "src": "media/photos/mancini.webp",
+      "thumb": "media/photos/mancini-small.webp",
+      "width": 1302,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "inicup",
+      "title": "Inicup TT · campeão Sub-13 masculino",
+      "category": "Esportes",
+      "year": 2024,
+      "src": "media/photos/inicup.webp",
+      "thumb": "media/photos/inicup-small.webp",
+      "width": 1190,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "liga-20",
+      "title": "Liga Pró Tênis de Mesa · 20 anos",
+      "category": "Esportes",
+      "year": 2024,
+      "src": "media/photos/liga-20.webp",
+      "thumb": "media/photos/liga-20-small.webp",
+      "width": 1346,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "futebol-2018",
+      "title": "Chute Inicial Ipiranga · vice-campeão Série Ouro",
+      "category": "Esportes",
+      "year": 2018,
+      "src": "media/photos/futebol-2018.webp",
+      "thumb": "media/photos/futebol-2018-small.webp",
+      "width": 972,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "canguru-2022",
+      "title": "Medalha Canguru · inscrição 2022",
+      "category": "Olimpíadas",
+      "year": 2022,
+      "src": "media/photos/canguru-2022.webp",
+      "thumb": "media/photos/canguru-2022-small.webp",
+      "width": 1051,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "kumon",
+      "title": "Medalha Kumon · Expo 2017",
+      "category": "Olimpíadas",
+      "year": 2017,
+      "src": "media/photos/kumon.webp",
+      "thumb": "media/photos/kumon-small.webp",
+      "width": 1092,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "canguru",
+      "title": "Medalha Canguru de Matemática",
+      "category": "Olimpíadas",
+      "year": null,
+      "src": "media/photos/canguru.webp",
+      "thumb": "media/photos/canguru-small.webp",
+      "width": 1121,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "zoom",
+      "title": "Medalha do Torneio de Robótica Zoom",
+      "category": "Robótica",
+      "year": null,
+      "src": "media/photos/zoom.webp",
+      "thumb": "media/photos/zoom-small.webp",
+      "width": 1092,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "poliedro",
+      "title": "Medalha Poliedro",
+      "category": "Olimpíadas",
+      "year": null,
+      "src": "media/photos/poliedro.webp",
+      "thumb": "media/photos/poliedro-small.webp",
+      "width": 1101,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "matchpoint",
+      "title": "Match Point · 2º e 3º lugares",
+      "category": "Esportes",
+      "year": null,
+      "src": "media/photos/matchpoint.webp",
+      "thumb": "media/photos/matchpoint-small.webp",
+      "width": 1474,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "natacao",
+      "title": "Medalha de natação · Raia 4",
+      "category": "Esportes",
+      "year": null,
+      "src": "media/photos/natacao.webp",
+      "thumb": "media/photos/natacao-small.webp",
+      "width": 1307,
+      "height": 1800,
+      "note": ""
+    },
+    {
+      "id": "infancia-futebol",
+      "title": "Infância · encontro em campo",
+      "category": "Infância",
+      "year": null,
+      "src": "media/photos/infancia-futebol.webp",
+      "thumb": "media/photos/infancia-futebol-small.webp",
+      "width": 473,
+      "height": 777,
+      "note": ""
+    },
+    {
+      "id": "infancia-formatura",
+      "title": "Infância · primeiros passos",
+      "category": "Infância",
+      "year": null,
+      "src": "media/photos/infancia-formatura.webp",
+      "thumb": "media/photos/infancia-formatura-small.webp",
+      "width": 1220,
+      "height": 1717,
+      "note": ""
+    },
+    {
+      "id": "infancia-natacao",
+      "title": "Infância · alegria na piscina",
+      "category": "Infância",
+      "year": null,
+      "src": "media/photos/infancia-natacao.webp",
+      "thumb": "media/photos/infancia-natacao-small.webp",
+      "width": 1541,
+      "height": 1476,
+      "note": ""
+    },
+    {
+      "id": "podio",
+      "title": "Pódio no Match Point",
+      "category": "Esportes",
+      "year": 2024,
+      "src": "media/photos/podio.webp",
+      "thumb": "media/photos/podio-small.webp",
+      "width": 1200,
+      "height": 1600,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "retrato",
+      "title": "João Gouvêa",
+      "category": "Pessoal",
+      "year": 2026,
+      "src": "media/photos/retrato.webp",
+      "thumb": "media/photos/retrato-small.webp",
+      "width": 640,
+      "height": 960,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "tenis",
+      "title": "Foco à mesa",
+      "category": "Esportes",
+      "year": null,
+      "src": "media/photos/tenis.webp",
+      "thumb": "media/photos/tenis-small.webp",
+      "width": 800,
+      "height": 599,
+      "note": ""
+    },
+    {
+      "id": "fecart",
+      "title": "FECART · apresentação do projeto",
+      "category": "Robótica",
+      "year": 2026,
+      "src": "media/photos/fecart.webp",
+      "thumb": "media/photos/fecart-small.webp",
+      "width": 1800,
+      "height": 1388,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "obi",
+      "title": "Classificação para a fase nacional da OBI",
+      "category": "Olimpíadas",
+      "year": null,
+      "src": "media/photos/obi.webp",
+      "thumb": "media/photos/obi-small.webp",
+      "width": 720,
+      "height": 900,
+      "note": ""
+    },
+    {
+      "id": "infancia-piscina",
+      "title": "Infância · natação",
+      "category": "Infância",
+      "year": null,
+      "src": "media/photos/infancia-piscina.webp",
+      "thumb": "media/photos/infancia-piscina-small.webp",
+      "width": 320,
+      "height": 240,
+      "note": ""
+    },
+    {
+      "id": "equipe-mancini",
+      "title": "Tênis de mesa · equipe Team Mancini",
+      "category": "Esportes",
+      "year": 2025,
+      "src": "media/photos/equipe-mancini.webp",
+      "thumb": "media/photos/equipe-mancini-small.webp",
+      "width": 1800,
+      "height": 810,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "premiacao-2024",
+      "title": "Inicup TT · premiação",
+      "category": "Esportes",
+      "year": 2024,
+      "src": "media/photos/premiacao-2024.webp",
+      "thumb": "media/photos/premiacao-2024-small.webp",
+      "width": 1800,
+      "height": 810,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "esporte-2025",
+      "title": "Tênis de mesa · conquista em 2025",
+      "category": "Esportes",
+      "year": 2025,
+      "src": "media/photos/esporte-2025.webp",
+      "thumb": "media/photos/esporte-2025-small.webp",
+      "width": 810,
+      "height": 1800,
+      "note": "Data do registro fotográfico."
+    },
+    {
+      "id": "torneio-2026",
+      "title": "Tênis de mesa · torneio em 2026",
+      "category": "Esportes",
+      "year": 2026,
+      "src": "media/photos/torneio-2026.webp",
+      "thumb": "media/photos/torneio-2026-small.webp",
+      "width": 810,
+      "height": 1800,
+      "note": "Data do registro fotográfico."
+    }
+  ],
+  "certificates": [
+    {
+      "id": "194026_poliedro_prata_2024",
+      "title": "Poliedro · prata no documento",
+      "year": 2024,
+      "category": "Certificados",
+      "src": "media/certificates/194026_poliedro_prata_2024.png",
+      "thumb": "media/certificates/194026_poliedro_prata_2024.webp",
+      "note": "O documento de referência registra prata em 2024. O histórico informado por João registra bronze em 2024 e prata em 2025.",
+      "representation": true
+    },
+    {
+      "id": "194040_concurso_arte_primeiro_2025",
+      "title": "Concurso de Arte · 1º lugar",
+      "year": 2025,
+      "category": "Certificados",
+      "src": "media/certificates/194040_concurso_arte_primeiro_2025.png",
+      "thumb": "media/certificates/194040_concurso_arte_primeiro_2025.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194047_redacao_terceiro_2025",
+      "title": "Redação · 3º lugar",
+      "year": 2025,
+      "category": "Certificados",
+      "src": "media/certificates/194047_redacao_terceiro_2025.png",
+      "thumb": "media/certificates/194047_redacao_terceiro_2025.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194054_desenho_primeiro_2024",
+      "title": "Concurso de Arte · 1º lugar",
+      "year": 2024,
+      "category": "Certificados",
+      "src": "media/certificates/194054_desenho_primeiro_2024.png",
+      "thumb": "media/certificates/194054_desenho_primeiro_2024.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194104_canguru_historico_corrigido",
+      "title": "Canguru · histórico informado",
+      "year": null,
+      "category": "Certificados",
+      "src": "media/certificates/194104_canguru_historico_corrigido.png",
+      "thumb": "media/certificates/194104_canguru_historico_corrigido.webp",
+      "note": "Painel de conquistas informado por João. A fotografia de referência menciona honra ao mérito em 2024; o histórico informado registra bronze em 2024.",
+      "representation": true
+    },
+    {
+      "id": "194112_oba_2024",
+      "title": "OBA · certificado",
+      "year": 2024,
+      "category": "Certificados",
+      "src": "media/certificates/194112_oba_2024.png",
+      "thumb": "media/certificates/194112_oba_2024.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194126_oba_2023",
+      "title": "OBA · certificado",
+      "year": 2023,
+      "category": "Certificados",
+      "src": "media/certificates/194126_oba_2023.png",
+      "thumb": "media/certificates/194126_oba_2023.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194201_aluno_criativo_2025",
+      "title": "Aluno criativo",
+      "year": 2025,
+      "category": "Certificados",
+      "src": "media/certificates/194201_aluno_criativo_2025.png",
+      "thumb": "media/certificates/194201_aluno_criativo_2025.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194212_poliedro_mencao_2023",
+      "title": "Poliedro · menção honrosa no documento",
+      "year": 2023,
+      "category": "Certificados",
+      "src": "media/certificates/194212_poliedro_mencao_2023.png",
+      "thumb": "media/certificates/194212_poliedro_mencao_2023.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "194219_festival_acsi_finalista_2022",
+      "title": "ACSI · projeto finalista",
+      "year": null,
+      "category": "Certificados",
+      "src": "media/certificates/194219_festival_acsi_finalista_2022.png",
+      "thumb": "media/certificates/194219_festival_acsi_finalista_2022.webp",
+      "note": "O arquivo recebido contém 2022 no nome. O ano da conquista não foi confirmado no histórico informado.",
+      "representation": true
+    },
+    {
+      "id": "194227_supergeeks_unity_2025",
+      "title": "SuperGeeks · GameDev Unity",
+      "year": 2025,
+      "category": "Certificados",
+      "src": "media/certificates/194227_supergeeks_unity_2025.png",
+      "thumb": "media/certificates/194227_supergeeks_unity_2025.webp",
+      "note": "",
+      "representation": true
+    },
+    {
+      "id": "extra_canguru_prata_2025",
+      "title": "Canguru · prata",
+      "year": 2025,
+      "category": "Certificados",
+      "src": "media/certificates/extra_canguru_prata_2025.png",
+      "thumb": "media/certificates/extra_canguru_prata_2025.webp",
+      "note": "Painel de conquista informado por João.",
+      "representation": true
+    },
+    {
+      "id": "extra_poliedro_historico_informado",
+      "title": "Poliedro · histórico informado",
+      "year": null,
+      "category": "Certificados",
+      "src": "media/certificates/extra_poliedro_historico_informado.png",
+      "thumb": "media/certificates/extra_poliedro_historico_informado.webp",
+      "note": "Histórico informado: bronze em 2024 e prata em 2025; diferente do documento de referência.",
+      "representation": true
+    }
+  ],
+  "achievements": [
+    {
+      "id": "canguru-2022",
+      "title": "Canguru de Matemática",
+      "category": "Olimpíadas",
+      "year": 2022,
+      "result": "Honra ao mérito",
+      "photo": null
+    },
+    {
+      "id": "canguru-2023",
+      "title": "Canguru de Matemática",
+      "category": "Olimpíadas",
+      "year": 2023,
+      "result": "Honra ao mérito",
+      "photo": null
+    },
+    {
+      "id": "canguru-2024",
+      "title": "Canguru de Matemática",
+      "category": "Olimpíadas",
+      "year": 2024,
+      "result": "Bronze",
+      "photo": null
+    },
+    {
+      "id": "canguru-2025",
+      "title": "Canguru de Matemática",
+      "category": "Olimpíadas",
+      "year": 2025,
+      "result": "Prata",
+      "photo": null
+    },
+    {
+      "id": "poliedro-2024",
+      "title": "Matemática Poliedro",
+      "category": "Olimpíadas",
+      "year": 2024,
+      "result": "Bronze",
+      "photo": null
+    },
+    {
+      "id": "poliedro-2025",
+      "title": "Matemática Poliedro",
+      "category": "Olimpíadas",
+      "year": 2025,
+      "result": "Prata",
+      "photo": null
+    },
+    {
+      "id": "oba-2022",
+      "title": "Astronomia e Astronáutica · OBA",
+      "category": "Olimpíadas",
+      "year": 2022,
+      "result": "Certificado",
+      "photo": null
+    },
+    {
+      "id": "oba-2023",
+      "title": "Astronomia e Astronáutica · OBA",
+      "category": "Olimpíadas",
+      "year": 2023,
+      "result": "Certificado",
+      "photo": null
+    },
+    {
+      "id": "oba-2024",
+      "title": "Astronomia e Astronáutica · OBA",
+      "category": "Olimpíadas",
+      "year": 2024,
+      "result": "Certificado",
+      "photo": null
+    },
+    {
+      "id": "oba-2025",
+      "title": "Astronomia e Astronáutica · OBA",
+      "category": "Olimpíadas",
+      "year": 2025,
+      "result": "Certificado",
+      "photo": null
+    },
+    {
+      "id": "obi-2022",
+      "title": "OBI · modalidade Lógica",
+      "category": "Programação",
+      "year": 2022,
+      "result": "Classificação para a fase nacional",
+      "photo": null
+    },
+    {
+      "id": "obi-2023",
+      "title": "OBI · modalidade Lógica",
+      "category": "Programação",
+      "year": 2023,
+      "result": "Classificação para a fase nacional",
+      "photo": null
+    },
+    {
+      "id": "obi-2025",
+      "title": "OBI · modalidade Lógica",
+      "category": "Programação",
+      "year": 2025,
+      "result": "Classificação para a fase nacional",
+      "photo": null
+    },
+    {
+      "id": "obi-programacao",
+      "title": "OBI · modalidade Programação",
+      "category": "Programação",
+      "year": null,
+      "result": "Classificação para a fase nacional",
+      "photo": null
+    },
+    {
+      "id": "zoom-2022",
+      "title": "Torneio de Robótica Zoom",
+      "category": "Robótica",
+      "year": 2022,
+      "result": "Bronze",
+      "photo": null
+    },
+    {
+      "id": "zoom-2023",
+      "title": "Torneio de Robótica Zoom",
+      "category": "Robótica",
+      "year": 2023,
+      "result": "Prata",
+      "photo": null
+    },
+    {
+      "id": "zoom-2024",
+      "title": "Torneio de Robótica Zoom",
+      "category": "Robótica",
+      "year": 2024,
+      "result": "Ouro",
+      "photo": null
+    },
+    {
+      "id": "zoom-2025",
+      "title": "Torneio de Robótica Zoom",
+      "category": "Robótica",
+      "year": 2025,
+      "result": "Ouro",
+      "photo": null
+    },
+    {
+      "id": "games-1",
+      "title": "Games · Level 1",
+      "category": "Programação",
+      "year": null,
+      "result": "Concluído",
+      "photo": null
+    },
+    {
+      "id": "games-2",
+      "title": "Games · Level 2",
+      "category": "Programação",
+      "year": null,
+      "result": "Concluído",
+      "photo": null
+    },
+    {
+      "id": "games-3",
+      "title": "Games · Level 3",
+      "category": "Programação",
+      "year": null,
+      "result": "Concluído",
+      "photo": null
+    },
+    {
+      "id": "unity",
+      "title": "GameDev · Unity",
+      "category": "Programação",
+      "year": 2025,
+      "result": "Conclusão de curso",
+      "photo": "unity"
+    },
+    {
+      "id": "arte-2024",
+      "title": "Concurso de Arte",
+      "category": "Arte",
+      "year": 2024,
+      "result": "1º lugar",
+      "photo": null
+    },
+    {
+      "id": "arte-2025",
+      "title": "Concurso de Arte",
+      "category": "Arte",
+      "year": 2025,
+      "result": "1º lugar",
+      "photo": null
+    },
+    {
+      "id": "redacao",
+      "title": "Concurso de Redação",
+      "category": "Arte",
+      "year": 2025,
+      "result": "3º lugar",
+      "photo": null
+    },
+    {
+      "id": "acsi",
+      "title": "ACSI",
+      "category": "Projetos",
+      "year": null,
+      "result": "Projeto finalista",
+      "photo": null
+    },
+    {
+      "id": "italianwhey",
+      "title": "ItalianWhey",
+      "category": "Projetos",
+      "year": 2025,
+      "result": "Vencedor · trabalho de Publicidade e Propaganda de Escolas",
+      "photo": null
+    },
+    {
+      "id": "kumon",
+      "title": "Kumon · Matemática",
+      "category": "Olimpíadas",
+      "year": null,
+      "result": "Medalha de bronze",
+      "photo": "kumon"
+    },
+    {
+      "id": "swimming",
+      "title": "Natação",
+      "category": "Esportes",
+      "year": null,
+      "result": "16 medalhas",
+      "photo": "natacao"
+    },
+    {
+      "id": "table-tennis",
+      "title": "Tênis de mesa",
+      "category": "Esportes",
+      "year": null,
+      "result": "10 medalhas",
+      "photo": "podio"
+    },
+    {
+      "id": "futsal",
+      "title": "Futsal",
+      "category": "Esportes",
+      "year": null,
+      "result": "Kogachi · Democrático Futsal",
+      "photo": "infancia-futebol"
+    },
+    {
+      "id": "inicup",
+      "title": "Inicup TT",
+      "category": "Esportes",
+      "year": 2024,
+      "result": "Campeão Sub-13 masculino · 21 de abril",
+      "photo": "inicup"
+    },
+    {
+      "id": "futebol-2018",
+      "title": "Chute Inicial Ipiranga",
+      "category": "Esportes",
+      "year": 2018,
+      "result": "Vice-campeão · Série Ouro",
+      "photo": "futebol-2018"
+    },
+    {
+      "id": "kumon-2017",
+      "title": "Kumon · Expo 2017",
+      "category": "Olimpíadas",
+      "year": 2017,
+      "result": "Registro da medalha",
+      "photo": "kumon"
+    },
+    {
+      "id": "fecart",
+      "title": "FECART",
+      "category": "Projetos",
+      "year": 2026,
+      "result": "Apresentação do projeto",
+      "photo": "fecart"
+    }
+  ]
+}

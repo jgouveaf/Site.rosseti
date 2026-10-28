@@ -1,28 +1,42 @@
-# Neymar Júnior — A arte de ser único
+# João Gouvêa — portfólio pessoal
 
-Experiência visual de fã, não oficial, inspirada na composição editorial de https://rafaelrossetti.com.br/. O usuário navega pelo scroll nativo e abre imagens com clique direto. Não há botões de navegação.
+Portfólio em React + Vite, com fotografias reais, conquistas filtráveis, linha do tempo, certificados em camadas e vídeo FECART. A experiência anterior de Neymar foi preservada em `/neymar/`; o arquivo 3D OBSIDIAN está disponível em `/exploracao/`.
 
 ## Executar
 
-Requer Node.js 20.19+. Execute npm ci e npm run dev. Tanto / quanto /exploracao/ exibem a experiência do Neymar; a segunda rota foi preservada para os links já existentes.
+Node.js 20.19+ (CI usa Node 24):
 
-## Interação
+```sh
+npm ci
+npm run dev
+npm run build
+npm run preview -- --base /Site.rosseti/
+```
 
-O scroll percorre a capa, o manifesto e a galeria fotográfica horizontal fixada na tela. As fotos respondem ao cursor, revelam cor e abrem uma leitura ampliada com créditos. A foto de capa também é interativa. Clique na foto ampliada ou fora do conteúdo para voltar; Escape funciona pelo teclado.
+A produção usa o prefixo `/Site.rosseti/`. O workflow `.github/workflows/pages.yml` publica os arquivos de `dist` após push em `main`.
 
-## Estrutura
+## Conteúdo e manutenção
 
-- src/NeymarExperience.tsx: página, scroll, galeria e leitura ampliada.
-- src/neymar.css: composição responsiva, tipografia, movimento e estados de interação.
-- src/data/neymar.json: conteúdo e metadados/créditos das fotografias.
-- design-system.neymar.json: cores integradas ao componente, tipografia e interação.
-- public/images/neymar/: fotos licenciadas, recorte e CREDITS.md.
-- src/ObsidianApp.tsx e componentes anteriores: implementação OBSIDIAN preservada como fonte, sem ser carregada pelo site atual.
+- `src/data/portfolio.json`: perfil, conquistas, fotos e representações de certificados.
+- `src/Portfolio.tsx`: seções, filtros, modal acessível e navegação.
+- `src/portfolio.css`: visual editorial, pilha sticky, responsividade e movimento reduzido.
+- `public/media/`: fotos WebP, certificados WebP/PNG e vídeo original FECART.
+- `docs/media-sources.json`: relação de fotos e arquivos de origem.
+- `scripts/prepare-media.py`: tratamento convencional reproduzível (Pillow); requer os materiais locais nos caminhos indicados.
+- `scripts/test-portfolio.py`: regressão de navegador (Python + Playwright + Chromium instalado).
 
-## Build e publicação
+O modal usa diálogo nativo: Escape fecha, setas navegam, foco fica contido e volta ao acionador. A pilha de certificados usa scroll nativo e CSS sticky; em movimento reduzido, vira uma lista estática. As experiências 3D usam importação sob demanda.
 
-npm run build valida TypeScript e gera dist. npm run preview serve a produção. O workflow GitHub Pages mantém o prefixo /Site.rosseti/ e publica após push autorizado a main. Esta alteração não foi publicada automaticamente.
+## Verificação
 
-## Imagens
+Depois do build, sirva com o base path acima e execute:
 
-Créditos e licenças aparecem em cada foto aberta e em public/images/neymar/CREDITS.md. A capa usa um recorte assistido por IA do retrato de Lucho Vidales. O projeto não indica vínculo oficial com Neymar, clubes ou fotógrafos.
+```sh
+python scripts/test-portfolio.py http://127.0.0.1:4173/Site.rosseti/
+```
+
+Use a porta impressa pelo preview. Resultados e capturas são salvos em `docs/qa/` (ignorado pelo Git).
+
+## Fidelidade dos materiais
+
+As 13 peças do ZIP de certificados são representações digitais fornecidas pelo usuário, não documentos oficiais. A interface explicita isso e preserva as divergências de Canguru e Poliedro. Datas desconhecidas não são deduzidas a partir da digitalização. Não há reconstrução generativa de rostos nas fotos publicadas. Leia `docs/implementation-status.md` para cobertura e limites.
