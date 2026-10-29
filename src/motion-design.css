@@ -763,24 +763,18 @@
     color: #18220a;
     left: 0;
     top: 0;
-    transform: translate(
-        calc(var(--cursor-x, 0px) - 36px),
-        calc(var(--cursor-y, 0px) - 36px)
-      )
-      scale(0.5);
+    transform: translate3d(var(--cursor-x, 0px), var(--cursor-y, 0px), 0)
+      translate(-50%, -50%);
     z-index: 30;
     pointer-events: none;
     opacity: 0;
-    transition:
-      opacity 0.2s,
-      scale 0.2s;
+    transition: opacity 0.2s;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1px;
   }
   .pf-pointer.is-visible {
     opacity: 1;
-    scale: 1.6;
   }
 }
 @media (min-width: 1600px) {

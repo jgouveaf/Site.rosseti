@@ -36,3 +36,7 @@ Na atualização visual, as 29 verificações de regressão passaram novamente, 
 ## Principais arquivos
 
 `src/App.tsx`, `src/Portfolio.tsx`, `src/portfolio.css`, `src/motion-design.css`, `src/usePortfolioMotion.tsx`, `src/data/portfolio.json`, `public/media/`, `index.html`, `exploracao/index.html`, `neymar/index.html`, `vite.config.ts`, scripts de preparação/verificação e documentação.
+
+## Ajuste do cursor VER
+
+A escala CSS do círculo ampliava também o deslocamento do cursor. O círculo agora usa uma única translação ancorada no centro, sem escala adicional. O teste Playwright compara o centro do botão com a posição real do mouse em quatro áreas, antes e depois da rolagem; também confere a ocultação fora das imagens e com movimento reduzido.
