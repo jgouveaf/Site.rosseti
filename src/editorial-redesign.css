@@ -126,3 +126,54 @@
 .pf-v2 .pf-hero-top { color:#5d5952; }
 @media(max-width:800px) { .pf-v2 .pf-header{background:#f3f0e9d9;backdrop-filter:blur(8px)}.pf-v2 .pf-menu{color:#171714;border-color:#17171466}.pf-v2 .pf-header nav.open{background:#f3f0e9;color:#171714}.pf-v2 .pf-hero-image{width:100%;right:-12%;top:90px;opacity:.53;-webkit-mask-image:radial-gradient(ellipse 55% 58% at 60% 45%,#000 42%,transparent 100%);mask-image:radial-gradient(ellipse 55% 58% at 60% 45%,#000 42%,transparent 100%)}.pf-v2 .pf-hero-atmosphere{background:linear-gradient(90deg,#f3f0e999,transparent),linear-gradient(0deg,#f3f0e9 0%,transparent 58%)}.pf-v2 .pf-hero-title{top:27%}.pf-v2 .pf-hero h1{font-size:clamp(67px,14vw,125px)} }
 @media(max-width:520px) { .pf-v2 .pf-hero h1{font-size:clamp(65px,16vw,90px)}.pf-v2 .pf-hero h1 > .pf-name-last{font-size:.76em}.pf-v2 .pf-hero-title{top:26%}.pf-v2 .pf-hero-cinema::before{width:88vw;left:-57vw;bottom:8vw}.pf-v2 .pf-hero-image{right:-24%;opacity:.78} }
+
+/* The sport chapter is a split feature: copy never sits directly on the photograph. */
+.pf-v2 .pf-sport { display:grid; grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr); min-height:790px; background:#09101b; color:#f5f3ed; }
+.pf-v2 .pf-sport-image { position:relative; inset:auto; min-height:790px; isolation:isolate; }
+.pf-v2 .pf-sport-image::after { background:linear-gradient(90deg,transparent 62%,#09101b 100%),linear-gradient(0deg,#09101b92,transparent 25%); }
+.pf-v2 .pf-sport-image .pf-photo,.pf-v2 .pf-sport-image img { width:100%; height:100%; min-height:790px; object-fit:cover; object-position:60% 45%; }
+.pf-v2 .pf-sport-copy { width:100%; max-width:none; align-self:center; padding:70px clamp(32px,6vw,100px) 70px clamp(24px,3vw,65px); pointer-events:auto; }
+.pf-v2 .pf-sport-copy::before { content:""; position:absolute; inset:12% 7% 12% 0; z-index:-1; border:1px solid #8dd9ff3d; background:radial-gradient(circle at 100% 0%,#8dd9ff19,transparent 42%); clip-path:polygon(0 0,100% 0,100% 82%,91% 100%,0 100%); pointer-events:none; }
+.pf-v2 .pf-sport-copy h2 { color:#f6f5f1; margin:48px 0 28px; font-size:clamp(52px,5.3vw,90px); line-height:.94; }
+.pf-v2 .pf-sport-copy h2 em { color:#ff5835; }
+.pf-v2 .pf-sport-copy p { color:#d7e2ea; max-width:510px; font-size:16px; }
+.pf-v2 .pf-sport-copy .pf-kicker { color:#a5dafa; }
+.pf-v2 .pf-sport-copy .pf-link { color:#f6f5f1; border-color:#a5dafa6b; width:min(100%,390px); }
+.pf-v2 .pf-sport-copy .pf-link:hover { color:#ff5835; border-color:#ff5835; }
+
+/* Letter-level response, with a readable static state for keyboard and reduced motion. */
+.pf-hover-word { display:inline-block; white-space:nowrap; }
+.pf-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.pf-hover-letter { display:inline-block; transform-origin:50% 80%; transition:transform .32s cubic-bezier(.2,.8,.2,1),color .25s,text-shadow .32s; }
+.pf-hover-letter:hover { color:#ff5835; transform:translateY(-.13em) rotate(-5deg) scale(1.07); text-shadow:0 .08em .25em #ff583566; }
+.pf-v2 .pf-sport .pf-hover-letter:hover { color:#9cdeff; text-shadow:0 0 28px #8dd9ff; }
+.pf-v2 .pf-hero .pf-name-first .pf-hover-letter:hover { color:#ff5835; }
+
+/* Ice-light chapters contrast the warm editorial opening. */
+.pf-v2 .pf-reel { isolation:isolate; background:#08101d; }
+.pf-v2 .pf-reel::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 75% 40%,#81d7ff24,transparent 45%),radial-gradient(ellipse at 10% 90%,#ff58351f,transparent 30%); }
+.pf-v2 .pf-reel-card .pf-photo { border:1px solid #ccefff9c; box-shadow:18px 18px 0 #89d9ff17,0 0 38px #8dd9ff2d; clip-path:polygon(0 0,100% 0,100% 90%,94% 100%,0 100%); transition:box-shadow .35s,transform .55s; }
+.pf-v2 .pf-reel-card:nth-child(2) .pf-photo,.pf-v2 .pf-reel-card:nth-child(3) .pf-photo { box-shadow:18px 18px 0 #89d9ff17,0 0 38px #8dd9ff2d; transform:none; }
+.pf-v2 .pf-reel-card:hover .pf-photo { box-shadow:22px 22px 0 #ff583530,0 0 52px #9cdeff8a; transform:translateY(-10px) rotate(-1deg); }
+.pf-v2 .pf-reel-card:nth-child(2):hover .pf-photo,.pf-v2 .pf-reel-card:nth-child(3):hover .pf-photo { transform:translateY(-10px) rotate(-1deg); }
+.pf-v2 .pf-reel-card h3 { color:#f4f6f5; }
+.pf-v2 .pf-reel-card h3 span { color:#a5dafa; }
+.pf-v2 .pf-project-stage-art { background:radial-gradient(circle at 60% 40%,#a5dafa50,transparent 35%),repeating-radial-gradient(circle at 50% 50%,transparent 0 30px,#a5dafa24 31px 32px),#07111f; }
+.pf-v2 .pf-project-stage-art i { border-color:#a5dafa; box-shadow:0 0 0 20px #a5dafa19,0 0 0 55px #a5dafa0c,0 0 45px #a5dafa70; }
+.pf-v2 .pf-project-stage-art span { color:#a5dafa25; }
+.pf-manifesto { background:radial-gradient(circle at 76% 45%,#1a577188,transparent 32%),linear-gradient(120deg,#05080c,#081626 70%,#05080c); }
+.pf-manifesto::before { color:#a5dafa; opacity:.12; }
+.pf-manifesto > p { position:relative; }
+.pf-manifesto > p::after { content:""; position:absolute; width:20vw; aspect-ratio:1; right:0; top:-10vw; border:1px solid #a5dafa78; transform:rotate(45deg); box-shadow:0 0 75px #9cdeff36,inset 0 0 60px #9cdeff25; pointer-events:none; }
+
+/* Buttons reveal a luminous edge and a moving arrow. */
+.pf-v2 .pf-hero-cta,.pf-v2 .pf-route a,.pf-v2 .pf-project-tabs button,.pf-v2 .pf-sport .pf-link,.pf-v2 .pf-obi-link,.pf-v2 .pf-header nav a { overflow:hidden; }
+.pf-v2 .pf-hero-cta,.pf-v2 .pf-route a,.pf-v2 .pf-project-tabs button,.pf-v2 .pf-obi-link { position:relative; }
+.pf-v2 .pf-hero-cta::after,.pf-v2 .pf-route a::after,.pf-v2 .pf-project-tabs button::after,.pf-v2 .pf-obi-link::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(115deg,transparent 20%,#ffffff71 48%,transparent 76%); transform:translateX(-100%); transition:transform .65s,opacity .25s; }
+.pf-v2 .pf-hero-cta:hover::after,.pf-v2 .pf-route a:hover::after,.pf-v2 .pf-project-tabs button:hover::after,.pf-v2 .pf-obi-link:hover::after { opacity:1; transform:translateX(100%); }
+.pf-v2 .pf-hero-cta span,.pf-v2 .pf-route i,.pf-v2 .pf-project-tabs i,.pf-v2 .pf-link span { transition:transform .35s cubic-bezier(.2,.8,.2,1); }
+.pf-v2 .pf-hero-cta:hover span,.pf-v2 .pf-route a:hover i,.pf-v2 .pf-project-tabs button:hover i,.pf-v2 .pf-link:hover span { transform:translate(5px,-5px) rotate(25deg); }
+.pf-v2 .pf-header nav a { transition:background .25s,color .25s,transform .25s,box-shadow .25s; }
+.pf-v2 .pf-header nav a:hover { transform:translateY(-4px); box-shadow:0 9px 0 #17171418; }
+@media(max-width:800px) { .pf-v2 .pf-sport{grid-template-columns:1fr}.pf-v2 .pf-sport-image,.pf-v2 .pf-sport-image .pf-photo,.pf-v2 .pf-sport-image img{height:47svh;min-height:340px}.pf-v2 .pf-sport-image::after{background:linear-gradient(0deg,#09101b,transparent 36%)}.pf-v2 .pf-sport-copy{padding:30px 6vw 80px}.pf-v2 .pf-sport-copy::before{inset:0 3vw 4%}.pf-v2 .pf-sport-copy h2{font-size:clamp(47px,9vw,78px);margin:25px 0}.pf-manifesto>p::after{display:none} }
+@media(prefers-reduced-motion:reduce) { .pf-hover-letter,.pf-v2 .pf-reel-card .pf-photo,.pf-v2 .pf-hero-cta span,.pf-v2 .pf-route i,.pf-v2 .pf-project-tabs i,.pf-v2 .pf-link span { transition:none!important;transform:none!important }.pf-v2 .pf-hero-cta::after,.pf-v2 .pf-route a::after,.pf-v2 .pf-project-tabs button::after,.pf-v2 .pf-obi-link::after{display:none} }

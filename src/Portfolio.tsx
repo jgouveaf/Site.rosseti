@@ -26,6 +26,12 @@ const projects = [
   { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista que integra minha trajetória criativa.", status: "Finalista" },
 ];
 const curatedPhotos = ["tenis-preto-branco", "infancia-futebol", "unity", "formatura", "tenis"].map(photo);
+function HoverLetters({ text }: { text: string }) {
+  return <span className="pf-hover-word">
+    <span className="pf-sr-only">{text}</span>
+    {Array.from(text).map((letter, index) => <span className="pf-hover-letter" aria-hidden="true" key={`${index}-${letter}`}>{letter === " " ? "\u00a0" : letter}</span>)}
+  </span>;
+}
 function SectionLabel({
   number,
   children,
@@ -196,9 +202,9 @@ export function Portfolio() {
                 A PRÓXIMA IDEIA COMEÇA AQUI.
               </span>
               <h1>
-                <span className="pf-name-first">JOÃO</span>
+                <span className="pf-name-first"><HoverLetters text="JOÃO" /></span>
                 <span className="pf-name-last">
-                  GOUVÊA<span className="pf-name-dot">.</span>
+                  <HoverLetters text="GOUVÊA" /><span className="pf-name-dot">.</span>
                 </span>
               </h1>
             </div>
@@ -430,11 +436,11 @@ export function Portfolio() {
           <div className="pf-sport-copy">
             <span className="pf-kicker">FOCO. REPETIÇÃO. EVOLUÇÃO.</span>
             <h2>
-              O próximo
+              <HoverLetters text="O próximo" />
               <br />
-              ponto começa
+              <HoverLetters text="ponto começa" />
               <br />
-              <em>agora.</em>
+              <em><HoverLetters text="agora." /></em>
             </h2>
             <p>
               No tênis de mesa, represento Itaim Keiko e FECAP. Cada treino e

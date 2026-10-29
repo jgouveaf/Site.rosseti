@@ -30,6 +30,11 @@ with sync_playwright() as p:
  check('Project selector works by keyboard',page.locator('#project-panel h3').inner_text().casefold()=='italianwhey' and page.locator('#project-tab-2').get_attribute('aria-selected')=='true')
  check('Timeline year has visible events',page.locator('#year-2024 .pf-history-item').count()==sum(a['year']==2024 for a in data['achievements']))
  check('No horizontal overflow on desktop',page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
+ check('Sport title stays light on a dark panel',page.locator('.pf-sport h2').evaluate('(e)=>getComputedStyle(e).color')=='rgb(246, 245, 241)' and page.locator('.pf-sport').evaluate('(e)=>getComputedStyle(e).gridTemplateColumns')!='none')
+ letter=page.locator('.pf-sport .pf-hover-letter').first
+ letter.hover(force=True)
+ page.wait_for_timeout(380)
+ check('Sport title responds to pointer per letter',letter.evaluate('(e)=>getComputedStyle(e).transform')!='none')
  check('FECART loops muted without controls',page.locator('video').evaluate('(v)=>v.autoplay && v.muted && v.loop && !v.controls'))
  page.screenshot(path=str(root/'docs/qa/desktop.png'))
  # The certificate section contains only the original OBI document.
