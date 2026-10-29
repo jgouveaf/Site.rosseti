@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import data from "./data/portfolio.json";
 import "./portfolio.css";
 import "./motion-design.css";
@@ -47,16 +47,29 @@ export function Portfolio() {
   usePortfolioMotion();
   const [filter, setFilter] = useState("Todas");
   const [galleryFilter, setGalleryFilter] = useState("Todas");
+  const [galleryExpanded, setGalleryExpanded] = useState(false);
+  const [achievementsExpanded, setAchievementsExpanded] = useState(false);
   const [modal, setModal] = useState<{ items: Media[]; index: number } | null>(
     null,
   );
   const [menu, setMenu] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
+  const fecartVideo = useRef<HTMLVideoElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const current = modal?.items[modal.index];
   const shown = data.photos.filter(
     (p) => galleryFilter === "Todas" || p.category === galleryFilter,
   );
+  const featuredIds = ["tenis-preto-branco", "formatura", "fecart", "unity", "tenis", "obi"];
+  const visiblePhotos = galleryExpanded || galleryFilter !== "Todas"
+    ? shown
+    : featuredIds.map((id) => photo(id));
+  const featuredAchievements = categories.slice(1).flatMap((category) =>
+    data.achievements.filter((a) => a.category === category).slice(0, 2),
+  );
+  const visibleAchievements = filter === "Todas"
+    ? achievementsExpanded ? data.achievements : featuredAchievements
+    : data.achievements.filter((a) => a.category === filter);
   const open = (items: Media[], index: number) => {
     returnFocus.current = document.activeElement as HTMLElement;
     setModal({ items, index });
@@ -82,6 +95,14 @@ export function Portfolio() {
       document.body.style.overflow = before;
     };
   }, [!!modal]);
+  useEffect(() => {
+    const resume = () => {
+      if (!document.hidden) void fecartVideo.current?.play().catch(() => {});
+    };
+    document.addEventListener("visibilitychange", resume);
+    resume();
+    return () => document.removeEventListener("visibilitychange", resume);
+  }, []);
   const picture = (id: string, className = "", eager = false) => {
     const p = photo(id);
     return (
@@ -142,7 +163,7 @@ export function Portfolio() {
             ["sobre", "Sobre"],
             ["projetos", "Projetos"],
             ["trajetoria", "Trajetória"],
-            ["certificados", "Certificados"],
+            ["certificados", "Certificado OBI"],
             ["galeria", "Galeria"],
           ].map(([id, title]) => (
             <a key={id} href={"#" + id} onClick={() => setMenu(false)}>
@@ -207,7 +228,7 @@ export function Portfolio() {
                   Movido pelo <em>próximo desafio.</em>
                 </p>
                 <a className="pf-hero-cta" href="#projetos">
-                  EXPLORE MEU UNIVERSO <span>↗</span>
+                  VER MEUS PROJETOS <span>↗</span>
                 </a>
               </div>
               <a
@@ -243,6 +264,11 @@ export function Portfolio() {
             <b>✳</b>
           </span>
         </div>
+        <nav className="pf-route" aria-label="Atalhos para explorar o portfólio">
+          <a href="#projetos"><span>01 / CRIAR</span><strong>Projetos</strong><i>↗</i></a>
+          <a href="#trajetoria"><span>02 / EVOLUIR</span><strong>Trajetória</strong><i>↗</i></a>
+          <a href="#certificados"><span>03 / CONQUISTAR</span><strong>OBI 2026</strong><i>↗</i></a>
+        </nav>
         <section id="sobre" className="pf-section pf-about pf-reveal">
           <SectionLabel number="01">Muito além de uma área</SectionLabel>
           <div className="pf-about-grid">
@@ -322,27 +348,22 @@ export function Portfolio() {
                 <br />
                 <em>A MESMA VONTADE.</em>
               </h2>
-              <span className="pf-reel-hint">DESLIZE PARA DESCOBRIR ↔</span>
+              <span className="pf-reel-hint">ROLE OU DESLIZE PARA DESCOBRIR ↔</span>
             </div>
             <div className="pf-reel-window">
               <div className="pf-reel-track">
                 {[
-                  { id: "tenis", word: "FOCO", label: "01 / DENTRO DO JOGO" },
+                  { id: "inicup-art", word: "FOCO", label: "01 / DENTRO DO JOGO", art: true },
                   { id: "fecart", word: "CRIAR", label: "02 / FORA DO ÓBVIO" },
-                  {
-                    id: "unity",
-                    word: "EVOLUIR",
-                    label: "03 / CÓDIGO EM AÇÃO",
-                  },
                   {
                     id: "formatura",
                     word: "SEGUIR",
-                    label: "04 / O PRÓXIMO CAPÍTULO",
+                    label: "03 / O PRÓXIMO CAPÍTULO",
                   },
                 ].map((item) => (
                   <article key={item.id} className="pf-reel-card">
                     <span>{item.label}</span>
-                    {picture(item.id)}
+                    {item.art ? <div className="pf-photo pf-reel-art"><img src={url("media/concepts/inicup-art.webp")} alt="Edição artística da medalha InCupTT 2024" loading="lazy" /><span className="pf-photo-caption">EDIÇÃO ARTÍSTICA / MEDALHA ORIGINAL NA GALERIA</span></div> : picture(item.id)}
                     <h3>
                       {item.word}
                       <span>↗</span>
@@ -373,9 +394,16 @@ export function Portfolio() {
           <article className="pf-fecart">
             <div className="pf-video">
               <video
-                controls
+                ref={fecartVideo}
+                autoPlay
+                muted
+                loop
                 playsInline
-                preload="none"
+                preload="metadata"
+                disablePictureInPicture
+                controlsList="nodownload noplaybackrate noremoteplayback"
+                onContextMenu={(e) => e.preventDefault()}
+                onPause={(e) => { if (!document.hidden) void e.currentTarget.play().catch(() => {}); }}
                 poster={url(photo("fecart").src)}
                 aria-label="Vídeo do projeto FECART"
               >
@@ -385,7 +413,7 @@ export function Portfolio() {
               </video>
             </div>
             <div className="pf-fecart-copy">
-              <span className="pf-kicker">REGISTRO EM VÍDEO · 2026</span>
+              <span className="pf-kicker">REGISTRO EM VÍDEO · LOOP SEM SOM</span>
               <h3>
                 FECART<span>↗</span>
               </h3>
@@ -393,14 +421,6 @@ export function Portfolio() {
                 Tecnologia apresentada na prática. Um registro do projeto e da
                 experiência na FECART.
               </p>
-              <a
-                className="pf-link"
-                href={url("media/video/fecart.mp4")}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Abrir vídeo <span>↗</span>
-              </a>
             </div>
           </article>
           <div className="pf-project-grid">
@@ -411,6 +431,7 @@ export function Portfolio() {
                 kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA",
                 body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.",
                 status: "Em desenvolvimento",
+                visual: "media/concepts/visionai-optics.webp",
               },
               {
                 n: "02",
@@ -435,6 +456,7 @@ export function Portfolio() {
               },
             ].map((p) => (
               <article key={p.n} className="pf-project">
+                {p.visual && <div className="pf-project-visual"><img src={url(p.visual)} alt="Conceito visual abstrato de visão computacional, com lente e pontos de luz" loading="lazy" /><span>CONCEITO VISUAL ↗</span></div>}
                 <span>
                   {p.n} / {p.kind}
                 </span>
@@ -486,31 +508,27 @@ export function Portfolio() {
               <button
                 key={c}
                 aria-pressed={filter === c}
-                onClick={() => setFilter(c)}
+                onClick={() => { setFilter(c); setAchievementsExpanded(false); }}
               >
                 {c}
               </button>
             ))}
           </div>
           <div className="pf-achievement-grid" aria-live="polite">
-            {data.achievements
-              .filter((a) => filter === "Todas" || a.category === filter)
-              .map((a) => (
+            {visibleAchievements.map((a) => (
                 <article className="pf-achievement" key={a.id}>
                   <div>
                     <span>{a.category}</span>
                     <span>{a.year || "SEM DATA CONFIRMADA"}</span>
                   </div>
-                  {a.photo && picture(a.photo)}
                   <h3>{a.title}</h3>
                   <p>{a.result}</p>
                 </article>
               ))}
           </div>
+          {filter === "Todas" && <button className="pf-gallery-more" onClick={() => setAchievementsExpanded(!achievementsExpanded)} aria-expanded={achievementsExpanded}>{achievementsExpanded ? "Mostrar destaques" : `Ver todas as ${data.achievements.length} conquistas`} <span>{achievementsExpanded ? "↑" : "↓"}</span></button>}
           <p className="pf-source-note">
-            Histórico informado por João. Há divergências entre o histórico e
-            alguns documentos de Canguru e Poliedro; os detalhes estão na seção
-            de certificados.
+            Histórico informado por João. O certificado OBI original está disponível abaixo.
           </p>
         </section>
         <section id="trajetoria" className="pf-section pf-timeline">
@@ -561,63 +579,23 @@ export function Portfolio() {
           </div>
         </section>
         <section id="certificados" className="pf-section pf-certificates">
-          <SectionLabel number="05">Aprendizado em camadas</SectionLabel>
+          <SectionLabel number="05">Documento original</SectionLabel>
           <div className="pf-section-heading">
             <h2>
-              Cada página,
+              OBI 2026,
               <br />
-              um <em>novo passo.</em>
+              um <em>marco real.</em>
             </h2>
             <p>
-              Role para empilhar.
+              Olimpíada Brasileira de Informática.
               <br />
-              Toque para ampliar e navegar.
+              Modalidade Programação, Nível 1.
             </p>
           </div>
-          <p className="pf-cert-note">
-            As {data.certificates.length} peças abaixo são{" "}
-            <strong>representações digitais de portfólio</strong> fornecidas no
-            material. Não são documentos oficiais. Informações divergentes são
-            explicadas ao abrir cada peça.
-          </p>
-          <div className="pf-cert-stack">
-            {data.certificates.map((c, i) => (
-              <article
-                className="pf-cert-card"
-                key={c.id}
-                style={
-                  {
-                    "--card-index": i,
-                    "--card-rotation": `${i % 2 ? 1.2 : -1.2}deg`,
-                  } as CSSProperties
-                }
-              >
-                <div className="pf-cert-meta">
-                  <span>
-                    {String(i + 1).padStart(2, "0")} /{" "}
-                    {String(data.certificates.length).padStart(2, "0")}
-                  </span>
-                  <span>REPRESENTAÇÃO DIGITAL</span>
-                </div>
-                <button
-                  onClick={() => open(data.certificates, i)}
-                  aria-label={"Ampliar: " + c.title}
-                >
-                  <img
-                    src={url(c.thumb)}
-                    alt={c.title + " — representação digital"}
-                    loading="lazy"
-                    width="2400"
-                    height="1600"
-                  />
-                </button>
-                <div className="pf-cert-footer">
-                  <h3>{c.title}</h3>
-                  <span>{c.year || "HISTÓRICO"} ↗</span>
-                </div>
-              </article>
-            ))}
-          </div>
+          <article className="pf-obi-feature pf-reveal">
+            <div className="pf-obi-copy"><span className="pf-kicker">CERTIFICADO ORIGINAL · 2026</span><strong>146º <small>DE 2.923 PARTICIPANTES</small></strong><p>Participação na XXVIII Olimpíada Brasileira de Informática, modalidade Programação Nível 1.</p><a className="pf-obi-link" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer">Abrir certificado original (PDF) <span>↗</span></a></div>
+            <a className="pf-obi-paper" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer" aria-label="Abrir certificado original da OBI 2026 em PDF"><img src={url("media/certificates/obi-2026.webp")} alt="Prévia do certificado original da OBI 2026" loading="lazy" width="1684" height="1191" /></a>
+          </article>
         </section>
         <section id="galeria" className="pf-section pf-gallery">
           <SectionLabel number="06">O que fica</SectionLabel>
@@ -644,7 +622,7 @@ export function Portfolio() {
             ].map((c) => (
               <button
                 key={c}
-                onClick={() => setGalleryFilter(c)}
+                onClick={() => { setGalleryFilter(c); setGalleryExpanded(false); }}
                 aria-pressed={galleryFilter === c}
               >
                 {c}
@@ -652,11 +630,11 @@ export function Portfolio() {
             ))}
           </div>
           <div className="pf-gallery-grid">
-            {shown.map((p) => (
+            {visiblePhotos.map((p) => (
               <button
                 key={p.id}
                 className="pf-gallery-card"
-                onClick={() => open(shown, shown.indexOf(p))}
+                onClick={() => open(visiblePhotos, visiblePhotos.indexOf(p))}
                 aria-label={"Ampliar: " + p.title}
               >
                 <img
@@ -676,6 +654,7 @@ export function Portfolio() {
               </button>
             ))}
           </div>
+          {galleryFilter === "Todas" && <button className="pf-gallery-more" onClick={() => setGalleryExpanded(!galleryExpanded)} aria-expanded={galleryExpanded}>{galleryExpanded ? "Mostrar seleção" : `Ver arquivo completo · ${data.photos.length} fotos`} <span>{galleryExpanded ? "↑" : "↓"}</span></button>}
         </section>
         <section className="pf-explore pf-section">
           <span className="pf-kicker">UM OUTRO JEITO DE EXPLORAR</span>

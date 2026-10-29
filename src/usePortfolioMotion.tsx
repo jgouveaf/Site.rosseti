@@ -108,7 +108,7 @@ export function usePortfolioMotion() {
       const target = event.target as HTMLElement;
       pointer?.classList.toggle(
         "is-visible",
-        !!target.closest(".pf-photo,.pf-gallery-card,.pf-cert-card button"),
+        !!target.closest(".pf-photo,.pf-gallery-card,.pf-obi-paper"),
       );
       const magnet = target.closest<HTMLElement>(".pf-hero-cta,.pf-pill");
       if (magnet !== activeMagnet) {
@@ -133,7 +133,7 @@ export function usePortfolioMotion() {
       { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
     );
     const revealElements = root.querySelectorAll<HTMLElement>(
-      ".pf-label,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project,.pf-year,.pf-fecart,.pf-sport-copy,.pf-explore h2",
+      ".pf-label,.pf-route a,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project,.pf-year,.pf-fecart,.pf-sport-copy,.pf-obi-feature,.pf-explore h2",
     );
     revealElements.forEach((el, i) => {
       el.classList.add("motion-reveal");

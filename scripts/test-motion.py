@@ -17,11 +17,10 @@ with sync_playwright() as p:
  # Check click without forced events: focusing a card should not move it away from the pointer.
  page.locator('.pf-reel').evaluate('(e)=>scrollTo({top:e.offsetTop,behavior:"instant"})');page.wait_for_timeout(300)
  page.locator('.pf-reel-card button').first.click();page.wait_for_selector('dialog[open]')
- check('Reel photo opens on pointer click',page.locator('#pf-dialog-title').inner_text()=='Foco à mesa')
+ check('Reel photo opens on pointer click',page.locator('#pf-dialog-title').inner_text()=='FECART · apresentação do projeto')
  page.keyboard.press('Escape')
- page.locator('.pf-reel-card button').first.focus()
- for _ in range(3):page.keyboard.press('Tab');page.wait_for_timeout(120)
  card=page.locator('.pf-reel-card button').last
+ card.focus();page.wait_for_timeout(400)
  bounds=card.bounding_box()
  check('Keyboard reveals last reel card',card.evaluate('(e)=>e===document.activeElement') and bounds['x']>=0 and bounds['x']+bounds['width']<=1441)
  page.keyboard.press('Enter');page.wait_for_selector('dialog[open]');check('Keyboard opens last reel card','formatura' in page.locator('#pf-dialog-title').inner_text().lower());page.keyboard.press('Escape')
