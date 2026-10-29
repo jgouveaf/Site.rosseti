@@ -1321,3 +1321,65 @@
   .pf-route a, .pf-obi-paper, .pf-gallery-more, .pf-project-visual img, .pf-v2 .pf-achievement { transition: none; }
   .pf-route a:hover, .pf-obi-paper:hover, .pf-gallery-more:hover, .pf-v2 .pf-achievement:hover { transform: none; }
 }
+
+/* Neymar-inspired chapter navigation: a few real monochrome images and interactive stories. */
+.pf-v2 .pf-reel-card img,
+.pf-v2 .pf-sport-image img,
+.pf-v2 .pf-obi-paper img,
+.pf-v2 .pf-modal-image,
+.pf-v2 .pf-video video {
+  filter: grayscale(1) contrast(1.23);
+}
+.pf-v2 .pf-reel-card:hover img,
+.pf-v2 .pf-sport-image:hover img { filter: grayscale(1) contrast(1.4) brightness(1.12); }
+.pf-v2 .pf-reel-card img { transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s; }
+.pf-v2 .pf-reel-card:hover img { transform: scale(1.055); }
+
+.pf-project-explorer { display: grid; grid-template-columns: minmax(180px, 280px) minmax(0, 1fr); gap: 20px; margin-top: 32px; }
+.pf-project-tabs { display: flex; flex-direction: column; border-top: 1px solid #a9bc9b5c; }
+.pf-project-tabs button { display: grid; grid-template-columns: 32px minmax(0,1fr) 20px; align-items: center; gap: 8px; width: 100%; padding: 21px 10px; border: 0; border-bottom: 1px solid #a9bc9b5c; background: transparent; color: #d1d9c9; text-align: left; cursor: pointer; transition: color .3s, background .3s, padding-left .3s; }
+.pf-project-tabs button:hover, .pf-project-tabs button:focus-visible, .pf-project-tabs button[aria-selected="true"] { color: #111b0d; background: var(--acid); padding-left: 17px; }
+.pf-project-tabs span { font-size: 10px; letter-spacing: .08em; }
+.pf-project-tabs strong { font-size: clamp(15px, 1.5vw, 21px); font-weight: 550; letter-spacing: -.04em; }
+.pf-project-tabs i { font-style: normal; font-size: 18px; }
+.pf-project-stage { position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 450px; overflow: hidden; border: 1px solid #c5d1b150; background: #20291e; animation: pf-chapter-enter .55s cubic-bezier(.2,.7,.2,1) both; }
+.pf-project-stage-copy { z-index: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(25px,4vw,65px); }
+.pf-project-stage-copy > span { color: #b4c3a9; font-size: 9px; letter-spacing: .14em; }
+.pf-project-stage h3 { margin: 25px 0; max-width: 500px; color: white; font-size: clamp(44px,5.7vw,95px); font-weight: 550; letter-spacing: -.075em; line-height: .95; }
+.pf-project-stage p { color: #c6d0c0; max-width: 420px; font-size: 14px; line-height: 1.8; }
+.pf-project-stage small { margin-top: 30px; padding: 9px 13px; border: 1px solid #d5ff3980; border-radius: 100px; color: var(--acid); font-size: 11px; }
+.pf-project-stage-art { position: relative; display: grid; place-items: center; min-width: 0; overflow: hidden; background: radial-gradient(circle at 50% 50%, #c9ef4742, transparent 31%), repeating-radial-gradient(circle at 50% 50%, transparent 0 29px, #b2da4d30 30px 31px), #121d12; }
+.pf-project-stage-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #20291e, transparent 30%); }
+.pf-project-stage-art span { z-index: 1; color: #d5ff393b; font-size: clamp(190px,30vw,470px); font-weight: 700; letter-spacing: -.16em; line-height: 1; transform: translateX(-.08em); }
+.pf-project-stage-art i { position: absolute; z-index: 2; width: min(48%,240px); aspect-ratio: 1; border: 1px solid var(--acid); border-radius: 50%; box-shadow: 0 0 0 20px #d5ff3912, 0 0 0 55px #d5ff3908; animation: pf-pulse 3s ease-in-out infinite; }
+.pf-project-stage-art b { position: absolute; z-index: 2; bottom: 22px; right: 28px; color: #e0f6c4; font-size: 10px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase; }
+.pf-project-stage-1 .pf-project-stage-art { background: radial-gradient(circle at 60% 40%, #a9dc5638, transparent 33%), repeating-linear-gradient(90deg,#d5ff3920 0 1px,transparent 1px 18px),#101b13; }
+.pf-project-stage-2 .pf-project-stage-art { background: radial-gradient(circle at 55% 55%,#a9dc5638,transparent 36%), repeating-conic-gradient(from 15deg,#d5ff391c 0deg 2deg,transparent 2deg 30deg),#111c15; }
+.pf-project-stage-3 .pf-project-stage-art { background: radial-gradient(circle at 50% 50%,#a9dc5638,transparent 36%), linear-gradient(35deg,#25321e 0 25%,#111b12 25% 50%,#25321e 50% 75%,#111b12 75%); }
+@keyframes pf-chapter-enter { from { opacity: .35; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pf-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 28px #d5ff3910, 0 0 0 68px #d5ff3906; } }
+
+.pf-v2 .pf-year { margin-bottom: 0; }
+.pf-v2 .pf-year h3 { padding: 0; }
+.pf-v2 .pf-year h3 button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px 4px; border: 0; background: transparent; color: #172017; font: inherit; text-align: left; cursor: pointer; transition: padding-left .25s, color .25s; }
+.pf-v2 .pf-year h3 button:hover, .pf-v2 .pf-year h3 button:focus-visible { color: #618324; padding-left: 18px; }
+.pf-v2 .pf-year h3 button[aria-expanded="true"] { color: #618324; }
+.pf-v2 .pf-year ul { animation: pf-chapter-enter .35s both; }
+.pf-v2 .pf-year.undated { margin-top: 35px; }
+
+@media (max-width: 700px) {
+  .pf-project-explorer { grid-template-columns: 1fr; }
+  .pf-project-tabs { display: grid; grid-template-columns: 1fr 1fr; }
+  .pf-project-tabs button { padding: 12px 8px; min-height: 62px; }
+  .pf-project-tabs button:hover, .pf-project-tabs button[aria-selected="true"] { padding-left: 8px; }
+  .pf-project-tabs strong { font-size: 14px; }
+  .pf-project-stage { grid-template-columns: 1fr; min-height: 580px; }
+  .pf-project-stage-copy { justify-content: start; padding: 30px; }
+  .pf-project-stage-art { min-height: 250px; }
+  .pf-project-stage-art span { font-size: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-project-stage, .pf-v2 .pf-year ul { animation: none; }
+  .pf-project-stage-art i { animation: none; }
+  .pf-v2 .pf-reel-card img { transition: none; }
+}

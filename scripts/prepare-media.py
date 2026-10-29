@@ -29,7 +29,6 @@ items=[
 ('retrato',album/'2026-10-10-11-30-19-654.jpg','João Gouvêa','Pessoal',2026),
 ('tenis',album/'3O6A3784.JPG','Foco à mesa','Esportes',None),
 ('fecart',album/'Fecart-2026 (20) (1).JPG','FECART · apresentação do projeto','Robótica',2026),
-('obi',album/'1756598788641.jpg','Classificação para a fase nacional da OBI','Olimpíadas',None),
 ('infancia-piscina',album/'COOLPIX L1102612_Repaired.JPG','Infância · natação','Infância',None),
 ('equipe-mancini',album/'IMG_20250920_164421012_MP.jpg','Tênis de mesa · equipe Team Mancini','Esportes',2025),
 ('premiacao-2024',album/'IMG_20240421_122712014_MP.jpg','Inicup TT · premiação','Esportes',2024),

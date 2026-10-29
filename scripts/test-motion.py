@@ -17,7 +17,7 @@ with sync_playwright() as p:
  # Check click without forced events: focusing a card should not move it away from the pointer.
  page.locator('.pf-reel').evaluate('(e)=>scrollTo({top:e.offsetTop,behavior:"instant"})');page.wait_for_timeout(300)
  page.locator('.pf-reel-card button').first.click();page.wait_for_selector('dialog[open]')
- check('Reel photo opens on pointer click',page.locator('#pf-dialog-title').inner_text()=='FECART · apresentação do projeto')
+ check('Reel photo opens on pointer click',page.locator('#pf-dialog-title').inner_text()=='Infância · encontro em campo')
  page.keyboard.press('Escape')
  card=page.locator('.pf-reel-card button').last
  card.focus();page.wait_for_timeout(400)

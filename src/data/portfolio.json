@@ -281,18 +281,6 @@
       "thumbWidth": 720
     },
     {
-      "id": "obi",
-      "title": "Classificação para a fase nacional da OBI",
-      "category": "Olimpíadas",
-      "year": null,
-      "src": "media/photos/obi.webp",
-      "thumb": "media/photos/obi-small.webp",
-      "width": 720,
-      "height": 900,
-      "note": "",
-      "thumbWidth": 720
-    },
-    {
       "id": "infancia-piscina",
       "title": "Infância · natação",
       "category": "Infância",

@@ -27,6 +27,13 @@ const categories = [
   "Arte",
   "Projetos",
 ];
+const projects = [
+  { n: "01", name: "VisionAI", kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA", body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.", status: "Em desenvolvimento" },
+  { n: "02", name: "Frequência Morta", kind: "GAMEDEV / UNITY", body: "Projeto pessoal de jogo em desenvolvimento. Um espaço para aplicar programação, construir experiências e explorar a narrativa interativa.", status: "Em desenvolvimento" },
+  { n: "03", name: "ItalianWhey", kind: "COMUNICAÇÃO / CRIATIVIDADE", body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.", status: "Vencedor · 2025" },
+  { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista que integra minha trajetória criativa.", status: "Finalista" },
+];
+const curatedPhotos = ["tenis-preto-branco", "infancia-futebol", "unity", "formatura", "tenis"].map(photo);
 function SectionLabel({
   number,
   children,
@@ -46,9 +53,9 @@ function SectionLabel({
 export function Portfolio() {
   usePortfolioMotion();
   const [filter, setFilter] = useState("Todas");
-  const [galleryFilter, setGalleryFilter] = useState("Todas");
-  const [galleryExpanded, setGalleryExpanded] = useState(false);
   const [achievementsExpanded, setAchievementsExpanded] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(0);
+  const [selectedYear, setSelectedYear] = useState(years[years.length - 1]);
   const [modal, setModal] = useState<{ items: Media[]; index: number } | null>(
     null,
   );
@@ -57,13 +64,6 @@ export function Portfolio() {
   const fecartVideo = useRef<HTMLVideoElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const current = modal?.items[modal.index];
-  const shown = data.photos.filter(
-    (p) => galleryFilter === "Todas" || p.category === galleryFilter,
-  );
-  const featuredIds = ["tenis-preto-branco", "formatura", "fecart", "unity", "tenis", "obi"];
-  const visiblePhotos = galleryExpanded || galleryFilter !== "Todas"
-    ? shown
-    : featuredIds.map((id) => photo(id));
   const featuredAchievements = categories.slice(1).flatMap((category) =>
     data.achievements.filter((a) => a.category === category).slice(0, 2),
   );
@@ -108,7 +108,7 @@ export function Portfolio() {
     return (
       <button
         className={"pf-photo " + className}
-        onClick={() => open(data.photos, data.photos.indexOf(p))}
+        onClick={() => open(curatedPhotos, curatedPhotos.indexOf(p))}
         aria-label={"Ampliar: " + p.title}
       >
         <img
@@ -164,7 +164,7 @@ export function Portfolio() {
             ["projetos", "Projetos"],
             ["trajetoria", "Trajetória"],
             ["certificados", "Certificado OBI"],
-            ["galeria", "Galeria"],
+            ["momentos", "Momentos"],
           ].map(([id, title]) => (
             <a key={id} href={"#" + id} onClick={() => setMenu(false)}>
               {title}
@@ -337,7 +337,7 @@ export function Portfolio() {
             </div>
           </div>
         </section>
-        <section className="pf-reel" aria-label="Momentos em movimento">
+        <section id="momentos" className="pf-reel" aria-label="Três momentos em movimento">
           <div className="pf-reel-sticky">
             <div className="pf-reel-heading">
               <span className="pf-kicker">
@@ -353,8 +353,8 @@ export function Portfolio() {
             <div className="pf-reel-window">
               <div className="pf-reel-track">
                 {[
-                  { id: "inicup-art", word: "FOCO", label: "01 / DENTRO DO JOGO", art: true },
-                  { id: "fecart", word: "CRIAR", label: "02 / FORA DO ÓBVIO" },
+                  { id: "infancia-futebol", word: "COMEÇAR", label: "01 / PRIMEIROS PASSOS" },
+                  { id: "unity", word: "CRIAR", label: "02 / APRENDER FAZENDO" },
                   {
                     id: "formatura",
                     word: "SEGUIR",
@@ -363,7 +363,7 @@ export function Portfolio() {
                 ].map((item) => (
                   <article key={item.id} className="pf-reel-card">
                     <span>{item.label}</span>
-                    {item.art ? <div className="pf-photo pf-reel-art"><img src={url("media/concepts/inicup-art.webp")} alt="Edição artística da medalha InCupTT 2024" loading="lazy" /><span className="pf-photo-caption">EDIÇÃO ARTÍSTICA / MEDALHA ORIGINAL NA GALERIA</span></div> : picture(item.id)}
+                    {picture(item.id)}
                     <h3>
                       {item.word}
                       <span>↗</span>
@@ -423,48 +423,22 @@ export function Portfolio() {
               </p>
             </div>
           </article>
-          <div className="pf-project-grid">
-            {[
-              {
-                n: "01",
-                name: "VisionAI",
-                kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA",
-                body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.",
-                status: "Em desenvolvimento",
-                visual: "media/concepts/visionai-optics.webp",
-              },
-              {
-                n: "02",
-                name: "Frequência Morta",
-                kind: "GAMEDEV / UNITY",
-                body: "Projeto pessoal de jogo em desenvolvimento. Um espaço para aplicar programação, construir experiências e explorar a narrativa interativa.",
-                status: "Em desenvolvimento",
-              },
-              {
-                n: "03",
-                name: "ItalianWhey",
-                kind: "COMUNICAÇÃO / CRIATIVIDADE",
-                body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.",
-                status: "Vencedor · 2025",
-              },
-              {
-                n: "04",
-                name: "ACSI",
-                kind: "PROJETOS / CONQUISTAS",
-                body: "Projeto finalista em ACSI. Uma conquista que integra minha trajetória criativa.",
-                status: "Finalista",
-              },
-            ].map((p) => (
-              <article key={p.n} className="pf-project">
-                {p.visual && <div className="pf-project-visual"><img src={url(p.visual)} alt="Conceito visual abstrato de visão computacional, com lente e pontos de luz" loading="lazy" /><span>CONCEITO VISUAL ↗</span></div>}
-                <span>
-                  {p.n} / {p.kind}
-                </span>
-                <h3>{p.name}</h3>
-                <p>{p.body}</p>
-                <small>{p.status} ↗</small>
-              </article>
-            ))}
+          <div className="pf-project-explorer">
+            <div className="pf-project-tabs" role="tablist" aria-label="Escolher projeto">
+              {projects.map((project, index) => (
+                <button key={project.n} id={`project-tab-${index}`} role="tab" aria-selected={selectedProject === index} aria-controls="project-panel" tabIndex={selectedProject === index ? 0 : -1} onClick={() => setSelectedProject(index)} onKeyDown={(event) => {
+                  if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+                  event.preventDefault();
+                  const next = (index + (event.key === "ArrowRight" ? 1 : -1) + projects.length) % projects.length;
+                  setSelectedProject(next);
+                  document.getElementById(`project-tab-${next}`)?.focus();
+                }}><span>{project.n}</span><strong>{project.name}</strong><i>↗</i></button>
+              ))}
+            </div>
+            <article key={selectedProject} id="project-panel" className={`pf-project-stage pf-project-stage-${selectedProject}`} role="tabpanel" aria-labelledby={`project-tab-${selectedProject}`}>
+              <div className="pf-project-stage-copy"><span>{projects[selectedProject].n} / {projects[selectedProject].kind}</span><h3>{projects[selectedProject].name}</h3><p>{projects[selectedProject].body}</p><small>{projects[selectedProject].status} ↗</small></div>
+              <div className="pf-project-stage-art" aria-hidden="true"><span>{projects[selectedProject].n}</span><i /><b>{projects[selectedProject].name}</b></div>
+            </article>
           </div>
         </section>
         <section className="pf-sport">
@@ -543,19 +517,15 @@ export function Portfolio() {
                 <em>história.</em>
               </h2>
               <p>
-                Dos primeiros registros às experiências mais recentes. Uma
-                trajetória que continua.
+                Escolha um ano para descobrir os acontecimentos. A trajetória continua.
               </p>
-              <span>2017 — 2026 ↓</span>
+              <span>ESCOLHA UM ANO →</span>
             </div>
             <div className="pf-years">
               {years.map((year) => (
                 <article className="pf-year" key={year}>
-                  <h3>
-                    {year}
-                    <span>↗</span>
-                  </h3>
-                  <ul>
+                  <h3><button aria-expanded={selectedYear === year} aria-controls={selectedYear === year ? `year-${year}` : undefined} onClick={() => setSelectedYear(year)}>{year}<span>{selectedYear === year ? "−" : "+"}</span></button></h3>
+                  {selectedYear === year && <ul id={`year-${year}`}>
                     {data.achievements
                       .filter((a) => a.year === year)
                       .map((a) => (
@@ -565,7 +535,7 @@ export function Portfolio() {
                           <p>{a.result}</p>
                         </li>
                       ))}
-                  </ul>
+                  </ul>}
                 </article>
               ))}
               <article className="pf-year undated">
@@ -596,65 +566,6 @@ export function Portfolio() {
             <div className="pf-obi-copy"><span className="pf-kicker">CERTIFICADO ORIGINAL · 2026</span><strong>146º <small>DE 2.923 PARTICIPANTES</small></strong><p>Participação na XXVIII Olimpíada Brasileira de Informática, modalidade Programação Nível 1.</p><a className="pf-obi-link" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer">Abrir certificado original (PDF) <span>↗</span></a></div>
             <a className="pf-obi-paper" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer" aria-label="Abrir certificado original da OBI 2026 em PDF"><img src={url("media/certificates/obi-2026.webp")} alt="Prévia do certificado original da OBI 2026" loading="lazy" width="1684" height="1191" /></a>
           </article>
-        </section>
-        <section id="galeria" className="pf-section pf-gallery">
-          <SectionLabel number="06">O que fica</SectionLabel>
-          <div className="pf-section-heading">
-            <h2>
-              Mais que fotos.
-              <br />
-              <em>Memórias.</em>
-            </h2>
-            <p>
-              Infância, competições, cursos e encontros.
-              <br />O arquivo pessoal por trás das conquistas.
-            </p>
-          </div>
-          <div className="pf-filters" aria-label="Filtrar fotografias">
-            {[
-              "Todas",
-              "Pessoal",
-              "Infância",
-              "Esportes",
-              "Olimpíadas",
-              "Robótica",
-              "Programação",
-            ].map((c) => (
-              <button
-                key={c}
-                onClick={() => { setGalleryFilter(c); setGalleryExpanded(false); }}
-                aria-pressed={galleryFilter === c}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-          <div className="pf-gallery-grid">
-            {visiblePhotos.map((p) => (
-              <button
-                key={p.id}
-                className="pf-gallery-card"
-                onClick={() => open(visiblePhotos, visiblePhotos.indexOf(p))}
-                aria-label={"Ampliar: " + p.title}
-              >
-                <img
-                  src={url(p.thumb)}
-                  alt={p.title}
-                  loading="lazy"
-                  width={p.width}
-                  height={p.height}
-                />
-                <span>
-                  <small>
-                    {p.category} / {p.year || "ARQUIVO PESSOAL"}
-                  </small>
-                  <b>{p.title}</b>
-                  <i>↗</i>
-                </span>
-              </button>
-            ))}
-          </div>
-          {galleryFilter === "Todas" && <button className="pf-gallery-more" onClick={() => setGalleryExpanded(!galleryExpanded)} aria-expanded={galleryExpanded}>{galleryExpanded ? "Mostrar seleção" : `Ver arquivo completo · ${data.photos.length} fotos`} <span>{galleryExpanded ? "↑" : "↓"}</span></button>}
         </section>
         <section className="pf-explore pf-section">
           <span className="pf-kicker">UM OUTRO JEITO DE EXPLORAR</span>
