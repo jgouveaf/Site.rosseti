@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import data from "./data/portfolio.json";
 import "./portfolio.css";
 import "./motion-design.css";
+import "./editorial-redesign.css";
 import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 type Media = {
@@ -18,15 +19,6 @@ const photo = (id: string) => data.photos.find((p) => p.id === id)!;
 const years = [
   ...new Set(data.achievements.flatMap((a) => (a.year ? [a.year] : []))),
 ].sort((a, b) => a - b);
-const categories = [
-  "Todas",
-  "Olimpíadas",
-  "Robótica",
-  "Programação",
-  "Esportes",
-  "Arte",
-  "Projetos",
-];
 const projects = [
   { n: "01", name: "VisionAI", kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA", body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.", status: "Em desenvolvimento" },
   { n: "02", name: "Frequência Morta", kind: "GAMEDEV / UNITY", body: "Projeto pessoal de jogo em desenvolvimento. Um espaço para aplicar programação, construir experiências e explorar a narrativa interativa.", status: "Em desenvolvimento" },
@@ -52,10 +44,7 @@ function SectionLabel({
 }
 export function Portfolio() {
   usePortfolioMotion();
-  const [filter, setFilter] = useState("Todas");
-  const [achievementsExpanded, setAchievementsExpanded] = useState(false);
   const [selectedProject, setSelectedProject] = useState(0);
-  const [selectedYear, setSelectedYear] = useState(years[years.length - 1]);
   const [modal, setModal] = useState<{ items: Media[]; index: number } | null>(
     null,
   );
@@ -64,12 +53,6 @@ export function Portfolio() {
   const fecartVideo = useRef<HTMLVideoElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const current = modal?.items[modal.index];
-  const featuredAchievements = categories.slice(1).flatMap((category) =>
-    data.achievements.filter((a) => a.category === category).slice(0, 2),
-  );
-  const visibleAchievements = filter === "Todas"
-    ? achievementsExpanded ? data.achievements : featuredAchievements
-    : data.achievements.filter((a) => a.category === filter);
   const open = (items: Media[], index: number) => {
     returnFocus.current = document.activeElement as HTMLElement;
     setModal({ items, index });
@@ -293,6 +276,7 @@ export function Portfolio() {
                 novo. Na arte e nos projetos criativos, espaço para
                 experimentar.
               </p>
+              <p className="pf-past-sport">Também joguei futsal no Kogachi e no Democrático Futsal.</p>
               <dl className="pf-profile">
                 <div>
                   <dt>FORMAÇÃO</dt>
@@ -307,8 +291,8 @@ export function Portfolio() {
                   <dd>Inglês · {data.profile.english}</dd>
                 </div>
                 <div>
-                  <dt>FUTSAL</dt>
-                  <dd>{data.sports.futsalClubs.join(" · ")}</dd>
+                  <dt>TÊNIS DE MESA · ATUAL</dt>
+                  <dd>{data.sports.tableTennisTeams.join(" · ")}</dd>
                 </div>
               </dl>
             </div>
@@ -453,103 +437,61 @@ export function Portfolio() {
               <em>agora.</em>
             </h2>
             <p>
-              Da piscina à mesa, o esporte faz parte de quem sou. Cada treino e
+              No tênis de mesa, represento Itaim Keiko e FECAP. Cada treino e
               cada competição entram nessa história.
             </p>
-            <a href="#conquistas" className="pf-link">
-              Explorar conquistas <span>↗</span>
+            <a href="#trajetoria" className="pf-link">
+              Percorrer trajetória <span>↗</span>
             </a>
           </div>
         </section>
-        <section id="conquistas" className="pf-section">
-          <SectionLabel number="03">
-            Pequenos passos. Grandes memórias.
-          </SectionLabel>
-          <div className="pf-section-heading">
-            <h2>
-              Uma coleção
-              <br />
-              de <em>conquistas.</em>
-            </h2>
-            <p>
-              Ciência, tecnologia, arte e esporte.
-              <br />
-              Diferentes caminhos, a mesma vontade de aprender.
-            </p>
-          </div>
-          <div className="pf-filters" aria-label="Filtrar conquistas">
-            {categories.map((c) => (
-              <button
-                key={c}
-                aria-pressed={filter === c}
-                onClick={() => { setFilter(c); setAchievementsExpanded(false); }}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-          <div className="pf-achievement-grid" aria-live="polite">
-            {visibleAchievements.map((a) => (
-                <article className="pf-achievement" key={a.id}>
-                  <div>
-                    <span>{a.category}</span>
-                    <span>{a.year || "SEM DATA CONFIRMADA"}</span>
-                  </div>
-                  <h3>{a.title}</h3>
-                  <p>{a.result}</p>
-                </article>
-              ))}
-          </div>
-          {filter === "Todas" && <button className="pf-gallery-more" onClick={() => setAchievementsExpanded(!achievementsExpanded)} aria-expanded={achievementsExpanded}>{achievementsExpanded ? "Mostrar destaques" : `Ver todas as ${data.achievements.length} conquistas`} <span>{achievementsExpanded ? "↑" : "↓"}</span></button>}
-          <p className="pf-source-note">
-            Histórico informado por João. O certificado OBI original está disponível abaixo.
-          </p>
+        <section className="pf-manifesto" aria-label="Esporte, tecnologia e criação">
+          <span className="pf-manifesto-index">01 / 02 / 03 — EM MOVIMENTO</span>
+          <p>IDEIAS EM <em>CÓDIGO.</em><br />FOCO NO <em>JOGO.</em><br />OLHOS NO <em>FUTURO.</em></p>
+          <div className="pf-manifesto-bottom"><span>DA MESA AO LABORATÓRIO</span><span>↓ CONTINUE ROLANDO</span></div>
         </section>
         <section id="trajetoria" className="pf-section pf-timeline">
-          <SectionLabel number="04">O caminho até aqui</SectionLabel>
+          <SectionLabel number="03">A história acontece enquanto você rola</SectionLabel>
           <div className="pf-timeline-grid">
             <div className="pf-timeline-title">
-              <h2>
-                Tudo faz
-                <br />
-                parte da
-                <br />
-                <em>história.</em>
-              </h2>
-              <p>
-                Escolha um ano para descobrir os acontecimentos. A trajetória continua.
-              </p>
-              <span>ESCOLHA UM ANO →</span>
+              <span className="pf-kicker">ARQUIVO / TRAJETÓRIA</span>
+              <h2>UM PASSO<br />DE CADA <em>VEZ.</em></h2>
+              <p>Esporte, olimpíadas, tecnologia e criação. Os marcos aparecem na sequência da jornada, sem precisar abrir nada.</p>
+              <span>ROLE PARA EXPLORAR ↓</span>
             </div>
             <div className="pf-years">
               {years.map((year) => (
                 <article className="pf-year" key={year}>
-                  <h3><button aria-expanded={selectedYear === year} aria-controls={selectedYear === year ? `year-${year}` : undefined} onClick={() => setSelectedYear(year)}>{year}<span>{selectedYear === year ? "−" : "+"}</span></button></h3>
-                  {selectedYear === year && <ul id={`year-${year}`}>
-                    {data.achievements
-                      .filter((a) => a.year === year)
-                      .map((a) => (
-                        <li key={a.id}>
-                          <span>{a.category}</span>
-                          <h4>{a.title}</h4>
-                          <p>{a.result}</p>
-                        </li>
-                      ))}
-                  </ul>}
+                  <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>
+                  <ul id={`year-${year}`}>
+                    {data.achievements.filter((a) => a.year === year).map((a, index) => (
+                      <li key={a.id} className="pf-history-item pf-reveal">
+                        <span>{String(index + 1).padStart(2, "0")} / {a.category}</span>
+                        <h4>{a.title}</h4>
+                        <p>{a.result}</p>
+                      </li>
+                    ))}
+                  </ul>
                 </article>
               ))}
-              <article className="pf-year undated">
-                <h3>Além das datas</h3>
-                <p>
-                  As conquistas sem ano confirmado permanecem na coleção, sem
-                  atribuição de uma data presumida.
-                </p>
+              <article className="pf-year pf-year-undated">
+                <h3><span>SEM DATA</span><small>OUTROS MARCOS</small></h3>
+                <ul>
+                  {data.achievements.filter((a) => !a.year).map((a, index) => (
+                    <li key={a.id} className="pf-history-item pf-reveal">
+                      <span>{String(index + 1).padStart(2, "0")} / {a.category}</span>
+                      <h4>{a.title}</h4>
+                      <p>{a.result}</p>
+                    </li>
+                  ))}
+                </ul>
               </article>
+              <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>
             </div>
           </div>
         </section>
         <section id="certificados" className="pf-section pf-certificates">
-          <SectionLabel number="05">Documento original</SectionLabel>
+          <SectionLabel number="04">Documento original</SectionLabel>
           <div className="pf-section-heading">
             <h2>
               OBI 2026,

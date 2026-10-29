@@ -10,6 +10,7 @@
   "sports": {
     "swimmingMedals": 16,
     "tableTennisMedals": 10,
+    "tableTennisTeams": ["Itaim Keiko", "FECAP"],
     "futsalClubs": [
       "Kogachi",
       "Democrático Futsal"
@@ -723,7 +724,7 @@
       "title": "Tênis de mesa",
       "category": "Esportes",
       "year": null,
-      "result": "10 medalhas",
+      "result": "10 medalhas · Itaim Keiko e FECAP",
       "photo": "podio"
     },
     {
@@ -731,7 +732,7 @@
       "title": "Futsal",
       "category": "Esportes",
       "year": null,
-      "result": "Kogachi · Democrático Futsal",
+      "result": "Joguei no Kogachi e no Democrático Futsal",
       "photo": "infancia-futebol"
     },
     {
