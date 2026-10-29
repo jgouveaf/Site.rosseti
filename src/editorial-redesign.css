@@ -8,7 +8,7 @@
 .pf-v2 .pf-hero-cinema { background:#070707; }
 .pf-v2 .pf-hero-cinema::after { content:"JG / 26"; position:absolute; z-index:2; right:4vw; top:115px; writing-mode:vertical-rl; color:#fff; font-size:11px; letter-spacing:.4em; }
 .pf-v2 .pf-hero-image { width:60%; right:0; clip-path:polygon(19% 0,100% 0,100% 100%,0 100%); }
-.pf-v2 .pf-hero-photo img { filter:grayscale(1) contrast(1.6) brightness(.9); object-position:52% 33%; }
+.pf-v2 .pf-hero-photo img { filter:contrast(1.08) brightness(1.02); object-position:52% 33%; }
 .pf-v2 .pf-hero-atmosphere { background:linear-gradient(90deg,#070707 0 15%,#070707d9 30%,transparent 68%),linear-gradient(0deg,#080808 0%,transparent 45%); }
 .pf-v2 .pf-wire { opacity:.12; color:#ff5835; }
 .pf-v2 .pf-hero-title { top:24%; }
@@ -41,7 +41,7 @@
 .pf-v2 .pf-reel-card .pf-photo { border-radius:0; border:8px solid #eeeae1; box-shadow:25px 25px 0 #ff5835; overflow:hidden; }
 .pf-v2 .pf-reel-card:nth-child(2) .pf-photo { box-shadow:25px 25px 0 #72736a; transform:rotate(2deg); }
 .pf-v2 .pf-reel-card:nth-child(3) .pf-photo { box-shadow:25px 25px 0 #ff5835; transform:rotate(-2deg); }
-.pf-v2 .pf-reel-card img { filter:grayscale(1) contrast(1.35); }
+.pf-v2 .pf-reel-card img { filter:contrast(1.04) brightness(1.02); }
 .pf-v2 .pf-reel-card h3 { margin-top:32px; font-style:italic; text-transform:uppercase; }
 .pf-v2 .pf-projects { background:#e8e4db; }
 .pf-v2 .pf-project-tabs button { color:#282722; border-color:#9c988f; font-weight:650; }
@@ -60,7 +60,7 @@
 .pf-v2 .pf-sport-copy h2 { color:#141414; font-style:italic; text-transform:uppercase; }
 .pf-v2 .pf-sport-copy em { color:#f0ede5; }
 .pf-v2 .pf-sport-image { overflow:hidden; }
-.pf-v2 .pf-sport-image img { filter:grayscale(1) contrast(1.4); }
+.pf-v2 .pf-sport-image img { filter:contrast(1.04) brightness(1.02); }
 .pf-v2 .pf-sport .pf-link { border-color:#141414; }
 .pf-manifesto { position:relative; min-height:110svh; display:flex; flex-direction:column; justify-content:space-between; padding:7vw 5vw 4vw; background:#111; color:#eeeae0; overflow:hidden; }
 .pf-manifesto::before { content:"✳"; position:absolute; top:0; right:-8vw; font-size:58vw; line-height:.8; color:#ff5835; opacity:.16; animation:pf-manifesto-spin 35s linear infinite; pointer-events:none; }
@@ -107,7 +107,7 @@
 .pf-v2 .pf-hero-cinema::before { content:""; position:absolute; z-index:-3; width:38vw; aspect-ratio:1; border-radius:50%; left:-16vw; bottom:-17vw; background:radial-gradient(circle at 65% 30%,#ff58355c,#ff58350f 60%,transparent 72%); pointer-events:none; }
 .pf-v2 .pf-hero-cinema::after { color:#77736d; }
 .pf-v2 .pf-hero-image { width:40%; right:8%; top:65px; bottom:0; clip-path:none; -webkit-mask-image:radial-gradient(ellipse 55% 64% at 53% 50%,#000 48%,#000a 68%,transparent 100%); mask-image:radial-gradient(ellipse 55% 64% at 53% 50%,#000 48%,#000a 68%,transparent 100%); }
-.pf-v2 .pf-hero-photo img { filter:grayscale(1) contrast(1.35) brightness(1.18); opacity:.91; object-position:50% 42%; }
+.pf-v2 .pf-hero-photo img { filter:contrast(1.06) brightness(1.02); opacity:.95; object-position:50% 42%; }
 .pf-v2 .pf-hero-atmosphere { background:linear-gradient(90deg,#f3f0e9 0%,#f3f0e9b5 22%,transparent 58%),linear-gradient(0deg,#f3f0e9 0%,transparent 24%); box-shadow:none; }
 .pf-v2 .pf-wire { color:#ff5835; opacity:.16; }
 .pf-v2 .pf-hero-title { top:20%; }

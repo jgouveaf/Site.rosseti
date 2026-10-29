@@ -1,0 +1,58 @@
+{
+  "name": "João Gouvêa — Inteligência Artificial, Esporte & Inovação",
+  "short_name": "JG Portfolio",
+  "description": "Portfólio editorial e cinematográfico de João Gouvêa: IA, robótica, conquistas esportivas e projetos criativos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090A0C",
+  "theme_color": "#090A0C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23090a0c' d='M0 0h64v64H0z'/%3E%3Cpath fill='none' stroke='%23d2ff00' stroke-width='4' d='M32 8L56 32 32 56 8 32Z M32 20L44 32 32 44 20 32Z'/%3E%3C/svg%3E",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ],
+  "dynListPages": {
+    "/": true,
+    "/exploracao": true,
+    "/neymar": true
+  },
+  "detailPages": {
+    "projetos": "/#projetos",
+    "conquistas": "/#conquistas",
+    "esportes": "/#esportes",
+    "acervo": "/#acervo"
+  },
+  "redirectDomain": "jgouveaf.github.io",
+  "onlySSL": true,
+  "upstreamRenderer": "react-vite",
+  "designSystem": {
+    "version": "3.0.0",
+    "references": {
+      "rafaelRossetti": "Editorial layout, academic rigor, Schema.org Person JSON-LD, structured timeline and project cards",
+      "igloo": "Atmospheric 3D HUD, WebGL/Three.js spatial depth, dark obsidian #090A0C canvas, cinematic materials",
+      "landoNorris": "Athletic telemetry tokens, neon lime #d2ff00 contrast, high-impact typography, modular metric badges"
+    },
+    "tokens": {
+      "colors": {
+        "obsidian": "#090A0C",
+        "surface": "#121417",
+        "surfaceElevated": "#1A1D22",
+        "neonLime": "#d2ff00",
+        "limeOff": "#b2c73a",
+        "editorialCream": "#eae9e2",
+        "deepTeal": "#063c39",
+        "mutedText": "#8b909d",
+        "border": "#282c20"
+      },
+      "typography": {
+        "display": "Space Grotesk, Brier, sans-serif",
+        "editorial": "DM Serif Display, Georgia, serif",
+        "body": "Manrope, Mona Sans, sans-serif",
+        "telemetry": "IBM Plex Mono, monospace"
+      }
+    }
+  }
+}

@@ -2,15 +2,78 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23090a0c' d='M0 0h64v64H0z'/%3E%3Cpath fill='none' stroke='%23c99d70' stroke-width='4' d='M32 8L56 32 32 56 8 32Z M32 20L44 32 32 44 20 32Z'/%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23090a0c' d='M0 0h64v64H0z'/%3E%3Cpath fill='none' stroke='%23d2ff00' stroke-width='4' d='M32 8L56 32 32 56 8 32Z M32 20L44 32 32 44 20 32Z'/%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#eae9e2" />
-    <meta name="description" content="Portfólio de João Gouvêa: inteligência artificial, robótica, jogos, conquistas e memórias. Conheça os projetos, certificados e a trajetória." />
-    <title>João Gouvêa — Tecnologia, esporte e possibilidades</title>
+    <meta name="theme-color" content="#090A0C" />
+    <meta name="description" content="Portfólio de João Gouvêa: inteligência artificial, robótica, jogos, conquistas e memórias esportivas. Conheça os projetos, certificados e a trajetória." />
+    <title>João Gouvêa — Inteligência Artificial, Esporte & Inovação</title>
+
+    <!-- Web App & Upstream Manifest (Lando Norris pattern) -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Fonts: Space Grotesk, Manrope, Mona Sans & DM Serif Display (Rafael Rossetti & Igloo patterns) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Open Graph & Social Cards -->
+    <meta property="og:title" content="João Gouvêa — Inteligência Artificial, Esporte & Inovação" />
+    <meta property="og:description" content="Portfólio editorial e cinematográfico de João Gouvêa: IA, robótica, tênis de mesa, natação e conquistas acadêmicas." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jgouveaf.github.io/Site.rosseti/" />
+    <meta property="og:image" content="/media/photos/tenis-preto-branco.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="João Gouvêa — Inteligência Artificial, Esporte & Inovação" />
+    <meta name="twitter:description" content="Portfólio editorial e cinematográfico: projetos de IA, robótica, certificados e trajetória esportiva." />
+    <meta name="twitter:image" content="/media/photos/tenis-preto-branco.webp" />
+
+    <!-- Schema.org JSON-LD Structured Data (Rafael Rossetti pattern) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "inLanguage": "pt-BR",
+      "url": "https://jgouveaf.github.io/Site.rosseti/",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "João Gouvêa",
+        "alternateName": "João Victor Gouvêa",
+        "description": "Estudante de Inteligência Artificial no 1º ano do Ensino Médio da FECAP, atleta de tênis de mesa (Itaim Keiko / FECAP) e natação, desenvolvedor de robótica e gamedev.",
+        "alumniOf": [
+          {
+            "@type": "EducationalOrganization",
+            "name": "FECAP",
+            "department": "Ensino Médio Técnico em Inteligência Artificial"
+          }
+        ],
+        "knowsAbout": [
+          "Inteligência Artificial",
+          "Robótica",
+          "Visão Computacional",
+          "Unity & GameDev",
+          "Tênis de Mesa",
+          "Natação"
+        ],
+        "award": [
+          "Canguru de Matemática (Prata e Bronze)",
+          "Poliedro Matemática (Prata e Bronze)",
+          "Torneio de Robótica Zoom (Ouro e Prata)",
+          "OBI - Olimpíada Brasileira de Informática (Classificação Nacional)",
+          "Concurso de Arte (1º Lugar)",
+          "Inicup TT - Campeão Sub-13",
+          "16 Medalhas de Natação",
+          "10 Medalhas de Tênis de Mesa"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Estudante & Pesquisador Júnior em Inteligência Artificial"
+        }
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

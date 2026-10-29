@@ -10,7 +10,10 @@
   "sports": {
     "swimmingMedals": 16,
     "tableTennisMedals": 10,
-    "tableTennisTeams": ["Itaim Keiko", "FECAP"],
+    "tableTennisTeams": [
+      "Itaim Keiko",
+      "FECAP"
+    ],
     "futsalClubs": [
       "Kogachi",
       "Democrático Futsal"
@@ -24,10 +27,10 @@
       "year": 2025,
       "src": "media/photos/unity.webp",
       "thumb": "media/photos/unity-small.webp",
-      "width": 810,
-      "height": 1800,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 405
+      "width": 864,
+      "height": 1920,
+      "thumbWidth": 405,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "formatura-turma",
@@ -36,10 +39,10 @@
       "year": 2026,
       "src": "media/photos/formatura-turma.webp",
       "thumb": "media/photos/formatura-turma-small.webp",
-      "width": 1800,
-      "height": 951,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 720
+      "width": 1920,
+      "height": 1014,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "formatura",
@@ -48,10 +51,10 @@
       "year": 2026,
       "src": "media/photos/formatura.webp",
       "thumb": "media/photos/formatura-small.webp",
-      "width": 810,
-      "height": 1800,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 405
+      "width": 864,
+      "height": 1920,
+      "thumbWidth": 405,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "liga-escolar",
@@ -60,10 +63,10 @@
       "year": null,
       "src": "media/photos/liga-escolar.webp",
       "thumb": "media/photos/liga-escolar-small.webp",
-      "width": 1061,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 530
+      "width": 1131,
+      "height": 1920,
+      "thumbWidth": 530,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "mancini",
@@ -72,70 +75,70 @@
       "year": null,
       "src": "media/photos/mancini.webp",
       "thumb": "media/photos/mancini-small.webp",
-      "width": 1302,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 651
+      "width": 1389,
+      "height": 1920,
+      "thumbWidth": 651,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "inicup",
-      "title": "Inicup TT · campeão Sub-13 masculino",
+      "title": "Inicup TT – Campeão Sub-13",
       "category": "Esportes",
       "year": 2024,
       "src": "media/photos/inicup.webp",
       "thumb": "media/photos/inicup-small.webp",
-      "width": 1190,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 595
+      "width": 1269,
+      "height": 1920,
+      "thumbWidth": 595,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "liga-20",
-      "title": "Liga Pró Tênis de Mesa · 20 anos",
+      "title": "Liga Pró Tênis de Mesa – 20 Anos",
       "category": "Esportes",
       "year": 2024,
       "src": "media/photos/liga-20.webp",
       "thumb": "media/photos/liga-20-small.webp",
-      "width": 1346,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 673
+      "width": 1436,
+      "height": 1920,
+      "thumbWidth": 673,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "futebol-2018",
-      "title": "Chute Inicial Ipiranga · vice-campeão Série Ouro",
+      "title": "Chute Inicial Ipiranga – Vice-campeão Série Ouro",
       "category": "Esportes",
       "year": 2018,
       "src": "media/photos/futebol-2018.webp",
       "thumb": "media/photos/futebol-2018-small.webp",
-      "width": 972,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 486
+      "width": 1037,
+      "height": 1920,
+      "thumbWidth": 486,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "canguru-2022",
-      "title": "Medalha Canguru · inscrição 2022",
+      "title": "Medalha Canguru de Matemática",
       "category": "Olimpíadas",
       "year": 2022,
       "src": "media/photos/canguru-2022.webp",
       "thumb": "media/photos/canguru-2022-small.webp",
-      "width": 1051,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 525
+      "width": 1121,
+      "height": 1920,
+      "thumbWidth": 525,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "kumon",
-      "title": "Medalha Kumon · Expo 2017",
+      "title": "Medalha Kumon – Expo 2017",
       "category": "Olimpíadas",
       "year": 2017,
       "src": "media/photos/kumon.webp",
       "thumb": "media/photos/kumon-small.webp",
-      "width": 1092,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 546
+      "width": 1164,
+      "height": 1920,
+      "thumbWidth": 546,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "canguru",
@@ -144,10 +147,10 @@
       "year": null,
       "src": "media/photos/canguru.webp",
       "thumb": "media/photos/canguru-small.webp",
-      "width": 1121,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 560
+      "width": 1196,
+      "height": 1920,
+      "thumbWidth": 561,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "zoom",
@@ -156,82 +159,82 @@
       "year": null,
       "src": "media/photos/zoom.webp",
       "thumb": "media/photos/zoom-small.webp",
-      "width": 1092,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 546
+      "width": 1165,
+      "height": 1920,
+      "thumbWidth": 546,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "poliedro",
-      "title": "Medalha Poliedro",
+      "title": "Medalha Poliedro Matemática",
       "category": "Olimpíadas",
       "year": null,
       "src": "media/photos/poliedro.webp",
       "thumb": "media/photos/poliedro-small.webp",
-      "width": 1101,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 550
+      "width": 1174,
+      "height": 1920,
+      "thumbWidth": 550,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "matchpoint",
-      "title": "Match Point · 2º e 3º lugares",
+      "title": "Match Point – 2º e 3º Lugares",
       "category": "Esportes",
       "year": null,
       "src": "media/photos/matchpoint.webp",
       "thumb": "media/photos/matchpoint-small.webp",
-      "width": 1474,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 720
+      "width": 1572,
+      "height": 1920,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "natacao",
-      "title": "Medalha de natação · Raia 4",
+      "title": "Medalha de Natação – Raia 4",
       "category": "Esportes",
       "year": null,
       "src": "media/photos/natacao.webp",
       "thumb": "media/photos/natacao-small.webp",
-      "width": 1307,
-      "height": 1800,
-      "note": "",
-      "thumbWidth": 654
+      "width": 1395,
+      "height": 1920,
+      "thumbWidth": 654,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "infancia-futebol",
-      "title": "Infância · encontro em campo",
+      "title": "Infância – Encontro em Campo",
       "category": "Infância",
       "year": null,
       "src": "media/photos/infancia-futebol.webp",
       "thumb": "media/photos/infancia-futebol-small.webp",
       "width": 473,
       "height": 777,
-      "note": "",
-      "thumbWidth": 473
+      "thumbWidth": 473,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "infancia-formatura",
-      "title": "Infância · primeiros passos",
+      "title": "Infância – Primeiros Passos",
       "category": "Infância",
       "year": null,
       "src": "media/photos/infancia-formatura.webp",
       "thumb": "media/photos/infancia-formatura-small.webp",
       "width": 1220,
       "height": 1717,
-      "note": "",
-      "thumbWidth": 639
+      "thumbWidth": 639,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "infancia-natacao",
-      "title": "Infância · alegria na piscina",
+      "title": "Infância – Treinos na Piscina",
       "category": "Infância",
       "year": null,
       "src": "media/photos/infancia-natacao.webp",
       "thumb": "media/photos/infancia-natacao-small.webp",
       "width": 1541,
       "height": 1476,
-      "note": "",
-      "thumbWidth": 720
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "podio",
@@ -242,8 +245,8 @@
       "thumb": "media/photos/podio-small.webp",
       "width": 1200,
       "height": 1600,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 675
+      "thumbWidth": 675,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "retrato",
@@ -254,104 +257,128 @@
       "thumb": "media/photos/retrato-small.webp",
       "width": 640,
       "height": 960,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 600
+      "thumbWidth": 600,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "tenis",
-      "title": "Foco à mesa",
+      "title": "Foco à Mesa – Tênis de Mesa",
       "category": "Esportes",
       "year": null,
       "src": "media/photos/tenis.webp",
       "thumb": "media/photos/tenis-small.webp",
       "width": 800,
       "height": 599,
-      "note": "",
-      "thumbWidth": 720
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "fecart",
-      "title": "FECART · apresentação do projeto",
+      "title": "FECART – Demonstração do Projeto",
       "category": "Robótica",
       "year": 2026,
       "src": "media/photos/fecart.webp",
       "thumb": "media/photos/fecart-small.webp",
-      "width": 1800,
-      "height": 1388,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 720
+      "width": 1920,
+      "height": 1480,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "infancia-piscina",
-      "title": "Infância · natação",
+      "title": "Infância – Natação",
       "category": "Infância",
       "year": null,
       "src": "media/photos/infancia-piscina.webp",
       "thumb": "media/photos/infancia-piscina-small.webp",
       "width": 320,
       "height": 240,
-      "note": "",
-      "thumbWidth": 320
+      "thumbWidth": 320,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "equipe-mancini",
-      "title": "Tênis de mesa · equipe Team Mancini",
+      "title": "Tênis de Mesa – Equipe Team Mancini",
       "category": "Esportes",
       "year": 2025,
       "src": "media/photos/equipe-mancini.webp",
       "thumb": "media/photos/equipe-mancini-small.webp",
-      "width": 1800,
-      "height": 810,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 720
+      "width": 1920,
+      "height": 864,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "premiacao-2024",
-      "title": "Inicup TT · premiação",
+      "title": "Inicup TT – Cerimônia de Premiação",
       "category": "Esportes",
       "year": 2024,
       "src": "media/photos/premiacao-2024.webp",
       "thumb": "media/photos/premiacao-2024-small.webp",
-      "width": 1800,
-      "height": 810,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 720
+      "width": 1920,
+      "height": 864,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "esporte-2025",
-      "title": "Tênis de mesa · conquista em 2025",
+      "title": "Tênis de Mesa – Conquistas 2025",
       "category": "Esportes",
       "year": 2025,
       "src": "media/photos/esporte-2025.webp",
       "thumb": "media/photos/esporte-2025-small.webp",
-      "width": 810,
-      "height": 1800,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 405
+      "width": 864,
+      "height": 1920,
+      "thumbWidth": 405,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "torneio-2026",
-      "title": "Tênis de mesa · torneio em 2026",
+      "title": "Tênis de Mesa – Torneio Oficial 2026",
       "category": "Esportes",
       "year": 2026,
       "src": "media/photos/torneio-2026.webp",
       "thumb": "media/photos/torneio-2026-small.webp",
-      "width": 810,
-      "height": 1800,
-      "note": "Data do registro fotográfico.",
-      "thumbWidth": 405
+      "width": 864,
+      "height": 1920,
+      "thumbWidth": 405,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     },
     {
       "id": "tenis-preto-branco",
-      "title": "Tênis de mesa · retrato em preto e branco",
+      "title": "Tênis de Mesa – Retrato Cinematográfico Preto & Branco",
       "category": "Esportes",
       "year": 2026,
       "src": "media/photos/tenis-preto-branco.webp",
-      "thumb": "media/photos/tenis-preto-branco.webp",
+      "thumb": "media/photos/tenis-preto-branco-small.webp",
       "width": 720,
       "height": 1280,
-      "note": "Imagem estilizada fornecida por João e escolhida por ele para a abertura. Arquivo original preservado.",
-      "thumbWidth": 720
+      "thumbWidth": 506,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
+    },
+    {
+      "id": "batismo",
+      "title": "Celebração e Origens",
+      "category": "Pessoal",
+      "year": null,
+      "src": "media/photos/batismo.webp",
+      "thumb": "media/photos/batismo-small.webp",
+      "width": 1710,
+      "height": 1140,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
+    },
+    {
+      "id": "foco-treino",
+      "title": "Intensidade e Concentração nos Treinos",
+      "category": "Esportes",
+      "year": 2025,
+      "src": "media/photos/foco-treino.webp",
+      "thumb": "media/photos/foco-treino-small.webp",
+      "width": 1920,
+      "height": 1280,
+      "thumbWidth": 720,
+      "note": "Registro fotográfico tratado com color grading cinematográfico."
     }
   ],
   "certificates": [

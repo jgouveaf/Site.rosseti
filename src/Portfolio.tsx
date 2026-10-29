@@ -247,6 +247,25 @@ export function Portfolio() {
             </div>
           </div>
         </section>
+        <div className="pf-telemetry-hud" aria-label="Telemetria e Status">
+          <div className="pf-telemetry-item">
+            <span className="pf-telemetry-indicator" />
+            <span className="pf-telemetry-label">STATUS:</span>
+            <strong className="pf-telemetry-value">ATIVO / EM EVOLUÇÃO</strong>
+          </div>
+          <div className="pf-telemetry-item">
+            <span className="pf-telemetry-label">DISCIPLINA:</span>
+            <strong className="pf-telemetry-value">IA &amp; ROBÓTICA · FECAP</strong>
+          </div>
+          <div className="pf-telemetry-item">
+            <span className="pf-telemetry-label">ATLETISMO:</span>
+            <strong className="pf-telemetry-value">TÊNIS DE MESA &amp; NATAÇÃO</strong>
+          </div>
+          <div className="pf-telemetry-item">
+            <span className="pf-telemetry-label">MARCOS:</span>
+            <strong className="pf-telemetry-value">26+ MEDALHAS &amp; PRÊMIOS</strong>
+          </div>
+        </div>
         <div className="pf-ticker" aria-hidden="true">
           <span>
             APRENDER. CRIAR. EXPLORAR. <b>✳</b> APRENDER. CRIAR. EXPLORAR.{" "}

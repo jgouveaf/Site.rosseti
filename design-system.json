@@ -1,33 +1,70 @@
 {
-  "name": "OBSIDIAN Design System V2",
-  "version": "2.0.0",
-  "referencePriority": { "igloo": 0.95, "brunoSimon": 0.05 },
+  "name": "João Gouvêa — Unified Design System V3",
+  "version": "3.0.0",
+  "references": {
+    "rafaelRossetti": {
+      "url": "https://rafaelrossetti.com.br/",
+      "influence": "Academic & editorial hierarchy, Schema.org Person JSON-LD, structured cards, serif typography accents, deep teal & paper accents",
+      "weight": 0.35
+    },
+    "igloo": {
+      "url": "https://www.igloo.inc/",
+      "influence": "Atmospheric 3D HUD, WebGL spatial depth, obsidian #090A0C dark space, icy metallic/bronze accents, smooth scroll-driven interactive layer",
+      "weight": 0.35
+    },
+    "landoNorris": {
+      "url": "https://landonorris.com/",
+      "influence": "Racing telemetry & athletic badges, neon lime #d2ff00 contrast, high-impact typography, modular metric counters, upstream manifest.json",
+      "weight": 0.30
+    }
+  },
   "visualDirection": {
-    "identity": "cinematic sci-fi realism",
-    "composition": "monumental and minimal",
-    "interfaceDensity": "low",
-    "visualFidelity": "high",
+    "identity": "Cinematic Editorial Sports & Sci-Fi Realism",
+    "composition": "Monumental, immersive, high-contrast and data-informed",
+    "interfaceDensity": "Balanced editorial with telemetry overlays",
+    "visualFidelity": "High (PBR materials, cinematic color grading, 35mm grain texture)",
     "mainExperience": "cinematic storytelling",
     "exploration": "separate interactive world"
   },
   "colors": {
     "background": "#090A0C",
-    "surface": "#151719",
-    "surfaceElevated": "#22252A",
+    "surface": "#121417",
+    "surfaceElevated": "#1A1D22",
+    "surfaceGlass": "rgba(18, 20, 23, 0.75)",
     "foreground": "#E9E7E1",
     "muted": "#92959B",
     "accent": "#A8957B",
     "signal": "#83A9B2",
-    "border": "#393D42",
+    "border": "#282C20",
     "sand": "#302b29",
     "stone": "#17191b",
-    "metal": "#4a4a48"
+    "metal": "#4a4a48",
+    "obsidian": "#090A0C",
+    "paper": "#EAE9E2",
+    "ink": "#111112",
+    "neonLime": "#D2FF00",
+    "limeOff": "#B2C73A",
+    "deepTeal": "#063C39",
+    "tealAccent": "#29645C",
+    "bronzeGold": "#CDA05E",
+    "iceBlue": "#B5D5FF",
+    "terracotta": "#D7432C"
   },
   "typography": {
-    "display": "Space Grotesk",
-    "body": "Inter",
+    "display": "Space Grotesk, Brier, sans-serif",
+    "editorial": "DM Serif Display, Georgia, serif",
+    "body": "DM Sans, Manrope, sans-serif",
     "technical": "IBM Plex Mono",
-    "style": "editorial, architectural, minimal"
+    "style": "editorial, architectural, minimal",
+    "scales": {
+      "impact": "clamp(3.5rem, 8vw, 7.5rem)",
+      "h1": "clamp(2.5rem, 5vw, 4.5rem)",
+      "h2": "clamp(2rem, 3.5vw, 3rem)",
+      "h3": "clamp(1.25rem, 2vw, 1.75rem)",
+      "body": "1rem",
+      "caption": "0.875rem",
+      "telemetry": "0.75rem"
+    }
   },
   "camera": {
     "motion": "cinematic",
@@ -46,8 +83,8 @@
     "adaptiveResolution": true
   },
   "navigation": {
-    "routes": ["/", "/exploracao"],
-    "menu": ["Experience", "Exploração"]
+    "routes": ["/", "/exploracao", "/neymar"],
+    "menu": ["Experience", "Exploração", "Projetos", "Trajetória", "Certificados"]
   },
   "motion": {
     "scrollBased": true,
@@ -66,5 +103,32 @@
     "obsidian": { "roughness": 0.38, "metalness": 0.18 },
     "ancientMetal": { "roughness": 0.47, "metalness": 0.73 },
     "sand": { "roughness": 0.97, "metalness": 0 }
+  },
+  "telemetry": {
+    "badges": [
+      { "label": "STATUS", "value": "ATIVO / EM EVOLUÇÃO", "color": "#d2ff00" },
+      { "label": "DISCIPLINA", "value": "IA & ROBÓTICA / FECAP", "color": "#b5d5ff" },
+      { "label": "ATLETISMO", "value": "TÊNIS DE MESA & NATAÇÃO", "color": "#cda05e" },
+      { "label": "CONQUISTAS", "value": "26+ MEDALHAS & PREMIAÇÕES", "color": "#d7432c" }
+    ],
+    "metrics": {
+      "swimmingMedals": 16,
+      "tableTennisMedals": 10,
+      "activeProjects": 4,
+      "certifications": 13
+    }
+  },
+  "photography": {
+    "colorGrading": "Cinematic Filmic S-Curve with Teal-Orange Split Toning",
+    "shadows": "Deep charcoal toe (#0a0b0d) with subtle cool slate-teal bias",
+    "highlights": "Soft rolled-off warm golden amber",
+    "optics": "35mm anamorphic elliptical lens vignette (18% edge falloff)",
+    "texture": "Organic 35mm film grain (1% gaussian dispersion)",
+    "format": "High-efficiency WebP (quality=90, responsive 2x/1x)"
+  },
+  "jsonArchitecture": {
+    "schemaOrg": "application/ld+json (ProfilePage + Person)",
+    "manifest": "public/manifest.json (Lando Norris dynListPages + PWA standards)",
+    "dataRepository": "src/data/portfolio.json (curated cinematic photos, achievements, sports telemetry)"
   }
 }
