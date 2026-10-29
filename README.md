@@ -19,13 +19,17 @@ A produção usa o prefixo `/Site.rosseti/`. O workflow `.github/workflows/pages
 
 - `src/data/portfolio.json`: perfil, conquistas, fotos e representações de certificados.
 - `src/Portfolio.tsx`: seções, filtros, modal acessível e navegação.
-- `src/portfolio.css`: visual editorial, pilha sticky, responsividade e movimento reduzido.
+- `src/portfolio.css` e `src/motion-design.css`: visual editorial, direção cinematográfica, pilha sticky e responsividade.
+- `src/usePortfolioMotion.tsx`: animações de entrada, progresso e faixa horizontal com rolagem nativa.
 - `public/media/`: fotos WebP, certificados WebP/PNG e vídeo original FECART.
 - `docs/media-sources.json`: relação de fotos e arquivos de origem.
 - `scripts/prepare-media.py`: tratamento convencional reproduzível (Pillow); requer os materiais locais nos caminhos indicados.
 - `scripts/test-portfolio.py`: regressão de navegador (Python + Playwright + Chromium instalado).
+- `scripts/test-motion.py`: verificação das animações, do teclado e da preferência de movimento reduzido.
 
 O modal usa diálogo nativo: Escape fecha, setas navegam, foco fica contido e volta ao acionador. A pilha de certificados usa scroll nativo e CSS sticky; em movimento reduzido, vira uma lista estática. As experiências 3D usam importação sob demanda.
+
+A abertura usa a imagem estilizada em preto e branco do tênis de mesa escolhida por João, copiada sem alterações. Sua procedência é informada no modal.
 
 ## Verificação
 

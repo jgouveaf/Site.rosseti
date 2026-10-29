@@ -4,6 +4,8 @@
 
 `portfolio.json` centraliza perfil, conquistas e metadados das mídias. `Portfolio.tsx` deriva filtros e anos dessa fonte; datas nulas ficam fora da cronologia. Registros fotográficos não são usados para deduzir resultados de competições.
 
+A direção visual desta versão combina uma abertura cinematográfica escura com a imagem preta e branca escolhida por João, contraste em verde-lima e composição editorial. `motion-design.css` acrescenta esses estilos à base existente. `usePortfolioMotion.tsx` mede a posição das seções em um único `requestAnimationFrame` por frame, atualiza as variáveis CSS da abertura, da faixa horizontal e do indicador de progresso, e revela elementos com `IntersectionObserver`. A faixa não intercepta o wheel: a rolagem vertical continua nativa. No celular, a faixa vira uma área horizontal com scroll-snap. Com movimento reduzido, as posições ficam estáticas e a faixa continua navegável.
+
 A galeria usa miniaturas WebP e abre versões maiores. Certificados usam WebP na página e PNG no modal. O vídeo original MP4 usa `controls`, `playsInline`, `preload=none` e um pôster FECART; sem autoplay. O navegador validou decodificação e reprodução.
 
 Certificados se sobrepõem com CSS sticky, sem listeners de scroll ou bibliotecas novas. `prefers-reduced-motion` torna a pilha estática e interrompe animações decorativas. `dialog.showModal()` fornece isolamento modal e contenção de foco; React mantém o índice e restaura o foco ao fechar.

@@ -25,7 +25,8 @@
       "thumb": "media/photos/unity-small.webp",
       "width": 810,
       "height": 1800,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 405
     },
     {
       "id": "formatura-turma",
@@ -36,7 +37,8 @@
       "thumb": "media/photos/formatura-turma-small.webp",
       "width": 1800,
       "height": 951,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 720
     },
     {
       "id": "formatura",
@@ -47,7 +49,8 @@
       "thumb": "media/photos/formatura-small.webp",
       "width": 810,
       "height": 1800,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 405
     },
     {
       "id": "liga-escolar",
@@ -58,7 +61,8 @@
       "thumb": "media/photos/liga-escolar-small.webp",
       "width": 1061,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 530
     },
     {
       "id": "mancini",
@@ -69,7 +73,8 @@
       "thumb": "media/photos/mancini-small.webp",
       "width": 1302,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 651
     },
     {
       "id": "inicup",
@@ -80,7 +85,8 @@
       "thumb": "media/photos/inicup-small.webp",
       "width": 1190,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 595
     },
     {
       "id": "liga-20",
@@ -91,7 +97,8 @@
       "thumb": "media/photos/liga-20-small.webp",
       "width": 1346,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 673
     },
     {
       "id": "futebol-2018",
@@ -102,7 +109,8 @@
       "thumb": "media/photos/futebol-2018-small.webp",
       "width": 972,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 486
     },
     {
       "id": "canguru-2022",
@@ -113,7 +121,8 @@
       "thumb": "media/photos/canguru-2022-small.webp",
       "width": 1051,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 525
     },
     {
       "id": "kumon",
@@ -124,7 +133,8 @@
       "thumb": "media/photos/kumon-small.webp",
       "width": 1092,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 546
     },
     {
       "id": "canguru",
@@ -135,7 +145,8 @@
       "thumb": "media/photos/canguru-small.webp",
       "width": 1121,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 560
     },
     {
       "id": "zoom",
@@ -146,7 +157,8 @@
       "thumb": "media/photos/zoom-small.webp",
       "width": 1092,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 546
     },
     {
       "id": "poliedro",
@@ -157,7 +169,8 @@
       "thumb": "media/photos/poliedro-small.webp",
       "width": 1101,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 550
     },
     {
       "id": "matchpoint",
@@ -168,7 +181,8 @@
       "thumb": "media/photos/matchpoint-small.webp",
       "width": 1474,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 720
     },
     {
       "id": "natacao",
@@ -179,7 +193,8 @@
       "thumb": "media/photos/natacao-small.webp",
       "width": 1307,
       "height": 1800,
-      "note": ""
+      "note": "",
+      "thumbWidth": 654
     },
     {
       "id": "infancia-futebol",
@@ -190,7 +205,8 @@
       "thumb": "media/photos/infancia-futebol-small.webp",
       "width": 473,
       "height": 777,
-      "note": ""
+      "note": "",
+      "thumbWidth": 473
     },
     {
       "id": "infancia-formatura",
@@ -201,7 +217,8 @@
       "thumb": "media/photos/infancia-formatura-small.webp",
       "width": 1220,
       "height": 1717,
-      "note": ""
+      "note": "",
+      "thumbWidth": 639
     },
     {
       "id": "infancia-natacao",
@@ -212,7 +229,8 @@
       "thumb": "media/photos/infancia-natacao-small.webp",
       "width": 1541,
       "height": 1476,
-      "note": ""
+      "note": "",
+      "thumbWidth": 720
     },
     {
       "id": "podio",
@@ -223,7 +241,8 @@
       "thumb": "media/photos/podio-small.webp",
       "width": 1200,
       "height": 1600,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 675
     },
     {
       "id": "retrato",
@@ -234,7 +253,8 @@
       "thumb": "media/photos/retrato-small.webp",
       "width": 640,
       "height": 960,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 600
     },
     {
       "id": "tenis",
@@ -245,7 +265,8 @@
       "thumb": "media/photos/tenis-small.webp",
       "width": 800,
       "height": 599,
-      "note": ""
+      "note": "",
+      "thumbWidth": 720
     },
     {
       "id": "fecart",
@@ -256,7 +277,8 @@
       "thumb": "media/photos/fecart-small.webp",
       "width": 1800,
       "height": 1388,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 720
     },
     {
       "id": "obi",
@@ -267,7 +289,8 @@
       "thumb": "media/photos/obi-small.webp",
       "width": 720,
       "height": 900,
-      "note": ""
+      "note": "",
+      "thumbWidth": 720
     },
     {
       "id": "infancia-piscina",
@@ -278,7 +301,8 @@
       "thumb": "media/photos/infancia-piscina-small.webp",
       "width": 320,
       "height": 240,
-      "note": ""
+      "note": "",
+      "thumbWidth": 320
     },
     {
       "id": "equipe-mancini",
@@ -289,7 +313,8 @@
       "thumb": "media/photos/equipe-mancini-small.webp",
       "width": 1800,
       "height": 810,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 720
     },
     {
       "id": "premiacao-2024",
@@ -300,7 +325,8 @@
       "thumb": "media/photos/premiacao-2024-small.webp",
       "width": 1800,
       "height": 810,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 720
     },
     {
       "id": "esporte-2025",
@@ -311,7 +337,8 @@
       "thumb": "media/photos/esporte-2025-small.webp",
       "width": 810,
       "height": 1800,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 405
     },
     {
       "id": "torneio-2026",
@@ -322,7 +349,20 @@
       "thumb": "media/photos/torneio-2026-small.webp",
       "width": 810,
       "height": 1800,
-      "note": "Data do registro fotográfico."
+      "note": "Data do registro fotográfico.",
+      "thumbWidth": 405
+    },
+    {
+      "id": "tenis-preto-branco",
+      "title": "Tênis de mesa · retrato em preto e branco",
+      "category": "Esportes",
+      "year": 2026,
+      "src": "media/photos/tenis-preto-branco.webp",
+      "thumb": "media/photos/tenis-preto-branco.webp",
+      "width": 720,
+      "height": 1280,
+      "note": "Imagem estilizada fornecida por João e escolhida por ele para a abertura. Arquivo original preservado.",
+      "thumbWidth": 720
     }
   ],
   "certificates": [

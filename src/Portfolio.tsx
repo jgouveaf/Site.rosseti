@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import data from "./data/portfolio.json";
 import "./portfolio.css";
+import "./motion-design.css";
+import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 type Media = {
   id: string;
@@ -42,6 +44,7 @@ function SectionLabel({
   );
 }
 export function Portfolio() {
+  usePortfolioMotion();
   const [filter, setFilter] = useState("Todas");
   const [galleryFilter, setGalleryFilter] = useState("Todas");
   const [modal, setModal] = useState<{ items: Media[]; index: number } | null>(
@@ -79,22 +82,6 @@ export function Portfolio() {
       document.body.style.overflow = before;
     };
   }, [!!modal]);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("visible");
-            observer.unobserve(e.target);
-          }
-        }),
-      { threshold: 0.08 },
-    );
-    document
-      .querySelectorAll(".pf-reveal")
-      .forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
   const picture = (id: string, className = "", eager = false) => {
     const p = photo(id);
     return (
@@ -105,7 +92,11 @@ export function Portfolio() {
       >
         <img
           src={url(p.thumb)}
-          srcSet={`${url(p.thumb)} 720w, ${url(p.src)} 1800w`}
+          srcSet={
+            p.thumb === p.src
+              ? undefined
+              : `${url(p.thumb)} ${p.thumbWidth}w, ${url(p.src)} ${p.width}w`
+          }
           sizes="(max-width: 700px) 90vw, 45vw"
           alt={p.title}
           loading={eager ? "eager" : "lazy"}
@@ -121,13 +112,17 @@ export function Portfolio() {
     );
   };
   return (
-    <div className="pf">
+    <div className="pf pf-v2">
+      <div className="pf-scroll-progress" aria-hidden="true" />
+      <div className="pf-pointer" aria-hidden="true">
+        <span>VER ↗</span>
+      </div>
       <a href="#conteudo" className="pf-skip">
         Pular para o conteúdo
       </a>
       <header className="pf-header">
         <a href="#inicio" className="pf-logo" aria-label="João Gouvêa, início">
-          jg<span>®</span>
+          jg<span>✳</span>
         </a>
         <span className="pf-header-note">CURIOSIDADE EM MOVIMENTO</span>
         <button
@@ -157,46 +152,88 @@ export function Portfolio() {
         </nav>
       </header>
       <main id="conteudo">
-        <section id="inicio" className="pf-hero">
-          <div className="pf-hero-top">
-            <span>PORTFÓLIO PESSOAL / 2026</span>
-            <span>SÃO PAULO, BRASIL ↗</span>
-          </div>
-          <div className="pf-hero-title">
-            <h1>
-              JOÃO
-              <br />
-              <span>GOUVÊA</span>
-              <sup>©</sup>
-            </h1>
-            <span className="pf-orbit" aria-hidden="true">
-              ✳
-            </span>
-          </div>
-          <div className="pf-hero-bottom">
-            <div>
-              <span className="pf-kicker">
-                TECNOLOGIA. ESPORTE. POSSIBILIDADES.
+        <section
+          id="inicio"
+          className="pf-hero-stage"
+          aria-label="João Gouvêa, portfólio"
+        >
+          <div className="pf-hero pf-hero-cinema">
+            <div className="pf-hero-image">
+              {picture("tenis-preto-branco", "pf-hero-photo", true)}
+            </div>
+            <div className="pf-hero-atmosphere" aria-hidden="true" />
+            <svg
+              className="pf-wire"
+              viewBox="0 0 600 600"
+              fill="none"
+              aria-hidden="true"
+            >
+              <g stroke="currentColor" strokeWidth=".6">
+                {Array.from({ length: 12 }, (_, i) => (
+                  <ellipse
+                    key={i}
+                    cx="300"
+                    cy="300"
+                    rx={50 + i * 18}
+                    ry="245"
+                    transform={`rotate(${i * 15} 300 300)`}
+                  />
+                ))}
+              </g>
+            </svg>
+            <div className="pf-hero-top">
+              <span>
+                <i /> PORTFÓLIO PESSOAL / 2026
               </span>
-              <p>
-                Entre ideias,
-                <br />
-                código e <em>conquistas.</em>
-              </p>
-              <a className="pf-link" href="#projetos">
-                Conheça o que estou construindo <span>↗</span>
+              <span>TECNOLOGIA × ESPORTE × CRIATIVIDADE</span>
+            </div>
+            <div className="pf-hero-title">
+              <span className="pf-hero-intro">
+                A PRÓXIMA IDEIA COMEÇA AQUI.
+              </span>
+              <h1>
+                <span className="pf-name-first">JOÃO</span>
+                <span className="pf-name-last">
+                  GOUVÊA<span className="pf-name-dot">.</span>
+                </span>
+              </h1>
+            </div>
+            <div className="pf-hero-bottom">
+              <div className="pf-hero-copy">
+                <span className="pf-kicker">ESTUDANTE DE IA / FECAP</span>
+                <p>
+                  Feito de curiosidade.
+                  <br />
+                  Movido pelo <em>próximo desafio.</em>
+                </p>
+                <a className="pf-hero-cta" href="#projetos">
+                  EXPLORE MEU UNIVERSO <span>↗</span>
+                </a>
+              </div>
+              <a
+                className="pf-scroll-orbit"
+                href="#sobre"
+                aria-label="Rolar para Sobre mim"
+              >
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                  <defs>
+                    <path
+                      id="scroll-orbit"
+                      d="M50 50 m-36 0 a36 36 0 1 1 72 0 a36 36 0 1 1 -72 0"
+                    />
+                  </defs>
+                  <text>
+                    <textPath href="#scroll-orbit">
+                      ROLE PARA EXPLORAR · ROLE PARA EXPLORAR ·{" "}
+                    </textPath>
+                  </text>
+                </svg>
+                <span>↓</span>
               </a>
             </div>
-            {picture("retrato", "pf-hero-photo", true)}
-            <div className="pf-hero-index">
-              <span>
-                ESTUDANTE DE IA
-                <br />
-                FECAP · ENSINO MÉDIO
-              </span>
-              <a href="#sobre" aria-label="Rolar para Sobre mim">
-                ↓
-              </a>
+            <div className="pf-hero-footer">
+              <span>01 — EM CONSTANTE EVOLUÇÃO</span>
+              <span>APRENDER É SÓ O COMEÇO ↗</span>
             </div>
           </div>
         </section>
@@ -253,23 +290,69 @@ export function Portfolio() {
           <div className="pf-stats">
             <div>
               <strong>
-                {data.sports.swimmingMedals}
+                <AnimatedNumber value={data.sports.swimmingMedals} />
                 <sup>↗</sup>
               </strong>
               <span>MEDALHAS NA NATAÇÃO</span>
             </div>
             <div>
               <strong>
-                {data.sports.tableTennisMedals}
+                <AnimatedNumber value={data.sports.tableTennisMedals} />
                 <sup>↗</sup>
               </strong>
               <span>MEDALHAS NO TÊNIS DE MESA</span>
             </div>
             <div>
               <strong>
-                03<sup>↗</sup>
+                <AnimatedNumber value={3} />
+                <sup>↗</sup>
               </strong>
               <span>LEVELS CONCLUÍDOS EM GAMES</span>
+            </div>
+          </div>
+        </section>
+        <section className="pf-reel" aria-label="Momentos em movimento">
+          <div className="pf-reel-sticky">
+            <div className="pf-reel-heading">
+              <span className="pf-kicker">
+                NENHUM CAMINHO É UMA LINHA RETA.
+              </span>
+              <h2>
+                VÁRIAS VERSÕES.
+                <br />
+                <em>A MESMA VONTADE.</em>
+              </h2>
+              <span className="pf-reel-hint">DESLIZE PARA DESCOBRIR ↔</span>
+            </div>
+            <div className="pf-reel-window">
+              <div className="pf-reel-track">
+                {[
+                  { id: "tenis", word: "FOCO", label: "01 / DENTRO DO JOGO" },
+                  { id: "fecart", word: "CRIAR", label: "02 / FORA DO ÓBVIO" },
+                  {
+                    id: "unity",
+                    word: "EVOLUIR",
+                    label: "03 / CÓDIGO EM AÇÃO",
+                  },
+                  {
+                    id: "formatura",
+                    word: "SEGUIR",
+                    label: "04 / O PRÓXIMO CAPÍTULO",
+                  },
+                ].map((item) => (
+                  <article key={item.id} className="pf-reel-card">
+                    <span>{item.label}</span>
+                    {picture(item.id)}
+                    <h3>
+                      {item.word}
+                      <span>↗</span>
+                    </h3>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="pf-reel-progress" aria-hidden="true">
+              <span />
             </div>
           </div>
         </section>
@@ -614,7 +697,7 @@ export function Portfolio() {
       </main>
       <footer className="pf-footer">
         <a className="pf-logo" href="#inicio">
-          jg<span>®</span>
+          jg<span>✳</span>
         </a>
         <span>
           JOÃO GOUVÊA © 2026

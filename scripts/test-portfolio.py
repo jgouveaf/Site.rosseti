@@ -41,7 +41,7 @@ with sync_playwright() as p:
  for item in data['photos']+data['certificates']:
   for field in ['src','thumb']:
    r=context.request.get(base+item[field]); assert r.status==200,(item['id'],field,r.status)
- check('All 82 image URLs load',True)
+ check('All image URLs load',True)
  # Browser decoder and real advancing playback.
  page.locator('video').evaluate('(v)=>v.load()')
  page.wait_for_function('document.querySelector("video").readyState>=2',timeout=30000)
@@ -65,7 +65,7 @@ with sync_playwright() as p:
    check('Mobile menu closes after navigation',page.locator('.pf-menu').get_attribute('aria-expanded')=='false')
  page.emulate_media(reduced_motion='reduce')
  check('Reduced motion disables stacking',page.locator('.pf-cert-card').first.evaluate('(e)=>getComputedStyle(e).position')=='relative')
- check('Reduced motion stops decoration',page.locator('.pf-orbit').evaluate('(e)=>getComputedStyle(e).animationName')=='none')
+ check('Reduced motion stops decoration',page.locator('.pf-scroll-orbit svg').evaluate('(e)=>getComputedStyle(e).animationName')=='none')
  # Gallery keyboard open and navigation.
  page.locator('#galeria .pf-filters').get_by_role('button',name='Infância',exact=True).click()
  check('Childhood is separated',page.locator('.pf-gallery-card').count()==4)
@@ -82,4 +82,3 @@ with sync_playwright() as p:
  browser.close()
 (root/'docs/qa/test-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 print('Completed',len(report['checks']),'checks')
-
