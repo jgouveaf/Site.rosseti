@@ -16,7 +16,6 @@
   ],
   "dynListPages": {
     "/": true,
-    "/exploracao": true,
     "/neymar": true
   },
   "detailPages": {
@@ -29,10 +28,10 @@
   "onlySSL": true,
   "upstreamRenderer": "react-vite",
   "designSystem": {
-    "version": "3.0.0",
+    "version": "3.1.0",
     "references": {
       "rafaelRossetti": "Editorial layout, academic rigor, Schema.org Person JSON-LD, structured timeline and project cards",
-      "igloo": "Atmospheric 3D HUD, WebGL/Three.js spatial depth, dark obsidian #090A0C canvas, cinematic materials",
+      "igloo": "Atmospheric cinematic lighting, obsidian #090A0C dark space, icy metallic/bronze accents, smooth scroll-driven interactive layer",
       "landoNorris": "Athletic telemetry tokens, neon lime #d2ff00 contrast, high-impact typography, modular metric badges"
     },
     "tokens": {
@@ -45,7 +44,7 @@
         "editorialCream": "#eae9e2",
         "deepTeal": "#063c39",
         "mutedText": "#8b909d",
-        "border": "#282c20"
+        "border": "rgba(255, 255, 255, 0.12)"
       },
       "typography": {
         "display": "Space Grotesk, Brier, sans-serif",

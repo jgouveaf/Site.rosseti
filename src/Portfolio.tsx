@@ -25,7 +25,7 @@ const projects = [
   { n: "03", name: "ItalianWhey", kind: "COMUNICAÇÃO / CRIATIVIDADE", body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.", status: "Vencedor · 2025" },
   { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista que integra minha trajetória criativa.", status: "Finalista" },
 ];
-const curatedPhotos = ["tenis-preto-branco", "infancia-futebol", "unity", "formatura", "tenis"].map(photo);
+const curatedPhotos = ["joao-portrait", "joao-foco", "torneio-2026", "fecart", "esporte-2025", "formatura", "tenis"].map(photo);
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
     <span className="pf-sr-only">{text}</span>
@@ -168,10 +168,37 @@ export function Portfolio() {
           aria-label="João Gouvêa, portfólio"
         >
           <div className="pf-hero pf-hero-cinema">
-            <div className="pf-hero-image">
-              {picture("tenis-preto-branco", "pf-hero-photo", true)}
+            <div className="pf-hero-title">
+              <span className="pf-hero-intro">
+                A PRÓXIMA IDEIA COMEÇA AQUI.
+              </span>
+              <h1>
+                <span className="pf-name-first"><HoverLetters text="JOÃO" /></span>
+                {" "}
+                <span className="pf-name-last">
+                  <HoverLetters text="GOUVÊA" /><span className="pf-name-dot">.</span>
+                </span>
+              </h1>
+              <div className="pf-hero-copy">
+                <span className="pf-kicker">ESTUDANTE DE IA · FECAP · ATLETA FEDERADO</span>
+                <p>
+                  Feito de curiosidade.
+                  <br />
+                  Movido pelo <em>próximo desafio.</em>
+                </p>
+                <div className="pf-hero-actions">
+                  <a className="pf-hero-cta" href="#projetos">
+                    VER MEUS PROJETOS <span>↗</span>
+                  </a>
+                  <a className="pf-scroll-link" href="#sobre">
+                    EXPLORAR TRAJETÓRIA ↓
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="pf-hero-atmosphere" aria-hidden="true" />
+            <div className="pf-hero-image">
+              {picture("joao-portrait", "pf-hero-photo", true)}
+            </div>
             <svg
               className="pf-wire"
               viewBox="0 0 600 600"
@@ -191,60 +218,6 @@ export function Portfolio() {
                 ))}
               </g>
             </svg>
-            <div className="pf-hero-top">
-              <span>
-                <i /> PORTFÓLIO PESSOAL / 2026
-              </span>
-              <span>TECNOLOGIA × ESPORTE × CRIATIVIDADE</span>
-            </div>
-            <div className="pf-hero-title">
-              <span className="pf-hero-intro">
-                A PRÓXIMA IDEIA COMEÇA AQUI.
-              </span>
-              <h1>
-                <span className="pf-name-first"><HoverLetters text="JOÃO" /></span>
-                <span className="pf-name-last">
-                  <HoverLetters text="GOUVÊA" /><span className="pf-name-dot">.</span>
-                </span>
-              </h1>
-            </div>
-            <div className="pf-hero-bottom">
-              <div className="pf-hero-copy">
-                <span className="pf-kicker">ESTUDANTE DE IA / FECAP</span>
-                <p>
-                  Feito de curiosidade.
-                  <br />
-                  Movido pelo <em>próximo desafio.</em>
-                </p>
-                <a className="pf-hero-cta" href="#projetos">
-                  VER MEUS PROJETOS <span>↗</span>
-                </a>
-              </div>
-              <a
-                className="pf-scroll-orbit"
-                href="#sobre"
-                aria-label="Rolar para Sobre mim"
-              >
-                <svg viewBox="0 0 100 100" aria-hidden="true">
-                  <defs>
-                    <path
-                      id="scroll-orbit"
-                      d="M50 50 m-36 0 a36 36 0 1 1 72 0 a36 36 0 1 1 -72 0"
-                    />
-                  </defs>
-                  <text>
-                    <textPath href="#scroll-orbit">
-                      ROLE PARA EXPLORAR · ROLE PARA EXPLORAR ·{" "}
-                    </textPath>
-                  </text>
-                </svg>
-                <span>↓</span>
-              </a>
-            </div>
-            <div className="pf-hero-footer">
-              <span>01 — EM CONSTANTE EVOLUÇÃO</span>
-              <span>APRENDER É SÓ O COMEÇO ↗</span>
-            </div>
           </div>
         </section>
         <div className="pf-telemetry-hud" aria-label="Telemetria e Status">
@@ -534,23 +507,7 @@ export function Portfolio() {
             <a className="pf-obi-paper" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer" aria-label="Abrir certificado original da OBI 2026 em PDF"><img src={url("media/certificates/obi-2026.webp")} alt="Prévia do certificado original da OBI 2026" loading="lazy" width="1684" height="1191" /></a>
           </article>
         </section>
-        <section className="pf-explore pf-section">
-          <span className="pf-kicker">UM OUTRO JEITO DE EXPLORAR</span>
-          <h2>
-            A curiosidade
-            <br />
-            não termina <em>aqui.</em>
-          </h2>
-          <div>
-            <a className="pf-pill" href={url("exploracao/")}>
-              Entrar na exploração 3D ↗
-            </a>
-            <a className="pf-link" href={url("neymar/")}>
-              Ver experiência Neymar ↗
-            </a>
-          </div>
-          <p>Experiências interativas preservadas do projeto.</p>
-        </section>
+
       </main>
       <footer className="pf-footer">
         <a className="pf-logo" href="#inicio">

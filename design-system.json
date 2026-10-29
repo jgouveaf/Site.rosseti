@@ -1,6 +1,6 @@
 {
-  "name": "João Gouvêa — Unified Design System V3",
-  "version": "3.0.0",
+  "name": "João Gouvêa — Unified Design System V3.1",
+  "version": "3.1.0",
   "references": {
     "rafaelRossetti": {
       "url": "https://rafaelrossetti.com.br/",
@@ -9,7 +9,7 @@
     },
     "igloo": {
       "url": "https://www.igloo.inc/",
-      "influence": "Atmospheric 3D HUD, WebGL spatial depth, obsidian #090A0C dark space, icy metallic/bronze accents, smooth scroll-driven interactive layer",
+      "influence": "Atmospheric cinematic lighting, obsidian #090A0C dark space, icy metallic/bronze accents, smooth scroll-driven interactive layer",
       "weight": 0.35
     },
     "landoNorris": {
@@ -23,8 +23,7 @@
     "composition": "Monumental, immersive, high-contrast and data-informed",
     "interfaceDensity": "Balanced editorial with telemetry overlays",
     "visualFidelity": "High (PBR materials, cinematic color grading, 35mm grain texture)",
-    "mainExperience": "cinematic storytelling",
-    "exploration": "separate interactive world"
+    "mainExperience": "cinematic storytelling"
   },
   "colors": {
     "background": "#090A0C",
@@ -83,8 +82,8 @@
     "adaptiveResolution": true
   },
   "navigation": {
-    "routes": ["/", "/exploracao", "/neymar"],
-    "menu": ["Experience", "Exploração", "Projetos", "Trajetória", "Certificados"]
+    "routes": ["/", "/neymar"],
+    "menu": ["Início", "Sobre", "Projetos", "Trajetória", "Certificados"]
   },
   "motion": {
     "scrollBased": true,
@@ -97,7 +96,7 @@
   "responsive": {
     "desktop": "full cinematic experience",
     "tablet": "optimized cinematic experience",
-    "mobile": "adaptive simplified 3D experience"
+    "mobile": "adaptive simplified experience"
   },
   "materials": {
     "obsidian": { "roughness": 0.38, "metalness": 0.18 },
@@ -119,12 +118,12 @@
     }
   },
   "photography": {
-    "colorGrading": "Cinematic Filmic S-Curve with Teal-Orange Split Toning",
+    "colorGrading": "Cinematic Filmic S-Curve with Rich Vibrance & Tone Enhancement",
     "shadows": "Deep charcoal toe (#0a0b0d) with subtle cool slate-teal bias",
     "highlights": "Soft rolled-off warm golden amber",
-    "optics": "35mm anamorphic elliptical lens vignette (18% edge falloff)",
-    "texture": "Organic 35mm film grain (1% gaussian dispersion)",
-    "format": "High-efficiency WebP (quality=90, responsive 2x/1x)"
+    "optics": "Subtle lens falloff (10% edge vignette)",
+    "texture": "Organic 35mm film grain (0.6% dispersion)",
+    "format": "High-efficiency WebP (quality=92, responsive 2x/1x)"
   },
   "jsonArchitecture": {
     "schemaOrg": "application/ld+json (ProfilePage + Person)",
