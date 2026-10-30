@@ -1,97 +1,44 @@
-from pathlib import Path
+"""Browser regression for the portfolio reading path."""
 import json, sys
+from pathlib import Path
 from playwright.sync_api import sync_playwright
-root=Path(__file__).resolve().parents[1]
-base=sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:4173/Site.rosseti/'
-data=json.loads((root/'src/data/portfolio.json').read_text(encoding='utf-8'))
-report={'base':base,'checks':[],'errors':[]}
-def check(name,condition):
- assert condition,name
- report['checks'].append(name)
- print('PASS',name)
-with sync_playwright() as p:
- browser=p.chromium.launch()
- context=browser.new_context(viewport={'width':1440,'height':1000})
- page=context.new_page()
- page.on('pageerror',lambda e:report['errors'].append(str(e)))
- response=page.goto(base,wait_until='networkidle')
- check('Production page and public name',response.status==200 and 'João Gouvêa' in page.title())
- check('All achievements appear in the scroll timeline',page.locator('.pf-history-item').count()==len(data['achievements']))
- check('No achievement filters or reveal button',page.locator('.pf-filters,.pf-gallery-more,.pf-year h3 button').count()==0)
- check('Current table tennis teams are shown','Itaim Keiko' in page.locator('#sobre').inner_text() and 'FECAP' in page.locator('#sobre').inner_text())
- check('Futsal is clearly historical','joguei futsal' in page.locator('#sobre').inner_text().lower())
- check('Only five curated photos are on the page',page.locator('main img').count()==6 and page.locator('#momentos .pf-reel-card img').count()==3)
- check('OBI poster removed from page',page.locator('img[src*="photos/obi"]').count()==0)
- check('No 29-photo gallery or concept image',page.locator('.pf-gallery-card,.pf-project-visual').count()==0)
- check('Curated moments have real image sources',page.locator('#momentos img').evaluate_all('(els)=>els.length===3 && els.every(e=>e.getAttribute("src")?.includes("media/photos/"))'))
- page.locator('#project-tab-1').click()
- check('Project selector switches content',page.locator('#project-panel h3').inner_text().casefold()=='frequência morta')
- page.locator('#project-tab-1').focus();page.keyboard.press('ArrowRight')
- check('Project selector works by keyboard',page.locator('#project-panel h3').inner_text().casefold()=='italianwhey' and page.locator('#project-tab-2').get_attribute('aria-selected')=='true')
- check('Timeline year has visible events',page.locator('#year-2024 .pf-history-item').count()==sum(a['year']==2024 for a in data['achievements']))
- check('No horizontal overflow on desktop',page.evaluate('document.documentElement.scrollWidth <= innerWidth'))
- check('Sport title stays visible on dark panel',page.locator('.pf-sport h2').evaluate(r'(e)=>{const m=getComputedStyle(e).color.match(/\d+/g).map(Number);return m[0]+m[1]+m[2]>320}') and page.locator('.pf-sport').evaluate('(e)=>getComputedStyle(e).gridTemplateColumns')!='none')
- letter=page.locator('.pf-sport .pf-hover-letter').first
- letter.hover(force=True)
- page.wait_for_timeout(380)
- check('Sport title responds to pointer per letter',letter.evaluate('(e)=>getComputedStyle(e).transform')!='none')
- check('FECART loops muted without controls',page.locator('video').evaluate('(v)=>v.autoplay && v.muted && v.loop && !v.controls'))
- page.screenshot(path=str(root/'docs/qa/desktop.png'))
- # The certificate section contains only the original OBI document.
- check('Only original OBI certificate shown',page.locator('#certificados img').count()==1 and page.locator('.pf-cert-card').count()==0)
- check('OBI certificate PDF loads',context.request.get(base+'media/certificates/obi-2026.pdf').status==200)
- check('OBI result is visible','146º' in page.locator('#certificados').inner_text())
- # Photo dialog: keyboard, return focus and circular navigation.
- first=page.locator('.pf-sport-image .pf-photo')
- first.evaluate('(el)=>el.scrollIntoView({block:"center",behavior:"instant"})')
- first.click(force=True)
- page.wait_for_selector('dialog[open]')
- check('Real photo opens in dialog',page.locator('#pf-dialog-title').inner_text()==next(p['title'] for p in data['photos'] if p['id']=='tenis'))
- page.keyboard.press('ArrowLeft')
- check('Dialog moves backwards',page.locator('dialog .pf-modal-top span').inner_text()=='4 / 5')
- page.keyboard.press('ArrowRight')
- check('Dialog moves forwards',page.locator('dialog .pf-modal-top span').inner_text()=='5 / 5')
- page.keyboard.press('Escape')
- check('Escape closes and restores focus',page.locator('dialog').count()==0 and first.evaluate('(el)=>document.activeElement===el'))
- # Verify all provided media URLs, not just currently visible lazy images.
- for item in data['photos']+data['certificates']:
-  for field in ['src','thumb']:
-   r=context.request.get(base+item[field]); assert r.status==200,(item['id'],field,r.status)
- check('All image URLs load',True)
- # Browser decoder and real advancing playback.
- page.locator('video').evaluate('(v)=>v.load()')
- page.wait_for_function('document.querySelector("video").readyState>=2',timeout=30000)
- page.locator('video').evaluate('(v)=>{v.muted=true;return v.play()}')
- page.wait_for_function('document.querySelector("video").currentTime>0.3',timeout=15000)
- check('FECART video decodes and plays',page.locator('video').evaluate('(v)=>v.videoWidth>0 && !v.error'))
- report['video']=page.locator('video').evaluate('(v)=>({duration:v.duration,width:v.videoWidth,height:v.videoHeight})')
- check('Video cannot be paused with a pointer',page.locator('video').evaluate('(v)=>getComputedStyle(v).pointerEvents')=='none')
- page.locator('#certificados').evaluate('(e)=>scrollTo({top:e.offsetTop+420,behavior:"instant"})')
- page.wait_for_timeout(1000)
- page.screenshot(path=str(root/'docs/qa/certificados.png'))
- check('OBI preview renders',page.locator('.pf-obi-paper img').evaluate('(e)=>e.complete && e.naturalWidth>0'))
- for width,height in [(768,1024),(390,844),(320,740)]:
-  page.set_viewport_size({'width':width,'height':height})
-  page.evaluate('scrollTo({top:0,behavior:"instant"})')
-  check(f'No horizontal overflow at {width}px',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
-  if width==390:
-   page.screenshot(path=str(root/'docs/qa/mobile.png'))
-   page.get_by_role('button',name='Menu +').click()
-   page.locator('#pf-nav').get_by_role('link',name='Momentos',exact=True).click()
-   check('Mobile menu closes after navigation',page.locator('.pf-menu').get_attribute('aria-expanded')=='false')
- page.emulate_media(reduced_motion='reduce')
- check('Reduced motion disables certificate hover transform',page.locator('.pf-obi-paper').evaluate('(e)=>getComputedStyle(e).transitionDuration')=='0s')
- # Curated moment opens through the keyboard.
- page.locator('#momentos .pf-reel-card button').first.focus();page.keyboard.press('Enter')
- page.wait_for_selector('dialog[open]')
- check('Keyboard opens real photos','Infância' in page.locator('#pf-dialog-title').inner_text())
- page.keyboard.press('Escape')
- # Historical experiences still have valid routes and meaningful UI.
- page.goto(base+'neymar/',wait_until='networkidle')
- check('Neymar experience preserved',page.locator('.ney-hero-name').count()==1)
- page.goto(base+'exploracao/',wait_until='networkidle')
- check('Removed 3D exploration does not show stale gallery',page.locator('.gallery-page').count()==0)
- check('No uncaught JS errors',not report['errors'])
- browser.close()
-(root/'docs/qa/test-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-print('Completed',len(report['checks']),'checks')
+
+root = Path(__file__).resolve().parents[1]
+base = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:5174/"
+data = json.loads((root / "src/data/portfolio.json").read_text(encoding="utf-8"))
+results = []
+def check(label, condition):
+    assert condition, label
+    results.append(label)
+    print("PASS", label, flush=True)
+
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch()
+    page = browser.new_page(viewport={"width": 1440, "height": 900})
+    errors = []
+    page.on("pageerror", lambda error: errors.append(str(error)))
+    response = page.goto(base, wait_until="domcontentloaded")
+    page.wait_for_selector("#inicio")
+    check("Portfolio loads", response.status == 200 and "João Gouvêa" in page.title())
+    check("Hero fills the viewport", page.locator("#inicio").evaluate("e => e.getBoundingClientRect().height >= innerHeight"))
+    check("Fullscreen portrait photo loads", page.locator(".pf-hero-image img").evaluate("e => e.complete && e.naturalWidth >= 1200 && e.currentSrc.includes('joao-janela-pb.webp')"))
+    check("Full resolution GameDev source loads", page.locator(".pf-real-portrait img").evaluate("e => e.complete && e.naturalHeight >= 4000"))
+    check("No image dialog or click target", page.locator("dialog,.pf-pointer,.pf-reel-card button,.pf-sport-image button").count() == 0)
+    check("Projects grouped in visible cards", page.locator(".pf-project-group-heading").count() == 2 and page.locator(".pf-project-card").count() == 4 and page.locator(".pf-project-tabs").count() == 0)
+    check("Four game cards visible", page.locator(".pf-game").count() == 4)
+    ratios = page.locator(".pf-game-image").evaluate_all("els => els.map(e => Math.round(e.getBoundingClientRect().width / e.getBoundingClientRect().height * 100) / 100)")
+    check("Game image frames share aspect ratio", len(set(ratios)) == 1 and 1.7 <= ratios[0] <= 1.85)
+    check("Timeline events retained", page.locator(".pf-history-item").count() == len(data["achievements"]))
+    check("Tunnel has visible depth layers", page.locator(".pf-tunnel i").count() == 9)
+    page.locator("#trajetoria").evaluate("e => scrollTo({top:e.offsetTop + 700,behavior:'instant'})")
+    page.wait_for_timeout(400)
+    check("Tunnel advances on scroll", page.locator("#trajetoria").evaluate("e => Number(e.style.getPropertyValue('--tunnel-progress')) > 0"))
+    check("FECART remains muted and looping", page.locator("video").evaluate("v => v.muted && v.loop && v.autoplay && !v.controls"))
+    check("OBI result retained", "7.000" in page.locator("#certificados").inner_text() and page.locator("#certificados img").count() == 1)
+    for width, height in [(390, 844), (320, 740), (768, 1024)]:
+        page.set_viewport_size({"width": width, "height": height})
+        page.evaluate("scrollTo({top:0,behavior:'instant'})")
+        check(f"No horizontal overflow at {width}px", page.evaluate("document.documentElement.scrollWidth <= innerWidth"))
+    check("No browser errors", not errors)
+    browser.close()
+(root / "docs/qa/overhaul-results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")

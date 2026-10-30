@@ -14,7 +14,6 @@ export function usePortfolioMotion() {
     const track = root.querySelector<HTMLElement>(".pf-reel-track");
     const windowEl = root.querySelector<HTMLElement>(".pf-reel-window");
     const sport = root.querySelector<HTMLElement>(".pf-sport");
-    const pointer = root.querySelector<HTMLElement>(".pf-pointer");
     let frame = 0;
     let mouseX = innerWidth / 2;
     let mouseY = innerHeight / 2;
@@ -68,8 +67,6 @@ export function usePortfolioMotion() {
         ),
       );
       if (fine.matches) {
-        pointer?.style.setProperty("--cursor-x", `${mouseX}px`);
-        pointer?.style.setProperty("--cursor-y", `${mouseY}px`);
         if (heroBounds && heroBounds.bottom > 0) {
           hero?.style.setProperty(
             "--look-x",
@@ -128,10 +125,6 @@ export function usePortfolioMotion() {
           glow.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
         }
       }
-      pointer?.classList.toggle(
-        "is-visible",
-        !!target.closest(".pf-photo,.pf-gallery-card,.pf-obi-paper"),
-      );
       const magnet = target.closest<HTMLElement>(".pf-hero-cta,.pf-pill");
       if (magnet !== activeMagnet) {
         resetMagnet();
@@ -141,7 +134,6 @@ export function usePortfolioMotion() {
       queue();
     };
     const leave = () => {
-      pointer?.classList.remove("is-visible");
       resetMagnet();
       resetGlow();
     };
@@ -156,7 +148,7 @@ export function usePortfolioMotion() {
       { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
     );
     const revealElements = root.querySelectorAll<HTMLElement>(
-      ".pf-label,.pf-route a,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project,.pf-year,.pf-history-item,.pf-reel-heading,.pf-reel-card,.pf-project-tabs button,.pf-project-stage,.pf-manifesto p,.pf-fecart,.pf-sport-copy,.pf-obi-feature,.pf-explore h2",
+      ".pf-label,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project-group-heading,.pf-project-card,.pf-game,.pf-year,.pf-history-item,.pf-reel-heading,.pf-reel-card,.pf-manifesto p,.pf-fecart,.pf-sport-copy,.pf-swimming,.pf-obi-feature",
     );
     revealElements.forEach((el, i) => {
       el.classList.add("motion-reveal");

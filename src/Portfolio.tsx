@@ -5,18 +5,9 @@ import "./motion-design.css";
 import "./editorial-redesign.css";
 import "./brush-hero.css";
 import "./portfolio-refresh.css";
+import "./portfolio-overhaul.css";
 import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
 const url = (path: string) => import.meta.env.BASE_URL + path;
-type Media = {
-  id: string;
-  title: string;
-  category: string;
-  year: number | null;
-  src: string;
-  thumb: string;
-  note: string;
-  representation?: boolean;
-};
 const photo = (id: string) => data.photos.find((p) => p.id === id)!;
 const years = [
   ...new Set(data.achievements.flatMap((a) => (a.year ? [a.year] : []))),
@@ -27,7 +18,6 @@ const projects = [
   { n: "03", name: "ItalianWhey", kind: "COMUNICAÇÃO / CRIATIVIDADE", body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.", status: "Vencedor · 2025" },
   { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista da trajetória criativa de João.", status: "Finalista" },
 ];
-const curatedPhotos = ["tenis-preto-branco", "infancia-futebol", "unity", "formatura", "tenis"].map(photo);
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
     <span className="pf-sr-only">{text}</span>
@@ -52,40 +42,8 @@ function SectionLabel({
 }
 export function Portfolio() {
   usePortfolioMotion();
-  const [selectedProject, setSelectedProject] = useState(0);
-  const [modal, setModal] = useState<{ items: Media[]; index: number } | null>(
-    null,
-  );
   const [menu, setMenu] = useState(false);
-  const dialog = useRef<HTMLDialogElement>(null);
   const fecartVideo = useRef<HTMLVideoElement>(null);
-  const returnFocus = useRef<HTMLElement | null>(null);
-  const current = modal?.items[modal.index];
-  const open = (items: Media[], index: number) => {
-    returnFocus.current = document.activeElement as HTMLElement;
-    setModal({ items, index });
-  };
-  const close = () => {
-    dialog.current?.close();
-    setModal(null);
-    returnFocus.current?.focus({ preventScroll: true });
-  };
-  const move = (by: number) =>
-    setModal((m) =>
-      m
-        ? { ...m, index: (m.index + by + m.items.length) % m.items.length }
-        : null,
-    );
-  useEffect(() => {
-    if (!modal) return;
-    const d = dialog.current;
-    d?.showModal();
-    const before = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = before;
-    };
-  }, [!!modal]);
   useEffect(() => {
     const resume = () => {
       if (!document.hidden) void fecartVideo.current?.play().catch(() => {});
@@ -97,16 +55,22 @@ export function Portfolio() {
   useEffect(() => {
     const section = document.querySelector<HTMLElement>(".pf-timeline");
     const rings = Array.from(document.querySelectorAll<HTMLElement>(".pf-tunnel i"));
+    const yearDisplay = section?.querySelector<HTMLElement>(".pf-tunnel-current");
+    const yearCards = Array.from(section?.querySelectorAll<HTMLElement>(".pf-year:not(.pf-year-undated)") ?? []);
     if (!section || !rings.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let frame = 0;
     const update = () => {
       frame = 0;
       const rect = section.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (rect.height + innerHeight)));
+      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / Math.max(1, rect.height - innerHeight)));
+      section.style.setProperty("--tunnel-progress", String(progress));
       rings.forEach((ring, index) => {
-        ring.style.transform = `translateZ(${Math.round(-index * 180 + progress * 620)}px) rotate(${Math.round(progress * 22)}deg)`;
-        ring.style.opacity = String(Math.max(.12, 1 - Math.abs(progress * 4 - index) * .18));
+        const cycle = (index / rings.length + progress * 2.4) % 1;
+        ring.style.transform = `translate(-50%, -50%) scale(${(.14 + cycle * 2.6).toFixed(3)}) rotate(${(progress * 36).toFixed(1)}deg)`;
+        ring.style.opacity = String(Math.max(.15, 1 - cycle * .58));
       });
+      const active = [...yearCards].reverse().find(card => card.getBoundingClientRect().top < innerHeight * .62) ?? yearCards[0];
+      if (yearDisplay && active) yearDisplay.textContent = active.querySelector("h3 span")?.textContent ?? "2022";
     };
     const request = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
@@ -117,10 +81,8 @@ export function Portfolio() {
   const picture = (id: string, className = "", eager = false) => {
     const p = photo(id);
     return (
-      <button
+      <figure
         className={"pf-photo " + className}
-        onClick={() => open(curatedPhotos, curatedPhotos.indexOf(p))}
-        aria-label={"Ampliar: " + p.title}
       >
         <img
           src={url(p.thumb)}
@@ -138,17 +100,13 @@ export function Portfolio() {
         />
         <span className="pf-photo-caption">
           {p.year || "MEMÓRIA"} / {p.title}
-          <b>↗</b>
         </span>
-      </button>
+      </figure>
     );
   };
   return (
     <div className="pf pf-v2">
       <div className="pf-scroll-progress" aria-hidden="true" />
-      <div className="pf-pointer" aria-hidden="true">
-        <span>VER ↗</span>
-      </div>
       <a href="#conteudo" className="pf-skip">
         Pular para o conteúdo
       </a>
@@ -172,11 +130,11 @@ export function Portfolio() {
         >
           {[
             ["sobre", "Sobre"],
+            ["momentos", "Momentos"],
             ["projetos", "Projetos"],
             ["jogos", "Jogos"],
             ["trajetoria", "Trajetória"],
             ["certificados", "Certificado OBI"],
-            ["momentos", "Momentos"],
           ].map(([id, title]) => (
             <a key={id} href={"#" + id} onClick={() => setMenu(false)}>
               {title}
@@ -192,9 +150,7 @@ export function Portfolio() {
         >
           <div className="pf-hero pf-hero-cinema">
             <div className="pf-hero-title">
-              <span className="pf-hero-intro">
-                A PRÓXIMA IDEIA COMEÇA AQUI.
-              </span>
+              <span className="pf-hero-intro">JOÃO GOUVÊA / PORTFÓLIO 2026</span>
               <h1>
                 <span className="pf-name-first"><HoverLetters text="JOÃO" /></span>
                 {" "}
@@ -203,24 +159,22 @@ export function Portfolio() {
                 </span>
               </h1>
               <div className="pf-hero-copy">
-                <span className="pf-kicker">ESTUDANTE DE IA · FECAP · ATLETA FEDERADO</span>
+                <span className="pf-kicker">INTELIGÊNCIA ARTIFICIAL · JOGOS · ESPORTE</span>
                 <p>
-                  Feito de curiosidade.
-                  <br />
-                  Movido pelo <em>próximo desafio.</em>
+                  Curiosidade para criar. Disciplina para ir além.
                 </p>
                 <div className="pf-hero-actions">
                   <a className="pf-hero-cta" href="#projetos">
-                    VER PROJETOS <span>↗</span>
+                    CONHECER OS PROJETOS <span>↗</span>
                   </a>
                   <a className="pf-scroll-link" href="#sobre">
-                    EXPLORAR TRAJETÓRIA ↓
+                    DESCOBRIR A HISTÓRIA ↓
                   </a>
                 </div>
               </div>
             </div>
             <div className="pf-hero-image">
-              <img src={url(photo("tenis").src)} alt="João Gouvêa se preparando para sacar no tênis de mesa" fetchPriority="high" />
+              <img src={url("media/photos/joao-janela-pb.webp")} alt="João Gouvêa em preto e branco, olhando pela janela" fetchPriority="high" />
             </div>
             <svg
               className="pf-wire"
@@ -243,52 +197,20 @@ export function Portfolio() {
             </svg>
           </div>
         </section>
-        <div className="pf-telemetry-hud" aria-label="Telemetria e Status">
-          <div className="pf-telemetry-item">
-            <span className="pf-telemetry-indicator" />
-            <span className="pf-telemetry-label">STATUS:</span>
-            <strong className="pf-telemetry-value">ATIVO / EM EVOLUÇÃO</strong>
-          </div>
-          <div className="pf-telemetry-item">
-            <span className="pf-telemetry-label">DISCIPLINA:</span>
-            <strong className="pf-telemetry-value">IA &amp; ROBÓTICA · FECAP</strong>
-          </div>
-          <div className="pf-telemetry-item">
-            <span className="pf-telemetry-label">ATLETISMO:</span>
-            <strong className="pf-telemetry-value">TÊNIS DE MESA &amp; NATAÇÃO</strong>
-          </div>
-          <div className="pf-telemetry-item">
-            <span className="pf-telemetry-label">MARCOS:</span>
-            <strong className="pf-telemetry-value">26+ MEDALHAS &amp; PRÊMIOS</strong>
-          </div>
-        </div>
-        <div className="pf-ticker" aria-hidden="true">
-          <span>
-            APRENDER. CRIAR. EXPLORAR. <b>✳</b> APRENDER. CRIAR. EXPLORAR.{" "}
-            <b>✳</b>
-          </span>
-        </div>
-        <nav className="pf-route" aria-label="Atalhos para explorar o portfólio">
-          <a href="#projetos"><span>01 / CRIAR</span><strong>Projetos</strong><i>↗</i></a>
-          <a href="#trajetoria"><span>02 / EVOLUIR</span><strong>Trajetória</strong><i>↗</i></a>
-          <a href="#certificados"><span>03 / CONQUISTAR</span><strong>OBI 2026</strong><i>↗</i></a>
-        </nav>
         <section id="sobre" className="pf-section pf-about pf-reveal">
           <SectionLabel number="01">Muito além de uma área</SectionLabel>
           <div className="pf-about-grid">
-            <h2><HoverLetters text="A curiosidade" /><br /><HoverLetters text="é o" /><br /><em><HoverLetters text="ponto de partida." /></em></h2>
+            <h2><HoverLetters text="Criar é" /><br /><em><HoverLetters text="investigar." /></em><br /><HoverLetters text="Evoluir é" /><br /><HoverLetters text="insistir." /></h2>
             <div>
-              <figure className="pf-real-portrait"><img src={url("media/photos/joao-real-bw.webp")} alt="Retrato real de João Gouvêa, em preto e branco, no evento de GameDev" loading="lazy" /><figcaption>JOÃO GOUVÊA / RETRATO REAL · 2025</figcaption></figure>
+              <figure className="pf-real-portrait"><img src={url("media/photos/joao-game-dev-full.webp")} alt="João Gouvêa com certificado de desenvolvimento de jogos em 2025" loading="lazy" width="1836" height="4080" /><figcaption>GAMEDEV / UNITY · 2025</figcaption></figure>
               <p className="pf-lead">
                 {data.profile.name} é estudante de {data.profile.course} na {data.profile.school}.
               </p>
               <p>
-                Sua curiosidade por entender como as coisas funcionam passa pela programação,
-                pelos jogos, pela robótica e pelas olimpíadas acadêmicas.
+                Desenvolve projetos que unem programação, jogos e robótica. A pesquisa e as olimpíadas acadêmicas ampliam esse trabalho.
               </p>
               <p>
-                Fora do código, encontra no esporte a disciplina para tentar de
-                novo. Na arte e nos projetos criativos, espaço para experimentar.
+                Compete no tênis de mesa por Itaim Keiko e FECAP. A experiência no esporte sustenta uma prática constante: testar, analisar e aprimorar.
               </p>
               <p className="pf-past-sport">Também jogou futsal no Kogachi e no Democrático Futsal.</p>
               <dl className="pf-profile">
@@ -317,21 +239,21 @@ export function Portfolio() {
                 <AnimatedNumber value={data.sports.swimmingMedals} />
                 <sup>↗</sup>
               </strong>
-              <span>PRIMEIROS LUGARES NA NATAÇÃO</span>
+              <span>NATAÇÃO <small>16 PRIMEIROS LUGARES</small></span>
             </div>
             <div>
               <strong>
                 <AnimatedNumber value={data.sports.tableTennisMedals} />
                 <sup>↗</sup>
               </strong>
-              <span>MEDALHAS NO TÊNIS DE MESA</span>
+              <span>TÊNIS DE MESA <small>MEDALHAS EM COMPETIÇÕES</small></span>
             </div>
             <div>
               <strong>
                 <AnimatedNumber value={3} />
                 <sup>↗</sup>
               </strong>
-              <span>LEVELS CONCLUÍDOS EM GAMES</span>
+              <span>GAMEDEV <small>LEVELS CONCLUÍDOS</small></span>
             </div>
           </div>
         </section>
@@ -351,17 +273,19 @@ export function Portfolio() {
             <div className="pf-reel-window">
               <div className="pf-reel-track">
                 {[
-                  { id: "infancia-futebol", word: "COMEÇAR", label: "01 / PRIMEIROS PASSOS" },
-                  { id: "unity", word: "CRIAR", label: "02 / APRENDER FAZENDO" },
+                  { id: "podio", word: "COMPETIR", label: "01 / ESPORTE · 2024", src: "media/photos/joao-2024-podio.webp", alt: "João Gouvêa no pódio de tênis de mesa em 2024" },
+                  { id: "tenis", word: "EVOLUIR", label: "02 / TREINO E COMPETIÇÃO", src: "media/photos/joao-saque.webp", alt: "João Gouvêa se preparando para sacar" },
                   {
                     id: "formatura",
-                    word: "SEGUIR",
-                    label: "03 / O PRÓXIMO CAPÍTULO",
+                    word: "CRIAR",
+                    label: "03 / FORMAÇÃO E IDEIAS",
+                    src: "media/photos/joao-game-dev-full.webp",
+                    alt: "João Gouvêa na formação em desenvolvimento de jogos",
                   },
                 ].map((item) => (
                   <article key={item.id} className="pf-reel-card">
                     <span>{item.label}</span>
-                    {picture(item.id)}
+                    <figure className="pf-photo"><img src={url(item.src)} alt={item.alt} loading="lazy" /></figure>
                     <h3>
                       {item.word}
                       <span>↗</span>
@@ -421,24 +345,17 @@ export function Portfolio() {
               </p>
             </div>
           </article>
-          <div className="pf-project-explorer">
-            <div className="pf-project-tabs" role="tablist" aria-label="Escolher projeto">
-              {projects.map((project, index) => (
-                <button key={project.n} id={`project-tab-${index}`} role="tab" aria-selected={selectedProject === index} aria-controls="project-panel" tabIndex={selectedProject === index ? 0 : -1} onClick={() => setSelectedProject(index)} onKeyDown={(event) => {
-                  if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-                  event.preventDefault();
-                  const next = (index + (event.key === "ArrowRight" ? 1 : -1) + projects.length) % projects.length;
-                  setSelectedProject(next);
-                  document.getElementById(`project-tab-${next}`)?.focus();
-                }}><span>{project.n}</span><strong>{project.name}</strong><i>↗</i></button>
-              ))}
+          <div className="pf-project-groups">
+            <div className="pf-project-group-heading"><span>01 / TECNOLOGIA</span><h3>Pesquisa e protótipos</h3><p>Ideias em desenvolvimento, da visão computacional à experiência interativa.</p></div>
+            <div className="pf-project-grid">
+              {projects.slice(0, 2).map((project, index) => <article className="pf-project-card" key={project.n}><div className="pf-project-card-art" aria-hidden="true"><span>{index === 0 ? "◎" : "◈"}</span><small>{project.n} / LABORATÓRIO</small></div><div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div></article>)}
             </div>
-            <article key={selectedProject} id="project-panel" className={`pf-project-stage pf-project-stage-${selectedProject}`} role="tabpanel" aria-labelledby={`project-tab-${selectedProject}`}>
-              <div className="pf-project-stage-copy"><span>{projects[selectedProject].n} / {projects[selectedProject].kind}</span><h3>{projects[selectedProject].name}</h3><p>{projects[selectedProject].body}</p><small>{projects[selectedProject].status} ↗</small></div>
-              {selectedProject === 2 ? <img className="pf-project-cover" src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto vencedor ItalianWhey" loading="lazy" /> : <div className="pf-project-stage-art" aria-hidden="true"><span>{projects[selectedProject].n}</span><i /><b>{projects[selectedProject].name}</b></div>}
-            </article>
+            <div className="pf-project-group-heading"><span>02 / COMUNICAÇÃO</span><h3>Conceito e impacto</h3><p>Projetos de criação apresentados em contextos acadêmicos.</p></div>
+            <div className="pf-project-grid">
+              {projects.slice(2).map((project, index) => <article className="pf-project-card" key={project.n}><div className="pf-project-card-art">{index === 0 ? <img src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto ItalianWhey" loading="lazy" /> : <span aria-hidden="true">ACSI</span>}<small>{project.n} / CRIAÇÃO</small></div><div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div></article>)}
+            </div>
           </div>
-          <div className="pf-italian-gallery"><span>ITALIANWHEY / PROJETO VENCEDOR DE PUBLICIDADE</span><div>{[1, 2, 3, 4, 5, 6].map(index => <a key={index} href={url(`media/featured/italianwhey-${index}.webp`)} target="_blank" rel="noreferrer"><img src={url(`media/featured/italianwhey-${index}.webp`)} alt={`Registro ${index} do projeto ItalianWhey`} loading="lazy" /><small>VER REGISTRO 0{index} ↗</small></a>)}</div></div>
+          <div className="pf-italian-gallery"><span>ITALIANWHEY / PROJETO VENCEDOR DE PUBLICIDADE</span><div>{[1, 2, 3, 4, 5, 6].map(index => <figure key={index}><img src={url(`media/featured/italianwhey-${index}.webp`)} alt={`Registro ${index} do projeto ItalianWhey`} loading="lazy" /><figcaption>REGISTRO 0{index}</figcaption></figure>)}</div></div>
         </section>
         <section id="jogos" className="pf-section pf-games">
           <SectionLabel number="03">Jogos criados e em desenvolvimento</SectionLabel>
@@ -449,7 +366,7 @@ export function Portfolio() {
               { title: "Bosque Invasor", image: "jogo-bosque", status: "Protótipo", note: "Recriação visual de uma cena de jogo perdido: um homem com charuto enfrenta aliens na floresta." },
               { title: "Eclipse: Defesa Dupla", image: "jogo-planeta", status: "Protótipo cooperativo", note: "Recriação visual de um jogo para dois jogadores com soldados robóticos em um planeta sombrio." },
               { title: "Frequência Morta", image: "frequencia-morta", status: "Em desenvolvimento", note: "Capa original do projeto de jogo Frequência Morta." },
-            ].map((game, index) => <article className="pf-game" key={game.title}><div className="pf-game-image"><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" /></div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
+            ].map((game, index) => <article className="pf-game" key={game.title}><div className={`pf-game-image ${game.image === "frequencia-morta" ? "pf-game-image-poster" : ""}`}><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" /></div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
           </div>
         </section>
         <section className="pf-sport">
@@ -480,7 +397,7 @@ export function Portfolio() {
           <div className="pf-manifesto-bottom"><span>DA MESA AO LABORATÓRIO</span><span>↓ CONTINUE ROLANDO</span></div>
         </section>
         <section id="trajetoria" className="pf-section pf-timeline">
-          <SectionLabel number="03">A história acontece enquanto você rola</SectionLabel>
+          <SectionLabel number="05">A história acontece enquanto você rola</SectionLabel>
           <div className="pf-timeline-grid">
             <div className="pf-timeline-title">
               <span className="pf-kicker">ARQUIVO / TRAJETÓRIA</span>
@@ -488,7 +405,7 @@ export function Portfolio() {
               <p>Esporte, olimpíadas, tecnologia e criação. Os marcos aparecem na sequência da jornada, sem precisar abrir nada.</p>
               <span>ROLE PARA EXPLORAR ↓</span>
             </div>
-            <div className="pf-years"><div className="pf-tunnel" aria-hidden="true"><i /><i /><i /><i /><span>AVANÇAR ↓</span></div>
+            <div className="pf-years"><div className="pf-tunnel" aria-hidden="true"><div className="pf-tunnel-grid" />{Array.from({length: 9}, (_, index) => <i key={index} />)}<div className="pf-tunnel-hud"><span>TRAJETÓRIA / EM CURSO</span><strong className="pf-tunnel-current">{years[0]}</strong><span>ROLE PARA AVANÇAR ↓</span><b /></div></div>
               {years.map((year) => (
                 <article className="pf-year" key={year}>
                   <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>
@@ -520,7 +437,7 @@ export function Portfolio() {
           </div>
         </section>
         <section id="certificados" className="pf-section pf-certificates">
-          <SectionLabel number="04">Documento original</SectionLabel>
+          <SectionLabel number="06">Documento original</SectionLabel>
           <div className="pf-section-heading">
             <h2>
               OBI 2026,
@@ -554,72 +471,6 @@ export function Portfolio() {
         </a>
         <a href="#inicio">Voltar ao topo ↑</a>
       </footer>
-      {current && (
-        <dialog
-          ref={dialog}
-          className="pf-dialog"
-          onCancel={(e) => {
-            e.preventDefault();
-            close();
-          }}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) close();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "ArrowRight") {
-              e.preventDefault();
-              move(1);
-            }
-            if (e.key === "ArrowLeft") {
-              e.preventDefault();
-              move(-1);
-            }
-          }}
-          aria-labelledby="pf-dialog-title"
-        >
-          <div className="pf-modal-body">
-            <div className="pf-modal-top">
-              <span>
-                {modal!.index + 1} / {modal!.items.length}
-              </span>
-              <button autoFocus onClick={close} aria-label="Fechar imagem">
-                Fechar ×
-              </button>
-            </div>
-            <img
-              className="pf-modal-image"
-              src={url(current.src)}
-              alt={current.title}
-            />
-            <div className="pf-modal-info">
-              <div>
-                <small>
-                  {current.category} · {current.year || "Data não confirmada"}
-                </small>
-                <h2 id="pf-dialog-title">{current.title}</h2>
-                {current.representation && (
-                  <strong>
-                    Representação digital · não é documento oficial.
-                  </strong>
-                )}
-                {current.note && <p>{current.note}</p>}
-              </div>
-              <a href={url(current.src)} target="_blank" rel="noreferrer">
-                Abrir em alta resolução ↗
-              </a>
-            </div>
-            <div className="pf-modal-controls">
-              <button onClick={() => move(-1)} aria-label="Imagem anterior">
-                ← Anterior
-              </button>
-              <span>USE AS SETAS DO TECLADO</span>
-              <button onClick={() => move(1)} aria-label="Próxima imagem">
-                Próxima →
-              </button>
-            </div>
-          </div>
-        </dialog>
-      )}
     </div>
   );
 }
