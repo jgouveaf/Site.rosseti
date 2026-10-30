@@ -1,0 +1,36 @@
+/* The color serve photo is painted locally without altering the original image. */
+.pf-sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+.pf-v2 .pf-hero-stage { height: auto; min-height: 100svh; }
+.pf-v2 .pf-hero-cinema { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(25px, 4vw, 70px); height: auto; min-height: calc(100svh - 100px); overflow: visible; }
+.pf-v2 .pf-hero-image { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--color--border-lime); border-radius: 18px; box-shadow: 18px 18px 0 var(--color--lime); }
+.pf-v2 .pf-hero-image::after { display: none; }
+.pf-v2 .pf-hero-image:hover { box-shadow: 22px 22px 0 var(--color--lime); }
+.pf-brush-photo { position: absolute; inset: 0; overflow: hidden; cursor: none; touch-action: none; isolation: isolate; background: #131313; }
+.pf-brush-photo img, .pf-brush-photo canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pf-brush-photo img { object-fit: cover; object-position: center; filter: none; transform: none; }
+.pf-brush-photo canvas { pointer-events: none; }
+.pf-brush-cursor { position: absolute; z-index: 3; width: var(--brush-diameter, 100px); aspect-ratio: 1; border: 2px solid #fff; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; box-shadow: 0 0 0 1px #111, inset 0 0 0 1px #111; mix-blend-mode: difference; transition: opacity .15s; }
+.pf-brush-photo.is-brushing .pf-brush-cursor { opacity: 1; }
+.pf-brush-instruction { position: absolute; z-index: 2; bottom: 18px; left: 18px; right: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 15px; color: #fff; background: #111c; border: 1px solid #ffffff80; backdrop-filter: blur(9px); pointer-events: none; font: 700 11px/1.2 var(--font-telemetry), monospace; letter-spacing: .08em; }
+.pf-brush-instruction span { min-width: 42px; text-align: right; color: var(--color--lime); }
+.pf-v2 .pf-hero-title { width: 100%; left: 0; }
+.pf-v2 .pf-hero h1 { font-size: clamp(60px, 6.5vw, 100px); line-height: .96; }
+.pf-v2 .pf-hero h1 > .pf-name-first, .pf-v2 .pf-hero h1 > .pf-name-last { display: block; margin-left: 0; }
+.pf-v2 .pf-hero h1 .pf-hover-word, .pf-v2 .pf-hero h1 .pf-hover-letter { display: inline-block; margin-left: 0; }
+.pf-v2 .pf-hero h1 .pf-hover-letter { transform-origin: 50% 70%; will-change: transform; }
+.pf-v2 .pf-hero h1 .pf-hover-letter:hover { animation: pf-rubber-letter .72s cubic-bezier(.18,.8,.22,1) both; color: var(--color--lime) !important; text-shadow: 0 0 .16em var(--color--lime-glow); }
+.pf-v2 .pf-hero h1 .pf-hover-letter:hover + .pf-hover-letter { transform: scale(1.15, .96); }
+@keyframes pf-rubber-letter { 0% { transform: scale(1,1); } 24% { transform: scale(1.5,.66) rotate(-3deg); } 48% { transform: scale(.82,1.35) rotate(2deg); } 70% { transform: scale(1.22,.88); } 100% { transform: scale(1.18,1.08); } }
+@media (max-width: 900px) {
+  .pf-v2 .pf-hero-cinema { display: flex; flex-direction: column-reverse; align-items: stretch; gap: 24px; padding: 24px 6vw 50px; }
+  .pf-v2 .pf-hero-image { width: 100%; height: auto; flex: 0 0 auto; aspect-ratio: 4 / 3; }
+  .pf-v2 .pf-hero-title { top: auto; width: 100%; }
+  .pf-v2 .pf-hero h1 { font-size: clamp(56px, 12vw, 100px); }
+}
+@media (max-width: 520px) {
+  .pf-v2 .pf-hero-image { border-radius: 12px; box-shadow: 10px 10px 0 var(--color--lime); }
+  .pf-v2 .pf-hero-image:hover { box-shadow: 12px 12px 0 var(--color--lime); }
+  .pf-v2 .pf-hero h1 { font-size: clamp(56px, 15vw, 78px); }
+  .pf-brush-instruction { left: 10px; right: 10px; bottom: 10px; padding: 9px 11px; font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .pf-v2 .pf-hero h1 .pf-hover-letter:hover { animation: none; transform: scale(1.18); } .pf-brush-cursor { transition: none; } }

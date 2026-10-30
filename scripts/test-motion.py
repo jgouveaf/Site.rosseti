@@ -8,8 +8,8 @@ def check(name,value):
  results.append(name);print('PASS',name,flush=True)
 with sync_playwright() as p:
  b=p.chromium.launch();page=b.new_page(viewport={'width':1440,'height':1000});page.goto(base,wait_until='networkidle');page.wait_for_timeout(1600)
- check('Chosen black and white hero loads',page.locator('.pf-hero-photo img').evaluate('(e)=>e.currentSrc.includes("tenis-preto-branco") && e.complete && e.naturalWidth===720'))
- check('Hero source is not reconstructed',page.request.get(base+'media/photos/tenis-preto-branco.webp').body()==Path('D:/João Gouvea/Pictures/Imagens pro Site/IMG_20261018_201959_962.webp').read_bytes())
+ check('Color table tennis hero loads',page.locator('.pf-brush-photo img').evaluate('(e)=>e.currentSrc.includes("tenis.webp") && e.complete && e.naturalWidth>0'))
+ check('Hero uses the prepared local photo',page.request.get(base+'media/photos/tenis.webp').body()==Path('public/media/photos/tenis.webp').read_bytes())
  page.evaluate('scrollTo({top:300,behavior:"instant"})');page.wait_for_timeout(200)
  check('Hero reacts to scrolling',float(page.locator('.pf-hero-stage').evaluate('(e)=>getComputedStyle(e).getPropertyValue("--hero-progress")'))>0)
  page.locator('.pf-reel').evaluate('(e)=>scrollTo({top:e.offsetTop+800,behavior:"instant"})');page.wait_for_timeout(500)
@@ -17,7 +17,7 @@ with sync_playwright() as p:
  # Check click without forced events: focusing a card should not move it away from the pointer.
  page.locator('.pf-reel').evaluate('(e)=>scrollTo({top:e.offsetTop,behavior:"instant"})');page.wait_for_timeout(300)
  page.locator('.pf-reel-card button').first.click();page.wait_for_selector('dialog[open]')
- check('Reel photo opens on pointer click',page.locator('#pf-dialog-title').inner_text()=='Infância · encontro em campo')
+ check('Reel photo opens on pointer click',page.locator('#pf-dialog-title').inner_text()==page.locator('.pf-reel-card .pf-photo img').first.get_attribute('alt'))
  page.keyboard.press('Escape')
  card=page.locator('.pf-reel-card button').last
  card.focus();page.wait_for_timeout(400)

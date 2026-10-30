@@ -20,6 +20,7 @@ export function usePortfolioMotion() {
     let mouseY = innerHeight / 2;
     let activeMagnet: HTMLElement | null = null;
     let magnetBounds: DOMRect | null = null;
+    let activeGlow: HTMLElement | null = null;
     const update = () => {
       frame = 0;
       const height = innerHeight;
@@ -100,12 +101,33 @@ export function usePortfolioMotion() {
       activeMagnet = null;
       magnetBounds = null;
     };
+    const resetGlow = () => {
+      activeGlow?.style.removeProperty("--spot-x");
+      activeGlow?.style.removeProperty("--spot-y");
+      activeGlow?.style.removeProperty("--tilt-x");
+      activeGlow?.style.removeProperty("--tilt-y");
+      activeGlow = null;
+    };
     const onPointer = (event: PointerEvent) => {
       if (reduced.matches || event.pointerType === "touch" || !fine.matches)
         return;
       mouseX = event.clientX;
       mouseY = event.clientY;
       const target = event.target as HTMLElement;
+      const glow = target.closest<HTMLElement>(".pf-hero-image,.pf-route a,.pf-project-stage,.pf-history-item,.pf-obi-feature,.pf-reel-card");
+      if (glow !== activeGlow) resetGlow();
+      if (glow) {
+        activeGlow = glow;
+        const bounds = glow.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / Math.max(1, bounds.width);
+        const y = (event.clientY - bounds.top) / Math.max(1, bounds.height);
+        glow.style.setProperty("--spot-x", `${x * 100}%`);
+        glow.style.setProperty("--spot-y", `${y * 100}%`);
+        if (glow.classList.contains("pf-hero-image")) {
+          glow.style.setProperty("--tilt-x", `${(0.5 - y) * 8}deg`);
+          glow.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
+        }
+      }
       pointer?.classList.toggle(
         "is-visible",
         !!target.closest(".pf-photo,.pf-gallery-card,.pf-obi-paper"),
@@ -121,6 +143,7 @@ export function usePortfolioMotion() {
     const leave = () => {
       pointer?.classList.remove("is-visible");
       resetMagnet();
+      resetGlow();
     };
     const observer = new IntersectionObserver(
       (entries) =>
@@ -133,7 +156,7 @@ export function usePortfolioMotion() {
       { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
     );
     const revealElements = root.querySelectorAll<HTMLElement>(
-      ".pf-label,.pf-route a,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project,.pf-year,.pf-fecart,.pf-sport-copy,.pf-obi-feature,.pf-explore h2",
+      ".pf-label,.pf-route a,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project,.pf-year,.pf-history-item,.pf-reel-heading,.pf-reel-card,.pf-project-tabs button,.pf-project-stage,.pf-manifesto p,.pf-fecart,.pf-sport-copy,.pf-obi-feature,.pf-explore h2",
     );
     revealElements.forEach((el, i) => {
       el.classList.add("motion-reveal");
@@ -189,6 +212,7 @@ export function usePortfolioMotion() {
       reduced.removeEventListener("change", refreshMotion);
       fine.removeEventListener("change", refreshMotion);
       resetMagnet();
+      resetGlow();
     };
   }, []);
 }

@@ -3,7 +3,9 @@ import data from "./data/portfolio.json";
 import "./portfolio.css";
 import "./motion-design.css";
 import "./editorial-redesign.css";
+import "./brush-hero.css";
 import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
+import { BrushPhoto } from "./BrushPhoto";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 type Media = {
   id: string;
@@ -25,7 +27,7 @@ const projects = [
   { n: "03", name: "ItalianWhey", kind: "COMUNICAÇÃO / CRIATIVIDADE", body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.", status: "Vencedor · 2025" },
   { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista que integra minha trajetória criativa.", status: "Finalista" },
 ];
-const curatedPhotos = ["joao-portrait", "joao-foco", "torneio-2026", "fecart", "esporte-2025", "formatura", "tenis"].map(photo);
+const curatedPhotos = ["tenis-preto-branco", "infancia-futebol", "unity", "formatura", "tenis"].map(photo);
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
     <span className="pf-sr-only">{text}</span>
@@ -197,7 +199,7 @@ export function Portfolio() {
               </div>
             </div>
             <div className="pf-hero-image">
-              {picture("joao-portrait", "pf-hero-photo", true)}
+              <BrushPhoto src={url(photo("tenis").src)} alt="João Gouvêa se preparando para sacar no tênis de mesa" />
             </div>
             <svg
               className="pf-wire"

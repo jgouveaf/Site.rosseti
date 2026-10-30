@@ -7,7 +7,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch()
     page = browser.new_page(viewport={'width': 1440, 'height': 900})
     page.goto(base, wait_until='networkidle')
-    for selector in ('.pf-hero-photo', '.pf-reel-card button', '.pf-sport-image .pf-photo', '.pf-obi-paper'):
+    for selector in ('.pf-reel-card button', '.pf-sport-image .pf-photo', '.pf-obi-paper'):
         item = page.locator(selector).first
         item.scroll_into_view_if_needed()
         page.wait_for_timeout(200)
