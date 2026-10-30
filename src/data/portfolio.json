@@ -22,15 +22,15 @@
   "photos": [
     {
       "id": "joao-portrait",
-      "title": "João Gouvêa — Retrato Oficial",
+      "title": "João Gouvêa — retrato real em preto e branco",
       "category": "Pessoal",
-      "year": 2026,
-      "src": "media/photos/joao-portrait.webp",
-      "thumb": "media/photos/joao-portrait-small.webp",
-      "width": 640,
-      "height": 960,
-      "thumbWidth": 600,
-      "note": "Tratamento de alta fidelidade e color grading cinematográfico."
+      "year": 2025,
+      "src": "media/photos/joao-real-bw.webp",
+      "thumb": "media/photos/joao-real-bw.webp",
+      "width": 786,
+      "height": 1370,
+      "thumbWidth": 786,
+      "note": "Recorte da fotografia original com tratamento convencional em preto e branco."
     },
     {
       "id": "joao-foco",
@@ -771,7 +771,7 @@
       "title": "Futsal",
       "category": "Esportes",
       "year": null,
-      "result": "Joguei no Kogachi e no Democrático Futsal",
+      "result": "Jogou no Kogachi e no Democrático Futsal",
       "photo": "infancia-futebol"
     },
     {

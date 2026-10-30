@@ -8,7 +8,7 @@ def check(name,value):
  results.append(name);print('PASS',name,flush=True)
 with sync_playwright() as p:
  b=p.chromium.launch();page=b.new_page(viewport={'width':1440,'height':1000});page.goto(base,wait_until='networkidle');page.wait_for_timeout(1600)
- check('Color table tennis hero loads',page.locator('.pf-brush-photo img').evaluate('(e)=>e.currentSrc.includes("tenis.webp") && e.complete && e.naturalWidth>0'))
+ check('Color table tennis hero loads',page.locator('.pf-hero-image img').evaluate('(e)=>e.currentSrc.includes("tenis.webp") && e.complete && e.naturalWidth>0'))
  check('Hero uses the prepared local photo',page.request.get(base+'media/photos/tenis.webp').body()==Path('public/media/photos/tenis.webp').read_bytes())
  page.evaluate('scrollTo({top:300,behavior:"instant"})');page.wait_for_timeout(200)
  check('Hero reacts to scrolling',float(page.locator('.pf-hero-stage').evaluate('(e)=>getComputedStyle(e).getPropertyValue("--hero-progress")'))>0)

@@ -4,8 +4,8 @@ import "./portfolio.css";
 import "./motion-design.css";
 import "./editorial-redesign.css";
 import "./brush-hero.css";
+import "./portfolio-refresh.css";
 import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
-import { BrushPhoto } from "./BrushPhoto";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 type Media = {
   id: string;
@@ -25,7 +25,7 @@ const projects = [
   { n: "01", name: "VisionAI", kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA", body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.", status: "Em desenvolvimento" },
   { n: "02", name: "Frequência Morta", kind: "GAMEDEV / UNITY", body: "Projeto pessoal de jogo em desenvolvimento. Um espaço para aplicar programação, construir experiências e explorar a narrativa interativa.", status: "Em desenvolvimento" },
   { n: "03", name: "ItalianWhey", kind: "COMUNICAÇÃO / CRIATIVIDADE", body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.", status: "Vencedor · 2025" },
-  { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista que integra minha trajetória criativa.", status: "Finalista" },
+  { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista da trajetória criativa de João.", status: "Finalista" },
 ];
 const curatedPhotos = ["tenis-preto-branco", "infancia-futebol", "unity", "formatura", "tenis"].map(photo);
 function HoverLetters({ text }: { text: string }) {
@@ -94,6 +94,26 @@ export function Portfolio() {
     resume();
     return () => document.removeEventListener("visibilitychange", resume);
   }, []);
+  useEffect(() => {
+    const section = document.querySelector<HTMLElement>(".pf-timeline");
+    const rings = Array.from(document.querySelectorAll<HTMLElement>(".pf-tunnel i"));
+    if (!section || !rings.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (rect.height + innerHeight)));
+      rings.forEach((ring, index) => {
+        ring.style.transform = `translateZ(${Math.round(-index * 180 + progress * 620)}px) rotate(${Math.round(progress * 22)}deg)`;
+        ring.style.opacity = String(Math.max(.12, 1 - Math.abs(progress * 4 - index) * .18));
+      });
+    };
+    const request = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    addEventListener("scroll", request, { passive: true });
+    addEventListener("resize", request);
+    return () => { removeEventListener("scroll", request); removeEventListener("resize", request); cancelAnimationFrame(frame); };
+  }, []);
   const picture = (id: string, className = "", eager = false) => {
     const p = photo(id);
     return (
@@ -153,6 +173,7 @@ export function Portfolio() {
           {[
             ["sobre", "Sobre"],
             ["projetos", "Projetos"],
+            ["jogos", "Jogos"],
             ["trajetoria", "Trajetória"],
             ["certificados", "Certificado OBI"],
             ["momentos", "Momentos"],
@@ -190,7 +211,7 @@ export function Portfolio() {
                 </p>
                 <div className="pf-hero-actions">
                   <a className="pf-hero-cta" href="#projetos">
-                    VER MEUS PROJETOS <span>↗</span>
+                    VER PROJETOS <span>↗</span>
                   </a>
                   <a className="pf-scroll-link" href="#sobre">
                     EXPLORAR TRAJETÓRIA ↓
@@ -199,7 +220,7 @@ export function Portfolio() {
               </div>
             </div>
             <div className="pf-hero-image">
-              <BrushPhoto src={url(photo("tenis").src)} alt="João Gouvêa se preparando para sacar no tênis de mesa" />
+              <img src={url(photo("tenis").src)} alt="João Gouvêa se preparando para sacar no tênis de mesa" fetchPriority="high" />
             </div>
             <svg
               className="pf-wire"
@@ -255,28 +276,21 @@ export function Portfolio() {
         <section id="sobre" className="pf-section pf-about pf-reveal">
           <SectionLabel number="01">Muito além de uma área</SectionLabel>
           <div className="pf-about-grid">
-            <h2>
-              A curiosidade
-              <br />é o meu
-              <br />
-              <em>ponto de partida.</em>
-            </h2>
+            <h2><HoverLetters text="A curiosidade" /><br /><HoverLetters text="é o" /><br /><em><HoverLetters text="ponto de partida." /></em></h2>
             <div>
+              <figure className="pf-real-portrait"><img src={url("media/photos/joao-real-bw.webp")} alt="Retrato real de João Gouvêa, em preto e branco, no evento de GameDev" loading="lazy" /><figcaption>JOÃO GOUVÊA / RETRATO REAL · 2025</figcaption></figure>
               <p className="pf-lead">
-                Sou {data.profile.name}. Tenho {data.profile.age} anos e estudo{" "}
-                {data.profile.course} na {data.profile.school}.
+                {data.profile.name} é estudante de {data.profile.course} na {data.profile.school}.
               </p>
               <p>
-                Gosto de entender como as coisas funcionam — e de descobrir o
-                que posso criar com elas. Meu caminho passa pela programação,
+                Sua curiosidade por entender como as coisas funcionam passa pela programação,
                 pelos jogos, pela robótica e pelas olimpíadas acadêmicas.
               </p>
               <p>
-                Fora do código, encontro no esporte a disciplina para tentar de
-                novo. Na arte e nos projetos criativos, espaço para
-                experimentar.
+                Fora do código, encontra no esporte a disciplina para tentar de
+                novo. Na arte e nos projetos criativos, espaço para experimentar.
               </p>
-              <p className="pf-past-sport">Também joguei futsal no Kogachi e no Democrático Futsal.</p>
+              <p className="pf-past-sport">Também jogou futsal no Kogachi e no Democrático Futsal.</p>
               <dl className="pf-profile">
                 <div>
                   <dt>FORMAÇÃO</dt>
@@ -303,7 +317,7 @@ export function Portfolio() {
                 <AnimatedNumber value={data.sports.swimmingMedals} />
                 <sup>↗</sup>
               </strong>
-              <span>MEDALHAS NA NATAÇÃO</span>
+              <span>PRIMEIROS LUGARES NA NATAÇÃO</span>
             </div>
             <div>
               <strong>
@@ -421,8 +435,21 @@ export function Portfolio() {
             </div>
             <article key={selectedProject} id="project-panel" className={`pf-project-stage pf-project-stage-${selectedProject}`} role="tabpanel" aria-labelledby={`project-tab-${selectedProject}`}>
               <div className="pf-project-stage-copy"><span>{projects[selectedProject].n} / {projects[selectedProject].kind}</span><h3>{projects[selectedProject].name}</h3><p>{projects[selectedProject].body}</p><small>{projects[selectedProject].status} ↗</small></div>
-              <div className="pf-project-stage-art" aria-hidden="true"><span>{projects[selectedProject].n}</span><i /><b>{projects[selectedProject].name}</b></div>
+              {selectedProject === 2 ? <img className="pf-project-cover" src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto vencedor ItalianWhey" loading="lazy" /> : <div className="pf-project-stage-art" aria-hidden="true"><span>{projects[selectedProject].n}</span><i /><b>{projects[selectedProject].name}</b></div>}
             </article>
+          </div>
+          <div className="pf-italian-gallery"><span>ITALIANWHEY / PROJETO VENCEDOR DE PUBLICIDADE</span><div>{[1, 2, 3, 4, 5, 6].map(index => <a key={index} href={url(`media/featured/italianwhey-${index}.webp`)} target="_blank" rel="noreferrer"><img src={url(`media/featured/italianwhey-${index}.webp`)} alt={`Registro ${index} do projeto ItalianWhey`} loading="lazy" /><small>VER REGISTRO 0{index} ↗</small></a>)}</div></div>
+        </section>
+        <section id="jogos" className="pf-section pf-games">
+          <SectionLabel number="03">Jogos criados e em desenvolvimento</SectionLabel>
+          <div className="pf-section-heading"><h2>Universos <em>jogáveis.</em></h2><p>Protótipos, jogos e histórias desenvolvidos com Unity.</p></div>
+          <div className="pf-games-grid">
+            {[
+              { title: "O CUBO", image: "o-cubo-gameplay", status: "Captura real do jogo", note: "Imagem capturada dentro da versão 0.0.5, durante uma fase jogável." },
+              { title: "Bosque Invasor", image: "jogo-bosque", status: "Protótipo", note: "Recriação visual de uma cena de jogo perdido: um homem com charuto enfrenta aliens na floresta." },
+              { title: "Eclipse: Defesa Dupla", image: "jogo-planeta", status: "Protótipo cooperativo", note: "Recriação visual de um jogo para dois jogadores com soldados robóticos em um planeta sombrio." },
+              { title: "Frequência Morta", image: "frequencia-morta", status: "Em desenvolvimento", note: "Capa original do projeto de jogo Frequência Morta." },
+            ].map((game, index) => <article className="pf-game" key={game.title}><div className="pf-game-image"><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" /></div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
           </div>
         </section>
         <section className="pf-sport">
@@ -437,17 +464,19 @@ export function Portfolio() {
               <em><HoverLetters text="agora." /></em>
             </h2>
             <p>
-              No tênis de mesa, represento Itaim Keiko e FECAP. Cada treino e
-              cada competição entram nessa história.
+              No tênis de mesa, João representa Itaim Keiko e FECAP. Cada treino e
+              competição fazem parte dessa história.
             </p>
             <a href="#trajetoria" className="pf-link">
               Percorrer trajetória <span>↗</span>
             </a>
           </div>
+          <div className="pf-sport-medals"><span>ARQUIVO / TÊNIS DE MESA</span><div>{["inicup", "liga-20", "matchpoint"].map(id => picture(id))}</div></div>
         </section>
+        <section className="pf-swimming"><img src={url("media/featured/primeira-medalha.webp")} alt="João criança segurando a primeira medalha de natação" loading="lazy" /><div><span>ARQUIVO / NATAÇÃO</span><h2><HoverLetters text="16 medalhas." /></h2><p>Dezesseis conquistas de primeiro lugar na natação. A foto registra a primeira medalha.</p></div></section>
         <section className="pf-manifesto" aria-label="Esporte, tecnologia e criação">
           <span className="pf-manifesto-index">01 / 02 / 03 — EM MOVIMENTO</span>
-          <p>IDEIAS EM <em>CÓDIGO.</em><br />FOCO NO <em>JOGO.</em><br />OLHOS NO <em>FUTURO.</em></p>
+          <p><HoverLetters text="IDEIAS EM CÓDIGO." /><br /><HoverLetters text="FOCO NO JOGO." /><br /><HoverLetters text="OLHOS NO FUTURO." /></p>
           <div className="pf-manifesto-bottom"><span>DA MESA AO LABORATÓRIO</span><span>↓ CONTINUE ROLANDO</span></div>
         </section>
         <section id="trajetoria" className="pf-section pf-timeline">
@@ -459,7 +488,7 @@ export function Portfolio() {
               <p>Esporte, olimpíadas, tecnologia e criação. Os marcos aparecem na sequência da jornada, sem precisar abrir nada.</p>
               <span>ROLE PARA EXPLORAR ↓</span>
             </div>
-            <div className="pf-years">
+            <div className="pf-years"><div className="pf-tunnel" aria-hidden="true"><i /><i /><i /><i /><span>AVANÇAR ↓</span></div>
               {years.map((year) => (
                 <article className="pf-year" key={year}>
                   <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>
@@ -505,7 +534,7 @@ export function Portfolio() {
             </p>
           </div>
           <article className="pf-obi-feature pf-reveal">
-            <div className="pf-obi-copy"><span className="pf-kicker">CERTIFICADO ORIGINAL · 2026</span><strong>146º <small>DE 2.923 PARTICIPANTES</small></strong><p>Participação na XXVIII Olimpíada Brasileira de Informática, modalidade Programação Nível 1.</p><a className="pf-obi-link" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer">Abrir certificado original (PDF) <span>↗</span></a></div>
+            <div className="pf-obi-copy"><span className="pf-kicker">CERTIFICADO ORIGINAL · 2026</span><strong>146º <small>ENTRE 7.000 PARTICIPANTES DESDE A 1ª FASE</small></strong><p>Participação na XXVIII Olimpíada Brasileira de Informática, modalidade Programação Nível 1.</p><a className="pf-obi-link" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer">Abrir certificado original (PDF) <span>↗</span></a></div>
             <a className="pf-obi-paper" href={url("media/certificates/obi-2026.pdf")} target="_blank" rel="noreferrer" aria-label="Abrir certificado original da OBI 2026 em PDF"><img src={url("media/certificates/obi-2026.webp")} alt="Prévia do certificado original da OBI 2026" loading="lazy" width="1684" height="1191" /></a>
           </article>
         </section>

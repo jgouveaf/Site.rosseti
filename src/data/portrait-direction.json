@@ -1,0 +1,8 @@
+{
+  "source": "IMG_20251205_153641918~2.jpg",
+  "subject": "João Gouvêa, pessoa à direita na fotografia original",
+  "reference_style": "retrato editorial preto e branco com contraste suave",
+  "crop_px": [1050, 1080, 1836, 2450],
+  "treatment": ["escala de cinza", "contraste local leve", "nitidez leve"],
+  "identity_preservation": "usar pixels da foto real; não reconstruir ou gerar rosto"
+}
