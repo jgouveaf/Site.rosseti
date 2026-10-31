@@ -55,8 +55,6 @@ export function Portfolio() {
   useEffect(() => {
     const section = document.querySelector<HTMLElement>(".pf-timeline");
     const rings = Array.from(document.querySelectorAll<HTMLElement>(".pf-tunnel i"));
-    const yearDisplay = section?.querySelector<HTMLElement>(".pf-tunnel-current");
-    const yearCards = Array.from(section?.querySelectorAll<HTMLElement>(".pf-year:not(.pf-year-undated)") ?? []);
     if (!section || !rings.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let frame = 0;
     const update = () => {
@@ -69,8 +67,6 @@ export function Portfolio() {
         ring.style.transform = `translate(-50%, -50%) scale(${(.14 + cycle * 2.6).toFixed(3)}) rotate(${(progress * 36).toFixed(1)}deg)`;
         ring.style.opacity = String(Math.max(.15, 1 - cycle * .58));
       });
-      const active = [...yearCards].reverse().find(card => card.getBoundingClientRect().top < innerHeight * .62) ?? yearCards[0];
-      if (yearDisplay && active) yearDisplay.textContent = active.querySelector("h3 span")?.textContent ?? "2022";
     };
     const request = () => { if (!frame) frame = requestAnimationFrame(update); };
     update();
@@ -273,14 +269,14 @@ export function Portfolio() {
             <div className="pf-reel-window">
               <div className="pf-reel-track">
                 {[
-                  { id: "podio", word: "COMPETIR", label: "01 / ESPORTE · 2024", src: "media/photos/joao-2024-podio.webp", alt: "João Gouvêa no pódio de tênis de mesa em 2024" },
+                  { id: "infancia", word: "COMEÇAR", label: "01 / PRIMEIROS PASSOS · FUTSAL", src: "media/photos/joao-infancia-futsal.webp", alt: "João Gouvêa criança com medalha em uma quadra de futsal" },
                   { id: "tenis", word: "EVOLUIR", label: "02 / TREINO E COMPETIÇÃO", src: "media/photos/joao-saque.webp", alt: "João Gouvêa se preparando para sacar" },
                   {
-                    id: "formatura",
-                    word: "CRIAR",
-                    label: "03 / FORMAÇÃO E IDEIAS",
-                    src: "media/photos/joao-game-dev-full.webp",
-                    alt: "João Gouvêa na formação em desenvolvimento de jogos",
+                    id: "desenho",
+                    word: "IMAGINAR",
+                    label: "03 / DESENHO E CRIAÇÃO",
+                    src: "media/photos/desenho-olhos.webp",
+                    alt: "Desenho em preto e branco com olhos em espiral",
                   },
                 ].map((item) => (
                   <article key={item.id} className="pf-reel-card">
@@ -351,11 +347,14 @@ export function Portfolio() {
               {projects.slice(0, 2).map((project, index) => <article className="pf-project-card" key={project.n}><div className="pf-project-card-art" aria-hidden="true"><span>{index === 0 ? "◎" : "◈"}</span><small>{project.n} / LABORATÓRIO</small></div><div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div></article>)}
             </div>
             <div className="pf-project-group-heading"><span>02 / COMUNICAÇÃO</span><h3>Conceito e impacto</h3><p>Projetos de criação apresentados em contextos acadêmicos.</p></div>
-            <div className="pf-project-grid">
-              {projects.slice(2).map((project, index) => <article className="pf-project-card" key={project.n}><div className="pf-project-card-art">{index === 0 ? <img src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto ItalianWhey" loading="lazy" /> : <span aria-hidden="true">ACSI</span>}<small>{project.n} / CRIAÇÃO</small></div><div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div></article>)}
+            <div className="pf-project-grid pf-project-grid-creative">
+              {projects.slice(2).map((project, index) => <article className={`pf-project-card ${index === 0 ? "pf-project-card-italian" : ""}`} key={project.n}>
+                <div className="pf-project-card-art">{index === 0 ? <img src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto ItalianWhey" loading="lazy" /> : <span aria-hidden="true">ACSI</span>}<small>{project.n} / CRIAÇÃO</small></div>
+                <div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div>
+                {index === 0 && <div className="pf-italian-gallery"><span>REGISTROS DO PROJETO VENCEDOR</span><div>{[1, 2, 3, 4, 5, 6].map(image => <figure key={image}><img src={url(`media/featured/italianwhey-${image}.webp`)} alt={`Registro ${image} do projeto ItalianWhey`} loading="lazy" /><figcaption>REGISTRO 0{image}</figcaption></figure>)}</div></div>}
+              </article>)}
             </div>
           </div>
-          <div className="pf-italian-gallery"><span>ITALIANWHEY / PROJETO VENCEDOR DE PUBLICIDADE</span><div>{[1, 2, 3, 4, 5, 6].map(index => <figure key={index}><img src={url(`media/featured/italianwhey-${index}.webp`)} alt={`Registro ${index} do projeto ItalianWhey`} loading="lazy" /><figcaption>REGISTRO 0{index}</figcaption></figure>)}</div></div>
         </section>
         <section id="jogos" className="pf-section pf-games">
           <SectionLabel number="03">Jogos criados e em desenvolvimento</SectionLabel>
@@ -366,7 +365,7 @@ export function Portfolio() {
               { title: "Bosque Invasor", image: "jogo-bosque", status: "Protótipo", note: "Recriação visual de uma cena de jogo perdido: um homem com charuto enfrenta aliens na floresta." },
               { title: "Eclipse: Defesa Dupla", image: "jogo-planeta", status: "Protótipo cooperativo", note: "Recriação visual de um jogo para dois jogadores com soldados robóticos em um planeta sombrio." },
               { title: "Frequência Morta", image: "frequencia-morta", status: "Em desenvolvimento", note: "Capa original do projeto de jogo Frequência Morta." },
-            ].map((game, index) => <article className="pf-game" key={game.title}><div className={`pf-game-image ${game.image === "frequencia-morta" ? "pf-game-image-poster" : ""}`}><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" /></div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
+            ].map((game, index) => <article className="pf-game" key={game.title}><div className={`pf-game-image pf-game-image-${game.image}`}><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" />{(game.image === "jogo-bosque" || game.image === "jogo-planeta") && <div className="pf-game-hud" aria-hidden="true"><span>{game.image === "jogo-bosque" ? "ONDA 03 / FLORESTA" : "CO-OP / 2 JOGADORES"}</span><i className="pf-game-reticle" /><b>{game.image === "jogo-bosque" ? "HP 100" : "SETOR 07"}</b></div>}</div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
           </div>
         </section>
         <section className="pf-sport">
@@ -405,7 +404,7 @@ export function Portfolio() {
               <p>Esporte, olimpíadas, tecnologia e criação. Os marcos aparecem na sequência da jornada, sem precisar abrir nada.</p>
               <span>ROLE PARA EXPLORAR ↓</span>
             </div>
-            <div className="pf-years"><div className="pf-tunnel" aria-hidden="true"><div className="pf-tunnel-grid" />{Array.from({length: 9}, (_, index) => <i key={index} />)}<div className="pf-tunnel-hud"><span>TRAJETÓRIA / EM CURSO</span><strong className="pf-tunnel-current">{years[0]}</strong><span>ROLE PARA AVANÇAR ↓</span><b /></div></div>
+            <div className="pf-years"><div className="pf-tunnel" aria-hidden="true"><div className="pf-tunnel-grid" />{Array.from({length: 9}, (_, index) => <i key={index} />)}</div>
               {years.map((year) => (
                 <article className="pf-year" key={year}>
                   <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>

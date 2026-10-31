@@ -46,8 +46,9 @@
 .pf-reel { background: #151d16; }
 .pf-reel-card .pf-photo { cursor: default; }
 .pf-reel-card .pf-photo img { object-fit: cover; }
-.pf-reel-card:nth-child(1) .pf-photo img { object-position: center 25%; }
-.pf-reel-card:nth-child(3) .pf-photo img { object-position: center 40%; }
+.pf-v2 .pf-reel-card:nth-child(1) .pf-photo,.pf-v2 .pf-reel-card:nth-child(3) .pf-photo { background: radial-gradient(circle at 50% 50%,#435647,#101813 80%); }
+.pf-v2 .pf-reel-card:nth-child(1) .pf-photo img,.pf-v2 .pf-reel-card:nth-child(3) .pf-photo img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.pf-v2 .pf-reel-card:nth-child(3) .pf-photo { background: #deded7; }
 .pf-v2 .pf-photo { margin: 0; cursor: default; }
 .pf-v2 .pf-photo-caption { display: none; }
 .pf-v2 .pf-photo:hover img { transform: none; }
@@ -71,8 +72,11 @@
 .pf-project-card-copy h4 { font: 400 clamp(2.2rem,3vw,3.6rem)/1 var(--font-editorial); margin: .6rem 0 1rem; }
 .pf-project-card-copy p { color: #d2d9ce; max-width: 48ch; line-height: 1.55; margin: 0 0 1.7rem; }
 .pf-project-card-copy strong { margin-top: auto; border-top: 1px solid #ffffff33; width: 100%; padding-top: .8rem; color: #fff; font: 700 .8rem var(--font-body); }
-.pf-italian-gallery { padding-top: 2rem; border-top: 1px solid #ffffff4a; }
-.pf-italian-gallery > div { grid-auto-columns: minmax(220px,27%); }
+.pf-project-grid-creative { grid-template-columns: minmax(0,1.45fr) minmax(0,1fr); }
+.pf-project-card-italian { display: flex; flex-direction: column; }
+.pf-project-card-italian .pf-project-card-copy { min-height: 0; }
+.pf-italian-gallery { min-width: 0; padding: 1.3rem clamp(1.3rem,2.3vw,2rem) 1.5rem; border-top: 1px solid #ffffff4a; margin-top: auto; }
+.pf-italian-gallery > div { grid-auto-columns: minmax(170px,48%); }
 .pf-italian-gallery figure { margin: 0; border: 1px solid #ffffff25; background: #111; scroll-snap-align: start; overflow: hidden; }
 .pf-italian-gallery figure img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
 .pf-italian-gallery figcaption { padding: .75rem; font: 700 .75rem var(--font-body); color: #f1f5e9; }
@@ -82,7 +86,18 @@
 .pf-game:hover { transform: translateY(-6px); border-color: var(--color--lime); }
 .pf-game-image { aspect-ratio: 16/9; background: #121b24; display: grid; place-items: center; }
 .pf-game img { aspect-ratio: auto; width: 100%; height: 100%; object-fit: cover; }
-.pf-game-image-poster img { object-fit: contain; }
+.pf-v2 .pf-game-image-frequencia-morta { background: #0a1a26; }
+.pf-v2 .pf-game-image-frequencia-morta img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.pf-game-image-jogo-bosque,.pf-game-image-jogo-planeta { position: relative; }
+.pf-game-image-jogo-bosque img,.pf-game-image-jogo-planeta img { filter: saturate(1.2) contrast(1.12) hue-rotate(-4deg); }
+.pf-game-image-jogo-planeta img { filter: saturate(1.32) contrast(1.13) hue-rotate(5deg); }
+.pf-game-hud { position: absolute; inset: 0; z-index: 2; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: clamp(.55rem,1.2vw,1rem); color: #ecffdb; font: 800 clamp(.55rem,.85vw,.78rem)/1.2 var(--font-body); letter-spacing: .1em; text-shadow: 0 1px 3px #000,0 0 9px #000; box-shadow: inset 0 0 65px #0009; }
+.pf-game-hud > span,.pf-game-hud > b { padding: .45rem .6rem; border: 1px solid #cfff0099; background: #07120ba8; }
+.pf-game-hud > b { color: #cfff00; }
+.pf-game-reticle { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; border: 1px solid #d9ffcb; border-radius: 50%; transform: translate(-50%,-50%); box-shadow: 0 0 7px #000; }
+.pf-game-reticle::before,.pf-game-reticle::after { content: ''; position: absolute; background: #d9ffcb; }
+.pf-game-reticle::before { width: 1px; height: 38px; left: 12px; top: -7px; }
+.pf-game-reticle::after { height: 1px; width: 38px; left: -7px; top: 12px; }
 .pf-game h3 { font-size: clamp(2rem,3.5vw,3.4rem); }
 .pf-v2 .pf-sport-image .pf-photo { height: 100%; }
 .pf-v2 .pf-sport-image .pf-photo img { width: 100%; height: 100%; filter: grayscale(1) contrast(1.06); object-fit: cover; }
@@ -102,14 +117,11 @@
 .pf-tunnel::before { content: ''; position: sticky; top: 0; display: block; height: 100svh; margin-bottom: -100svh; background: radial-gradient(ellipse at 50% 47%,#294e2d85 0,#07110e77 35%,#07110e 74%); }
 .pf-tunnel-grid { position: sticky; top: 0; height: 100svh; margin-bottom: -100svh; opacity: .65; background: linear-gradient(90deg,transparent 49.85%,#cfff0066 50%,transparent 50.15%),repeating-linear-gradient(0deg,#d0ff0026 0 1px,transparent 1px 80px); mask-image: linear-gradient(transparent 0,#000 25%,#000 75%,transparent 100%); }
 .pf-tunnel i { position: sticky; display: block; top: 50svh; left: 50%; width: min(72vw,860px); height: min(72vw,860px); margin-bottom: calc(-1 * min(72vw,860px)); border: 2px solid #d0ff0095; border-radius: 24%; box-shadow: 0 0 35px #d0ff0045,inset 0 0 35px #d0ff002b; transform: translate(-50%,-50%) scale(.15); transform-origin: center; will-change: transform; }
-.pf-tunnel-hud { position: sticky; top: 75svh; margin: -50vh 0 50vh; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; background: #07110ed9; border: 1px solid #d0ff0070; color: #d6efbc; font: 700 .76rem var(--font-body); letter-spacing: .05em; }
-.pf-tunnel-hud strong { color: var(--color--lime); font: 400 2rem var(--font-editorial); }
-.pf-tunnel-hud b { position: absolute; left: 0; bottom: -2px; height: 3px; width: calc(var(--tunnel-progress,0) * 100%); background: var(--color--lime); }
 .pf-v2 .pf-year { position: relative; z-index: 2; margin: 16vh 0 50vh 12%; padding: clamp(1.2rem,2.3vw,2.4rem); background: #09120fee; border: 1px solid #d0ff0070; box-shadow: 0 24px 60px #0009; backdrop-filter: blur(12px); }
 .pf-v2 .pf-year:before { display: none; }
-.pf-v2 .pf-year h3 { border-color: #ffffff40; }
+.pf-v2 .pf-year h3 { border-color: #ffffff40; align-items: center; gap: 1rem; line-height: 1; letter-spacing: 0; }
 .pf-v2 .pf-year h3 span { font: 400 clamp(3rem,5vw,5rem) var(--font-editorial); }
-.pf-v2 .pf-year h3 small { font: 700 .8rem var(--font-body); }
+.pf-v2 .pf-year h3 small { font: 700 .8rem/1.2 var(--font-body); letter-spacing: .08em; white-space: nowrap; }
 .pf-v2 .pf-year li { border-color: #ffffff23; }
 .pf-v2 .pf-year li > span { color: var(--color--lime); font: 700 .72rem var(--font-body); }
 .pf-v2 .pf-year h4 { font-size: 1.15rem; }
@@ -137,12 +149,10 @@
   .pf-v2 .pf-hero h1 { font-size: clamp(3.9rem,15vw,6rem); }
   .pf-v2 .pf-stats { grid-template-columns: 1fr; }
   .pf-v2 .pf-stats > div { min-height: 170px; }
-  .pf-project-group-heading,.pf-project-grid,.pf-games-grid { grid-template-columns: 1fr; }
+  .pf-project-group-heading,.pf-project-grid,.pf-project-grid-creative,.pf-games-grid { grid-template-columns: 1fr; }
   .pf-project-group-heading > span { grid-column: auto; }
   .pf-project-card-copy { min-height: 215px; }
   .pf-v2 .pf-year { margin: 10vh 0 32vh; }
-  .pf-tunnel-hud { font-size: .6rem; }
-  .pf-tunnel-hud strong { font-size: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) { .pf-project-card,.pf-game,.pf-v2 .pf-stats > div { transition: none; }.pf-tunnel { display: none; }.pf-v2 .pf-year { margin-bottom: 2rem; } }
 /* Final hero art: monochrome photograph across the viewport, name beside João. */
