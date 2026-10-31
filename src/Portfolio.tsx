@@ -6,7 +6,9 @@ import "./editorial-redesign.css";
 import "./brush-hero.css";
 import "./portfolio-refresh.css";
 import "./portfolio-overhaul.css";
+import "./portfolio-tunnel.css";
 import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
+import { PortfolioTunnel } from "./PortfolioTunnel";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 const photo = (id: string) => data.photos.find((p) => p.id === id)!;
 const years = [
@@ -51,28 +53,6 @@ export function Portfolio() {
     document.addEventListener("visibilitychange", resume);
     resume();
     return () => document.removeEventListener("visibilitychange", resume);
-  }, []);
-  useEffect(() => {
-    const section = document.querySelector<HTMLElement>(".pf-timeline");
-    const rings = Array.from(document.querySelectorAll<HTMLElement>(".pf-tunnel i"));
-    if (!section || !rings.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / Math.max(1, rect.height - innerHeight)));
-      section.style.setProperty("--tunnel-progress", String(progress));
-      rings.forEach((ring, index) => {
-        const cycle = (index / rings.length + progress * 2.4) % 1;
-        ring.style.transform = `translate(-50%, -50%) scale(${(.14 + cycle * 2.6).toFixed(3)}) rotate(${(progress * 36).toFixed(1)}deg)`;
-        ring.style.opacity = String(Math.max(.15, 1 - cycle * .58));
-      });
-    };
-    const request = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    addEventListener("scroll", request, { passive: true });
-    addEventListener("resize", request);
-    return () => { removeEventListener("scroll", request); removeEventListener("resize", request); cancelAnimationFrame(frame); };
   }, []);
   const picture = (id: string, className = "", eager = false) => {
     const p = photo(id);
@@ -395,16 +375,16 @@ export function Portfolio() {
           <p><HoverLetters text="IDEIAS EM CÓDIGO." /><br /><HoverLetters text="FOCO NO JOGO." /><br /><HoverLetters text="OLHOS NO FUTURO." /></p>
           <div className="pf-manifesto-bottom"><span>DA MESA AO LABORATÓRIO</span><span>↓ CONTINUE ROLANDO</span></div>
         </section>
-        <section id="trajetoria" className="pf-section pf-timeline">
-          <SectionLabel number="05">A história acontece enquanto você rola</SectionLabel>
-          <div className="pf-timeline-grid">
-            <div className="pf-timeline-title">
-              <span className="pf-kicker">ARQUIVO / TRAJETÓRIA</span>
-              <h2>UM PASSO<br />DE CADA <em>VEZ.</em></h2>
-              <p>Esporte, olimpíadas, tecnologia e criação. Os marcos aparecem na sequência da jornada, sem precisar abrir nada.</p>
-              <span>ROLE PARA EXPLORAR ↓</span>
+        <section id="trajetoria" className="pf-timeline">
+          <PortfolioTunnel />
+          <div className="pf-section pf-timeline-archive">
+            <SectionLabel number="05">Arquivo completo da trajetória</SectionLabel>
+            <div className="pf-timeline-archive-heading">
+              <span className="pf-kicker">DEPOIS DO TÚNEL</span>
+              <h2>Cada etapa<br /><em>conta.</em></h2>
+              <p>Os marcos da trajetória, organizados por ano. Datas não confirmadas aparecem ao final.</p>
             </div>
-            <div className="pf-years"><div className="pf-tunnel" aria-hidden="true"><div className="pf-tunnel-grid" />{Array.from({length: 9}, (_, index) => <i key={index} />)}</div>
+            <div className="pf-years">
               {years.map((year) => (
                 <article className="pf-year" key={year}>
                   <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>

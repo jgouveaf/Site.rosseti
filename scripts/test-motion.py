@@ -10,13 +10,15 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(250)
     assert page.locator(".pf-reel-track").evaluate("e => new DOMMatrix(getComputedStyle(e).transform).m41 < -100")
     print("PASS reel advances with page scroll")
-    page.locator("#trajetoria").evaluate("e => scrollTo({top:e.offsetTop + 600,behavior:'instant'})")
+    page.locator(".pf-journey").evaluate("e => scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.5,behavior:'instant'})")
     page.wait_for_timeout(250)
-    assert page.locator(".pf-tunnel i").first.evaluate("e => getComputedStyle(e).transform != 'none'")
+    assert page.locator(".pf-journey").evaluate("e => Number(e.style.getPropertyValue('--journey-progress')) > .45")
+    assert page.locator(".pf-journey-nav button.is-active").inner_text() == "2023"
     print("PASS tunnel advances with page scroll")
     page.emulate_media(reduced_motion="reduce")
     page.wait_for_timeout(150)
-    assert page.locator(".pf-tunnel").evaluate("e => getComputedStyle(e).display == 'none'")
+    assert page.locator(".pf-journey").evaluate("e => Math.abs(e.getBoundingClientRect().height-innerHeight)<3")
+    assert page.locator(".pf-journey-world img").count() == 1
     assert page.locator(".pf-reel-track").evaluate("e => getComputedStyle(e).transform == 'none'")
     print("PASS reduced motion removes tunnel and horizontal motion")
     browser.close()

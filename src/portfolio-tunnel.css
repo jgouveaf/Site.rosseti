@@ -1,0 +1,91 @@
+/* A scroll-driven corridor, followed by a readable editorial archive. */
+.pf-journey { position: relative; height: 720svh; background: #030507; color: #f4f3ed; }
+.pf-journey-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #030507; isolation: isolate; }
+.pf-journey-world,.pf-journey-world canvas,.pf-journey-fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pf-journey-world { z-index: 0; pointer-events: none; }
+.pf-journey-world > img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); }
+.pf-journey-fallback { background: repeating-radial-gradient(ellipse at 50% 50%,transparent 0 7%,#b2337270 7.1% 7.3%,transparent 7.4% 12%),#030507; }
+.pf-journey-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,#020506da 0%,#02050670 35%,transparent 70%),linear-gradient(0deg,#020506ed,transparent 37%),radial-gradient(ellipse at 50% 50%,transparent 22%,#0205068c 100%); }
+@media (min-width: 901px) {
+  .pf-journey[data-photo-side="left"] .pf-journey-vignette { background: linear-gradient(270deg,#020506c7 0%,#02050661 35%,transparent 70%),linear-gradient(0deg,#020506d9,transparent 32%),radial-gradient(ellipse at 50% 50%,transparent 28%,#02050670 100%); }
+}
+.pf-journey-top { position: absolute; z-index: 3; left: clamp(1.25rem,4vw,4rem); right: clamp(1.25rem,4vw,4rem); top: clamp(1.25rem,3vw,3rem); display: flex; justify-content: space-between; gap: 1rem; font: 700 .75rem/1.2 var(--font-body); letter-spacing: .13em; color: #f5f7ed; }
+.pf-journey-top span:first-child { color: #cfff00; }
+.pf-journey-copy { position: absolute; left: clamp(1.25rem,5vw,6rem); bottom: clamp(7.5rem,13vh,11rem); z-index: 3; width: min(41vw,580px); animation: pf-journey-enter .55s cubic-bezier(.2,.8,.2,1) both; pointer-events: none; }
+.pf-journey-index { display: block; margin-bottom: .65rem; font: 700 .76rem var(--font-body); letter-spacing: .12em; color: #cfff00; }
+.pf-journey-copy strong { display: block; font: 400 clamp(6rem,13vw,14rem)/.7 var(--font-editorial); letter-spacing: -.07em; color: #fff; text-shadow: 0 7px 40px #000; }
+.pf-journey-copy h2 { margin: 1rem 0 .3rem; font: 400 clamp(2rem,4vw,4.7rem)/.98 var(--font-editorial); letter-spacing: -.04em; }
+.pf-journey-copy p { margin: 0; color: #d6dfd8; font: 500 clamp(.9rem,1.1vw,1.1rem)/1.5 var(--font-body); }
+@media (min-width: 901px) {
+  .pf-journey[data-photo-side="left"] .pf-journey-copy { left: auto; right: clamp(1.25rem,5vw,6rem); text-align: right; }
+  .pf-journey[data-photo-side="left"] .pf-journey-nav { right: auto; left: clamp(1.25rem,4vw,4rem); }
+}
+.pf-journey-nav { position: absolute; right: clamp(1.25rem,4vw,4rem); bottom: clamp(3.5rem,8vh,6rem); z-index: 4; display: flex; align-items: flex-end; gap: .38rem; }
+.pf-journey-nav button { appearance: none; border: 1px solid #ffffff57; background: #101514cc; color: #f8f9f1; border-radius: 100px; min-height: 44px; min-width: 56px; padding: .7rem .8rem; font: 700 .76rem var(--font-body); cursor: pointer; transition: background .3s, color .3s, transform .45s cubic-bezier(.2,1.3,.4,1), border-color .3s; }
+.pf-journey-nav button:hover,.pf-journey-nav button:focus-visible { transform: translateY(-7px); border-color: #cfff00; outline: none; }
+.pf-journey-nav button.is-active { background: #cfff00; border-color: #cfff00; color: #10150c; transform: translateY(-7px); }
+.pf-journey-progress { position: absolute; z-index: 4; left: 0; bottom: 0; width: 100%; height: 5px; background: #cfff002e; }
+.pf-journey-progress i { display: block; width: 100%; height: 100%; background: #cfff00; transform-origin: left; transform: scaleX(var(--journey-progress,0)); }
+@keyframes pf-journey-enter { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Study Hall's generous editorial rhythm, paired with Material 3 tonal controls. */
+.pf-v2 .pf-header nav a { border-radius: 999px; }
+.pf-v2 .pf-hero-cta { border-radius: 999px; transition: transform .42s cubic-bezier(.2,1.35,.35,1), background .25s, color .25s; }
+.pf-v2 .pf-hero-cta:hover { transform: translateY(-4px) scale(1.025); }
+.pf-v2 .pf-about { background: #f3f1ea; color: #121917; }
+.pf-v2 .pf-about h2,.pf-v2 .pf-about h2 .pf-hover-letter { color: #121917; }
+.pf-v2 .pf-about h2 em,.pf-v2 .pf-about h2 em .pf-hover-letter { color: #28533b; }
+.pf-v2 .pf-about-grid p,.pf-v2 .pf-about-grid .pf-lead { color: #24332d; }
+.pf-v2 .pf-about .pf-label,.pf-v2 .pf-about .pf-label span { color: #526158; }
+.pf-v2 .pf-about .pf-profile { border-color: #253b2a40; }
+.pf-v2 .pf-about .pf-profile dt { color: #28533b; }
+.pf-v2 .pf-about .pf-profile dd { color: #141b17; }
+.pf-v2 .pf-about .pf-stats { background: transparent; box-shadow: none; }
+.pf-v2 .pf-about .pf-stats > div { border-radius: 24px; background: #dce8d6; border-color: #c8d8c2; }
+.pf-v2 .pf-about .pf-stats > div:hover { background: #cce7b5; }
+.pf-v2 .pf-about .pf-stats strong { color: #173d2b; }
+.pf-v2 .pf-about .pf-stats span { color: #14251b; }
+.pf-v2 .pf-about .pf-stats span small { color: #405747; }
+.pf-v2 .pf-project-card,.pf-v2 .pf-game { border-radius: 22px; }
+.pf-v2 .pf-project-card:hover,.pf-v2 .pf-game:hover { transform: translateY(-5px); }
+.pf-v2 .pf-project-card-art small,.pf-v2 .pf-game-copy > span { border-radius: 999px; }
+
+.pf-v2 .pf-timeline { padding: 0; background: #030507; overflow: visible; }
+.pf-v2 .pf-timeline-archive { background: #f3f1ea; color: #121917; border-top: 0; padding: clamp(5rem,8vw,9rem) 4vw; }
+.pf-v2 .pf-timeline-archive .pf-label,.pf-v2 .pf-timeline-archive .pf-label span { color: #54665a; }
+.pf-timeline-archive-heading { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(230px,.55fr); column-gap: 3rem; align-items: end; padding: 6rem 0 4rem; }
+.pf-timeline-archive-heading .pf-kicker { grid-column: 1 / -1; color: #28533b; }
+.pf-timeline-archive-heading h2 { margin: 0; font: 400 clamp(4rem,9vw,10rem)/.83 var(--font-editorial); letter-spacing: -.06em; color: #101a14; }
+.pf-timeline-archive-heading h2 em { color: #275b3b; }
+.pf-timeline-archive-heading p { margin: 0 0 .5rem; color: #394b3f; max-width: 36ch; font-size: clamp(1rem,1.25vw,1.2rem); line-height: 1.5; }
+.pf-v2 .pf-timeline-archive .pf-years { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.2rem; padding: 0; }
+.pf-v2 .pf-timeline-archive .pf-year { margin: 0; padding: clamp(1.4rem,2.5vw,2.7rem); background: #fff; border: 1px solid #d4ded3; border-radius: 24px; box-shadow: none; backdrop-filter: none; }
+.pf-v2 .pf-timeline-archive .pf-year h3 { border-color: #cad9c8; }
+.pf-v2 .pf-timeline-archive .pf-year h3 span { color: #17452e; }
+.pf-v2 .pf-timeline-archive .pf-year h3 small { color: #516553; }
+.pf-v2 .pf-timeline-archive .pf-year li { border-color: #e2e8df; }
+.pf-v2 .pf-timeline-archive .pf-year li > span { color: #366344; }
+.pf-v2 .pf-timeline-archive .pf-year h4 { color: #18251c; }
+.pf-v2 .pf-timeline-archive .pf-year p { color: #445449; }
+.pf-v2 .pf-timeline-archive .pf-source-note { grid-column: 1 / -1; color: #5b685b; }
+
+@media (max-width: 900px) {
+  .pf-journey-vignette { background: linear-gradient(0deg,#020506ee 0%,#020506ae 38%,transparent 85%),radial-gradient(ellipse at 50% 50%,transparent 20%,#0205067d 100%); }
+  .pf-journey-copy { width: min(80vw,560px); bottom: 11rem; }
+  .pf-journey-nav { left: 1.25rem; right: 1.25rem; bottom: 3.2rem; overflow-x: auto; padding: .5rem 0; }
+  .pf-journey-nav button { flex: 1 0 54px; }
+  .pf-timeline-archive-heading { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 700px) {
+  .pf-journey-top { font-size: .61rem; }
+  .pf-journey-copy { bottom: 10.3rem; background: linear-gradient(90deg,#020506ea,#020506c0 82%,transparent); padding: .65rem .8rem .65rem .9rem; border-left: 2px solid #cfff00; }
+  .pf-journey-copy strong { font-size: clamp(5rem,22vw,8rem); }
+  .pf-journey-copy h2 { font-size: clamp(2.3rem,8vw,3.5rem); }
+  .pf-v2 .pf-timeline-archive .pf-years { grid-template-columns: 1fr; }
+  .pf-timeline-archive-heading { padding: 3rem 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-journey { height: 100svh; }
+  .pf-journey-copy { animation: none; }
+  .pf-journey-nav button,.pf-v2 .pf-hero-cta { transition: none; }
+}
