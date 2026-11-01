@@ -1,58 +1,85 @@
-import { Suspense, useEffect, useRef, useState, type MutableRefObject } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-type Stop = { year: number; title: string; image: string; alt: string; events: string[] };
+type Stop = { year: number; title: string; image: string; events: string[] };
 
 const stops: Stop[] = [
-  { year: 2017, title: "Primeiros passos", image: "media/photos/joao-infancia-futsal.webp", alt: "João criança em uma quadra de futsal", events: ["Kumon · Expo 2017"] },
-  { year: 2018, title: "O esporte como escola", image: "media/photos/futebol-2018.webp", alt: "Registro de futsal na infância", events: ["Chute Inicial Ipiranga"] },
-  { year: 2022, title: "Novos desafios", image: "media/photos/canguru-2022-small.webp", alt: "Registro de conquista acadêmica", events: ["Matemática", "Astronomia", "Robótica"] },
-  { year: 2023, title: "Explorar e aprender", image: "media/photos/zoom-small.webp", alt: "Registro de projeto de robótica", events: ["Olimpíadas acadêmicas", "Robótica"] },
-  { year: 2024, title: "Competir e evoluir", image: "media/photos/premiacao-2024-small.webp", alt: "João em premiação de tênis de mesa", events: ["Tênis de mesa", "Matemática", "Arte"] },
-  { year: 2025, title: "Ideias em movimento", image: "media/photos/unity-small.webp", alt: "João com certificado de GameDev", events: ["GameDev", "OBI", "ItalianWhey"] },
-  { year: 2026, title: "O próximo capítulo", image: "media/photos/fecart-small.webp", alt: "Registro do projeto FECART", events: ["FECART", "Projetos em desenvolvimento"] },
+  { year: 2017, title: "Primeiros passos", image: "media/photos/tunnel-2017.webp", events: ["Infância", "Esporte"] },
+  { year: 2018, title: "O jogo começa", image: "media/photos/tunnel-2018.webp", events: ["Futsal", "Primeiras competições"] },
+  { year: 2024, title: "Competir e evoluir", image: "media/photos/tunnel-2024.webp", events: ["Tênis de mesa", "Pódio"] },
+  { year: 2025, title: "Criar também é jogar", image: "media/photos/tunnel-2025.webp", events: ["GameDev", "Projetos"] },
+  { year: 2026, title: "Próxima fase", image: "media/photos/tunnel-2026.webp", events: ["Formação", "Novos caminhos"] },
 ];
+
+function NeonBar({ position, length, vertical = false, color = "#b63887" }: { position: [number, number, number]; length: number; vertical?: boolean; color?: string }) {
+  return <group position={position} rotation={[0, 0, vertical ? Math.PI / 2 : 0]}>
+    <mesh><boxGeometry args={[length, 0.026, 0.025]} /><meshBasicMaterial color={color} toneMapped={false} /></mesh>
+    <mesh><boxGeometry args={[length, 0.15, 0.08]} /><meshBasicMaterial color={color} transparent opacity={0.12} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
+  </group>;
+}
 
 function Frame({ index, stop, compact }: { index: number; stop: Stop; compact: boolean }) {
   const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + stop.image);
   texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 8;
   const ratio = (texture.image?.width || 4) / (texture.image?.height || 3);
-  const width = Math.min(compact ? 3.4 : 4.7, (compact ? 2.6 : 3.1) * ratio);
+  const width = Math.min(compact ? 3.45 : 5.4, (compact ? 3 : 4.35) * ratio);
   const height = width / ratio;
   const side = index % 2 ? 1 : -1;
-  const z = -8 - index * 10;
-  return <group position={[compact ? 0 : side * 3.25, compact ? 1.1 : 0.1, z]} rotation={[0, compact ? 0 : side * -0.13, 0]}>
-    <mesh position={[0, 0, -0.06]}><planeGeometry args={[width + 0.27, height + 0.27]} /><meshBasicMaterial color="#cfff00" /></mesh>
+  const z = (compact ? -10 : -8) - index * 13;
+  return <group position={[compact ? 0 : side * 3.15, compact ? 0.85 : 0.05, z]} rotation={[0, compact ? 0 : side * -0.12, 0]}>
+    <mesh position={[0, 0, -0.12]}><planeGeometry args={[width + 0.42, height + 0.42]} /><meshBasicMaterial color="#11171a" side={THREE.DoubleSide} /></mesh>
+    <mesh position={[0, 0, -0.09]}><planeGeometry args={[width + 0.22, height + 0.22]} /><meshBasicMaterial color="#cfff00" side={THREE.DoubleSide} /></mesh>
     <mesh><planeGeometry args={[width, height]} /><meshBasicMaterial map={texture} side={THREE.DoubleSide} toneMapped={false} /></mesh>
-    <mesh position={[0, -height / 2 - 0.19, 0]}><planeGeometry args={[width + 0.27, 0.16]} /><meshBasicMaterial color="#cfff00" /></mesh>
+    <NeonBar position={[0, -height / 2 - 0.24, 0.02]} length={width + 0.55} color="#cfff00" />
+    <mesh position={[-width / 2 - 0.13, height / 2 + 0.15, 0]}><sphereGeometry args={[0.075, 10, 10]} /><meshBasicMaterial color="#cfff00" toneMapped={false} /></mesh>
   </group>;
 }
 
 function Corridor({ progress }: { progress: MutableRefObject<number> }) {
-  const group = useRef<THREE.Group>(null);
   const compact = useThree(state => state.size.width < 700);
+  const width = compact ? 5.9 : 13.8;
+  const stars = useMemo(() => {
+    const points: number[] = [];
+    for (let index = 0; index < 180; index++) {
+      const seed = Math.sin(index * 41.71) * 10000;
+      const x = (seed - Math.floor(seed)) * 20 - 10;
+      const offset = Math.sin(index * 13.13) * 10000;
+      const y = (offset - Math.floor(offset)) * 7 + 0.5;
+      points.push(x, y, -index * 0.43);
+    }
+    return new Float32Array(points);
+  }, []);
   useFrame(({ camera, pointer }, delta) => {
-    const target = -2 - progress.current * (stops.length - 1) * 10;
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, target, 4, delta);
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, pointer.x * 0.24, 2.5, delta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, pointer.y * 0.12, 2.5, delta);
-    camera.lookAt(camera.position.x * 0.15, 0, camera.position.z - 10);
-    if (group.current) group.current.rotation.z = Math.sin(progress.current * Math.PI * 2) * 0.015;
+    const target = -2 - progress.current * (stops.length - 1) * 13;
+    camera.position.z = THREE.MathUtils.damp(camera.position.z, target, 3.4, delta);
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, Math.sin(progress.current * Math.PI * 3) * 0.25 + pointer.x * 0.2, 2.2, delta);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, pointer.y * 0.1, 2.2, delta);
+    camera.lookAt(camera.position.x * 0.12, -0.05, camera.position.z - 12);
   });
   return <>
-    <color attach="background" args={["#030507"]} />
-    <fog attach="fog" args={["#030507", 12, 52]} />
-    <group ref={group}>
-      <mesh position={[0, -3.75, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[compact ? 6 : 14, 100]} /><meshBasicMaterial color="#11070d" side={THREE.DoubleSide} /></mesh>
-      <gridHelper args={[100, 46, "#6c1935", "#3b1526"]} position={[0, -3.73, -40]} />
-      {Array.from({ length: 23 }, (_, index) => <group key={index} position={[0, 0, -index * 3.6]}>
-        <lineSegments><edgesGeometry args={[new THREE.BoxGeometry(compact ? 5.8 : 13.7, 7.5, 0.02)]} /><lineBasicMaterial color={index % 3 === 0 ? "#cfff00" : "#8a426e"} transparent opacity={index % 3 === 0 ? 0.8 : 0.55} /></lineSegments>
-        <mesh position={[compact ? -2.82 : -6.65, 0, 0]}><boxGeometry args={[0.035, 7.1, 0.035]} /><meshBasicMaterial color="#d351a0" /></mesh>
-        <mesh position={[compact ? 2.82 : 6.65, 0, 0]}><boxGeometry args={[0.035, 7.1, 0.035]} /><meshBasicMaterial color="#d351a0" /></mesh>
-      </group>)}
-      {stops.map((stop, index) => <Frame key={stop.year} stop={stop} index={index} compact={compact} />)}
-    </group>
+    <color attach="background" args={["#030304"]} />
+    <fog attach="fog" args={["#030304", 15, 62]} />
+    <mesh position={[0, -3.5, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[width, 105]} /><meshBasicMaterial color="#190506" side={THREE.DoubleSide} /></mesh>
+    <gridHelper args={[105, 53, "#8d181e", "#490e18"]} position={[0, -3.47, -40]} />
+    <mesh position={[0, -3.4, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[compact ? 2.8 : 6.5, 105]} /><meshBasicMaterial color="#8f0b17" transparent opacity={0.075} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
+    <points><bufferGeometry><bufferAttribute attach="attributes-position" args={[stars, 3]} /></bufferGeometry><pointsMaterial color="#cc75a3" size={0.035} transparent opacity={0.52} sizeAttenuation /></points>
+    {Array.from({ length: 22 }, (_, index) => {
+      const z = -index * 3.5;
+      const accent = index % 5 === 0;
+      return <group key={index} position={[0, 0, z]}>
+        <NeonBar position={[-width / 2, 0, 0]} length={7.1} vertical color={accent ? "#cfff00" : "#ab427d"} />
+        <NeonBar position={[width / 2, 0, 0]} length={7.1} vertical color={accent ? "#cfff00" : "#ab427d"} />
+        <NeonBar position={[0, 3.5, 0]} length={width} color={accent ? "#cfff00" : "#87416d"} />
+        <NeonBar position={[0, -3.42, 0]} length={width} color="#a22c3f" />
+        {index % 2 === 0 && <>
+          <mesh position={[-width / 2 + 0.4, 3.1, -0.02]} rotation={[0, 0, -0.65]}><boxGeometry args={[0.035, 1.45, 0.035]} /><meshBasicMaterial color="#ae4481" /></mesh>
+          <mesh position={[width / 2 - 0.4, 3.1, -0.02]} rotation={[0, 0, 0.65]}><boxGeometry args={[0.035, 1.45, 0.035]} /><meshBasicMaterial color="#ae4481" /></mesh>
+        </>}
+      </group>;
+    })}
+    {stops.map((stop, index) => <Frame key={stop.year} stop={stop} index={index} compact={compact} />)}
   </>;
 }
 

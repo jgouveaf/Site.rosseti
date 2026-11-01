@@ -54,32 +54,6 @@ export function Portfolio() {
     resume();
     return () => document.removeEventListener("visibilitychange", resume);
   }, []);
-  const picture = (id: string, className = "", eager = false) => {
-    const p = photo(id);
-    return (
-      <figure
-        className={"pf-photo " + className}
-      >
-        <img
-          src={url(p.thumb)}
-          srcSet={
-            p.thumb === p.src
-              ? undefined
-              : `${url(p.thumb)} ${p.thumbWidth}w, ${url(p.src)} ${p.width}w`
-          }
-          sizes="(max-width: 700px) 90vw, 45vw"
-          alt={p.title}
-          loading={eager ? "eager" : "lazy"}
-          fetchPriority={eager ? "high" : undefined}
-          width={p.width}
-          height={p.height}
-        />
-        <span className="pf-photo-caption">
-          {p.year || "MEMÓRIA"} / {p.title}
-        </span>
-      </figure>
-    );
-  };
   return (
     <div className="pf pf-v2">
       <div className="pf-scroll-progress" aria-hidden="true" />
@@ -349,7 +323,7 @@ export function Portfolio() {
           </div>
         </section>
         <section className="pf-sport">
-          <div className="pf-sport-image">{picture("tenis")}</div>
+          <div className="pf-sport-image"><img src={url("media/photos/tenis-2026-enhanced.webp")} alt="João Gouvêa em competição de tênis de mesa" loading="lazy" width="1476" height="1448" /></div>
           <div className="pf-sport-copy">
             <span className="pf-kicker">FOCO. REPETIÇÃO. EVOLUÇÃO.</span>
             <h2>
@@ -367,7 +341,6 @@ export function Portfolio() {
               Percorrer trajetória <span>↗</span>
             </a>
           </div>
-          <div className="pf-sport-medals"><span>ARQUIVO / TÊNIS DE MESA</span><div>{["inicup", "liga-20", "matchpoint"].map(id => picture(id))}</div></div>
         </section>
         <section className="pf-swimming"><img src={url("media/featured/primeira-medalha.webp")} alt="João criança segurando a primeira medalha de natação" loading="lazy" /><div><span>ARQUIVO / NATAÇÃO</span><h2><HoverLetters text="16 medalhas." /></h2><p>Dezesseis conquistas de primeiro lugar na natação. A foto registra a primeira medalha.</p></div></section>
         <section className="pf-manifesto" aria-label="Esporte, tecnologia e criação">

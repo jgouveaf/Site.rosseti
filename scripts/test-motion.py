@@ -13,7 +13,7 @@ with sync_playwright() as playwright:
     page.locator(".pf-journey").evaluate("e => scrollTo({top:e.getBoundingClientRect().top+scrollY+(e.offsetHeight-innerHeight)*.5,behavior:'instant'})")
     page.wait_for_timeout(250)
     assert page.locator(".pf-journey").evaluate("e => Number(e.style.getPropertyValue('--journey-progress')) > .45")
-    assert page.locator(".pf-journey-nav button.is-active").inner_text() == "2023"
+    assert page.locator(".pf-journey-nav button.is-active").inner_text() == "2024"
     print("PASS tunnel advances with page scroll")
     page.emulate_media(reduced_motion="reduce")
     page.wait_for_timeout(150)
