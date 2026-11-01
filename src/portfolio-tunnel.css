@@ -5,6 +5,9 @@
 .pf-journey-world { z-index: 0; pointer-events: none; }
 .pf-journey-world > img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); }
 .pf-journey-fallback { background: repeating-radial-gradient(ellipse at 50% 50%,transparent 0 7%,#b2337270 7.1% 7.3%,transparent 7.4% 12%),#030304; }
+.pf-journey-scan { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .23; background: repeating-linear-gradient(0deg,transparent 0 5px,#cfff0010 6px 7px,transparent 8px 12px); mix-blend-mode: screen; }
+.pf-journey-scan::after { content: ""; position: absolute; left: 0; right: 0; top: -18%; height: 18%; background: linear-gradient(transparent,#b9ff3917 70%,#dfff7440 99%,transparent); animation: pf-journey-sweep 7s linear infinite; }
+@keyframes pf-journey-sweep { to { transform: translateY(700%); } }
 .pf-journey-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,#020506da 0%,#02050670 35%,transparent 70%),linear-gradient(0deg,#020506ed,transparent 37%),radial-gradient(ellipse at 50% 50%,transparent 22%,#0205068c 100%); }
 @media (min-width: 901px) {
   .pf-journey[data-photo-side="left"] .pf-journey-vignette { background: linear-gradient(270deg,#020506c7 0%,#02050661 35%,transparent 70%),linear-gradient(0deg,#020506d9,transparent 32%),radial-gradient(ellipse at 50% 50%,transparent 28%,#02050670 100%); }
@@ -88,6 +91,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .pf-journey { height: 100svh; }
+  .pf-journey-scan::after { animation: none; }
   .pf-journey-copy { animation: none; }
   .pf-journey-nav button,.pf-v2 .pf-hero-cta { transition: none; }
 }

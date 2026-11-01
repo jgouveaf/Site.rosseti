@@ -37,6 +37,65 @@ function Frame({ index, stop, compact }: { index: number; stop: Stop; compact: b
   </group>;
 }
 
+const sideImages = [
+  "media/photos/tunnel-art-eye.webp",
+  "media/photos/tunnel-art-flower.webp",
+  "media/photos/tunnel-study.webp",
+  "media/photos/tunnel-action.webp",
+];
+
+function SidePanel({ index, compact }: { index: number; compact: boolean }) {
+  const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + sideImages[index]);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 8;
+  const ratio = (texture.image?.width || 1) / (texture.image?.height || 1);
+  const height = compact ? 2.3 : 3;
+  const width = Math.min(2.9, height * ratio);
+  const side = index % 2 ? -1 : 1;
+  return <group position={[compact ? 0 : side * 4.05, compact ? 1.1 : 0.35, -15 - index * 13]} rotation={[0, compact ? 0 : side * -0.2, 0]}>
+    <mesh position={[0, 0, -0.06]}><planeGeometry args={[width + 0.17, height + 0.17]} /><meshBasicMaterial color="#c355a5" side={THREE.DoubleSide} /></mesh>
+    <mesh><planeGeometry args={[width, height]} /><meshBasicMaterial map={texture} side={THREE.DoubleSide} toneMapped={false} /></mesh>
+    <NeonBar position={[0, -height / 2 - 0.16, 0]} length={width + 0.28} color="#d2549d" />
+  </group>;
+}
+
+function Alien({ x, z, seed, compact }: { x: number; z: number; seed: number; compact: boolean }) {
+  const body = useRef<THREE.Group>(null);
+  const head = useRef<THREE.Group>(null);
+  const ring = useRef<THREE.Group>(null);
+  useFrame(({ clock, pointer }, delta) => {
+    const time = clock.elapsedTime + seed;
+    if (body.current) body.current.position.y = -1.38 + Math.sin(time * 1.2) * 0.09;
+    if (head.current) {
+      head.current.rotation.y = THREE.MathUtils.damp(head.current.rotation.y, pointer.x * 0.25 + Math.sin(time * 0.5) * 0.1, 2, delta);
+      head.current.rotation.x = THREE.MathUtils.damp(head.current.rotation.x, -pointer.y * 0.1, 2, delta);
+    }
+    if (ring.current) ring.current.rotation.z = time * 0.25;
+  });
+  const skin = "#9cbca7";
+  return <group position={[compact ? Math.sign(x) * 1.35 : x, compact ? -1.85 : -0.9, z]} scale={compact ? 0.5 : 0.75}>
+    <mesh position={[0, -3.35, 0]} rotation={[-Math.PI / 2, 0, 0]}><circleGeometry args={[1.55, 32]} /><meshBasicMaterial color="#70ff7a" transparent opacity={0.11} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
+    <group ref={ring} position={[0, -3.3, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh><torusGeometry args={[1.35, 0.018, 6, 48]} /><meshBasicMaterial color="#cfff00" toneMapped={false} /></mesh>
+      <mesh><torusGeometry args={[1.62, 0.013, 6, 48]} /><meshBasicMaterial color="#64cc80" transparent opacity={0.62} /></mesh>
+    </group>
+    <pointLight color="#cfff80" intensity={3.4} distance={5} position={[0, 1.5, 1.4]} />
+    <group ref={body} position={[0, -1.38, 0]}>
+      <mesh position={[0, 0.08, 0]} scale={[0.85, 1.15, 0.62]}><capsuleGeometry args={[0.5, 0.72, 6, 12]} /><meshStandardMaterial color={skin} roughness={0.46} metalness={0.16} emissive="#244a33" emissiveIntensity={0.25} /></mesh>
+      <mesh position={[0, 0.82, 0]}><cylinderGeometry args={[0.17, 0.2, 0.36, 10]} /><meshStandardMaterial color={skin} /></mesh>
+      {[-1, 1].map(side => <group key={side}>
+        <mesh position={[side * 0.72, -0.38, 0]} rotation={[0, 0, side * 0.2]}><capsuleGeometry args={[0.13, 1.15, 4, 8]} /><meshStandardMaterial color={skin} roughness={0.5} /></mesh>
+        <mesh position={[side * 0.28, -1.37, 0]} rotation={[0, 0, side * 0.08]}><capsuleGeometry args={[0.17, 0.92, 4, 8]} /><meshStandardMaterial color={skin} roughness={0.5} /></mesh>
+      </group>)}
+      <group ref={head} position={[0, 1.56, 0]}>
+        <mesh scale={[0.88, 1.08, 0.7]}><sphereGeometry args={[0.83, 24, 18]} /><meshStandardMaterial color={skin} roughness={0.48} metalness={0.14} emissive="#244a33" emissiveIntensity={0.25} /></mesh>
+        {[-1, 1].map(side => <mesh key={side} position={[side * 0.32, 0.04, 0.53]} rotation={[0, 0, side * -0.24]} scale={[0.18, 0.31, 0.085]}><sphereGeometry args={[1, 16, 12]} /><meshStandardMaterial color="#0b1413" metalness={0.55} roughness={0.16} /></mesh>)}
+        <mesh position={[0, -0.39, 0.58]} scale={[0.13, 0.018, 0.018]}><sphereGeometry args={[1, 8, 6]} /><meshBasicMaterial color="#32463b" /></mesh>
+      </group>
+    </group>
+  </group>;
+}
+
 function Corridor({ progress }: { progress: MutableRefObject<number> }) {
   const compact = useThree(state => state.size.width < 700);
   const width = compact ? 5.9 : 13.8;
@@ -61,6 +120,7 @@ function Corridor({ progress }: { progress: MutableRefObject<number> }) {
   return <>
     <color attach="background" args={["#030304"]} />
     <fog attach="fog" args={["#030304", 15, 62]} />
+    <ambientLight intensity={0.85} />
     <mesh position={[0, -3.5, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[width, 105]} /><meshBasicMaterial color="#190506" side={THREE.DoubleSide} /></mesh>
     <gridHelper args={[105, 53, "#8d181e", "#490e18"]} position={[0, -3.47, -40]} />
     <mesh position={[0, -3.4, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[compact ? 2.8 : 6.5, 105]} /><meshBasicMaterial color="#8f0b17" transparent opacity={0.075} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
@@ -80,6 +140,12 @@ function Corridor({ progress }: { progress: MutableRefObject<number> }) {
       </group>;
     })}
     {stops.map((stop, index) => <Frame key={stop.year} stop={stop} index={index} compact={compact} />)}
+    {sideImages.map((_, index) => <SidePanel key={index} index={index} compact={compact} />)}
+    <Alien x={3.2} z={-12} seed={0} compact={compact} />
+    <Alien x={-3.2} z={-25} seed={1.1} compact={compact} />
+    <Alien x={3.2} z={-38} seed={2.1} compact={compact} />
+    <Alien x={-3.2} z={-51} seed={3.3} compact={compact} />
+    <Alien x={3.2} z={-64} seed={4.5} compact={compact} />
   </>;
 }
 
@@ -121,6 +187,7 @@ export function PortfolioTunnel() {
       <div className="pf-journey-world" aria-hidden="true">
         {!reduced ? <Suspense fallback={<div className="pf-journey-fallback" />}><Canvas fallback={<div className="pf-journey-fallback" />} dpr={[1, 1.5]} camera={{ position: [0, 0, 3], fov: 68, near: 0.1, far: 100 }} gl={{ antialias: false, powerPreference: "high-performance" }}><Corridor progress={progress} /></Canvas></Suspense> : <img src={import.meta.env.BASE_URL + stops[active].image} alt="" />}
       </div>
+      <div className="pf-journey-scan" aria-hidden="true" />
       <div className="pf-journey-vignette" aria-hidden="true" />
       <div className="pf-journey-top"><span>JG / TRAJETÓRIA</span><span>ROLE PARA AVANÇAR ↓</span></div>
       <div className="pf-journey-copy" aria-live="polite" key={active}>
