@@ -8,8 +8,8 @@
   },
   "structure": {
     "length": 106,
-    "ringCount": 23,
-    "ringSpacing": 3.5,
+    "ringCount": 12,
+    "ringSpacing": 7,
     "desktopRadius": 6.9,
     "mobileRadius": 3.45
   },
@@ -26,6 +26,7 @@
     "media/photos/tunnel-study.webp",
     "media/photos/tunnel-action.webp"
   ],
+  "alienImage": "media/art/alien-tunnel.webp",
   "aliens": [
     { "x": 3.2, "z": -12, "seed": 0 },
     { "x": -3.2, "z": -25, "seed": 1.1 },
