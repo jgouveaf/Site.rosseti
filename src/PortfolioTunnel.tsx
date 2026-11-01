@@ -1,16 +1,11 @@
 import { Suspense, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import tunnel from "./data/tunnel.json";
 
 type Stop = { year: number; title: string; image: string; events: string[] };
 
-const stops: Stop[] = [
-  { year: 2017, title: "Primeiros passos", image: "media/photos/tunnel-2017.webp", events: ["Infância", "Esporte"] },
-  { year: 2018, title: "O jogo começa", image: "media/photos/tunnel-2018.webp", events: ["Futsal", "Primeiras competições"] },
-  { year: 2024, title: "Competir e evoluir", image: "media/photos/tunnel-2024.webp", events: ["Tênis de mesa", "Pódio"] },
-  { year: 2025, title: "Criar também é jogar", image: "media/photos/tunnel-2025.webp", events: ["GameDev", "Projetos"] },
-  { year: 2026, title: "Próxima fase", image: "media/photos/tunnel-2026.webp", events: ["Formação", "Novos caminhos"] },
-];
+const stops: Stop[] = tunnel.stops;
 
 function NeonBar({ position, length, vertical = false, color = "#b63887" }: { position: [number, number, number]; length: number; vertical?: boolean; color?: string }) {
   return <group position={position} rotation={[0, 0, vertical ? Math.PI / 2 : 0]}>
@@ -37,12 +32,7 @@ function Frame({ index, stop, compact }: { index: number; stop: Stop; compact: b
   </group>;
 }
 
-const sideImages = [
-  "media/photos/tunnel-art-eye.webp",
-  "media/photos/tunnel-art-flower.webp",
-  "media/photos/tunnel-study.webp",
-  "media/photos/tunnel-action.webp",
-];
+const sideImages = tunnel.sideImages;
 
 function SidePanel({ index, compact }: { index: number; compact: boolean }) {
   const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + sideImages[index]);
@@ -96,6 +86,60 @@ function Alien({ x, z, seed, compact }: { x: number; z: number; seed: number; co
   </group>;
 }
 
+function TunnelArchitecture({ compact }: { compact: boolean }) {
+  const radius = compact ? tunnel.structure.mobileRadius : tunnel.structure.desktopRadius;
+  const length = tunnel.structure.length;
+  const wallTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 256;
+    const context = canvas.getContext("2d");
+    if (context) {
+      context.fillStyle = tunnel.palette.walls;
+      context.fillRect(0, 0, 256, 256);
+      for (let index = 0; index < 480; index++) {
+        const x = (index * 97.13) % 256;
+        const y = (index * 53.71) % 256;
+        context.fillStyle = index % 5 ? "#5f3c5890" : "#a75a8955";
+        context.fillRect(x, y, index % 7 ? 1 : 12, index % 7 ? 1 : 2);
+      }
+      context.strokeStyle = "#9a59704f";
+      context.lineWidth = 1.5;
+      for (let index = 0; index < 12; index++) {
+        const y = (index * 79) % 256;
+        context.beginPath();
+        context.moveTo(0, y);
+        context.bezierCurveTo(80, y - 12, 170, y + 18, 256, y - 8);
+        context.stroke();
+      }
+    }
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(4, 8);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  }, []);
+  useEffect(() => () => wallTexture.dispose(), [wallTexture]);
+  return <>
+    <mesh position={[0, 0, -40]} rotation={[Math.PI / 2, 0, 0]}>
+      <cylinderGeometry args={[radius, radius, length, 40, 1, true]} />
+      <meshBasicMaterial map={wallTexture} side={THREE.BackSide} />
+    </mesh>
+    {Array.from({ length: tunnel.structure.ringCount }, (_, index) => {
+      const z = -index * tunnel.structure.ringSpacing;
+      const accent = index % 6 === 0;
+      return <group key={index} position={[0, 0, z]}>
+        <mesh><torusGeometry args={[radius - 0.12, accent ? 0.075 : 0.035, 6, 48]} /><meshBasicMaterial color={accent ? tunnel.palette.neonAccent : tunnel.palette.neon} toneMapped={false} transparent opacity={accent ? 0.9 : 0.6} /></mesh>
+        {accent && <mesh position={[0, 0, -0.1]}><torusGeometry args={[radius - 0.12, 0.2, 4, 32]} /><meshBasicMaterial color={tunnel.palette.neonAccent} transparent opacity={0.06} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>}
+        {index % 3 === 0 && <mesh rotation={[0, 0, index * 0.32]}><torusGeometry args={[radius - 0.55, 0.018, 5, 48]} /><meshBasicMaterial color="#fff2fc" transparent opacity={0.24} /></mesh>}
+      </group>;
+    })}
+    {[-1, 1].map(side => <group key={side}>
+      <mesh position={[side * radius * 0.64, radius * 0.69, -40]}><boxGeometry args={[0.035, 0.035, length]} /><meshBasicMaterial color={tunnel.palette.neon} transparent opacity={0.55} /></mesh>
+      <mesh position={[side * radius * 0.91, -1.55, -40]}><boxGeometry args={[0.045, 0.045, length]} /><meshBasicMaterial color={tunnel.palette.neonAccent} transparent opacity={0.45} /></mesh>
+    </group>)}
+  </>;
+}
+
 function Corridor({ progress }: { progress: MutableRefObject<number> }) {
   const compact = useThree(state => state.size.width < 700);
   const width = compact ? 5.9 : 13.8;
@@ -118,34 +162,17 @@ function Corridor({ progress }: { progress: MutableRefObject<number> }) {
     camera.lookAt(camera.position.x * 0.12, -0.05, camera.position.z - 12);
   });
   return <>
-    <color attach="background" args={["#030304"]} />
-    <fog attach="fog" args={["#030304", 15, 62]} />
+    <color attach="background" args={[tunnel.palette.background]} />
+    <fog attach="fog" args={[tunnel.palette.background, 17, 67]} />
     <ambientLight intensity={0.85} />
+    <TunnelArchitecture compact={compact} />
     <mesh position={[0, -3.5, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[width, 105]} /><meshBasicMaterial color="#190506" side={THREE.DoubleSide} /></mesh>
     <gridHelper args={[105, 53, "#8d181e", "#490e18"]} position={[0, -3.47, -40]} />
     <mesh position={[0, -3.4, -40]} rotation={[-Math.PI / 2, 0, 0]}><planeGeometry args={[compact ? 2.8 : 6.5, 105]} /><meshBasicMaterial color="#8f0b17" transparent opacity={0.075} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
     <points><bufferGeometry><bufferAttribute attach="attributes-position" args={[stars, 3]} /></bufferGeometry><pointsMaterial color="#cc75a3" size={0.035} transparent opacity={0.52} sizeAttenuation /></points>
-    {Array.from({ length: 22 }, (_, index) => {
-      const z = -index * 3.5;
-      const accent = index % 5 === 0;
-      return <group key={index} position={[0, 0, z]}>
-        <NeonBar position={[-width / 2, 0, 0]} length={7.1} vertical color={accent ? "#cfff00" : "#ab427d"} />
-        <NeonBar position={[width / 2, 0, 0]} length={7.1} vertical color={accent ? "#cfff00" : "#ab427d"} />
-        <NeonBar position={[0, 3.5, 0]} length={width} color={accent ? "#cfff00" : "#87416d"} />
-        <NeonBar position={[0, -3.42, 0]} length={width} color="#a22c3f" />
-        {index % 2 === 0 && <>
-          <mesh position={[-width / 2 + 0.4, 3.1, -0.02]} rotation={[0, 0, -0.65]}><boxGeometry args={[0.035, 1.45, 0.035]} /><meshBasicMaterial color="#ae4481" /></mesh>
-          <mesh position={[width / 2 - 0.4, 3.1, -0.02]} rotation={[0, 0, 0.65]}><boxGeometry args={[0.035, 1.45, 0.035]} /><meshBasicMaterial color="#ae4481" /></mesh>
-        </>}
-      </group>;
-    })}
     {stops.map((stop, index) => <Frame key={stop.year} stop={stop} index={index} compact={compact} />)}
     {sideImages.map((_, index) => <SidePanel key={index} index={index} compact={compact} />)}
-    <Alien x={3.2} z={-12} seed={0} compact={compact} />
-    <Alien x={-3.2} z={-25} seed={1.1} compact={compact} />
-    <Alien x={3.2} z={-38} seed={2.1} compact={compact} />
-    <Alien x={-3.2} z={-51} seed={3.3} compact={compact} />
-    <Alien x={3.2} z={-64} seed={4.5} compact={compact} />
+    {tunnel.aliens.map(alien => <Alien key={alien.z} {...alien} compact={compact} />)}
   </>;
 }
 

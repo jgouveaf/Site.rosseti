@@ -1,0 +1,36 @@
+{
+  "palette": {
+    "background": "#030304",
+    "walls": "#3a2737",
+    "neon": "#ff3ad0",
+    "neonAccent": "#cfff00",
+    "floor": "#2a080e"
+  },
+  "structure": {
+    "length": 106,
+    "ringCount": 23,
+    "ringSpacing": 3.5,
+    "desktopRadius": 6.9,
+    "mobileRadius": 3.45
+  },
+  "stops": [
+    { "year": 2017, "title": "Primeiros passos", "image": "media/photos/tunnel-2017.webp", "events": ["Infância", "Esporte"] },
+    { "year": 2018, "title": "O jogo começa", "image": "media/photos/tunnel-2018.webp", "events": ["Futsal", "Primeiras competições"] },
+    { "year": 2024, "title": "Competir e evoluir", "image": "media/photos/tunnel-2024.webp", "events": ["Tênis de mesa", "Pódio"] },
+    { "year": 2025, "title": "Criar também é jogar", "image": "media/photos/tunnel-2025.webp", "events": ["GameDev", "Projetos"] },
+    { "year": 2026, "title": "Próxima fase", "image": "media/photos/tunnel-2026.webp", "events": ["Formação", "Novos caminhos"] }
+  ],
+  "sideImages": [
+    "media/photos/tunnel-art-eye.webp",
+    "media/photos/tunnel-art-flower.webp",
+    "media/photos/tunnel-study.webp",
+    "media/photos/tunnel-action.webp"
+  ],
+  "aliens": [
+    { "x": 3.2, "z": -12, "seed": 0 },
+    { "x": -3.2, "z": -25, "seed": 1.1 },
+    { "x": 3.2, "z": -38, "seed": 2.1 },
+    { "x": -3.2, "z": -51, "seed": 3.3 },
+    { "x": 3.2, "z": -64, "seed": 4.5 }
+  ]
+}
