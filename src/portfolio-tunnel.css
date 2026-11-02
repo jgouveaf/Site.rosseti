@@ -173,3 +173,27 @@
   .pf-v2 .pf-timeline-archive .pf-history-card { transform: none; transition: none; }
   .pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-item { transition: none; }
 }
+
+/* ItalianWhey uses the same rotating-card language inside its project panel. */
+.pf-italian-gallery > .pf-italian-stage { position: relative; display: block; height: clamp(270px,27vw,365px); overflow: hidden; padding: 0; perspective: 900px; touch-action: pan-y; user-select: none; cursor: grab; }
+.pf-italian-gallery > .pf-italian-stage:active { cursor: grabbing; }
+.pf-italian-gallery > .pf-italian-stage figure { position: absolute; left: 50%; top: 6%; width: min(70%,510px); height: 82%; margin: 0; overflow: visible; border: 0; background: transparent; transform: translate3d(calc(-50% + var(--iw-shift)),0,0) rotateY(var(--iw-turn)) scale(var(--iw-scale)); transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2,.8,.2,1),opacity .35s; }
+.pf-italian-gallery > .pf-italian-stage figure.is-hidden { visibility: hidden; pointer-events: none; opacity: 0; }
+.pf-italian-gallery > .pf-italian-stage figure button { appearance: none; display: flex; flex-direction: column; width: 100%; height: 100%; padding: .45rem; border: 1px solid #aabea7; border-radius: 17px; background: #e5e8df; color: #16271b; box-shadow: 0 15px 30px #0008; text-align: left; cursor: pointer; }
+.pf-italian-gallery > .pf-italian-stage figure.is-active button { border-color: #cfff00; box-shadow: 0 20px 40px #0009,0 0 0 2px #cfff0050; }
+.pf-italian-gallery > .pf-italian-stage figure button:hover { border-color: #cfff00; }
+.pf-italian-gallery > .pf-italian-stage figure button:focus-visible { outline: 3px solid #cfff00; outline-offset: 4px; }
+.pf-italian-gallery > .pf-italian-stage figure img { display: block; flex: 1; width: 100%; min-height: 0; aspect-ratio: auto; object-fit: contain; background: #080b09; }
+.pf-italian-gallery > .pf-italian-stage figure button span { padding: .6rem .55rem .3rem; font: 700 .72rem var(--font-body); letter-spacing: .1em; }
+.pf-italian-gallery > .pf-italian-controls { display: flex; justify-content: center; align-items: center; gap: 1.1rem; width: 100%; overflow: visible; padding: 0; color: #f4f7ed; font: 700 .8rem var(--font-body); letter-spacing: .1em; }
+.pf-italian-controls button { appearance: none; width: 42px; height: 42px; border: 1px solid #ffffff8a; border-radius: 50%; background: #152418; color: #f5f7ef; font: 400 1.35rem var(--font-body); cursor: pointer; transition: transform .2s,background .2s; }
+.pf-italian-controls button:hover,.pf-italian-controls button:focus-visible { transform: scale(1.1); background: #3c6032; outline: none; }
+.pf-game-image-jogo-bosque img,.pf-game-image-jogo-planeta img { filter: none; }
+.pf-game-image-jogo-bosque .pf-game-reticle,.pf-game-image-jogo-planeta .pf-game-reticle { display: none; }
+@media (max-width: 700px) {
+  .pf-italian-gallery > .pf-italian-stage { height: 285px; }
+  .pf-italian-gallery > .pf-italian-stage figure { width: 82%; height: 78%; top: 8%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-italian-gallery > .pf-italian-stage figure,.pf-italian-controls button { transition: none; }
+}

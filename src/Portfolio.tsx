@@ -72,6 +72,38 @@ function AchievementCarousel() {
     <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>
   </div>;
 }
+function ItalianWheyCarousel() {
+  const [active, setActive] = useState(0);
+  const dragStart = useRef<number | null>(null);
+  const suppressClickUntil = useRef(0);
+  const change = (direction: number) => setActive((index) => (index + direction + 6) % 6);
+  const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStart.current === null) return;
+    const delta = event.clientX - dragStart.current;
+    if (Math.abs(delta) > 35) {
+      suppressClickUntil.current = performance.now() + 250;
+      change(delta < 0 ? 1 : -1);
+    }
+    dragStart.current = null;
+  };
+  return <div className="pf-italian-gallery" aria-label="Registros do projeto ItalianWhey" onKeyDown={(event) => {
+    if (event.key === "ArrowRight") { event.preventDefault(); change(1); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); change(-1); }
+  }}>
+    <span>REGISTROS DO PROJETO VENCEDOR</span>
+    <div className="pf-italian-stage" onPointerDown={(event) => { if (event.isPrimary) dragStart.current = event.clientX; }} onPointerUp={endDrag} onPointerCancel={() => { dragStart.current = null; }} onClickCapture={(event) => { if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); } }}>
+      {[1, 2, 3, 4, 5, 6].map((image, index) => {
+        let offset = index - active;
+        if (offset > 3) offset -= 6;
+        if (offset < -3) offset += 6;
+        return <figure key={image} className={`${offset === 0 ? "is-active" : ""} ${Math.abs(offset) > 2 ? "is-hidden" : ""}`} style={{ "--iw-shift": `${offset * 77}%`, "--iw-turn": `${offset === 0 ? 0 : offset < 0 ? 43 : -43}deg`, "--iw-scale": offset === 0 ? 1 : Math.abs(offset) === 1 ? .83 : .68, zIndex: 10 - Math.abs(offset) } as React.CSSProperties} aria-hidden={offset !== 0}>
+          <button type="button" tabIndex={offset === 0 ? 0 : -1} onClick={() => { if (offset !== 0) setActive(index); }} aria-label={`Ver registro ${image} do ItalianWhey`}><img src={url(`media/featured/italianwhey-${image}.webp`)} alt="" loading="lazy" /><span>REGISTRO 0{image}</span></button>
+        </figure>;
+      })}
+    </div>
+    <div className="pf-italian-controls"><button type="button" aria-label="Registro anterior" onClick={() => change(-1)}>←</button><span>{String(active + 1).padStart(2, "0")} / 06</span><button type="button" aria-label="Próximo registro" onClick={() => change(1)}>→</button></div>
+  </div>;
+}
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
     <span className="pf-sr-only">{text}</span>
@@ -357,7 +389,7 @@ export function Portfolio() {
               {projects.slice(2).map((project, index) => <article className={`pf-project-card ${index === 0 ? "pf-project-card-italian" : ""}`} key={project.n}>
                 <div className="pf-project-card-art">{index === 0 ? <img src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto ItalianWhey" loading="lazy" /> : <span aria-hidden="true">ACSI</span>}<small>{project.n} / CRIAÇÃO</small></div>
                 <div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div>
-                {index === 0 && <div className="pf-italian-gallery"><span>REGISTROS DO PROJETO VENCEDOR</span><div>{[1, 2, 3, 4, 5, 6].map(image => <figure key={image}><img src={url(`media/featured/italianwhey-${image}.webp`)} alt={`Registro ${image} do projeto ItalianWhey`} loading="lazy" /><figcaption>REGISTRO 0{image}</figcaption></figure>)}</div></div>}
+                {index === 0 && <ItalianWheyCarousel />}
               </article>)}
             </div>
           </div>
