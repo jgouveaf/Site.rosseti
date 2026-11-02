@@ -16,6 +16,7 @@
   "stops": [
     { "year": 2017, "title": "Primeiros passos", "image": "media/photos/tunnel-2017.webp", "events": ["Infância", "Esporte"] },
     { "year": 2018, "title": "O jogo começa", "image": "media/photos/tunnel-2018.webp", "events": ["Futsal", "Primeiras competições"] },
+    { "year": 2022, "title": "Novos desafios", "image": "media/photos/canguru-2022.webp", "events": ["Matemática", "Olimpíadas"] },
     { "year": 2024, "title": "Competir e evoluir", "image": "media/photos/tunnel-2024.webp", "events": ["Tênis de mesa", "Pódio"] },
     { "year": 2025, "title": "Criar também é jogar", "image": "media/photos/tunnel-2025.webp", "events": ["GameDev", "Projetos"] },
     { "year": 2026, "title": "Próxima fase", "image": "media/photos/tunnel-2026.webp", "events": ["Formação", "Novos caminhos"] }
@@ -24,6 +25,9 @@
     "media/photos/tunnel-art-eye.webp",
     "media/photos/tunnel-art-flower.webp",
     "media/photos/tunnel-study.webp",
-    "media/photos/tunnel-action.webp"
+    "media/photos/tunnel-action.webp",
+    "media/photos/joao-saque.webp",
+    "media/photos/equipe-mancini.webp",
+    "media/photos/formatura-turma.webp"
   ]
 }

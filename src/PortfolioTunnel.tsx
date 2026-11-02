@@ -65,7 +65,7 @@ function SidePanel({ index, compact }: { index: number; compact: boolean }) {
   const height = compact ? 2.3 : 3;
   const width = Math.min(2.9, height * ratio);
   const side = index % 2 ? -1 : 1;
-  const z = -15 - index * 13;
+  const z = -15 - index * 10;
   const panel = useRef<THREE.Group>(null);
   useFrame(({ camera, clock }) => {
     if (!panel.current) return;
@@ -266,7 +266,7 @@ export function PortfolioTunnel() {
   const progress = useRef(0);
   const [active, setActive] = useState(0);
   const [reduced, setReduced] = useState(false);
-  const colors = ["#733cba", "#f15b6c", "#6446e8", "#1a9ac0", "#a2b635"];
+  const colors = ["#733cba", "#f15b6c", "#d2a64b", "#6446e8", "#1a9ac0", "#a2b635"];
   useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     const change = () => setReduced(media.matches);

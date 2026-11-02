@@ -20,6 +20,33 @@ const projects = [
   { n: "03", name: "ItalianWhey", kind: "COMUNICAÇÃO / CRIATIVIDADE", body: "Projeto vencedor em trabalho de Publicidade e Propaganda de Escolas, em 2025. Criatividade, comunicação e empreendedorismo.", status: "Vencedor · 2025" },
   { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista da trajetória criativa de João.", status: "Finalista" },
 ];
+type Achievement = (typeof data.achievements)[number];
+function AchievementCard({ achievement, index }: { achievement: Achievement; index: number }) {
+  const card = useRef<HTMLDivElement>(null);
+  const move = (event: React.PointerEvent<HTMLLIElement>) => {
+    if (event.pointerType === "touch" || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    card.current?.style.setProperty("--card-rx", `${((.5 - y) * 9).toFixed(2)}deg`);
+    card.current?.style.setProperty("--card-ry", `${((x - .5) * 9).toFixed(2)}deg`);
+    card.current?.style.setProperty("--card-x", `${(x * 100).toFixed(1)}%`);
+    card.current?.style.setProperty("--card-y", `${(y * 100).toFixed(1)}%`);
+  };
+  const reset = () => {
+    card.current?.style.setProperty("--card-rx", "0deg");
+    card.current?.style.setProperty("--card-ry", "0deg");
+  };
+  return <li className="pf-history-item pf-reveal" tabIndex={0} onPointerMove={move} onPointerLeave={reset} onBlur={reset}>
+    <div className="pf-history-card" ref={card}>
+      <span className="pf-history-card-index">{String(index + 1).padStart(2, "0")}</span>
+      <span className="pf-history-card-category">{achievement.category}</span>
+      <h4>{achievement.title}</h4>
+      <p>{achievement.result}</p>
+      <span className="pf-history-card-mark" aria-hidden="true">✳</span>
+    </div>
+  </li>;
+}
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
     <span className="pf-sr-only">{text}</span>
@@ -362,26 +389,14 @@ export function Portfolio() {
                 <article className="pf-year" key={year}>
                   <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>
                   <ul id={`year-${year}`}>
-                    {data.achievements.filter((a) => a.year === year).map((a, index) => (
-                      <li key={a.id} className="pf-history-item pf-reveal">
-                        <span>{String(index + 1).padStart(2, "0")} / {a.category}</span>
-                        <h4>{a.title}</h4>
-                        <p>{a.result}</p>
-                      </li>
-                    ))}
+                    {data.achievements.filter((a) => a.year === year).map((a, index) => <AchievementCard key={a.id} achievement={a} index={index} />)}
                   </ul>
                 </article>
               ))}
               <article className="pf-year pf-year-undated">
                 <h3><span>SEM DATA</span><small>OUTROS MARCOS</small></h3>
                 <ul>
-                  {data.achievements.filter((a) => !a.year).map((a, index) => (
-                    <li key={a.id} className="pf-history-item pf-reveal">
-                      <span>{String(index + 1).padStart(2, "0")} / {a.category}</span>
-                      <h4>{a.title}</h4>
-                      <p>{a.result}</p>
-                    </li>
-                  ))}
+                  {data.achievements.filter((a) => !a.year).map((a, index) => <AchievementCard key={a.id} achievement={a} index={index} />)}
                 </ul>
               </article>
               <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>

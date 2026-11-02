@@ -1,5 +1,5 @@
 /* A scroll-driven corridor, followed by a readable editorial archive. */
-.pf-journey { position: relative; height: 560svh; background: #030304; color: #f4f3ed; }
+.pf-journey { position: relative; height: 660svh; background: #030304; color: #f4f3ed; }
 .pf-journey-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #030304; isolation: isolate; }
 .pf-journey-world,.pf-journey-world canvas,.pf-journey-fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
 .pf-journey-world { z-index: 0; pointer-events: none; }
@@ -59,9 +59,9 @@
 .pf-v2 .pf-project-card-art small,.pf-v2 .pf-game-copy > span { border-radius: 999px; }
 
 .pf-v2 .pf-timeline { padding: 0; background: #030507; overflow: visible; }
-.pf-v2 .pf-timeline-archive { background: #f3f1ea; color: #121917; border-top: 0; padding: clamp(5rem,8vw,9rem) 4vw; }
+.pf-v2 .pf-timeline-archive { background: #f3f1ea; color: #121917; border-top: 0; padding: clamp(3rem,5vw,6rem) 4vw; }
 .pf-v2 .pf-timeline-archive .pf-label,.pf-v2 .pf-timeline-archive .pf-label span { color: #54665a; }
-.pf-timeline-archive-heading { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(230px,.55fr); column-gap: 3rem; align-items: end; padding: 6rem 0 4rem; }
+.pf-timeline-archive-heading { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(230px,.55fr); column-gap: 3rem; align-items: end; padding: 3rem 0 2.5rem; }
 .pf-timeline-archive-heading .pf-kicker { grid-column: 1 / -1; color: #28533b; }
 .pf-timeline-archive-heading h2 { margin: 0; font: 400 clamp(4rem,9vw,10rem)/.83 var(--font-editorial); letter-spacing: -.06em; color: #101a14; }
 .pf-timeline-archive-heading h2 em { color: #275b3b; }
@@ -77,12 +77,35 @@
 .pf-v2 .pf-timeline-archive .pf-year p { color: #445449; }
 .pf-v2 .pf-timeline-archive .pf-source-note { grid-column: 1 / -1; color: #5b685b; }
 
+/* A continuous chapter archive: every milestone stays readable while the cards respond in depth. */
+.pf-v2 .pf-timeline-archive .pf-years { grid-template-columns: 1fr; gap: clamp(2.5rem,5vw,5rem); }
+.pf-v2 .pf-timeline-archive .pf-year { padding: 0; border: 0; border-radius: 0; background: transparent; overflow: visible; }
+.pf-v2 .pf-timeline-archive .pf-year::before { display: none; }
+.pf-v2 .pf-timeline-archive .pf-year h3 { margin: 0 0 1.4rem; padding: 0 0 1rem; border-bottom: 1px solid #a9b8a6; align-items: end; }
+.pf-v2 .pf-timeline-archive .pf-year h3 span { color: #183729; font-size: clamp(3.5rem,7vw,7rem); line-height: .85; }
+.pf-v2 .pf-timeline-archive .pf-year h3 small { color: #4d6554; margin-bottom: .3rem; }
+.pf-v2 .pf-timeline-archive .pf-year ul { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(.7rem,1.5vw,1.4rem); }
+.pf-v2 .pf-timeline-archive .pf-history-item { min-width: 0; padding: 0; border: 0; perspective: 950px; outline: none; }
+.pf-v2 .pf-timeline-archive .pf-history-card { position: relative; display: flex; flex-direction: column; min-height: clamp(205px,17vw,270px); padding: clamp(1.25rem,2vw,2rem); overflow: hidden; border: 1px solid #c3d4c2; border-radius: 22px; background: linear-gradient(145deg,#e4eddf,#d6e4d3 68%,#c9deca); box-shadow: 0 12px 24px #203a2410, inset 0 1px #ffffffaa; transform: rotateX(var(--card-rx,0deg)) rotateY(var(--card-ry,0deg)); transform-style: preserve-3d; transition: transform .22s ease-out,box-shadow .32s ease,border-color .32s ease; }
+.pf-v2 .pf-timeline-archive .pf-history-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(circle at var(--card-x,50%) var(--card-y,50%),#ffffffa6,transparent 58%); transition: opacity .25s ease; }
+.pf-v2 .pf-timeline-archive .pf-history-item:is(:hover,:focus-visible) .pf-history-card { box-shadow: 0 25px 38px #203a2429,0 5px 10px #203a2418; border-color: #83a785; }
+.pf-v2 .pf-timeline-archive .pf-history-item:is(:hover,:focus-visible) .pf-history-card::before { opacity: 1; }
+.pf-v2 .pf-timeline-archive .pf-history-item:focus-visible .pf-history-card { outline: 3px solid #315d41; outline-offset: 4px; }
+.pf-v2 .pf-timeline-archive .pf-history-card > * { position: relative; transform: translateZ(20px); }
+.pf-v2 .pf-timeline-archive .pf-history-card-index { color: #214a34; font: 600 clamp(2.3rem,4vw,4rem)/1 var(--font-editorial); letter-spacing: -.05em; }
+.pf-v2 .pf-timeline-archive .pf-history-card-category { margin-top: auto; padding-top: 1.1rem; color: #315a3c; font: 700 .68rem/1.3 var(--font-body); letter-spacing: .13em; text-transform: uppercase; }
+.pf-v2 .pf-timeline-archive .pf-history-card h4 { color: #14251b; margin: .4rem 0 .35rem; font: 500 clamp(1.25rem,1.7vw,1.8rem)/1.12 var(--font-editorial); }
+.pf-v2 .pf-timeline-archive .pf-history-card p { color: #345041; margin: 0; font: 400 .92rem/1.45 var(--font-body); }
+.pf-v2 .pf-timeline-archive .pf-history-card-mark { position: absolute; right: 1.35rem; top: 1.25rem; color: #739b79; font: 400 1.25rem var(--font-body); }
+.pf-v2 .pf-timeline-archive .pf-year:nth-child(even) .pf-history-card { background: linear-gradient(145deg,#e9e7df,#dddcd2 68%,#d0dbc9); }
+
 @media (max-width: 900px) {
   .pf-journey-vignette { background: linear-gradient(0deg,#020506ee 0%,#020506ae 38%,transparent 85%),radial-gradient(ellipse at 50% 50%,transparent 20%,#0205067d 100%); }
   .pf-journey-copy { width: min(80vw,560px); bottom: 11rem; }
   .pf-journey-nav { left: 1.25rem; right: 1.25rem; bottom: 3.2rem; overflow-x: auto; padding: .5rem 0; }
   .pf-journey-nav button { flex: 1 0 54px; }
   .pf-timeline-archive-heading { grid-template-columns: 1fr; gap: 2rem; }
+  .pf-v2 .pf-timeline-archive .pf-year ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (max-width: 700px) {
   .pf-journey-aura { opacity: .22; }
@@ -91,7 +114,10 @@
   .pf-journey-copy strong { font-size: clamp(5rem,22vw,8rem); }
   .pf-journey-copy h2 { font-size: clamp(2.3rem,8vw,3.5rem); }
   .pf-v2 .pf-timeline-archive .pf-years { grid-template-columns: 1fr; }
-  .pf-timeline-archive-heading { padding: 3rem 0; }
+  .pf-v2 .pf-timeline-archive .pf-year ul { grid-template-columns: 1fr; }
+  .pf-v2 .pf-timeline-archive .pf-history-card { min-height: 185px; }
+  .pf-journey-nav button { flex-basis: 46px; min-width: 46px; padding-inline: .45rem; }
+  .pf-timeline-archive-heading { padding: 2rem 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pf-journey { height: 100svh; }
@@ -99,4 +125,5 @@
   .pf-journey-flash { animation: none; opacity: 0; }
   .pf-journey-copy { animation: none; }
   .pf-journey-nav button,.pf-v2 .pf-hero-cta { transition: none; }
+  .pf-v2 .pf-timeline-archive .pf-history-card { transform: none; transition: none; }
 }
