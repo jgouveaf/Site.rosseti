@@ -127,7 +127,8 @@
 .pf-history-card-result { display: block; color: #2e4a33; font: 500 clamp(1rem,1.3vw,1.3rem)/1.4 var(--font-body); }
 .pf-history-card-bottom { margin-top: 2.5rem; padding-top: .85rem; border-top: 1px solid #2751396b; color: #3e6245; }
 .pf-history-card-bottom span { font-size: 1.4rem; }
-.pf-achievement-controls { display: flex; align-items: center; justify-content: center; gap: clamp(1rem,4vw,4rem); padding: 0 4vw; }
+.pf-achievement-controls { display: flex; align-items: center; justify-content: center; gap: clamp(1rem,2.5vw,2rem); padding: 0 4vw; margin-top: 1rem; }
+.pf-achievement-progress { display: flex; align-items: center; justify-content: center; min-width: 90px; color: #163726; font: 700 .85rem var(--font-body); letter-spacing: .12em; }
 .pf-achievement-controls > button { appearance: none; flex: none; width: 58px; height: 58px; border: 1px solid #244b32; border-radius: 50%; background: #163726; color: #f2f5e9; font: 400 1.8rem var(--font-body); cursor: pointer; transition: transform .25s,background .25s; }
 .pf-achievement-controls > button:hover,.pf-achievement-controls > button:focus-visible { transform: scale(1.1); background: #335f40; outline: none; }
 .pf-achievement-progress { display: flex; align-items: center; gap: 1rem; width: min(500px,55vw); color: #42634a; font: 700 .72rem var(--font-body); letter-spacing: .08em; white-space: nowrap; }
@@ -188,12 +189,34 @@
 .pf-italian-gallery > .pf-italian-controls { display: flex; justify-content: center; align-items: center; gap: 1.1rem; width: 100%; overflow: visible; padding: 0; color: #f4f7ed; font: 700 .8rem var(--font-body); letter-spacing: .1em; }
 .pf-italian-controls button { appearance: none; width: 42px; height: 42px; border: 1px solid #ffffff8a; border-radius: 50%; background: #152418; color: #f5f7ef; font: 400 1.35rem var(--font-body); cursor: pointer; transition: transform .2s,background .2s; }
 .pf-italian-controls button:hover,.pf-italian-controls button:focus-visible { transform: scale(1.1); background: #3c6032; outline: none; }
-.pf-game-image-jogo-bosque img,.pf-game-image-jogo-planeta img { filter: none; }
+.pf-game-image-jogo-bosque img { filter: sepia(.18) saturate(1.25) hue-rotate(-8deg) contrast(1.07) brightness(.97); }
+.pf-game-image-jogo-planeta img { filter: saturate(.75) hue-rotate(190deg) contrast(1.12) brightness(.93); }
+.pf-game-image-jogo-bosque { border: 2px solid #5a7a3a !important; box-shadow: 0 0 0 4px #3a5a1a44, 0 18px 40px #0006 !important; }
+.pf-game-image-jogo-planeta { border: 2px solid #3a5a9a !important; box-shadow: 0 0 0 4px #1a3a7a44, 0 18px 40px #0007 !important; }
+.pf-game-image-jogo-bosque .pf-game-hud { color: #b8ff70; border-color: #6aaa2a; background: #1a3a0aee; }
+.pf-game-image-jogo-planeta .pf-game-hud { color: #70b8ff; border-color: #2a5aaa; background: #0a1a3aee; }
 .pf-game-image-jogo-bosque .pf-game-reticle,.pf-game-image-jogo-planeta .pf-game-reticle { display: none; }
 @media (max-width: 700px) {
   .pf-italian-gallery > .pf-italian-stage { height: 285px; }
   .pf-italian-gallery > .pf-italian-stage figure { width: 82%; height: 78%; top: 8%; }
 }
+
+/* ItalianWhey photo grid — same editorial card language as achievement cards */
+.pf-italian-photo-grid { padding: 0; }
+.pf-italian-grid-label { display: block; margin-bottom: 1.5rem; font: 700 .72rem/1.25 var(--font-body); letter-spacing: .13em; color: #b4c4b8; }
+.pf-italian-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.7rem, 1.5vw, 1.3rem); margin-top: .5rem; }
+.pf-italian-photo-card { margin: 0; border: 1px solid #b1c8b2; border-radius: 18px; overflow: hidden; background: #d9e8d6; transition: transform .3s cubic-bezier(.2,1.35,.3,1), box-shadow .3s, border-color .3s; cursor: default; }
+.pf-italian-photo-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 22px 40px #1f3d2436; border-color: #cfff00; }
+.pf-italian-photo-card img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: center; filter: contrast(1.04) brightness(1.01); }
+.pf-italian-photo-card figcaption { display: flex; align-items: center; gap: .6rem; padding: .75rem 1rem; background: #d9e8d6; border-top: 1px solid #b1c8b240; font: 700 .68rem/1.2 var(--font-body); letter-spacing: .1em; color: #2e4a33; }
+.pf-italian-photo-n { color: #4a7a52; font-size: .82rem; }
+@media (max-width: 700px) {
+  .pf-italian-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .pf-italian-grid { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pf-italian-gallery > .pf-italian-stage figure,.pf-italian-controls button { transition: none; }
 }

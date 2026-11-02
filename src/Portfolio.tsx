@@ -12,7 +12,6 @@ import { PortfolioTunnel } from "./PortfolioTunnel";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 const photo = (id: string) => data.photos.find((p) => p.id === id)!;
 const achievements = [...data.achievements].sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
-const years = [...new Set(achievements.flatMap((a) => a.year ? [a.year] : []))];
 const projects = [
   { n: "01", name: "VisionAI", kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA", body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.", status: "Em desenvolvimento" },
   { n: "02", name: "Frequência Morta", kind: "GAMEDEV / UNITY", body: "Projeto pessoal de jogo em desenvolvimento. Um espaço para aplicar programação, construir experiências e explorar a narrativa interativa.", status: "Em desenvolvimento" },
@@ -40,10 +39,6 @@ function AchievementCarousel() {
     if (event.key === "ArrowRight") { event.preventDefault(); change(1); }
     if (event.key === "ArrowLeft") { event.preventDefault(); change(-1); }
   }}>
-    <div className="pf-achievement-years" aria-label="Pular para um ano">
-      {years.map((year) => <button key={year} type="button" className={current.year === year ? "is-active" : ""} onClick={() => setActive(achievements.findIndex((item) => item.year === year))}>{year}</button>)}
-      <button type="button" className={!current.year ? "is-active" : ""} onClick={() => setActive(achievements.findIndex((item) => !item.year))}>Sem data</button>
-    </div>
     <div className="pf-achievement-stage" onPointerDown={(event) => { if (event.isPrimary) dragStart.current = event.clientX; }} onPointerUp={endDrag} onPointerCancel={() => { dragStart.current = null; }} onClickCapture={(event) => { if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); } }}>
       <span className="pf-achievement-watermark" aria-hidden="true">{current.year ?? "JG"}</span>
       <ul className="pf-achievement-deck">
@@ -66,43 +61,41 @@ function AchievementCarousel() {
     </div>
     <div className="pf-achievement-controls">
       <button type="button" onClick={() => change(-1)} aria-label="Conquista anterior">←</button>
-      <div className="pf-achievement-progress"><span>{String(active + 1).padStart(2, "0")} / {String(achievements.length).padStart(2, "0")}</span><input type="range" min="0" max={achievements.length - 1} value={active} onChange={(event) => setActive(Number(event.target.value))} aria-label="Ir para uma conquista" /><span>ARRASTE OU DESLIZE</span></div>
+      <div className="pf-achievement-progress"><span>{String(active + 1).padStart(2, "0")} / {String(achievements.length).padStart(2, "0")}</span></div>
       <button type="button" onClick={() => change(1)} aria-label="Próxima conquista">→</button>
     </div>
     <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>
   </div>;
 }
 function ItalianWheyCarousel() {
-  const [active, setActive] = useState(0);
-  const dragStart = useRef<number | null>(null);
-  const suppressClickUntil = useRef(0);
-  const change = (direction: number) => setActive((index) => (index + direction + 6) % 6);
-  const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStart.current === null) return;
-    const delta = event.clientX - dragStart.current;
-    if (Math.abs(delta) > 35) {
-      suppressClickUntil.current = performance.now() + 250;
-      change(delta < 0 ? 1 : -1);
-    }
-    dragStart.current = null;
-  };
-  return <div className="pf-italian-gallery" aria-label="Registros do projeto ItalianWhey" onKeyDown={(event) => {
-    if (event.key === "ArrowRight") { event.preventDefault(); change(1); }
-    if (event.key === "ArrowLeft") { event.preventDefault(); change(-1); }
-  }}>
-    <span>REGISTROS DO PROJETO VENCEDOR</span>
-    <div className="pf-italian-stage" onPointerDown={(event) => { if (event.isPrimary) dragStart.current = event.clientX; }} onPointerUp={endDrag} onPointerCancel={() => { dragStart.current = null; }} onClickCapture={(event) => { if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); } }}>
-      {[1, 2, 3, 4, 5, 6].map((image, index) => {
-        let offset = index - active;
-        if (offset > 3) offset -= 6;
-        if (offset < -3) offset += 6;
-        return <figure key={image} className={`${offset === 0 ? "is-active" : ""} ${Math.abs(offset) > 2 ? "is-hidden" : ""}`} style={{ "--iw-shift": `${offset * 77}%`, "--iw-turn": `${offset === 0 ? 0 : offset < 0 ? 43 : -43}deg`, "--iw-scale": offset === 0 ? 1 : Math.abs(offset) === 1 ? .83 : .68, zIndex: 10 - Math.abs(offset) } as React.CSSProperties} aria-hidden={offset !== 0}>
-          <button type="button" tabIndex={offset === 0 ? 0 : -1} onClick={() => { if (offset !== 0) setActive(index); }} aria-label={`Ver registro ${image} do ItalianWhey`}><img src={url(`media/featured/italianwhey-${image}.webp`)} alt="" loading="lazy" /><span>REGISTRO 0{image}</span></button>
-        </figure>;
-      })}
+  const captions = [
+    "Conceito da marca",
+    "Expansão internacional",
+    "Apresentação em Dubai",
+    "Campanha Argentina",
+    "Registro de produção",
+    "Identidade visual",
+  ];
+  return (
+    <div className="pf-italian-gallery pf-italian-photo-grid" aria-label="Registros do projeto ItalianWhey">
+      <span className="pf-italian-grid-label">REGISTROS DO PROJETO VENCEDOR</span>
+      <div className="pf-italian-grid">
+        {[1, 2, 3, 4, 5, 6].map((n) => (
+          <figure key={n} className="pf-italian-photo-card">
+            <img
+              src={url(`media/featured/italianwhey-${n}.webp`)}
+              alt={captions[n - 1]}
+              loading="lazy"
+            />
+            <figcaption>
+              <span className="pf-italian-photo-n">{String(n).padStart(2, "0")}</span>
+              <span>{captions[n - 1].toUpperCase()}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
     </div>
-    <div className="pf-italian-controls"><button type="button" aria-label="Registro anterior" onClick={() => change(-1)}>←</button><span>{String(active + 1).padStart(2, "0")} / 06</span><button type="button" aria-label="Próximo registro" onClick={() => change(1)}>→</button></div>
-  </div>;
+  );
 }
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
@@ -439,7 +432,7 @@ export function Portfolio() {
             <div className="pf-timeline-archive-heading">
               <span className="pf-kicker">DEPOIS DO TÚNEL</span>
               <h2>Cada etapa<br /><em>conta.</em></h2>
-              <p>Explore as conquistas deslizando os cards. Selecione um ano para ir direto a essa etapa.</p>
+              <p>Navegue pelas conquistas usando as setas ou selecionando os cards na trajetória.</p>
             </div>
             <AchievementCarousel />
           </div>
