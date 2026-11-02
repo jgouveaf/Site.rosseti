@@ -11,9 +11,8 @@ import { usePortfolioMotion, AnimatedNumber } from "./usePortfolioMotion";
 import { PortfolioTunnel } from "./PortfolioTunnel";
 const url = (path: string) => import.meta.env.BASE_URL + path;
 const photo = (id: string) => data.photos.find((p) => p.id === id)!;
-const years = [
-  ...new Set(data.achievements.flatMap((a) => (a.year ? [a.year] : []))),
-].sort((a, b) => a - b);
+const achievements = [...data.achievements].sort((a, b) => (a.year ?? 9999) - (b.year ?? 9999));
+const years = [...new Set(achievements.flatMap((a) => a.year ? [a.year] : []))];
 const projects = [
   { n: "01", name: "VisionAI", kind: "INTELIGÊNCIA ARTIFICIAL / ROBÓTICA", body: "Projeto em desenvolvimento de inteligência artificial e robótica. Explora visão computacional e a integração entre software e robô móvel.", status: "Em desenvolvimento" },
   { n: "02", name: "Frequência Morta", kind: "GAMEDEV / UNITY", body: "Projeto pessoal de jogo em desenvolvimento. Um espaço para aplicar programação, construir experiências e explorar a narrativa interativa.", status: "Em desenvolvimento" },
@@ -21,31 +20,57 @@ const projects = [
   { n: "04", name: "ACSI", kind: "PROJETOS / CONQUISTAS", body: "Projeto finalista em ACSI. Uma conquista da trajetória criativa de João.", status: "Finalista" },
 ];
 type Achievement = (typeof data.achievements)[number];
-function AchievementCard({ achievement, index }: { achievement: Achievement; index: number }) {
-  const card = useRef<HTMLDivElement>(null);
-  const move = (event: React.PointerEvent<HTMLLIElement>) => {
-    if (event.pointerType === "touch" || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width;
-    const y = (event.clientY - bounds.top) / bounds.height;
-    card.current?.style.setProperty("--card-rx", `${((.5 - y) * 9).toFixed(2)}deg`);
-    card.current?.style.setProperty("--card-ry", `${((x - .5) * 9).toFixed(2)}deg`);
-    card.current?.style.setProperty("--card-x", `${(x * 100).toFixed(1)}%`);
-    card.current?.style.setProperty("--card-y", `${(y * 100).toFixed(1)}%`);
+function AchievementCarousel() {
+  const [active, setActive] = useState(0);
+  const dragStart = useRef<number | null>(null);
+  const suppressClickUntil = useRef(0);
+  const current = achievements[active];
+  const change = (direction: number) => setActive((index) => (index + direction + achievements.length) % achievements.length);
+  const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStart.current === null) return;
+    const delta = event.clientX - dragStart.current;
+    if (Math.abs(delta) > 45) {
+      suppressClickUntil.current = performance.now() + 250;
+      change(delta < 0 ? 1 : -1);
+    }
+    dragStart.current = null;
   };
-  const reset = () => {
-    card.current?.style.setProperty("--card-rx", "0deg");
-    card.current?.style.setProperty("--card-ry", "0deg");
-  };
-  return <li className="pf-history-item pf-reveal" tabIndex={0} onPointerMove={move} onPointerLeave={reset} onBlur={reset}>
-    <div className="pf-history-card" ref={card}>
-      <span className="pf-history-card-index">{String(index + 1).padStart(2, "0")}</span>
-      <span className="pf-history-card-category">{achievement.category}</span>
-      <h4>{achievement.title}</h4>
-      <p>{achievement.result}</p>
-      <span className="pf-history-card-mark" aria-hidden="true">✳</span>
+  return <div className="pf-achievement-carousel" aria-label="Conquistas em carrossel" onKeyDown={(event) => {
+    if (event.target instanceof HTMLInputElement) return;
+    if (event.key === "ArrowRight") { event.preventDefault(); change(1); }
+    if (event.key === "ArrowLeft") { event.preventDefault(); change(-1); }
+  }}>
+    <div className="pf-achievement-years" aria-label="Pular para um ano">
+      {years.map((year) => <button key={year} type="button" className={current.year === year ? "is-active" : ""} onClick={() => setActive(achievements.findIndex((item) => item.year === year))}>{year}</button>)}
+      <button type="button" className={!current.year ? "is-active" : ""} onClick={() => setActive(achievements.findIndex((item) => !item.year))}>Sem data</button>
     </div>
-  </li>;
+    <div className="pf-achievement-stage" onPointerDown={(event) => { if (event.isPrimary) dragStart.current = event.clientX; }} onPointerUp={endDrag} onPointerCancel={() => { dragStart.current = null; }} onClickCapture={(event) => { if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); } }}>
+      <span className="pf-achievement-watermark" aria-hidden="true">{current.year ?? "JG"}</span>
+      <ul className="pf-achievement-deck">
+        {achievements.map((achievement: Achievement, index) => {
+          let offset = index - active;
+          if (offset > achievements.length / 2) offset -= achievements.length;
+          if (offset < -achievements.length / 2) offset += achievements.length;
+          const visible = Math.abs(offset) <= 2;
+          return <li key={achievement.id} className={`pf-history-item ${offset === 0 ? "is-active" : ""} ${visible ? "" : "is-hidden"}`} style={{ "--card-shift": `${offset * 82}%`, "--card-depth": `${offset === 0 ? 90 : Math.abs(offset) === 1 ? -35 : -120}px`, "--card-turn": `${offset === 0 ? 0 : offset < 0 ? 48 : -48}deg`, "--card-scale": offset === 0 ? 1 : Math.abs(offset) === 1 ? .84 : .7, "--card-opacity": visible ? 1 : 0, zIndex: 10 - Math.abs(offset) } as React.CSSProperties} aria-hidden={offset !== 0}>
+            <button className="pf-history-card" type="button" tabIndex={offset === 0 ? 0 : -1} onClick={() => { if (offset !== 0) setActive(index); }}>
+              <span className="pf-history-card-top"><span>{String(index + 1).padStart(2, "0")} / {String(achievements.length).padStart(2, "0")}</span><span>{achievement.year ?? "SEM DATA"}</span></span>
+              <span className="pf-history-card-category">{achievement.category}</span>
+              <strong>{achievement.title}</strong>
+              <span className="pf-history-card-result">{achievement.result}</span>
+              <span className="pf-history-card-bottom">JOÃO GOUVÊA <span aria-hidden="true">✳</span></span>
+            </button>
+          </li>;
+        })}
+      </ul>
+    </div>
+    <div className="pf-achievement-controls">
+      <button type="button" onClick={() => change(-1)} aria-label="Conquista anterior">←</button>
+      <div className="pf-achievement-progress"><span>{String(active + 1).padStart(2, "0")} / {String(achievements.length).padStart(2, "0")}</span><input type="range" min="0" max={achievements.length - 1} value={active} onChange={(event) => setActive(Number(event.target.value))} aria-label="Ir para uma conquista" /><span>ARRASTE OU DESLIZE</span></div>
+      <button type="button" onClick={() => change(1)} aria-label="Próxima conquista">→</button>
+    </div>
+    <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>
+  </div>;
 }
 function HoverLetters({ text }: { text: string }) {
   return <span className="pf-hover-word">
@@ -382,25 +407,9 @@ export function Portfolio() {
             <div className="pf-timeline-archive-heading">
               <span className="pf-kicker">DEPOIS DO TÚNEL</span>
               <h2>Cada etapa<br /><em>conta.</em></h2>
-              <p>Os marcos da trajetória, organizados por ano. Datas não confirmadas aparecem ao final.</p>
+              <p>Explore as conquistas deslizando os cards. Selecione um ano para ir direto a essa etapa.</p>
             </div>
-            <div className="pf-years">
-              {years.map((year) => (
-                <article className="pf-year" key={year}>
-                  <h3><span>{year}</span><small>{data.achievements.filter((a) => a.year === year).length.toString().padStart(2, "0")} MARCOS</small></h3>
-                  <ul id={`year-${year}`}>
-                    {data.achievements.filter((a) => a.year === year).map((a, index) => <AchievementCard key={a.id} achievement={a} index={index} />)}
-                  </ul>
-                </article>
-              ))}
-              <article className="pf-year pf-year-undated">
-                <h3><span>SEM DATA</span><small>OUTROS MARCOS</small></h3>
-                <ul>
-                  {data.achievements.filter((a) => !a.year).map((a, index) => <AchievementCard key={a.id} achievement={a} index={index} />)}
-                </ul>
-              </article>
-              <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>
-            </div>
+            <AchievementCarousel />
           </div>
         </section>
         <section id="certificados" className="pf-section pf-certificates">

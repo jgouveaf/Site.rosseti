@@ -99,6 +99,41 @@
 .pf-v2 .pf-timeline-archive .pf-history-card-mark { position: absolute; right: 1.35rem; top: 1.25rem; color: #739b79; font: 400 1.25rem var(--font-body); }
 .pf-v2 .pf-timeline-archive .pf-year:nth-child(even) .pf-history-card { background: linear-gradient(145deg,#e9e7df,#dddcd2 68%,#d0dbc9); }
 
+/* Coverflow archive: the centered card is the focus; adjacent cards form a rotating deck. */
+.pf-achievement-carousel { position: relative; margin: 0 -4vw; overflow: hidden; }
+.pf-achievement-years { display: flex; gap: .45rem; flex-wrap: wrap; justify-content: center; padding: 0 4vw 1rem; }
+.pf-achievement-years button { appearance: none; border: 1px solid #a5b7a8; background: transparent; color: #244231; border-radius: 100px; padding: .6rem 1rem; font: 700 .76rem var(--font-body); cursor: pointer; transition: background .25s,color .25s,transform .25s; }
+.pf-achievement-years button:hover,.pf-achievement-years button:focus-visible { transform: translateY(-3px); background: #dbe8d8; outline: none; }
+.pf-achievement-years button.is-active { background: #163726; color: #eff7e8; border-color: #163726; }
+.pf-achievement-stage { position: relative; height: clamp(440px,45vw,610px); perspective: 1250px; perspective-origin: 50% 45%; touch-action: pan-y; user-select: none; cursor: grab; }
+.pf-achievement-stage:active { cursor: grabbing; }
+.pf-achievement-stage::before { content: ""; position: absolute; inset: 13% 0 0; background: radial-gradient(ellipse at 50% 64%,#b7d1b6 0%,#d8e7d6 28%,transparent 65%); pointer-events: none; }
+.pf-achievement-watermark { position: absolute; left: 50%; top: 4%; transform: translateX(-50%); color: #d4e2d1; font: 400 clamp(10rem,30vw,30rem)/1 var(--font-editorial); letter-spacing: -.09em; pointer-events: none; }
+.pf-achievement-deck { list-style: none; margin: 0; padding: 0; }
+.pf-v2.motion-ready .pf-achievement-deck .pf-history-item,.pf-v2.motion-ready .pf-achievement-deck .pf-history-item.motion-reveal { opacity: var(--card-opacity); filter: none; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-item { position: absolute; left: 50%; top: 8%; width: min(36vw,530px); min-width: 360px; height: clamp(340px,33vw,475px); padding: 0; border: 0; perspective: none; transform: translate3d(calc(-50% + var(--card-shift)),0,var(--card-depth)) rotateY(var(--card-turn)) scale(var(--card-scale)); transform-style: preserve-3d; opacity: var(--card-opacity); transition: transform .65s cubic-bezier(.2,.8,.2,1),opacity .35s ease,visibility .35s; }
+.pf-v2.motion-ready .pf-achievement-deck .pf-history-item.motion-visible { transform: translate3d(calc(-50% + var(--card-shift)),0,var(--card-depth)) rotateY(var(--card-turn)) scale(var(--card-scale)); opacity: var(--card-opacity); }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-item.is-hidden { visibility: hidden; pointer-events: none; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card { appearance: none; display: flex; flex-direction: column; width: 100%; height: 100%; min-height: 0; padding: clamp(1.5rem,3vw,2.6rem); overflow: hidden; text-align: left; border: 1px solid #b1c8b2; border-radius: 24px; background: #d9e8d6; box-shadow: 0 22px 40px #1f3d2436,inset 0 1px #ffffffba; color: #143021; cursor: pointer; transform: none; transition: background .35s,box-shadow .35s,border-color .35s; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .is-active .pf-history-card { background: linear-gradient(145deg,#dfff9c,#c9f15f 70%,#bfe653); border-color: #9fcd56; box-shadow: 0 40px 75px #163a273c,0 8px 18px #163a272a,inset 0 1px #fff9; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card::before { opacity: .55; background: radial-gradient(circle at 92% 10%,#ffffff84,transparent 48%); }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card:hover { border-color: #4a8d59; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card:focus-visible { outline: 3px solid #1e5134; outline-offset: 5px; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card > * { transform: none; }
+.pf-history-card-top,.pf-history-card-bottom { display: flex; justify-content: space-between; align-items: center; width: 100%; font: 700 .73rem/1.25 var(--font-body); letter-spacing: .1em; }
+.pf-history-card-top { padding-bottom: .9rem; border-bottom: 1px solid #2751396b; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card-category { margin-top: auto; padding: 0; color: #315e39; font: 700 .76rem var(--font-body); letter-spacing: .12em; text-transform: uppercase; }
+.pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card strong { display: block; margin: .5rem 0 .55rem; font: 500 clamp(2.3rem,3.6vw,4.5rem)/.96 var(--font-editorial); letter-spacing: -.045em; max-width: 15ch; }
+.pf-history-card-result { display: block; color: #2e4a33; font: 500 clamp(1rem,1.3vw,1.3rem)/1.4 var(--font-body); }
+.pf-history-card-bottom { margin-top: 2.5rem; padding-top: .85rem; border-top: 1px solid #2751396b; color: #3e6245; }
+.pf-history-card-bottom span { font-size: 1.4rem; }
+.pf-achievement-controls { display: flex; align-items: center; justify-content: center; gap: clamp(1rem,4vw,4rem); padding: 0 4vw; }
+.pf-achievement-controls > button { appearance: none; flex: none; width: 58px; height: 58px; border: 1px solid #244b32; border-radius: 50%; background: #163726; color: #f2f5e9; font: 400 1.8rem var(--font-body); cursor: pointer; transition: transform .25s,background .25s; }
+.pf-achievement-controls > button:hover,.pf-achievement-controls > button:focus-visible { transform: scale(1.1); background: #335f40; outline: none; }
+.pf-achievement-progress { display: flex; align-items: center; gap: 1rem; width: min(500px,55vw); color: #42634a; font: 700 .72rem var(--font-body); letter-spacing: .08em; white-space: nowrap; }
+.pf-achievement-progress input { flex: 1; width: 0; accent-color: #315b37; cursor: pointer; }
+.pf-achievement-carousel .pf-source-note { max-width: none; margin: 2.5rem 4vw 0; text-align: center; color: #596e5d; }
+
 @media (max-width: 900px) {
   .pf-journey-vignette { background: linear-gradient(0deg,#020506ee 0%,#020506ae 38%,transparent 85%),radial-gradient(ellipse at 50% 50%,transparent 20%,#0205067d 100%); }
   .pf-journey-copy { width: min(80vw,560px); bottom: 11rem; }
@@ -118,6 +153,16 @@
   .pf-v2 .pf-timeline-archive .pf-history-card { min-height: 185px; }
   .pf-journey-nav button { flex-basis: 46px; min-width: 46px; padding-inline: .45rem; }
   .pf-timeline-archive-heading { padding: 2rem 0; }
+  .pf-achievement-years { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 1.1rem; }
+  .pf-achievement-years button { flex: none; }
+  .pf-achievement-stage { height: 455px; }
+  .pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-item { top: 9%; width: min(78vw,390px); min-width: 0; height: 340px; }
+  .pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card { padding: 1.4rem; }
+  .pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-card strong { font-size: clamp(2rem,9vw,3.1rem); }
+  .pf-achievement-controls { gap: .7rem; }
+  .pf-achievement-controls > button { width: 48px; height: 48px; }
+  .pf-achievement-progress { width: auto; min-width: 0; flex: 1; gap: .35rem; }
+  .pf-achievement-progress span:last-child { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pf-journey { height: 100svh; }
@@ -126,4 +171,5 @@
   .pf-journey-copy { animation: none; }
   .pf-journey-nav button,.pf-v2 .pf-hero-cta { transition: none; }
   .pf-v2 .pf-timeline-archive .pf-history-card { transform: none; transition: none; }
+  .pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-item { transition: none; }
 }
