@@ -220,3 +220,526 @@
 @media (prefers-reduced-motion: reduce) {
   .pf-italian-gallery > .pf-italian-stage figure,.pf-italian-controls button { transition: none; }
 }
+
+
+/* ==========================================================================
+   HERO FIX: NO CLIPPING, NEVER CRAMPED, 100% RESPONSIVE AND SPACIOUS
+   ========================================================================== */
+.pf-v2 .pf-hero-stage {
+  min-height: 100svh !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: clamp(100px, 13vh, 140px) clamp(24px, 5vw, 64px) clamp(48px, 8vh, 88px) !important;
+  background: radial-gradient(circle at 85% 20%, rgba(210, 255, 0, 0.08), transparent 45%),
+              radial-gradient(circle at 15% 80%, rgba(6, 60, 57, 0.45), transparent 50%),
+              #090A0C !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+
+.pf-v2 .pf-hero-cinema {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr) !important;
+  align-items: center !important;
+  gap: clamp(32px, 5vw, 68px) !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.pf-v2 .pf-hero-title {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 720px !important;
+  overflow: visible !important;
+  z-index: 5 !important;
+}
+
+.pf-v2 .pf-hero-intro {
+  font-family: var(--font-telemetry, monospace) !important;
+  font-size: clamp(0.72rem, 1vw, 0.88rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  color: #D2FF00 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: clamp(14px, 2.5vh, 22px) !important;
+}
+
+.pf-v2 .pf-hero h1 {
+  font-family: var(--font-editorial, 'DM Serif Display', Georgia, serif) !important;
+  font-size: clamp(2.8rem, 6.2vw, 6.5rem) !important;
+  line-height: 0.98 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+  margin: 0 0 clamp(16px, 2.5vh, 28px) !important;
+  text-wrap: balance !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+}
+
+.pf-v2 .pf-hero h1 > .pf-name-first,
+.pf-v2 .pf-hero h1 > .pf-name-last {
+  display: block !important;
+  color: #FFFFFF !important;
+}
+
+.pf-v2 .pf-hero h1 > .pf-name-last {
+  color: #D2FF00 !important;
+}
+
+.pf-v2 .pf-hero-copy {
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  padding-top: clamp(14px, 2vh, 24px) !important;
+  margin-top: 0 !important;
+}
+
+.pf-v2 .pf-hero-copy p {
+  color: #E2E8DF !important;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem) !important;
+  line-height: 1.5 !important;
+  max-width: 44ch !important;
+  margin: 0 0 clamp(18px, 2.5vh, 28px) !important;
+}
+
+.pf-v2 .pf-hero-actions {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+}
+
+.pf-v2 .pf-hero-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 14px 28px !important;
+  background: #D2FF00 !important;
+  color: #090A0C !important;
+  font-weight: 800 !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.08em !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  box-shadow: 0 0 25px rgba(210, 255, 0, 0.45) !important;
+  transition: transform 0.35s cubic-bezier(0.2, 1.35, 0.3, 1), box-shadow 0.3s !important;
+  white-space: nowrap !important;
+}
+
+.pf-v2 .pf-hero-cta:hover {
+  transform: translateY(-4px) scale(1.03) !important;
+  box-shadow: 0 0 35px rgba(210, 255, 0, 0.7) !important;
+}
+
+.pf-v2 .pf-hero-image {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(210, 255, 0, 0.45) !important;
+  box-shadow: 16px 16px 0px #D2FF00 !important;
+  overflow: hidden !important;
+  z-index: 4 !important;
+  transform: perspective(1000px) rotateX(var(--mouse-tilt-x, 0deg)) rotateY(var(--mouse-tilt-y, 0deg)) !important;
+  transition: transform 0.3s ease-out, box-shadow 0.3s !important;
+}
+
+.pf-v2 .pf-hero-image:hover {
+  box-shadow: 20px 20px 0px #D2FF00, 0 20px 45px rgba(0, 0, 0, 0.6) !important;
+}
+
+@media (max-width: 900px) {
+  .pf-v2 .pf-hero-cinema {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: stretch !important;
+    gap: 32px !important;
+  }
+  .pf-v2 .pf-hero-image {
+    max-width: 100% !important;
+    aspect-ratio: 16 / 10 !important;
+    box-shadow: 10px 10px 0px #D2FF00 !important;
+  }
+}
+
+/* ==========================================================================
+   3D SCROLL & DEPTH ANIMATIONS ACROSS THE WHOLE SITE
+   ========================================================================== */
+.pf-3d-card,
+.pf-project-card,
+.pf-game,
+.pf-italian-photo-card,
+.pf-stats > div,
+.pf-reel-card,
+.pf-obi-feature {
+  transform: perspective(1000px) rotateX(calc(var(--scroll-tilt-x, 0deg) + var(--mouse-tilt-x, 0deg))) rotateY(var(--mouse-tilt-y, 0deg)) translateZ(var(--scroll-depth, 0px));
+  transform-style: preserve-3d;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.pf-3d-card:hover,
+.pf-project-card:hover,
+.pf-game:hover,
+.pf-italian-photo-card:hover,
+.pf-stats > div:hover {
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), 0 0 20px rgba(210, 255, 0, 0.2) !important;
+}
+
+/* ==========================================================================
+   ITALIAN WHEY SHOWCASE: FULL-WIDTH, ALL 6 IMAGES CLEARLY VISIBLE + LIGHTBOX
+   ========================================================================== */
+.pf-project-grid-acsi {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 2.5rem;
+}
+
+.pf-italian-showcase {
+  margin: 3rem 0;
+  padding: clamp(2rem, 3.5vw, 3.5rem);
+  background: linear-gradient(145deg, #121915, #0c120e 70%, #080d09);
+  border: 1px solid rgba(210, 255, 0, 0.25);
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.pf-italian-showcase-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 2.5rem;
+}
+
+.pf-italian-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(210, 255, 0, 0.15);
+  border: 1px solid #D2FF00;
+  border-radius: 999px;
+  color: #D2FF00;
+  font: 700 0.72rem/1.2 var(--font-body);
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+
+.pf-italian-showcase-meta h3 {
+  font: 400 clamp(2.4rem, 4vw, 4.2rem)/1 var(--font-editorial);
+  color: #FFFFFF;
+  margin: 0 0 1rem;
+}
+
+.pf-italian-showcase-meta p {
+  color: #D2DDD4;
+  font: 400 clamp(0.95rem, 1.15vw, 1.15rem)/1.6 var(--font-body);
+  max-width: 52ch;
+  margin: 0;
+}
+
+.pf-italian-showcase-cover {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.pf-italian-showcase-cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.pf-italian-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 700 0.76rem/1.2 var(--font-body);
+  letter-spacing: 0.12em;
+  color: #A3B5A7;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pf-italian-grid-header small {
+  color: #D2FF00;
+}
+
+.pf-italian-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.pf-italian-photo-card {
+  margin: 0;
+  background: #151e18;
+  border: 1px solid rgba(177, 200, 178, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.pf-italian-photo-card:hover {
+  border-color: #D2FF00;
+  transform: translateY(-8px) scale(1.02);
+}
+
+.pf-italian-photo-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #080c09;
+}
+
+.pf-italian-photo-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.pf-italian-photo-card:hover .pf-italian-photo-wrapper img {
+  transform: scale(1.06);
+}
+
+.pf-italian-zoom-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 6px 12px;
+  background: rgba(9, 10, 12, 0.85);
+  border: 1px solid rgba(210, 255, 0, 0.5);
+  border-radius: 999px;
+  color: #D2FF00;
+  font: 700 0.65rem/1 var(--font-body);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.pf-italian-photo-card:hover .pf-italian-zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pf-italian-photo-card figcaption {
+  padding: 1.25rem 1.4rem;
+  background: #151e18;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pf-italian-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.pf-italian-photo-n {
+  color: #D2FF00;
+  font: 700 0.7rem var(--font-body);
+  letter-spacing: 0.12em;
+}
+
+.pf-italian-country {
+  color: #8fa093;
+  font: 600 0.68rem var(--font-body);
+  letter-spacing: 0.06em;
+}
+
+.pf-italian-photo-card figcaption strong {
+  display: block;
+  font: 600 1.15rem/1.3 var(--font-body);
+  color: #FFFFFF;
+  margin-bottom: 0.4rem;
+}
+
+.pf-italian-photo-card figcaption p {
+  color: #A3B5A7;
+  font: 400 0.82rem/1.5 var(--font-body);
+  margin: 0;
+}
+
+/* ==========================================================================
+   LIGHTBOX MODAL FOR FULL-RESOLUTION INSPECTION
+   ========================================================================== */
+.pf-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(4, 6, 5, 0.94);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3vw, 40px);
+  animation: pfLightboxFade 0.25s ease-out both;
+}
+
+@keyframes pfLightboxFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pf-lightbox-content {
+  position: relative;
+  width: min(1200px, 94vw);
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: #0d1410;
+  border: 1px solid rgba(210, 255, 0, 0.4);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(210, 255, 0, 0.2);
+}
+
+.pf-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(13, 20, 16, 0.8);
+  color: #FFFFFF;
+  font-size: 1.8rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.pf-lightbox-close:hover {
+  background: #D2FF00;
+  color: #090A0C;
+  border-color: #D2FF00;
+  transform: scale(1.1);
+}
+
+.pf-lightbox-image-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050806;
+  min-height: 0;
+  padding: 1.5rem;
+}
+
+.pf-lightbox-image-box img {
+  max-width: 100%;
+  max-height: 64vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.pf-lightbox-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 1.25rem 2rem;
+  background: #0f1813;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pf-lightbox-tag {
+  display: inline-block;
+  font: 700 0.7rem var(--font-body);
+  letter-spacing: 0.12em;
+  color: #D2FF00;
+  margin-bottom: 0.25rem;
+}
+
+.pf-lightbox-text h4 {
+  font: 600 1.2rem/1.2 var(--font-body);
+  color: #FFFFFF;
+  margin: 0 0 0.25rem;
+}
+
+.pf-lightbox-text p {
+  color: #A3B5A7;
+  font: 400 0.85rem var(--font-body);
+  margin: 0;
+}
+
+.pf-lightbox-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 700 0.85rem var(--font-body);
+  color: #E2E8DF;
+  white-space: nowrap;
+}
+
+.pf-lightbox-nav button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #17241c;
+  color: #FFFFFF;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.pf-lightbox-nav button:hover {
+  background: #D2FF00;
+  color: #090A0C;
+  border-color: #D2FF00;
+  transform: scale(1.1);
+}
+
+@media (max-width: 900px) {
+  .pf-italian-showcase-header {
+    grid-template-columns: 1fr;
+  }
+  .pf-italian-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pf-lightbox-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 580px) {
+  .pf-italian-grid {
+    grid-template-columns: 1fr;
+  }
+  .pf-lightbox-image-box {
+    padding: 0.75rem;
+  }
+  .pf-lightbox-image-box img {
+    max-height: 50vh;
+  }
+}

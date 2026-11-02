@@ -67,33 +67,113 @@ function AchievementCarousel() {
     <p className="pf-source-note">Histórico informado por João. Itens sem ano confirmado não receberam data presumida.</p>
   </div>;
 }
-function ItalianWheyCarousel() {
-  const captions = [
-    "Conceito da marca",
-    "Expansão internacional",
-    "Apresentação em Dubai",
-    "Campanha Argentina",
-    "Registro de produção",
-    "Identidade visual",
+function ItalianWheyShowcase() {
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
+
+  const slides = [
+    { n: 1, title: "Conceito & Posicionamento", country: "Estratégia Geral", desc: "Apresentação de marca, tom de voz e proposta de valor." },
+    { n: 2, title: "Expansão de Mercado", country: "Internacional", desc: "Plano de mídia e presença em múltiplos territórios." },
+    { n: 3, title: "Apresentação em Dubai", country: "Emirados Árabes Unidos", desc: "Campanha focada em estilo de vida de alta performance." },
+    { n: 4, title: "Campanha Argentina", country: "América Latina", desc: "Comunicação voltada à comunidade esportiva e influenciadores." },
+    { n: 5, title: "Produção e Distribuição", country: "Bastidores", desc: "Processo criativo, roteiros e formatos para redes sociais." },
+    { n: 6, title: "Identidade Visual & Packaging", country: "Design Gráfico", desc: "Design do produto, materiais promocionais e fechamento de campanha." },
   ];
+
+  const openModal = (idx: number) => setModalIndex(idx);
+  const closeModal = () => setModalIndex(null);
+  const nextModal = () => setModalIndex((idx) => (idx !== null ? (idx + 1) % slides.length : 0));
+  const prevModal = () => setModalIndex((idx) => (idx !== null ? (idx - 1 + slides.length) % slides.length : 0));
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (modalIndex === null) return;
+      if (e.key === "Escape") closeModal();
+      if (e.key === "ArrowRight") nextModal();
+      if (e.key === "ArrowLeft") prevModal();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [modalIndex]);
+
   return (
-    <div className="pf-italian-gallery pf-italian-photo-grid" aria-label="Registros do projeto ItalianWhey">
-      <span className="pf-italian-grid-label">REGISTROS DO PROJETO VENCEDOR</span>
-      <div className="pf-italian-grid">
-        {[1, 2, 3, 4, 5, 6].map((n) => (
-          <figure key={n} className="pf-italian-photo-card">
-            <img
-              src={url(`media/featured/italianwhey-${n}.webp`)}
-              alt={captions[n - 1]}
-              loading="lazy"
-            />
-            <figcaption>
-              <span className="pf-italian-photo-n">{String(n).padStart(2, "0")}</span>
-              <span>{captions[n - 1].toUpperCase()}</span>
-            </figcaption>
-          </figure>
-        ))}
+    <div className="pf-italian-showcase pf-3d-card" aria-label="Showcase completo ItalianWhey">
+      <div className="pf-italian-showcase-header">
+        <div className="pf-italian-showcase-meta">
+          <span className="pf-italian-badge">PROJETO VENCEDOR · PUBLICIDADE & PROPAGANDA 2025</span>
+          <h3><HoverLetters text="ItalianWhey" /></h3>
+          <p>
+            Trabalho vencedor em Publicidade e Propaganda com foco em criação de marca, estratégia internacional
+            e expansão em mercados globais. Clique em qualquer imagem para ver em tela cheia com todos os detalhes.
+          </p>
+        </div>
+        <div className="pf-italian-showcase-cover">
+          <img src={url("media/featured/italianwhey-capa.webp")} alt="Capa da apresentação ItalianWhey" loading="lazy" />
+        </div>
       </div>
+
+      <div className="pf-italian-grid-section">
+        <div className="pf-italian-grid-header">
+          <span>06 SLIDES DA APRESENTAÇÃO ORIGINAL (CLIQUE PARA AMPLIAR)</span>
+          <small>6 DE 6 IMAGENS DISPONÍVEIS</small>
+        </div>
+
+        <div className="pf-italian-grid">
+          {slides.map((slide, idx) => (
+            <figure
+              key={slide.n}
+              className="pf-italian-photo-card pf-3d-interactive"
+              onClick={() => openModal(idx)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openModal(idx)}
+              aria-label={`Ampliar slide 0${slide.n}: ${slide.title}`}
+            >
+              <div className="pf-italian-photo-wrapper">
+                <img
+                  src={url(`media/featured/italianwhey-${slide.n}.webp`)}
+                  alt={`ItalianWhey Slide ${slide.n}: ${slide.title}`}
+                  loading="lazy"
+                />
+                <span className="pf-italian-zoom-hint">🔍 AMPLIAR</span>
+              </div>
+              <figcaption>
+                <div className="pf-italian-card-meta">
+                  <span className="pf-italian-photo-n">SLIDE 0{slide.n}</span>
+                  <span className="pf-italian-country">{slide.country}</span>
+                </div>
+                <strong>{slide.title}</strong>
+                <p>{slide.desc}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      {modalIndex !== null && (
+        <div className="pf-lightbox" onClick={closeModal} role="dialog" aria-modal="true">
+          <div className="pf-lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button className="pf-lightbox-close" onClick={closeModal} aria-label="Fechar visualização">×</button>
+            <div className="pf-lightbox-image-box">
+              <img
+                src={url(`media/featured/italianwhey-${slides[modalIndex].n}.webp`)}
+                alt={slides[modalIndex].title}
+              />
+            </div>
+            <div className="pf-lightbox-bar">
+              <div className="pf-lightbox-text">
+                <span className="pf-lightbox-tag">SLIDE {modalIndex + 1} DE 6 · {slides[modalIndex].country}</span>
+                <h4>{slides[modalIndex].title}</h4>
+                <p>{slides[modalIndex].desc}</p>
+              </div>
+              <div className="pf-lightbox-nav">
+                <button type="button" onClick={prevModal} aria-label="Slide anterior">←</button>
+                <span>{modalIndex + 1} / {slides.length}</span>
+                <button type="button" onClick={nextModal} aria-label="Próximo slide">→</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -378,13 +458,21 @@ export function Portfolio() {
               {projects.slice(0, 2).map((project, index) => <article className="pf-project-card" key={project.n}><div className="pf-project-card-art" aria-hidden="true"><span>{index === 0 ? "◎" : "◈"}</span><small>{project.n} / LABORATÓRIO</small></div><div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div></article>)}
             </div>
             <div className="pf-project-group-heading"><span>02 / COMUNICAÇÃO</span><h3>Conceito e impacto</h3><p>Projetos de criação apresentados em contextos acadêmicos.</p></div>
-            <div className="pf-project-grid pf-project-grid-creative">
-              {projects.slice(2).map((project, index) => <article className={`pf-project-card ${index === 0 ? "pf-project-card-italian" : ""}`} key={project.n}>
-                <div className="pf-project-card-art">{index === 0 ? <img src={url("media/featured/italianwhey-capa.webp")} alt="Capa do projeto ItalianWhey" loading="lazy" /> : <span aria-hidden="true">ACSI</span>}<small>{project.n} / CRIAÇÃO</small></div>
-                <div className="pf-project-card-copy"><span>{project.kind}</span><h4><HoverLetters text={project.name} /></h4><p>{project.body}</p><strong>{project.status}</strong></div>
-                {index === 0 && <ItalianWheyCarousel />}
-              </article>)}
+            <div className="pf-project-grid pf-project-grid-acsi">
+              <article className="pf-project-card pf-3d-card" key="04">
+                <div className="pf-project-card-art">
+                  <span aria-hidden="true">ACSI</span>
+                  <small>04 / CRIAÇÃO</small>
+                </div>
+                <div className="pf-project-card-copy">
+                  <span>PROJETOS / CONQUISTAS</span>
+                  <h4><HoverLetters text="ACSI" /></h4>
+                  <p>Projeto finalista em ACSI. Uma conquista da trajetória criativa de João.</p>
+                  <strong>Finalista</strong>
+                </div>
+              </article>
             </div>
+            <ItalianWheyShowcase />
           </div>
         </section>
         <section id="jogos" className="pf-section pf-games">

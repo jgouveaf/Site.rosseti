@@ -66,6 +66,21 @@ export function usePortfolioMotion() {
             : 0,
         ),
       );
+      if (!reduced.matches) {
+        const cards3D = root.querySelectorAll<HTMLElement>(
+          ".pf-3d-card, .pf-project-card, .pf-game, .pf-italian-photo-card, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature"
+        );
+        cards3D.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          if (rect.bottom < -100 || rect.top > height + 100) return;
+          const centerY = rect.top + rect.height / 2;
+          const normalized = (centerY - height / 2) / (height / 2);
+          const tiltX = Math.max(-8, Math.min(8, -normalized * 6.5));
+          const depth = Math.max(-20, Math.min(18, (1 - Math.abs(normalized)) * 14));
+          card.style.setProperty("--scroll-tilt-x", `${tiltX.toFixed(2)}deg`);
+          card.style.setProperty("--scroll-depth", `${depth.toFixed(1)}px`);
+        });
+      }
       if (fine.matches) {
         if (heroBounds && heroBounds.bottom > 0) {
           hero?.style.setProperty(
@@ -123,6 +138,14 @@ export function usePortfolioMotion() {
         if (glow.classList.contains("pf-hero-image")) {
           glow.style.setProperty("--tilt-x", `${(0.5 - y) * 8}deg`);
           glow.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
+        }
+        const tiltCard = target.closest<HTMLElement>(".pf-3d-interactive, .pf-italian-photo-card, .pf-game, .pf-project-card");
+        if (tiltCard) {
+          const b = tiltCard.getBoundingClientRect();
+          const cx = (event.clientX - b.left) / Math.max(1, b.width);
+          const cy = (event.clientY - b.top) / Math.max(1, b.height);
+          tiltCard.style.setProperty("--mouse-tilt-x", `${((0.5 - cy) * 12).toFixed(2)}deg`);
+          tiltCard.style.setProperty("--mouse-tilt-y", `${((cx - 0.5) * 12).toFixed(2)}deg`);
         }
       }
       const magnet = target.closest<HTMLElement>(".pf-hero-cta,.pf-pill");
