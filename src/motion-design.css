@@ -61,36 +61,40 @@
   display: none;
 }
 .pf-v2 .pf-hero-stage {
-  height: 155svh;
-  background: #090c0b;
-  position: relative;
-  --hero-progress: 0;
-  --look-x: 0px;
-  --look-y: 0px;
+  height: auto !important;
+  min-height: 90vh !important;
+  display: flex !important;
+  align-items: center !important;
+  background: #090A0C !important;
+  position: relative !important;
+  padding: 120px 4vw 60px !important;
 }
 .pf-v2 .pf-hero-cinema {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  min-height: 650px;
-  padding: 0 4vw;
-  background: #080a09;
-  color: #f4f5e9;
-  overflow: hidden;
-  isolation: isolate;
-  clip-path: inset(
-    0 calc(var(--hero-progress) * 2.5%) round calc(var(--hero-progress) * 32px)
-  );
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  min-height: auto !important;
+  display: grid !important;
+  grid-template-columns: 1.15fr 0.85fr !important;
+  align-items: center !important;
+  gap: 48px !important;
+  width: 100% !important;
+  max-width: 1360px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+  clip-path: none !important;
 }
 .pf-hero-image {
-  position: absolute;
-  right: 0;
-  inset-block: 0;
-  width: 65%;
-  z-index: -3;
-  transform: scale(calc(1 + var(--hero-progress) * 0.12))
-    translateY(calc(var(--hero-progress) * -35px));
-  transform-origin: 60% 40%;
+  position: relative !important;
+  right: auto !important;
+  inset-block: auto !important;
+  width: 100% !important;
+  max-width: 460px !important;
+  margin: 0 auto !important;
+  z-index: 5 !important;
+  transform: none !important;
 }
 .pf-v2 .pf-hero-photo {
   height: 100%;
@@ -156,31 +160,39 @@
   box-shadow: 0 0 15px #d5ff3970;
 }
 .pf-v2 .pf-hero-title {
-  position: absolute;
-  left: 4vw;
-  top: 23%;
-  margin: 0;
-  pointer-events: none;
-  transform: translateY(calc(var(--hero-progress) * -60px));
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  margin: 0 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+  max-width: 680px !important;
 }
 .pf-hero-intro {
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #c5cdbd;
-  display: block;
-  margin-bottom: 22px;
-  animation: pf-mask-in 0.8s both 0.1s;
+  font-size: 11px !important;
+  letter-spacing: 2px !important;
+  color: #D2FF00 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 16px !important;
 }
 .pf-v2 .pf-hero h1 {
-  font-size: clamp(105px, 15vw, 240px);
-  font-weight: 700;
-  letter-spacing: -0.085em;
-  line-height: 0.84;
-  position: relative;
+  font-size: clamp(38px, 4.8vw, 74px) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.05 !important;
+  position: relative !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 0 0 20px 0 !important;
 }
 .pf-v2 .pf-hero h1 > span {
-  margin: 0;
-  display: block;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
 }
 .pf-name-first {
   color: var(--acid);
@@ -790,7 +802,7 @@
 }
 @media (max-height: 760px) and (min-width: 701px) {
   .pf-v2 .pf-hero h1 {
-    font-size: 12vw;
+    font-size: clamp(36px, 5vw, 68px) !important;
   }
   .pf-v2 .pf-hero-title {
     top: 25%;
@@ -833,12 +845,9 @@
   .pf-v2 .pf-hero-bottom {
     grid-template-columns: none;
   }
-  .pf-v2 .pf-hero-image {
-    width: 80%;
-    right: -8%;
-  }
+  .pf-v2 .pf-hero-image { position: relative !important; width: 100% !important; max-width: 460px !important; }
   .pf-v2 .pf-hero h1 {
-    font-size: 17vw;
+    font-size: clamp(36px, 5vw, 68px) !important;
   }
   .pf-v2 .pf-hero-title {
     top: 28%;
@@ -895,12 +904,7 @@
     height: 100svh;
     padding-inline: 6vw;
   }
-  .pf-v2 .pf-hero-image {
-    width: 100%;
-    right: -7%;
-    top: 40px;
-    bottom: 0;
-  }
+  .pf-v2 .pf-hero-image { position: relative !important; width: 100% !important; max-width: 460px !important; }
   .pf-v2 .pf-hero-photo img {
     object-fit: cover;
     object-position: 55% 30%;
@@ -946,7 +950,7 @@
     margin-bottom: 18px;
   }
   .pf-v2 .pf-hero h1 {
-    font-size: 20vw;
+    font-size: clamp(36px, 5vw, 68px) !important;
     letter-spacing: -0.08em;
   }
   .pf-v2 .pf-hero h1 > .pf-name-last {
