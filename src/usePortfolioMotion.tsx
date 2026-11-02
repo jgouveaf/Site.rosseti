@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const clamp = (n: number) => Math.max(0, Math.min(1, n));
 
-/** Scroll changes are batched into one frame. No wheel interception or scroll hijack. */
+/** Scroll and pointer 3D motion choreography across the whole site. */
 export function usePortfolioMotion() {
   useEffect(() => {
     const root = document.querySelector<HTMLElement>(".pf-v2");
@@ -14,12 +14,25 @@ export function usePortfolioMotion() {
     const track = root.querySelector<HTMLElement>(".pf-reel-track");
     const windowEl = root.querySelector<HTMLElement>(".pf-reel-window");
     const sport = root.querySelector<HTMLElement>(".pf-sport");
+
     let frame = 0;
     let mouseX = innerWidth / 2;
     let mouseY = innerHeight / 2;
     let activeMagnet: HTMLElement | null = null;
     let magnetBounds: DOMRect | null = null;
-    let activeGlow: HTMLElement | null = null;
+    let currentTiltCard: HTMLElement | null = null;
+
+    const resetTilt = () => {
+      if (currentTiltCard) {
+        currentTiltCard.style.removeProperty("--mouse-tilt-x");
+        currentTiltCard.style.removeProperty("--mouse-tilt-y");
+        currentTiltCard.style.removeProperty("--glare-x");
+        currentTiltCard.style.removeProperty("--glare-y");
+        currentTiltCard.classList.remove("is-tilting");
+        currentTiltCard = null;
+      }
+    };
+
     const update = () => {
       frame = 0;
       const height = innerHeight;
@@ -34,17 +47,20 @@ export function usePortfolioMotion() {
       const progress = reelBounds
         ? clamp(-reelBounds.top / Math.max(1, reelBounds.height - height))
         : 0;
+
       root.style.setProperty(
         "--page-progress",
         String(clamp(scrollY / Math.max(1, maxScroll))),
       );
       root.classList.toggle("is-scrolled", scrollY > 70);
+
       if (reduced.matches) {
         hero?.style.setProperty("--hero-progress", "0");
         reel?.style.setProperty("--reel-x", "0px");
         sport?.style.setProperty("--sport-progress", "0");
         return;
       }
+
       hero?.style.setProperty(
         "--hero-progress",
         String(
@@ -66,21 +82,22 @@ export function usePortfolioMotion() {
             : 0,
         ),
       );
-      if (!reduced.matches) {
-        const cards3D = root.querySelectorAll<HTMLElement>(
-          ".pf-3d-card, .pf-project-card, .pf-game, .pf-italian-photo-card, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature"
-        );
-        cards3D.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          if (rect.bottom < -100 || rect.top > height + 100) return;
-          const centerY = rect.top + rect.height / 2;
-          const normalized = (centerY - height / 2) / (height / 2);
-          const tiltX = Math.max(-8, Math.min(8, -normalized * 6.5));
-          const depth = Math.max(-20, Math.min(18, (1 - Math.abs(normalized)) * 14));
-          card.style.setProperty("--scroll-tilt-x", `${tiltX.toFixed(2)}deg`);
-          card.style.setProperty("--scroll-depth", `${depth.toFixed(1)}px`);
-        });
-      }
+
+      // Real 3D Perspective Scroll Physics across cards throughout the site
+      const cards3D = root.querySelectorAll<HTMLElement>(
+        ".pf-3d-card, .pf-game, .pf-project-card, .pf-italian-showcase, .pf-italian-photo-card, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature, .pf-history-card"
+      );
+      cards3D.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom < -120 || rect.top > height + 120) return;
+        const centerY = rect.top + rect.height / 2;
+        const normalized = (centerY - height / 2) / (height / 2); // -1 (top) to +1 (bottom)
+        const tiltX = Math.max(-9, Math.min(9, -normalized * 7.5));
+        const depth = Math.max(-24, Math.min(24, (1 - Math.abs(normalized)) * 18));
+        card.style.setProperty("--scroll-tilt-x", `${tiltX.toFixed(2)}deg`);
+        card.style.setProperty("--scroll-depth", `${depth.toFixed(1)}px`);
+      });
+
       if (fine.matches) {
         if (heroBounds && heroBounds.bottom > 0) {
           hero?.style.setProperty(
@@ -104,50 +121,46 @@ export function usePortfolioMotion() {
         }
       }
     };
+
     const queue = () => {
       if (!frame && !document.hidden) frame = requestAnimationFrame(update);
     };
+
     const resetMagnet = () => {
       activeMagnet?.style.removeProperty("--magnet-x");
       activeMagnet?.style.removeProperty("--magnet-y");
       activeMagnet = null;
       magnetBounds = null;
     };
-    const resetGlow = () => {
-      activeGlow?.style.removeProperty("--spot-x");
-      activeGlow?.style.removeProperty("--spot-y");
-      activeGlow?.style.removeProperty("--tilt-x");
-      activeGlow?.style.removeProperty("--tilt-y");
-      activeGlow = null;
-    };
+
+    // Robust 3D Interactive Pointer Tilt Handler
     const onPointer = (event: PointerEvent) => {
-      if (reduced.matches || event.pointerType === "touch" || !fine.matches)
-        return;
+      if (reduced.matches || event.pointerType === "touch" || !fine.matches) return;
       mouseX = event.clientX;
       mouseY = event.clientY;
       const target = event.target as HTMLElement;
-      const glow = target.closest<HTMLElement>(".pf-hero-image,.pf-route a,.pf-project-stage,.pf-history-item,.pf-obi-feature,.pf-reel-card");
-      if (glow !== activeGlow) resetGlow();
-      if (glow) {
-        activeGlow = glow;
-        const bounds = glow.getBoundingClientRect();
-        const x = (event.clientX - bounds.left) / Math.max(1, bounds.width);
-        const y = (event.clientY - bounds.top) / Math.max(1, bounds.height);
-        glow.style.setProperty("--spot-x", `${x * 100}%`);
-        glow.style.setProperty("--spot-y", `${y * 100}%`);
-        if (glow.classList.contains("pf-hero-image")) {
-          glow.style.setProperty("--tilt-x", `${(0.5 - y) * 8}deg`);
-          glow.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
-        }
-        const tiltCard = target.closest<HTMLElement>(".pf-3d-interactive, .pf-italian-photo-card, .pf-game, .pf-project-card, .pf-hero-title, .pf-hero-image, .pf-real-portrait, .pf-stats > div");
-        if (tiltCard) {
-          const b = tiltCard.getBoundingClientRect();
-          const cx = (event.clientX - b.left) / Math.max(1, b.width);
-          const cy = (event.clientY - b.top) / Math.max(1, b.height);
-          tiltCard.style.setProperty("--mouse-tilt-x", `${((0.5 - cy) * 12).toFixed(2)}deg`);
-          tiltCard.style.setProperty("--mouse-tilt-y", `${((cx - 0.5) * 12).toFixed(2)}deg`);
-        }
+
+      // Find any 3D interactive element anywhere on the page
+      const card = target.closest<HTMLElement>(
+        ".pf-3d-card, .pf-game, .pf-project-card, .pf-italian-photo-card, .pf-hero-title, .pf-hero-image, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature, .pf-history-card, .pf-italian-showcase"
+      );
+
+      if (card !== currentTiltCard) resetTilt();
+
+      if (card) {
+        currentTiltCard = card;
+        card.classList.add("is-tilting");
+        const b = card.getBoundingClientRect();
+        const px = (event.clientX - b.left) / Math.max(1, b.width);
+        const py = (event.clientY - b.top) / Math.max(1, b.height);
+        const rx = (0.5 - py) * 16; // 16 deg max tilt
+        const ry = (px - 0.5) * 16;
+        card.style.setProperty("--mouse-tilt-x", `${rx.toFixed(2)}deg`);
+        card.style.setProperty("--mouse-tilt-y", `${ry.toFixed(2)}deg`);
+        card.style.setProperty("--glare-x", `${(px * 100).toFixed(1)}%`);
+        card.style.setProperty("--glare-y", `${(py * 100).toFixed(1)}%`);
       }
+
       const magnet = target.closest<HTMLElement>(".pf-hero-cta,.pf-pill");
       if (magnet !== activeMagnet) {
         resetMagnet();
@@ -156,10 +169,12 @@ export function usePortfolioMotion() {
       }
       queue();
     };
+
     const leave = () => {
       resetMagnet();
-      resetGlow();
+      resetTilt();
     };
+
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((entry) => {
@@ -170,6 +185,7 @@ export function usePortfolioMotion() {
         }),
       { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
     );
+
     const revealElements = root.querySelectorAll<HTMLElement>(
       ".pf-label,.pf-about-grid h2,.pf-about-grid>div,.pf-stats>div,.pf-section-heading,.pf-project-group-heading,.pf-project-card,.pf-game,.pf-year,.pf-history-item,.pf-reel-heading,.pf-reel-card,.pf-manifesto p,.pf-fecart,.pf-sport-copy,.pf-swimming,.pf-obi-feature",
     );
@@ -178,41 +194,20 @@ export function usePortfolioMotion() {
       el.style.setProperty("--reveal-delay", `${(i % 3) * 65}ms`);
       observer.observe(el);
     });
+
     root.classList.add("motion-ready");
-    const refreshMotion = () => {
-      leave();
-      queue();
-    };
-    // A card reached by keyboard must become visible even when translated off-screen.
-    const onFocus = (event: FocusEvent) => {
-      if (!(event.target as HTMLElement).matches(":focus-visible")) return;
-      const card = (event.target as HTMLElement).closest<HTMLElement>(
-        ".pf-reel-card",
-      );
-      if (!card || !reel || !track || reduced.matches || innerWidth <= 700)
-        return;
-      const distance = track.scrollWidth - (windowEl?.clientWidth ?? 0);
-      if (distance <= 0) return;
-      const fraction = clamp(card.offsetLeft / distance);
-      const start = reel.getBoundingClientRect().top + scrollY;
-      scrollTo({
-        top: start + fraction * (reel.offsetHeight - innerHeight),
-        behavior: "instant",
-      });
-      queue();
-    };
+
     addEventListener("scroll", queue, { passive: true });
     addEventListener("resize", queue);
     addEventListener("pointermove", onPointer, { passive: true });
     document.addEventListener("pointerleave", leave);
-    document.addEventListener("visibilitychange", refreshMotion);
-    root.addEventListener("focusin", onFocus);
-    reduced.addEventListener("change", refreshMotion);
-    fine.addEventListener("change", refreshMotion);
+    document.addEventListener("visibilitychange", queue);
+
     const resize = new ResizeObserver(queue);
     resize.observe(root);
     if (track) resize.observe(track);
     update();
+
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
@@ -222,57 +217,37 @@ export function usePortfolioMotion() {
       removeEventListener("resize", queue);
       removeEventListener("pointermove", onPointer);
       document.removeEventListener("pointerleave", leave);
-      document.removeEventListener("visibilitychange", refreshMotion);
-      root.removeEventListener("focusin", onFocus);
-      reduced.removeEventListener("change", refreshMotion);
-      fine.removeEventListener("change", refreshMotion);
-      resetMagnet();
-      resetGlow();
+      document.removeEventListener("visibilitychange", queue);
     };
   }, []);
 }
 
 export function AnimatedNumber({ value }: { value: number }) {
-  const element = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(value);
+  const [display, setDisplay] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    const target = element.current;
-    if (!target) return;
-    const media = matchMedia("(prefers-reduced-motion: reduce)");
-    let frame = 0;
-    const finish = () => {
-      cancelAnimationFrame(frame);
-      setDisplay(value);
-    };
+    const el = ref.current;
+    if (!el) return;
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
         observer.disconnect();
-        if (media.matches) {
-          finish();
-          return;
-        }
-        const start = performance.now();
-        const tick = (now: number) => {
-          const progress = clamp((now - start) / 1100);
-          setDisplay(Math.round(value * (1 - Math.pow(1 - progress, 3))));
-          if (progress < 1) frame = requestAnimationFrame(tick);
+                const duration = 1200;
+        const startTime = performance.now();
+        const step = (now: number) => {
+          const progress = Math.min(1, (now - startTime) / duration);
+          const current = Math.floor(progress * value);
+          setDisplay(current);
+          if (progress < 1) requestAnimationFrame(step);
+          else setDisplay(value);
         };
-        frame = requestAnimationFrame(tick);
+        requestAnimationFrame(step);
       },
       { threshold: 0.5 },
     );
-    observer.observe(target);
-    media.addEventListener("change", finish);
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-      media.removeEventListener("change", finish);
-    };
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [value]);
-  return (
-    <span ref={element} className="pf-number" aria-label={String(value)}>
-      <span aria-hidden="true">{String(display).padStart(2, "0")}</span>
-    </span>
-  );
+
+  return <span ref={ref}>{display}</span>;
 }

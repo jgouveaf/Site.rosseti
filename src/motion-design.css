@@ -94,7 +94,6 @@
   max-width: 460px !important;
   margin: 0 auto !important;
   z-index: 5 !important;
-  transform: none !important;
 }
 .pf-v2 .pf-hero-photo {
   height: 100%;
@@ -165,7 +164,6 @@
   top: auto !important;
   margin: 0 !important;
   pointer-events: auto !important;
-  transform: none !important;
   max-width: 680px !important;
 }
 .pf-hero-intro {
@@ -741,7 +739,6 @@
 .pf-v2.motion-ready .motion-reveal.motion-visible,
 .pf-v2.motion-ready .motion-reveal:focus-within {
   opacity: 1;
-  transform: none;
   filter: none;
 }
 .pf-v2 .pf-reveal {

@@ -1254,3 +1254,411 @@
   50% { transform: rotateX(180deg) rotateY(270deg) rotateZ(90deg); }
   100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg); }
 }
+
+
+/* ==========================================================================
+   GLOBAL 3D PERSPECTIVE & INTERACTIVE CARDS ACROSS THE ENTIRE SITE
+   ========================================================================== */
+.pf-v2 {
+  perspective: 1200px;
+}
+
+.pf-3d-card,
+.pf-game,
+.pf-project-card,
+.pf-italian-showcase,
+.pf-italian-photo-card,
+.pf-real-portrait,
+.pf-stats > div,
+.pf-reel-card,
+.pf-swimming,
+.pf-obi-feature,
+.pf-history-card,
+.pf-hero-title,
+.pf-hero-image {
+  transform: perspective(1000px) rotateX(calc(var(--scroll-tilt-x, 0deg) + var(--mouse-tilt-x, 0deg))) rotateY(var(--mouse-tilt-y, 0deg)) translateZ(var(--scroll-depth, 0px)) !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+  will-change: transform;
+  position: relative;
+}
+
+.pf-3d-card.is-tilting,
+.pf-game.is-tilting,
+.pf-project-card.is-tilting,
+.pf-italian-photo-card.is-tilting,
+.pf-hero-title.is-tilting,
+.pf-hero-image.is-tilting {
+  transition: transform 0.08s linear, box-shadow 0.2s ease !important;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.65), 0 0 30px rgba(210, 255, 0, 0.25) !important;
+}
+
+/* Subtle dynamic glare overlay on 3D cards */
+.pf-3d-card::after,
+.pf-game::after,
+.pf-project-card::after,
+.pf-italian-photo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.12), transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 5;
+}
+
+.pf-3d-card.is-tilting::after,
+.pf-game.is-tilting::after,
+.pf-project-card.is-tilting::after,
+.pf-italian-photo-card.is-tilting::after {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   GAME 2: BOSQUE INVASOR — SURVIVAL ACTION ARCADE HUD (NO EMOJIS, NO ANIMATIONS)
+   ========================================================================== */
+.pf-bosque-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #090e0b;
+}
+
+.pf-bosque-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none !important;
+}
+
+.pf-bosque-hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(10px, 1.8vw, 16px);
+  font-family: var(--font-telemetry, monospace);
+  color: #FFFFFF;
+  text-shadow: 0 1px 3px #000, 0 0 8px #000;
+  box-shadow: inset 0 0 45px rgba(0, 0, 0, 0.7);
+  z-index: 3;
+}
+
+.pf-bosque-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pf-bosque-lifebox {
+  background: rgba(10, 16, 12, 0.9);
+  border: 1px solid #4a7a40;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+.pf-bosque-char {
+  display: block;
+  font: 800 0.65rem/1 var(--font-body);
+  letter-spacing: 0.12em;
+  color: #D2FF00;
+  margin-bottom: 4px;
+}
+
+.pf-bosque-hp-track {
+  width: 100px;
+  height: 7px;
+  background: #1a291e;
+  border: 1px solid #2d4533;
+  margin-bottom: 3px;
+}
+
+.pf-bosque-hp-fill {
+  height: 100%;
+  background: #50e32f;
+  box-shadow: 0 0 6px #50e32f;
+}
+
+.pf-bosque-hp-num {
+  font: 700 0.6rem var(--font-body);
+  color: #b8d4b3;
+}
+
+.pf-bosque-mission {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.pf-bosque-stage-name {
+  font: 800 0.65rem var(--font-body);
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pf-bosque-wave-count {
+  font: 700 0.6rem var(--font-body);
+  color: #D2FF00;
+}
+
+/* Static Target Crosshair (NO SPINNING, NO ANIMATION) */
+.pf-bosque-sight {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pf-bosque-cross {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(210, 255, 0, 0.8);
+  position: relative;
+}
+
+.pf-bosque-cross::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  bottom: -6px;
+  width: 1px;
+  background: #D2FF00;
+  transform: translateX(-50%);
+}
+
+.pf-bosque-cross::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  right: -6px;
+  height: 1px;
+  background: #D2FF00;
+  transform: translateY(-50%);
+}
+
+.pf-bosque-lock {
+  font: 700 0.58rem var(--font-body);
+  letter-spacing: 0.1em;
+  color: #D2FF00;
+  background: rgba(10, 18, 12, 0.88);
+  padding: 2px 6px;
+  border: 1px solid #4a7a40;
+}
+
+.pf-bosque-botbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.pf-bosque-keys {
+  font: 600 0.6rem var(--font-body);
+  letter-spacing: 0.06em;
+  color: #c4d6c1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pf-key {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #1b261e;
+  border: 1px solid #45634b;
+  border-bottom: 2px solid #283d2e;
+  border-radius: 3px;
+  font: 800 0.58rem monospace;
+  color: #D2FF00;
+}
+
+.pf-bosque-weaponbox {
+  background: rgba(10, 16, 12, 0.9);
+  border: 1px solid #4a7a40;
+  border-radius: 4px;
+  padding: 4px 10px;
+  text-align: right;
+}
+
+.pf-gun-label {
+  display: block;
+  font: 700 0.6rem var(--font-body);
+  color: #9ab396;
+}
+
+.pf-gun-shells {
+  font: 800 0.85rem var(--font-body);
+  color: #D2FF00;
+}
+
+/* ==========================================================================
+   GAME 3: ECLIPSE DEFESA DUPLA — TACTICAL SCI-FI TELEMETRY (COMPLETELY DIFFERENT)
+   ========================================================================== */
+.pf-eclipse-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #060a12;
+}
+
+.pf-eclipse-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none !important;
+}
+
+.pf-eclipse-hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(10px, 1.8vw, 16px);
+  font-family: var(--font-telemetry, monospace);
+  color: #d8f4ff;
+  text-shadow: 0 1px 3px #000, 0 0 10px #001e33;
+  box-shadow: inset 0 0 50px rgba(0, 20, 40, 0.7);
+  z-index: 3;
+}
+
+.pf-eclipse-telemetry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.25);
+  padding-bottom: 6px;
+}
+
+.pf-sci-mode {
+  display: block;
+  font: 800 0.65rem var(--font-body);
+  letter-spacing: 0.12em;
+  color: #00d9ff;
+}
+
+.pf-sci-sector {
+  font: 500 0.58rem var(--font-body);
+  color: #8bb5c7;
+}
+
+.pf-eclipse-units {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.pf-unit-pill {
+  font: 700 0.58rem monospace;
+  color: #00d9ff;
+  background: rgba(0, 30, 50, 0.8);
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+/* Angular Sci-Fi Targeting Brackets (Static, crisp, no animations) */
+.pf-eclipse-targeting-bracket {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pf-sci-bracket-box {
+  width: 90px;
+  height: 50px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.pf-sci-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #00d9ff;
+  border-style: solid;
+}
+
+.pf-sci-corner.top-left { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.pf-sci-corner.top-right { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.pf-sci-corner.bot-left { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.pf-sci-corner.bot-right { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+.pf-sci-target-text {
+  position: absolute;
+  bottom: -18px;
+  white-space: nowrap;
+  font: 700 0.55rem monospace;
+  color: #00d9ff;
+  background: rgba(3, 14, 24, 0.9);
+  padding: 1px 5px;
+  border: 1px solid rgba(0, 217, 255, 0.3);
+}
+
+.pf-eclipse-console-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(0, 217, 255, 0.25);
+  padding-top: 6px;
+}
+
+.pf-eclipse-keybinds {
+  font: 600 0.6rem var(--font-body);
+  letter-spacing: 0.06em;
+  color: #8bb5c7;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pf-key-sci {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #081a29;
+  border: 1px solid #1a567a;
+  border-bottom: 2px solid #0d3247;
+  border-radius: 3px;
+  font: 800 0.58rem monospace;
+  color: #00d9ff;
+}
+
+.pf-eclipse-gun-readout {
+  text-align: right;
+}
+
+.pf-sci-gun-title {
+  display: block;
+  font: 700 0.6rem var(--font-body);
+  color: #8bb5c7;
+}
+
+.pf-sci-gun-stat {
+  font: 800 0.78rem var(--font-body);
+  color: #00d9ff;
+}

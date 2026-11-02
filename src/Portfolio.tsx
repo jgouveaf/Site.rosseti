@@ -491,93 +491,93 @@ export function Portfolio() {
               </div>
             </article>
 
-            {/* 02: Bosque Invasor — Authentic Gameplay HUD */}
+            {/* 02: Bosque Invasor — Survival Brawler HUD (NO EMOJIS, NO MOVING ANIMATIONS) */}
             <article className="pf-game pf-3d-card" key="Bosque Invasor">
-              <div className="pf-gameplay-stage pf-game-image-jogo-bosque">
+              <div className="pf-gameplay-stage pf-bosque-stage">
                 <img src={url("media/featured/jogo-bosque.webp")} alt="Gameplay Bosque Invasor" loading="lazy" />
-                <div className="pf-gameplay-hud" aria-hidden="true">
-                  <div className="pf-hud-top">
-                    <div className="pf-hud-player">
-                      <span className="pf-hud-player-name">👤 P1: BRUNO "CHARUTO"</span>
-                      <div className="pf-hud-bar-row">
-                        <span>HP</span>
-                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-hp" style={{ width: "82%" }} /></div>
-                        <span>82%</span>
+                <div className="pf-bosque-hud" aria-hidden="true">
+                  <div className="pf-bosque-topbar">
+                    <div className="pf-bosque-lifebox">
+                      <span className="pf-bosque-char">BRUNO // SOBREVIVENTE</span>
+                      <div className="pf-bosque-hp-track">
+                        <div className="pf-bosque-hp-fill" style={{ width: "76%" }} />
                       </div>
-                      <div className="pf-hud-bar-row">
-                        <span>STA</span>
-                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-shield" style={{ width: "100%" }} /></div>
-                        <span>100%</span>
-                      </div>
+                      <span className="pf-bosque-hp-num">HP 76 / 100</span>
                     </div>
-                    <div className="pf-hud-radar-score">
-                      <div className="pf-hud-score">SCORE <b>048,250</b></div>
-                      <span className="pf-hud-wave">ONDA 04 / 10 · FLORESTA</span>
+                    <div className="pf-bosque-mission">
+                      <span className="pf-bosque-stage-name">FASE 02: BOSQUE DENSO</span>
+                      <span className="pf-bosque-wave-count">ONDA 04 / 10</span>
                     </div>
                   </div>
-                  <div className="pf-hud-center">
-                    <span className="pf-hud-damage">-240 CRIT!</span>
-                    <div className="pf-hud-reticle-circle"><div className="pf-hud-reticle-dot" /></div>
-                    <span className="pf-hud-target-label">🎯 ALVO: XENO-SCORPION</span>
+
+                  <div className="pf-bosque-sight">
+                    <div className="pf-bosque-cross" />
+                    <span className="pf-bosque-lock">ALVO TRAVADO // XENO-SUBTERRÂNEO</span>
                   </div>
-                  <div className="pf-hud-bottom">
-                    <span className="pf-hud-controls">ESPAÇO: ROLAR · R: RECARREGAR</span>
-                    <div className="pf-hud-weapon">
-                      <span className="pf-hud-weapon-name">SHOTGUN 12GA</span>
-                      <div className="pf-hud-ammo">06 <small>/ 24</small></div>
+
+                  <div className="pf-bosque-botbar">
+                    <div className="pf-bosque-keys">
+                      <span className="pf-key">ESPAÇO</span> ESQUIVA
+                      <span className="pf-key">R</span> RECARREGAR
+                      <span className="pf-key">LMB</span> ATIRAR
+                    </div>
+                    <div className="pf-bosque-weaponbox">
+                      <span className="pf-gun-label">SHOTGUN 12G</span>
+                      <span className="pf-gun-shells">06 / 24</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="pf-game-copy">
-                <span>02 / Gameplay ao vivo</span>
+                <span>02 / Combate em tempo real</span>
                 <h3><HoverLetters text="Bosque Invasor" /></h3>
-                <p>Recriação em gameplay de uma cena de jogo: combate em tempo real na floresta contra horda alienígena.</p>
+                <p>Cena jogável de ação e sobrevivência: combate na floresta com armas de fogo contra criaturas alienígenas.</p>
               </div>
             </article>
 
-            {/* 03: Eclipse Defesa Dupla — Authentic Co-op Gameplay HUD */}
+            {/* 03: Eclipse Defesa Dupla — Tactical Sci-fi Telemetry (NO EMOJIS, TOTALLY DIFFERENT STYLE) */}
             <article className="pf-game pf-3d-card" key="Eclipse: Defesa Dupla">
-              <div className="pf-gameplay-stage pf-game-image-jogo-planeta">
+              <div className="pf-gameplay-stage pf-eclipse-stage">
                 <img src={url("media/featured/jogo-planeta.webp")} alt="Gameplay Eclipse Defesa Dupla" loading="lazy" />
-                <div className="pf-gameplay-hud" aria-hidden="true">
-                  <div className="pf-hud-top">
-                    <div className="pf-hud-player">
-                      <span className="pf-hud-player-name">🤖 P1: MECHA-ASSAULT</span>
-                      <div className="pf-hud-bar-row">
-                        <span>ESCUDO</span>
-                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-shield" style={{ width: "78%" }} /></div>
-                        <span>78%</span>
-                      </div>
-                      <div className="pf-hud-bar-row">
-                        <span>HP</span>
-                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-hp" style={{ width: "95%" }} /></div>
-                        <span>95%</span>
-                      </div>
+                <div className="pf-eclipse-hud" aria-hidden="true">
+                  <div className="pf-eclipse-telemetry-header">
+                    <div className="pf-eclipse-protocol">
+                      <span className="pf-sci-mode">SISTEMA TÁTICO CO-OP // LINK ATIVO</span>
+                      <span className="pf-sci-sector">SETOR 07 · PLANETA OBSIDIAN · DEFESA DE BASE</span>
                     </div>
-                    <div className="pf-hud-radar-score">
-                      <div className="pf-hud-score">SINCRO CO-OP <b>98%</b></div>
-                      <span className="pf-hud-wave" style={{ borderColor: "#D2FF00", color: "#D2FF00" }}>CO-OP 2P · SETOR 07</span>
+                    <div className="pf-eclipse-units">
+                      <span className="pf-unit-pill">MECHA-01 [ESCUDO 84%]</span>
+                      <span className="pf-unit-pill">DRONE-02 [ESCUDO 100%]</span>
                     </div>
                   </div>
-                  <div className="pf-hud-center">
-                    <span className="pf-hud-damage" style={{ color: "#00d9ff", textShadow: "0 0 10px #00d9ff" }}>COMBO x4 · 1.200 PTS</span>
-                    <div className="pf-hud-reticle-circle" style={{ borderColor: "#00d9ff" }}><div className="pf-hud-reticle-dot" style={{ background: "#00d9ff" }} /></div>
-                    <span className="pf-hud-target-label" style={{ background: "rgba(0,30,50,0.85)", borderColor: "#00d9ff", color: "#00d9ff" }}>LOCK-ON: ENXAME AÉREO</span>
+
+                  <div className="pf-eclipse-targeting-bracket">
+                    <div className="pf-sci-bracket-box">
+                      <div className="pf-sci-corner top-left" />
+                      <div className="pf-sci-corner top-right" />
+                      <div className="pf-sci-corner bot-left" />
+                      <div className="pf-sci-corner bot-right" />
+                      <span className="pf-sci-target-text">ALVO CONFIRMADO: ENXAME AÉREO [142m // ELEV +14°]</span>
+                    </div>
                   </div>
-                  <div className="pf-hud-bottom">
-                    <span className="pf-hud-controls">P2 ASSAULT: COBRINDO FLANCO</span>
-                    <div className="pf-hud-weapon">
-                      <span className="pf-hud-weapon-name">PLASMA CANNON ⚡</span>
-                      <div className="pf-hud-ammo">45 <small>/ 180</small></div>
+
+                  <div className="pf-eclipse-console-bottom">
+                    <div className="pf-eclipse-keybinds">
+                      <span className="pf-key-sci">SHIFT</span> IMPULSO
+                      <span className="pf-key-sci">Q</span> ESCUDO DE ÍONS
+                      <span className="pf-key-sci">RMB</span> MIRA DE LONGO ALCANCE
+                    </div>
+                    <div className="pf-eclipse-gun-readout">
+                      <span className="pf-sci-gun-title">CANHÃO DE PLASMA</span>
+                      <span className="pf-sci-gun-stat">CARGA: 88% // 45 / 180</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="pf-game-copy">
-                <span>03 / Gameplay cooperativo</span>
+                <span>03 / Cooperativo para 2 jogadores</span>
                 <h3><HoverLetters text="Eclipse: Defesa Dupla" /></h3>
-                <p>Captura de partida cooperativa para 2 jogadores com soldados robóticos defendendo o perímetro do planeta.</p>
+                <p>Captura de partida tática em tela dividida: soldados mecânicos e drones defendendo o perímetro do planeta.</p>
               </div>
             </article>
 
