@@ -23,10 +23,32 @@ function Frame({ index, stop, compact }: { index: number; stop: Stop; compact: b
   const height = width / ratio;
   const side = index % 2 ? 1 : -1;
   const z = (compact ? -10 : -8) - index * 13;
-  return <group position={[compact ? 0 : side * 3.15, compact ? 0.85 : 0.05, z]} rotation={[0, compact ? 0 : side * -0.12, 0]}>
+  const frame = useRef<THREE.Group>(null);
+  const image = useRef<THREE.MeshBasicMaterial>(null);
+  const revealLight = useRef<THREE.Mesh>(null);
+  const revealMaterial = useRef<THREE.MeshBasicMaterial>(null);
+  useFrame(({ camera, clock }) => {
+    if (!frame.current) return;
+    const distance = camera.position.z - z;
+    const enter = THREE.MathUtils.smoothstep(28 - distance, 0, 20);
+    const leave = THREE.MathUtils.smoothstep(distance, -5, 1);
+    const visibility = enter * leave;
+    frame.current.visible = visibility > .02;
+    frame.current.position.x = compact ? 0 : side * (3.15 + (1 - enter) * 2.5);
+    frame.current.position.y = (compact ? .85 : .05) + (1 - enter) * .7;
+    frame.current.rotation.y = compact ? (1 - enter) * .42 : side * (-.12 - (1 - enter) * .65);
+    frame.current.rotation.z = side * (1 - enter) * .12;
+    frame.current.scale.set(.42 + enter * .58, .8 + enter * .2, 1);
+    if (image.current) image.current.opacity = Math.min(1, visibility * 2.4) * (.97 + Math.sin(clock.elapsedTime * 2 + index) * .03);
+    if (revealLight.current) revealLight.current.position.y = height * (.5 - enter);
+    if (revealMaterial.current) revealMaterial.current.opacity = Math.sin(enter * Math.PI) * visibility * .28;
+  });
+  return <group ref={frame} position={[compact ? 0 : side * 3.15, compact ? 0.85 : 0.05, z]} rotation={[0, compact ? 0 : side * -0.12, 0]}>
     <mesh position={[0, 0, -0.24]}><boxGeometry args={[width + 0.58, height + 0.66, 0.34]} /><meshBasicMaterial color="#17171d" /></mesh>
     <mesh position={[0, 0, -0.055]}><planeGeometry args={[width + 0.17, height + 0.17]} /><meshBasicMaterial color="#a6377d" side={THREE.DoubleSide} /></mesh>
-    <mesh position={[0, 0, 0.005]}><planeGeometry args={[width, height]} /><meshBasicMaterial map={texture} side={THREE.DoubleSide} toneMapped={false} /></mesh>
+    <mesh position={[0, 0, 0.005]}><planeGeometry args={[width, height]} /><meshBasicMaterial ref={image} map={texture} transparent side={THREE.DoubleSide} toneMapped={false} /></mesh>
+    <mesh ref={revealLight} position={[0, height / 2, .016]}><planeGeometry args={[width, .2]} /><meshBasicMaterial ref={revealMaterial} color="#f6ccff" transparent opacity={0} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
+    <NeonBar position={[0, -height / 2 - .32, .02]} length={width + .42} color="#f258b9" />
     <mesh position={[-width / 2 - 0.15, height / 2 + 0.16, -0.02]}><sphereGeometry args={[0.055, 10, 10]} /><meshBasicMaterial color="#cfff00" toneMapped={false} /></mesh>
     <mesh position={[width / 2 + 0.14, -height / 2 - 0.18, -0.02]}><circleGeometry args={[0.07, 16]} /><meshBasicMaterial color="#cfff00" toneMapped={false} /></mesh>
     <mesh position={[width / 2 - 0.07, -height / 2 - 0.18, -0.02]}><circleGeometry args={[0.045, 16]} /><meshBasicMaterial color="#804c84" /></mesh>
@@ -43,74 +65,22 @@ function SidePanel({ index, compact }: { index: number; compact: boolean }) {
   const height = compact ? 2.3 : 3;
   const width = Math.min(2.9, height * ratio);
   const side = index % 2 ? -1 : 1;
-  return <group position={[compact ? 0 : side * 4.05, compact ? 1.1 : 0.35, -15 - index * 13]} rotation={[0, compact ? 0 : side * -0.2, 0]}>
+  const z = -15 - index * 13;
+  const panel = useRef<THREE.Group>(null);
+  useFrame(({ camera, clock }) => {
+    if (!panel.current) return;
+    const distance = camera.position.z - z;
+    const enter = THREE.MathUtils.smoothstep(25 - distance, 0, 17);
+    panel.current.visible = distance > -4 && enter > .04;
+    panel.current.position.x = compact ? 0 : side * (4.05 + (1 - enter) * 1.7);
+    panel.current.position.y = (compact ? 1.1 : .35) - (1 - enter) * .9 + Math.sin(clock.elapsedTime * .65 + index) * .035;
+    panel.current.rotation.y = compact ? (1 - enter) * -.35 : side * (-.2 - (1 - enter) * .4);
+    panel.current.scale.setScalar(.56 + enter * .44);
+  });
+  return <group ref={panel} position={[compact ? 0 : side * 4.05, compact ? 1.1 : 0.35, z]} rotation={[0, compact ? 0 : side * -0.2, 0]}>
     <mesh position={[0, 0, -0.06]}><planeGeometry args={[width + 0.17, height + 0.17]} /><meshBasicMaterial color="#c355a5" side={THREE.DoubleSide} /></mesh>
     <mesh><planeGeometry args={[width, height]} /><meshBasicMaterial map={texture} side={THREE.DoubleSide} toneMapped={false} /></mesh>
     <NeonBar position={[0, -height / 2 - 0.16, 0]} length={width + 0.28} color="#d2549d" />
-  </group>;
-}
-
-function Alien({ x, z, seed, compact }: { x: number; z: number; seed: number; compact: boolean }) {
-  const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + tunnel.alienImage);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  const { geometry, vertices } = useMemo(() => {
-    const width = compact ? 2.25 : 3.3;
-    const height = compact ? 3.4 : 4.95;
-    const mesh = new THREE.PlaneGeometry(width, height, 12, 24);
-    return { geometry: mesh, vertices: new Float32Array(mesh.attributes.position.array) };
-  }, [compact]);
-  useEffect(() => () => geometry.dispose(), [geometry]);
-  const walker = useRef<THREE.Group>(null);
-  const figure = useRef<THREE.Group>(null);
-  const ring = useRef<THREE.Group>(null);
-  const figureMaterial = useRef<THREE.MeshBasicMaterial>(null);
-  const shadowMaterial = useRef<THREE.MeshBasicMaterial>(null);
-  useFrame(({ clock, camera, pointer }) => {
-    const time = clock.elapsedTime;
-    const cycle = (time * .11 + seed * .18) % 1;
-    const step = time * 9 + seed * 2;
-    const visibility = Math.min(1, cycle * 9, (1 - cycle) * 9);
-    const positions = geometry.attributes.position as THREE.BufferAttribute;
-    const width = compact ? 2.25 : 3.3;
-    const height = compact ? 3.4 : 4.95;
-    for (let index = 0; index < positions.count; index++) {
-      const originalX = vertices[index * 3];
-      const originalY = vertices[index * 3 + 1];
-      const horizontal = originalX / width;
-      const depth = Math.min(1, Math.max(0, (-originalY / height - .13) * 3.5));
-      const mask = Math.min(1, Math.max(0, (.36 - Math.abs(horizontal - .04)) * 9));
-      const side = Math.tanh((horizontal - .04) * 9);
-      positions.setX(index, originalX + side * Math.sin(step) * width * .045 * depth * mask);
-      positions.setY(index, originalY + Math.max(0, -side * Math.sin(step)) * height * .02 * depth * mask);
-    }
-    positions.needsUpdate = true;
-    if (walker.current) {
-      walker.current.position.x = Math.sign(x) * (compact ? .85 : 1.75) + Math.sin(cycle * Math.PI * 2 + seed) * (compact ? .28 : .5);
-      walker.current.position.z = z - 5 + cycle * 10;
-    }
-    if (figure.current) {
-      figure.current.position.y = (compact ? -1.9 : -1.15) + Math.abs(Math.sin(step)) * .11;
-      figure.current.quaternion.copy(camera.quaternion);
-      figure.current.rotateZ(pointer.x * .025 + Math.sin(step * .5) * .055);
-      figure.current.scale.x = 1 + Math.sin(step) * .027;
-    }
-    if (figureMaterial.current) figureMaterial.current.opacity = visibility;
-    if (shadowMaterial.current) shadowMaterial.current.opacity = visibility * .08;
-    if (ring.current) {
-      ring.current.rotation.z = time * .25;
-      ring.current.scale.setScalar(.96 + Math.sin(step) * .035);
-      ring.current.visible = visibility > .08;
-    }
-  });
-  return <group ref={walker} position={[compact ? Math.sign(x) * 1.4 : x, 0, z]}>
-    <mesh position={[0, -3.45, 0]} rotation={[-Math.PI / 2, 0, 0]}><circleGeometry args={[compact ? 0.9 : 1.3, 32]} /><meshBasicMaterial ref={shadowMaterial} color="#a1ff6e" transparent opacity={0.08} depthWrite={false} blending={THREE.AdditiveBlending} /></mesh>
-    <group ref={ring} position={[0, -3.3, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <mesh><torusGeometry args={[compact ? 0.8 : 1.2, 0.018, 6, 48]} /><meshBasicMaterial color="#cfff00" toneMapped={false} /></mesh>
-      <mesh><torusGeometry args={[compact ? 1 : 1.45, 0.013, 6, 48]} /><meshBasicMaterial color="#d652a6" transparent opacity={0.7} /></mesh>
-    </group>
-    <group ref={figure}>
-      <mesh geometry={geometry}><meshBasicMaterial ref={figureMaterial} map={texture} transparent depthWrite={false} side={THREE.DoubleSide} toneMapped={false} /></mesh>
-    </group>
   </group>;
 }
 
@@ -288,7 +258,6 @@ function Corridor({ progress }: { progress: MutableRefObject<number> }) {
     <points><bufferGeometry><bufferAttribute attach="attributes-position" args={[stars, 3]} /></bufferGeometry><pointsMaterial color="#cc75a3" size={0.035} transparent opacity={0.52} sizeAttenuation /></points>
     {stops.map((stop, index) => <Frame key={stop.year} stop={stop} index={index} compact={compact} />)}
     {sideImages.map((_, index) => <SidePanel key={index} index={index} compact={compact} />)}
-    {tunnel.aliens.map(alien => <Alien key={alien.z} {...alien} compact={compact} />)}
   </>;
 }
 

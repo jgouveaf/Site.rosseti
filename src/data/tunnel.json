@@ -25,13 +25,5 @@
     "media/photos/tunnel-art-flower.webp",
     "media/photos/tunnel-study.webp",
     "media/photos/tunnel-action.webp"
-  ],
-  "alienImage": "media/art/alien-tunnel.webp",
-  "aliens": [
-    { "x": 3.2, "z": -12, "seed": 0 },
-    { "x": -3.2, "z": -25, "seed": 1.1 },
-    { "x": 3.2, "z": -38, "seed": 2.1 },
-    { "x": -3.2, "z": -51, "seed": 3.3 },
-    { "x": 3.2, "z": -64, "seed": 4.5 }
   ]
 }
