@@ -484,7 +484,7 @@ export function Portfolio() {
               { title: "Bosque Invasor", image: "jogo-bosque", status: "Protótipo", note: "Recriação visual de uma cena de jogo perdido: um homem com charuto enfrenta aliens na floresta." },
               { title: "Eclipse: Defesa Dupla", image: "jogo-planeta", status: "Protótipo cooperativo", note: "Recriação visual de um jogo para dois jogadores com soldados robóticos em um planeta sombrio." },
               { title: "Frequência Morta", image: "frequencia-morta", status: "Em desenvolvimento", note: "Capa original do projeto de jogo Frequência Morta." },
-            ].map((game, index) => <article className="pf-game" key={game.title}><div className={`pf-game-image pf-game-image-${game.image}`}><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" />{(game.image === "jogo-bosque" || game.image === "jogo-planeta") && <div className="pf-game-hud" aria-hidden="true"><span>{game.image === "jogo-bosque" ? "ONDA 03 / FLORESTA" : "CO-OP / 2 JOGADORES"}</span><i className="pf-game-reticle" /><b>{game.image === "jogo-bosque" ? "HP 100" : "SETOR 07"}</b></div>}</div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
+            ].map((game, index) => <article className="pf-game" key={game.title}><div className={`pf-game-image pf-game-image-${game.image}`}><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" /></div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
           </div>
         </section>
         <section className="pf-sport">

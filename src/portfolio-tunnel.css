@@ -189,12 +189,10 @@
 .pf-italian-gallery > .pf-italian-controls { display: flex; justify-content: center; align-items: center; gap: 1.1rem; width: 100%; overflow: visible; padding: 0; color: #f4f7ed; font: 700 .8rem var(--font-body); letter-spacing: .1em; }
 .pf-italian-controls button { appearance: none; width: 42px; height: 42px; border: 1px solid #ffffff8a; border-radius: 50%; background: #152418; color: #f5f7ef; font: 400 1.35rem var(--font-body); cursor: pointer; transition: transform .2s,background .2s; }
 .pf-italian-controls button:hover,.pf-italian-controls button:focus-visible { transform: scale(1.1); background: #3c6032; outline: none; }
-.pf-game-image-jogo-bosque img { filter: sepia(.18) saturate(1.25) hue-rotate(-8deg) contrast(1.07) brightness(.97); }
-.pf-game-image-jogo-planeta img { filter: saturate(.75) hue-rotate(190deg) contrast(1.12) brightness(.93); }
-.pf-game-image-jogo-bosque { border: 2px solid #5a7a3a !important; box-shadow: 0 0 0 4px #3a5a1a44, 0 18px 40px #0006 !important; }
-.pf-game-image-jogo-planeta { border: 2px solid #3a5a9a !important; box-shadow: 0 0 0 4px #1a3a7a44, 0 18px 40px #0007 !important; }
-.pf-game-image-jogo-bosque .pf-game-hud { color: #b8ff70; border-color: #6aaa2a; background: #1a3a0aee; }
-.pf-game-image-jogo-planeta .pf-game-hud { color: #70b8ff; border-color: #2a5aaa; background: #0a1a3aee; }
+.pf-game-image img { filter: none !important; opacity: 1 !important; }
+.pf-game-hud, .pf-game-reticle { display: none !important; }
+.pf-game { border: 1px solid rgba(255, 255, 255, 0.15) !important; background: #0c100e !important; }
+.pf-game:hover { border-color: #D2FF00 !important; }
 .pf-game-image-jogo-bosque .pf-game-reticle,.pf-game-image-jogo-planeta .pf-game-reticle { display: none; }
 @media (max-width: 700px) {
   .pf-italian-gallery > .pf-italian-stage { height: 285px; }
