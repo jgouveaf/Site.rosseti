@@ -139,7 +139,7 @@ export function usePortfolioMotion() {
           glow.style.setProperty("--tilt-x", `${(0.5 - y) * 8}deg`);
           glow.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
         }
-        const tiltCard = target.closest<HTMLElement>(".pf-3d-interactive, .pf-italian-photo-card, .pf-game, .pf-project-card");
+        const tiltCard = target.closest<HTMLElement>(".pf-3d-interactive, .pf-italian-photo-card, .pf-game, .pf-project-card, .pf-hero-title, .pf-hero-image, .pf-real-portrait, .pf-stats > div");
         if (tiltCard) {
           const b = tiltCard.getBoundingClientRect();
           const cx = (event.clientX - b.left) / Math.max(1, b.width);

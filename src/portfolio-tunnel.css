@@ -741,3 +741,516 @@
     max-height: 50vh;
   }
 }
+
+
+/* ==========================================================================
+   HERO FIX: NO CLIPPED EDGES, NO TEXT GLUED ("COLADO"), SLEEK 3D GLASS PANEL
+   ========================================================================== */
+.pf-v2 .pf-hero-cinema::before {
+  display: none !important; /* Remove dark gradient rectangle that made text look glued */
+}
+
+.pf-v2 .pf-hero-stage {
+  min-height: 100svh !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: clamp(90px, 12vh, 130px) clamp(24px, 5vw, 60px) clamp(50px, 8vh, 90px) !important;
+  background: radial-gradient(circle at 80% 20%, rgba(210, 255, 0, 0.09), transparent 45%),
+              radial-gradient(circle at 20% 80%, rgba(6, 60, 57, 0.45), transparent 50%),
+              #080a09 !important;
+  overflow: visible !important;
+  position: relative !important;
+  perspective: 1200px !important;
+}
+
+.pf-v2 .pf-hero-cinema {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr) !important;
+  align-items: center !important;
+  gap: clamp(36px, 5vw, 72px) !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transform-style: preserve-3d !important;
+}
+
+/* Floating 3D Title Panel with generous internal padding so text is NEVER glued */
+.pf-v2 .pf-hero-title {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  margin: 0 !important;
+  padding: clamp(2.2rem, 4vw, 3.8rem) clamp(2.2rem, 4vw, 3.8rem) !important;
+  background: rgba(14, 20, 17, 0.72) !important;
+  backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(210, 255, 0, 0.28) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  overflow: visible !important;
+  z-index: 5 !important;
+  transform: perspective(1000px) rotateX(var(--mouse-tilt-x, 0deg)) rotateY(var(--mouse-tilt-y, 0deg)) translateZ(20px) !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.25s ease-out, box-shadow 0.3s, border-color 0.3s !important;
+}
+
+.pf-v2 .pf-hero-title:hover {
+  border-color: rgba(210, 255, 0, 0.6) !important;
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.7), 0 0 30px rgba(210, 255, 0, 0.2) !important;
+}
+
+.pf-v2 .pf-hero-intro {
+  font-family: var(--font-telemetry, monospace) !important;
+  font-size: clamp(0.72rem, 1vw, 0.86rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  color: #D2FF00 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: clamp(14px, 2vh, 20px) !important;
+  transform: translateZ(25px) !important;
+}
+
+.pf-v2 .pf-hero-intro::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D2FF00;
+  box-shadow: 0 0 12px #D2FF00;
+}
+
+.pf-v2 .pf-hero h1 {
+  font-family: var(--font-editorial, 'DM Serif Display', Georgia, serif) !important;
+  font-size: clamp(2.6rem, 5.8vw, 5.8rem) !important;
+  line-height: 0.98 !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.04em !important;
+  margin: 0 0 clamp(16px, 2.5vh, 26px) !important;
+  text-wrap: balance !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  transform: translateZ(35px) !important;
+}
+
+.pf-v2 .pf-hero h1 > .pf-name-first,
+.pf-v2 .pf-hero h1 > .pf-name-last {
+  display: block !important;
+  color: #FFFFFF !important;
+}
+
+.pf-v2 .pf-hero h1 > .pf-name-last {
+  color: #D2FF00 !important;
+}
+
+.pf-v2 .pf-hero-copy {
+  border-top: 1px solid rgba(255, 255, 255, 0.18) !important;
+  padding-top: clamp(14px, 2vh, 22px) !important;
+  margin-top: 0 !important;
+  transform: translateZ(25px) !important;
+}
+
+.pf-v2 .pf-hero-copy .pf-kicker {
+  display: block !important;
+  font: 700 0.74rem var(--font-body) !important;
+  letter-spacing: 0.1em !important;
+  color: #c9dfc7 !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.pf-v2 .pf-hero-copy p {
+  color: #E2E8DF !important;
+  font-size: clamp(1rem, 1.35vw, 1.25rem) !important;
+  line-height: 1.5 !important;
+  max-width: 44ch !important;
+  margin: 0 0 clamp(18px, 2.5vh, 26px) !important;
+}
+
+.pf-v2 .pf-hero-actions {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  transform: translateZ(30px) !important;
+}
+
+.pf-v2 .pf-hero-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 14px 28px !important;
+  background: #D2FF00 !important;
+  color: #090A0C !important;
+  font-weight: 800 !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.08em !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  box-shadow: 0 0 25px rgba(210, 255, 0, 0.45) !important;
+  transition: transform 0.35s cubic-bezier(0.2, 1.35, 0.3, 1), box-shadow 0.3s !important;
+  white-space: nowrap !important;
+}
+
+.pf-v2 .pf-hero-cta:hover {
+  transform: translateY(-4px) scale(1.04) !important;
+  box-shadow: 0 0 35px rgba(210, 255, 0, 0.75) !important;
+}
+
+.pf-v2 .pf-scroll-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 13px 22px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 999px !important;
+  color: #E2E8DF !important;
+  font-weight: 700 !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.06em !important;
+  text-decoration: none !important;
+  transition: border-color 0.25s, color 0.25s, transform 0.25s !important;
+}
+
+.pf-v2 .pf-scroll-link:hover {
+  border-color: #D2FF00 !important;
+  color: #D2FF00 !important;
+  transform: translateY(-2px) !important;
+}
+
+.pf-v2 .pf-hero-image {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 24px !important;
+  border: 2px solid rgba(210, 255, 0, 0.5) !important;
+  box-shadow: 18px 18px 0px #D2FF00, 0 30px 60px rgba(0, 0, 0, 0.6) !important;
+  overflow: hidden !important;
+  z-index: 4 !important;
+  transform: perspective(1000px) rotateX(calc(var(--mouse-tilt-x, 0deg) * -1)) rotateY(calc(var(--mouse-tilt-y, 0deg) * -1)) translateZ(30px) !important;
+  transform-style: preserve-3d !important;
+  transition: transform 0.25s ease-out, box-shadow 0.3s !important;
+}
+
+.pf-v2 .pf-hero-image:hover {
+  box-shadow: 24px 24px 0px #D2FF00, 0 35px 80px rgba(0, 0, 0, 0.7) !important;
+}
+
+@media (max-width: 900px) {
+  .pf-v2 .pf-hero-cinema {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: stretch !important;
+    gap: 32px !important;
+  }
+  .pf-v2 .pf-hero-image {
+    max-width: 100% !important;
+    aspect-ratio: 16 / 10 !important;
+    box-shadow: 10px 10px 0px #D2FF00 !important;
+  }
+  .pf-v2 .pf-hero-title {
+    padding: 1.8rem !important;
+  }
+}
+
+/* ==========================================================================
+   AUTHENTIC GAMEPLAY HUD OVERLAYS (COMO SE ALGUÉM ESTIVESSE JOGANDO)
+   ========================================================================== */
+.pf-gameplay-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #080a0c;
+  border-radius: 18px 18px 0 0;
+}
+
+.pf-gameplay-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.pf-game:hover .pf-gameplay-stage img {
+  transform: scale(1.04);
+}
+
+/* HUD Overlay Container */
+.pf-gameplay-hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(8px, 1.6vw, 16px);
+  font-family: var(--font-telemetry, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  text-shadow: 0 1px 4px #000, 0 0 10px #000;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+}
+
+/* Scanline / CRT Subtle Overlay */
+.pf-gameplay-hud::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0, 0, 0, 0.18) 3px 4px);
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.pf-hud-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.pf-hud-player {
+  background: rgba(8, 14, 10, 0.85);
+  border: 1px solid rgba(210, 255, 0, 0.4);
+  border-radius: 8px;
+  padding: 6px 10px;
+  backdrop-filter: blur(8px);
+}
+
+.pf-hud-player-name {
+  font-weight: 800;
+  color: #D2FF00;
+  font-size: 0.68rem;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pf-hud-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.pf-hud-bar-row span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  min-width: 22px;
+}
+
+.pf-hud-bar {
+  width: 90px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pf-hud-bar-fill-hp {
+  width: 84%;
+  height: 100%;
+  background: linear-gradient(90deg, #58e032, #D2FF00);
+  box-shadow: 0 0 8px #58e032;
+}
+
+.pf-hud-bar-fill-shield {
+  width: 72%;
+  height: 100%;
+  background: linear-gradient(90deg, #00d9ff, #0077ff);
+  box-shadow: 0 0 8px #00d9ff;
+}
+
+.pf-hud-radar-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.pf-hud-score {
+  background: rgba(8, 14, 10, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.pf-hud-score b {
+  color: #D2FF00;
+}
+
+.pf-hud-wave {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #00d9ff;
+  background: rgba(0, 30, 40, 0.7);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 217, 255, 0.35);
+}
+
+/* Center Crosshair & Combat Floating Text */
+.pf-hud-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.pf-hud-reticle-circle {
+  width: 38px;
+  height: 38px;
+  border: 2px dashed rgba(210, 255, 0, 0.75);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  animation: pfReticleSpin 12s linear infinite;
+}
+
+@keyframes pfReticleSpin {
+  to { transform: rotate(360deg); }
+}
+
+.pf-hud-reticle-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #D2FF00;
+  box-shadow: 0 0 8px #D2FF00;
+}
+
+.pf-hud-damage {
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: #ffde21;
+  text-shadow: 0 0 8px rgba(255, 222, 33, 0.8);
+  animation: pfDamageFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes pfDamageFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+
+.pf-hud-target-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #ff4757;
+  background: rgba(40, 8, 12, 0.85);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 71, 87, 0.4);
+}
+
+.pf-hud-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.pf-hud-weapon {
+  background: rgba(8, 14, 10, 0.85);
+  border: 1px solid rgba(210, 255, 0, 0.35);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.pf-hud-weapon-name {
+  font-weight: 800;
+  color: #E2E8DF;
+  font-size: 0.65rem;
+}
+
+.pf-hud-ammo {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #D2FF00;
+}
+
+.pf-hud-ammo small {
+  font-size: 0.65rem;
+  color: #8fa093;
+}
+
+.pf-hud-controls {
+  font-size: 0.58rem;
+  color: #a3b5a7;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   GLOBAL 3D PERSPECTIVE & EFFECTS ACROSS THE ENTIRE WEBSITE
+   ========================================================================== */
+.pf-v2 {
+  perspective: 1200px;
+}
+
+.pf-3d-card,
+.pf-game,
+.pf-project-card,
+.pf-italian-showcase,
+.pf-italian-photo-card,
+.pf-real-portrait,
+.pf-stats > div,
+.pf-reel-card,
+.pf-swimming,
+.pf-obi-feature {
+  transform: perspective(1000px) rotateX(calc(var(--scroll-tilt-x, 0deg) + var(--mouse-tilt-x, 0deg))) rotateY(var(--mouse-tilt-y, 0deg)) translateZ(var(--scroll-depth, 0px));
+  transform-style: preserve-3d;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  will-change: transform;
+}
+
+.pf-3d-card:hover,
+.pf-game:hover,
+.pf-project-card:hover,
+.pf-italian-photo-card:hover,
+.pf-stats > div:hover,
+.pf-reel-card:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 25px rgba(210, 255, 0, 0.25) !important;
+  border-color: #D2FF00 !important;
+}
+
+/* 3D floating particle wireframes in background */
+.pf-floating-cube {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: pfCubeSpin 18s linear infinite;
+  opacity: 0.35;
+  z-index: 1;
+}
+
+@keyframes pfCubeSpin {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  50% { transform: rotateX(180deg) rotateY(270deg) rotateZ(90deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg); }
+}

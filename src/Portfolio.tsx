@@ -479,12 +479,119 @@ export function Portfolio() {
           <SectionLabel number="03">Jogos criados e em desenvolvimento</SectionLabel>
           <div className="pf-section-heading"><h2>Universos <em>jogáveis.</em></h2><p>Protótipos, jogos e histórias desenvolvidos com Unity.</p></div>
           <div className="pf-games-grid">
-            {[
-              { title: "O CUBO", image: "o-cubo-gameplay", status: "Captura real do jogo", note: "Imagem capturada dentro da versão 0.0.5, durante uma fase jogável." },
-              { title: "Bosque Invasor", image: "jogo-bosque", status: "Protótipo", note: "Recriação visual de uma cena de jogo perdido: um homem com charuto enfrenta aliens na floresta." },
-              { title: "Eclipse: Defesa Dupla", image: "jogo-planeta", status: "Protótipo cooperativo", note: "Recriação visual de um jogo para dois jogadores com soldados robóticos em um planeta sombrio." },
-              { title: "Frequência Morta", image: "frequencia-morta", status: "Em desenvolvimento", note: "Capa original do projeto de jogo Frequência Morta." },
-            ].map((game, index) => <article className="pf-game" key={game.title}><div className={`pf-game-image pf-game-image-${game.image}`}><img src={url(`media/featured/${game.image}.webp`)} alt={game.note} loading="lazy" /></div><div className="pf-game-copy"><span>0{index + 1} / {game.status}</span><h3><HoverLetters text={game.title} /></h3><p>{game.note}</p></div></article>)}
+            {/* 01: O CUBO */}
+            <article className="pf-game pf-3d-card" key="O CUBO">
+              <div className="pf-gameplay-stage pf-game-image-o-cubo-gameplay">
+                <img src={url("media/featured/o-cubo-gameplay.webp")} alt="Captura real do jogo O Cubo" loading="lazy" />
+              </div>
+              <div className="pf-game-copy">
+                <span>01 / Captura real do jogo</span>
+                <h3><HoverLetters text="O CUBO" /></h3>
+                <p>Imagem capturada dentro da versão 0.0.5, durante uma fase jogável.</p>
+              </div>
+            </article>
+
+            {/* 02: Bosque Invasor — Authentic Gameplay HUD */}
+            <article className="pf-game pf-3d-card" key="Bosque Invasor">
+              <div className="pf-gameplay-stage pf-game-image-jogo-bosque">
+                <img src={url("media/featured/jogo-bosque.webp")} alt="Gameplay Bosque Invasor" loading="lazy" />
+                <div className="pf-gameplay-hud" aria-hidden="true">
+                  <div className="pf-hud-top">
+                    <div className="pf-hud-player">
+                      <span className="pf-hud-player-name">👤 P1: BRUNO "CHARUTO"</span>
+                      <div className="pf-hud-bar-row">
+                        <span>HP</span>
+                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-hp" style={{ width: "82%" }} /></div>
+                        <span>82%</span>
+                      </div>
+                      <div className="pf-hud-bar-row">
+                        <span>STA</span>
+                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-shield" style={{ width: "100%" }} /></div>
+                        <span>100%</span>
+                      </div>
+                    </div>
+                    <div className="pf-hud-radar-score">
+                      <div className="pf-hud-score">SCORE <b>048,250</b></div>
+                      <span className="pf-hud-wave">ONDA 04 / 10 · FLORESTA</span>
+                    </div>
+                  </div>
+                  <div className="pf-hud-center">
+                    <span className="pf-hud-damage">-240 CRIT!</span>
+                    <div className="pf-hud-reticle-circle"><div className="pf-hud-reticle-dot" /></div>
+                    <span className="pf-hud-target-label">🎯 ALVO: XENO-SCORPION</span>
+                  </div>
+                  <div className="pf-hud-bottom">
+                    <span className="pf-hud-controls">ESPAÇO: ROLAR · R: RECARREGAR</span>
+                    <div className="pf-hud-weapon">
+                      <span className="pf-hud-weapon-name">SHOTGUN 12GA</span>
+                      <div className="pf-hud-ammo">06 <small>/ 24</small></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="pf-game-copy">
+                <span>02 / Gameplay ao vivo</span>
+                <h3><HoverLetters text="Bosque Invasor" /></h3>
+                <p>Recriação em gameplay de uma cena de jogo: combate em tempo real na floresta contra horda alienígena.</p>
+              </div>
+            </article>
+
+            {/* 03: Eclipse Defesa Dupla — Authentic Co-op Gameplay HUD */}
+            <article className="pf-game pf-3d-card" key="Eclipse: Defesa Dupla">
+              <div className="pf-gameplay-stage pf-game-image-jogo-planeta">
+                <img src={url("media/featured/jogo-planeta.webp")} alt="Gameplay Eclipse Defesa Dupla" loading="lazy" />
+                <div className="pf-gameplay-hud" aria-hidden="true">
+                  <div className="pf-hud-top">
+                    <div className="pf-hud-player">
+                      <span className="pf-hud-player-name">🤖 P1: MECHA-ASSAULT</span>
+                      <div className="pf-hud-bar-row">
+                        <span>ESCUDO</span>
+                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-shield" style={{ width: "78%" }} /></div>
+                        <span>78%</span>
+                      </div>
+                      <div className="pf-hud-bar-row">
+                        <span>HP</span>
+                        <div className="pf-hud-bar"><div className="pf-hud-bar-fill-hp" style={{ width: "95%" }} /></div>
+                        <span>95%</span>
+                      </div>
+                    </div>
+                    <div className="pf-hud-radar-score">
+                      <div className="pf-hud-score">SINCRO CO-OP <b>98%</b></div>
+                      <span className="pf-hud-wave" style={{ borderColor: "#D2FF00", color: "#D2FF00" }}>CO-OP 2P · SETOR 07</span>
+                    </div>
+                  </div>
+                  <div className="pf-hud-center">
+                    <span className="pf-hud-damage" style={{ color: "#00d9ff", textShadow: "0 0 10px #00d9ff" }}>COMBO x4 · 1.200 PTS</span>
+                    <div className="pf-hud-reticle-circle" style={{ borderColor: "#00d9ff" }}><div className="pf-hud-reticle-dot" style={{ background: "#00d9ff" }} /></div>
+                    <span className="pf-hud-target-label" style={{ background: "rgba(0,30,50,0.85)", borderColor: "#00d9ff", color: "#00d9ff" }}>LOCK-ON: ENXAME AÉREO</span>
+                  </div>
+                  <div className="pf-hud-bottom">
+                    <span className="pf-hud-controls">P2 ASSAULT: COBRINDO FLANCO</span>
+                    <div className="pf-hud-weapon">
+                      <span className="pf-hud-weapon-name">PLASMA CANNON ⚡</span>
+                      <div className="pf-hud-ammo">45 <small>/ 180</small></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="pf-game-copy">
+                <span>03 / Gameplay cooperativo</span>
+                <h3><HoverLetters text="Eclipse: Defesa Dupla" /></h3>
+                <p>Captura de partida cooperativa para 2 jogadores com soldados robóticos defendendo o perímetro do planeta.</p>
+              </div>
+            </article>
+
+            {/* 04: Frequência Morta */}
+            <article className="pf-game pf-3d-card" key="Frequência Morta">
+              <div className="pf-gameplay-stage pf-game-image-frequencia-morta">
+                <img src={url("media/featured/frequencia-morta.webp")} alt="Capa do jogo Frequência Morta" loading="lazy" />
+              </div>
+              <div className="pf-game-copy">
+                <span>04 / Em desenvolvimento</span>
+                <h3><HoverLetters text="Frequência Morta" /></h3>
+                <p>Capa original do projeto de jogo Frequência Morta.</p>
+              </div>
+            </article>
           </div>
         </section>
         <section className="pf-sport">
