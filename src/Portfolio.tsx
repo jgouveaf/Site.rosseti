@@ -346,21 +346,21 @@ export function Portfolio() {
                 <AnimatedNumber value={data.sports.swimmingMedals} />
                 <sup>↗</sup>
               </strong>
-              <span>NATAÇÃO <small>16 PRIMEIROS LUGARES</small></span>
+              <span className="pf-stat-label">NATAÇÃO <small>16 PRIMEIROS LUGARES</small></span>
             </div>
             <div>
               <strong>
                 <AnimatedNumber value={data.sports.tableTennisMedals} />
                 <sup>↗</sup>
               </strong>
-              <span>TÊNIS DE MESA <small>MEDALHAS EM COMPETIÇÕES</small></span>
+              <span className="pf-stat-label">TÊNIS DE MESA <small>MEDALHAS EM COMPETIÇÕES</small></span>
             </div>
             <div>
               <strong>
                 <AnimatedNumber value={3} />
                 <sup>↗</sup>
               </strong>
-              <span>GAMEDEV <small>LEVELS CONCLUÍDOS</small></span>
+              <span className="pf-stat-label">GAMEDEV <small>LEVELS CONCLUÍDOS</small></span>
             </div>
           </div>
         </section>

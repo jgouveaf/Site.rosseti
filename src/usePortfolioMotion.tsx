@@ -293,5 +293,5 @@ export function AnimatedNumber({ value }: { value: number }) {
     return () => observer.disconnect();
   }, [value]);
 
-  return <span ref={ref}>{display}</span>;
+  return <span ref={ref} className="pf-stat-digit">{display}</span>;
 }

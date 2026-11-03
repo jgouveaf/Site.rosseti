@@ -46,13 +46,78 @@
 .pf-v2 .pf-about .pf-profile { border-color: #253b2a40; }
 .pf-v2 .pf-about .pf-profile dt { color: #28533b; }
 .pf-v2 .pf-about .pf-profile dd { color: #141b17; }
-.pf-v2 .pf-about .pf-stats { background: transparent; box-shadow: none; }
-.pf-v2 .pf-about .pf-stats > div { border-radius: 24px; background: #dce8d6; border-color: #c8d8c2; }
-.pf-v2 .pf-about .pf-stats > div { padding: clamp(1.5rem,2.5vw,2.5rem); }
-.pf-v2 .pf-about .pf-stats > div:hover { background: #cce7b5; }
-.pf-v2 .pf-about .pf-stats strong { color: #173d2b; }
-.pf-v2 .pf-about .pf-stats span { color: #14251b; }
-.pf-v2 .pf-about .pf-stats span small { color: #405747; }
+/* Stats in About: Big, bold, majestic editorial numbers */
+.pf-v2 .pf-about .pf-stats {
+  background: transparent !important;
+  box-shadow: none !important;
+  margin-top: clamp(3rem, 5vw, 5rem) !important;
+}
+
+.pf-v2 .pf-about .pf-stats > div {
+  border-radius: 24px !important;
+  background: #dce8d6 !important;
+  border: 1px solid #c8d8c2 !important;
+  padding: clamp(1.8rem, 2.6vw, 2.8rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-height: clamp(210px, 24vw, 270px) !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease !important;
+}
+
+.pf-v2 .pf-about .pf-stats > div:hover {
+  background: #cce7b5 !important;
+  border-color: #b0d494 !important;
+}
+
+.pf-v2 .pf-about .pf-stats strong,
+.pf-v2 .pf-about .pf-stats strong span,
+.pf-v2 .pf-about .pf-stats strong .pf-stat-digit {
+  font-family: var(--font-editorial, "Playfair Display", Georgia, serif) !important;
+  font-size: clamp(4.5rem, 6.8vw, 7.8rem) !important;
+  font-weight: 500 !important;
+  line-height: 0.85 !important;
+  letter-spacing: -0.04em !important;
+  color: #173d2b !important;
+  display: inline-flex !important;
+  align-items: baseline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.pf-v2 .pf-about .pf-stats strong sup {
+  display: inline-block !important;
+  font-family: var(--font-body, system-ui, sans-serif) !important;
+  font-size: clamp(1.2rem, 1.8vw, 2rem) !important;
+  font-weight: 700 !important;
+  color: #3b6b4b !important;
+  margin-left: 0.4rem !important;
+  vertical-align: super !important;
+}
+
+.pf-v2 .pf-about .pf-stats .pf-stat-label,
+.pf-v2 .pf-about .pf-stats > div > span:not(.pf-stat-digit) {
+  font-family: var(--font-body, system-ui, sans-serif) !important;
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #14251b !important;
+  line-height: 1.35 !important;
+  margin-top: auto !important;
+  padding-top: 1.2rem !important;
+}
+
+.pf-v2 .pf-about .pf-stats .pf-stat-label small,
+.pf-v2 .pf-about .pf-stats > div > span small {
+  display: block !important;
+  margin-top: 0.35rem !important;
+  font-size: clamp(0.7rem, 0.82vw, 0.8rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  color: #405747 !important;
+  text-transform: uppercase !important;
+}
 .pf-v2 .pf-project-card,.pf-v2 .pf-game { border-radius: 22px; }
 .pf-v2 .pf-sport-image img { object-position: center 42%; filter: grayscale(1) contrast(1.08) brightness(1.07); }
 .pf-v2 .pf-project-card:hover,.pf-v2 .pf-game:hover { transform: translateY(-5px); }
