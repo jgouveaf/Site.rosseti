@@ -35,7 +35,10 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
   const toggleAudio = useCallback(() => {
     if (!audioCtxRef.current) {
       try {
-        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        const AudioCtx =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext })
+            .webkitAudioContext;
         const ctx = new AudioCtx();
         audioCtxRef.current = ctx;
 
@@ -72,13 +75,17 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       const next = !prev;
       soundEnabledRef.current = next;
       if (droneGainRef.current && audioCtxRef.current) {
-        droneGainRef.current.gain.setTargetAtTime(next ? 0.14 : 0.0001, audioCtxRef.current.currentTime, 0.1);
+        droneGainRef.current.gain.setTargetAtTime(
+          next ? 0.14 : 0.0001,
+          audioCtxRef.current.currentTime,
+          0.1
+        );
       }
       return next;
     });
   }, []);
 
-  // Play celestial chime when a constellation letter is ignited
+  // Play celestial chime when a constellation letter vertex is ignited
   const playStellarChime = useCallback((pitchMultiplier: number = 1.0) => {
     if (!soundEnabledRef.current || !audioCtxRef.current) return;
     try {
@@ -86,19 +93,18 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
-      // Pentatonic celestial frequencies (A minor / golden ratio harmonic)
       const baseFreq = 528 * pitchMultiplier;
       osc.type = "sine";
       osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
 
       gain.gain.setValueAtTime(0.001, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.045, ctx.currentTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.9);
+      gain.gain.linearRampToValueAtTime(0.038, ctx.currentTime + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.85);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 0.95);
+      osc.stop(ctx.currentTime + 0.9);
     } catch {
       // Audio fallback silent
     }
@@ -112,7 +118,10 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     // Fade out audio smoothly
     if (droneGainRef.current && audioCtxRef.current) {
       try {
-        droneGainRef.current.gain.linearRampToValueAtTime(0.0001, audioCtxRef.current.currentTime + 0.3);
+        droneGainRef.current.gain.linearRampToValueAtTime(
+          0.0001,
+          audioCtxRef.current.currentTime + 0.3
+        );
         setTimeout(() => audioCtxRef.current?.close(), 350);
       } catch {
         // Safe close
@@ -157,7 +166,9 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     if (!canvas) return;
 
     // Check reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     if (prefersReducedMotion) {
       finishIntro();
       return;
@@ -179,16 +190,18 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     scene.background = new THREE.Color("#020307");
     scene.fog = new THREE.FogExp2("#020307", 0.008);
 
+    const isCompact = window.innerWidth < 768;
+    const cameraZ = isCompact ? 14.8 : 11.8;
+
     const camera = new THREE.PerspectiveCamera(
       52,
       window.innerWidth / window.innerHeight,
       0.1,
       400
     );
-    camera.position.set(0, 0, 11.5);
+    camera.position.set(0, 0, cameraZ);
 
     // Dynamic sizing based on viewport
-    const isCompact = window.innerWidth < 768;
     const constellationData: ConstellationData = buildConstellationData(isCompact);
 
     // Helper: generate soft circular star texture with golden radial falloff
@@ -200,8 +213,14 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       const ctx = cv.getContext("2d")!;
       const center = size / 2;
 
-      // Soft circular radial gradient
-      const grad = ctx.createRadialGradient(center, center, 0, center, center, center);
+      const grad = ctx.createRadialGradient(
+        center,
+        center,
+        0,
+        center,
+        center,
+        center
+      );
       grad.addColorStop(0, "rgba(255, 255, 255, 1.0)");
       grad.addColorStop(0.12, "rgba(255, 245, 220, 0.95)");
       grad.addColorStop(0.35, "rgba(223, 184, 120, 0.45)");
@@ -274,22 +293,21 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     const colorGold = new THREE.Color("#DFB878");
 
     for (let i = 0; i < starCount; i++) {
-      // Distribute in a spherical volume
       const radius = 25 + Math.pow(Math.random(), 1.5) * 110;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
 
       const x = radius * Math.sin(phi) * Math.cos(theta);
       const y = radius * Math.sin(phi) * Math.sin(theta);
-      const z = -radius * Math.abs(Math.cos(phi)) - 5; // behind camera and constellation
+      const z = -radius * Math.abs(Math.cos(phi)) - 5;
 
       starPositions[i * 3] = x;
       starPositions[i * 3 + 1] = y;
       starPositions[i * 3 + 2] = z;
 
-      // Color variation: 70% soft warm white, 20% faint celestial blue, 10% golden
       const pick = Math.random();
-      const col = pick < 0.7 ? colorWarmWhite : pick < 0.9 ? colorIcyBlue : colorGold;
+      const col =
+        pick < 0.7 ? colorWarmWhite : pick < 0.9 ? colorIcyBlue : colorGold;
       starColors[i * 3] = col.r;
       starColors[i * 3 + 1] = col.g;
       starColors[i * 3 + 2] = col.b;
@@ -297,7 +315,10 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       starSizes[i] = (Math.random() * 0.35 + 0.15) * (isCompact ? 1.0 : 1.4);
     }
 
-    starfieldGeo.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+    starfieldGeo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(starPositions, 3)
+    );
     starfieldGeo.setAttribute("color", new THREE.BufferAttribute(starColors, 3));
     starfieldGeo.setAttribute("size", new THREE.BufferAttribute(starSizes, 1));
 
@@ -318,7 +339,6 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     const constStarGroup = new THREE.Group();
     scene.add(constStarGroup);
 
-    // Individual glowing star nodes
     interface ConstellationStarNode {
       mesh: THREE.Sprite;
       flareMesh: THREE.Sprite;
@@ -326,7 +346,6 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       targetScale: number;
       ignited: boolean;
       data: (typeof constellationData.stars)[0];
-      nodeGroupPos?: THREE.Vector3;
     }
 
     const starNodes: ConstellationStarNode[] = [];
@@ -335,8 +354,9 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       const nodeGroup = new THREE.Group();
       nodeGroup.position.set(star.x, star.y, star.z);
 
-      // Star core sprite
-      const baseScale = star.magnitude === 1 ? 0.55 : star.magnitude === 2 ? 0.38 : 0.25;
+      const baseScale =
+        star.magnitude === 1 ? 0.55 : star.magnitude === 2 ? 0.38 : 0.25;
+
       const spriteMat = new THREE.SpriteMaterial({
         map: starTexture,
         color: star.magnitude === 1 ? 0xffffff : 0xf8f5e9,
@@ -349,7 +369,6 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       starSprite.scale.set(baseScale, baseScale, 1);
       nodeGroup.add(starSprite);
 
-      // Flare cross for alpha/prominent stars
       const flareMat = new THREE.SpriteMaterial({
         map: flareTexture,
         color: 0xdfb878,
@@ -362,7 +381,6 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       flareSprite.scale.set(baseScale * 2.8, baseScale * 2.8, 1);
       nodeGroup.add(flareSprite);
 
-      // Delicate point light for alpha stars
       const pointLight = new THREE.PointLight(0xdfb878, 0, 3.5);
       nodeGroup.add(pointLight);
 
@@ -378,27 +396,31 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       });
     });
 
-    // Constellation Connecting Lines
-    const linePositions: number[] = [];
-    const lineEdges = constellationData.edges;
+    // Constellation Connecting Lines (Dynamic progressive growth buffer)
+    const numEdges = constellationData.edges.length;
+    const linePositions = new Float32Array(numEdges * 6);
 
-    lineEdges.forEach((edge) => {
+    // Initialize all lines collapsed at their origin star
+    constellationData.edges.forEach((edge, i) => {
       const sFrom = constellationData.stars[edge.from];
-      const sTo = constellationData.stars[edge.to];
-      linePositions.push(sFrom.x, sFrom.y, sFrom.z);
-      linePositions.push(sTo.x, sTo.y, sTo.z);
+      linePositions[i * 6 + 0] = sFrom.x;
+      linePositions[i * 6 + 1] = sFrom.y;
+      linePositions[i * 6 + 2] = sFrom.z;
+      linePositions[i * 6 + 3] = sFrom.x;
+      linePositions[i * 6 + 4] = sFrom.y;
+      linePositions[i * 6 + 5] = sFrom.z;
     });
 
     const constLineGeo = new THREE.BufferGeometry();
-    const constLinePosAttr = new THREE.Float32BufferAttribute(linePositions, 3);
+    const constLinePosAttr = new THREE.BufferAttribute(linePositions, 3);
     constLineGeo.setAttribute("position", constLinePosAttr);
 
     const constLineMat = new THREE.LineBasicMaterial({
       color: 0xdfb878,
       transparent: true,
-      opacity: 0,
+      opacity: 0.95,
       blending: THREE.AdditiveBlending,
-      linewidth: 1,
+      linewidth: isCompact ? 1.5 : 2,
       depthWrite: false,
     });
 
@@ -406,31 +428,31 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     scene.add(constLineMesh);
 
     // 3. The Protagonist Shooting Star & Luminous Trail
+    // Assemble the complete spline including the detailed stroke waypoints of the letters
+    const flightControlPoints: THREE.Vector3[] = [
+      new THREE.Vector3(0, 0, -55),    // 0.0: Awakening in cosmic distance
+      new THREE.Vector3(3, 1, -40),    // Early acceleration
+      new THREE.Vector3(14, 5, -22),   // Curve sweeping past camera
+      new THREE.Vector3(-12, -3, -10), // Deep space pursuit
+      new THREE.Vector3(-6, 3, -3),    // Approaching canvas plane
+    ];
+
+    // Append every stroke waypoint in order
+    constellationData.strokeWaypoints.forEach((pt) => {
+      flightControlPoints.push(new THREE.Vector3(pt.x, pt.y, pt.z));
+    });
+
+    // Crown apex hover and contraction
+    flightControlPoints.push(
+      new THREE.Vector3(0, 0.35, 0.1),
+      new THREE.Vector3(0, 0.35, 0.1)
+    );
+
     const starFlightSpline = new THREE.CatmullRomCurve3(
-      [
-        new THREE.Vector3(0, 0, -55), // 0.0: Awakening
-        new THREE.Vector3(3, 1, -40), // 0.1: Early acceleration
-        new THREE.Vector3(14, 5, -22), // 0.25: Curve sweeping past
-        new THREE.Vector3(-12, -3, -10), // 0.40: Deep space chase
-        new THREE.Vector3(-6, 3, -3), // 0.50: Entering constellation plane
-        // Passing JOÃO
-        new THREE.Vector3(-2.8, 1.25, 0.4),
-        new THREE.Vector3(-0.9, 1.25, 0.2),
-        new THREE.Vector3(0.9, 1.25, 0.2),
-        new THREE.Vector3(2.8, 1.25, 0.4),
-        // Sweeping down to GOUVÊA
-        new THREE.Vector3(3.6, -0.95, 0.4),
-        new THREE.Vector3(1.6, -0.95, 0.2),
-        new THREE.Vector3(-0.5, -0.95, 0.2),
-        new THREE.Vector3(-2.6, -0.95, 0.3),
-        new THREE.Vector3(-3.8, -0.95, 0.4),
-        // Rises to focal center apex
-        new THREE.Vector3(0, 0.2, 0.1),
-        new THREE.Vector3(0, 0.2, 0.1),
-      ],
+      flightControlPoints,
       false,
       "catmullrom",
-      0.35
+      0.18
     );
 
     // Shooting Star Head Group
@@ -465,7 +487,7 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
     shootingStarHead.add(headLight);
 
     // Trail Buffer (Sliding Ribbon / Line Trail)
-    const TRAIL_LENGTH = 110;
+    const TRAIL_LENGTH = 120;
     const trailPositions = new Float32Array(TRAIL_LENGTH * 3);
     const trailColors = new Float32Array(TRAIL_LENGTH * 3);
 
@@ -509,7 +531,7 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       emberPositions[i * 3 + 1] = initialPoint.y;
       emberPositions[i * 3 + 2] = initialPoint.z;
       emberVelocities.push(new THREE.Vector3());
-      emberAges[i] = 1.0; // ready to spawn
+      emberAges[i] = 1.0;
     }
 
     const emberGeo = new THREE.BufferGeometry();
@@ -534,15 +556,13 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
       starGlowOpacity: 0,
       starGlowScale: 0.2,
       trailOpacity: 0,
-      constellationLinesOpacity: 0,
-      cameraMode: 0, // 0: awaken/approach, 1: chase, 2: pull back, 3: full view
+      cameraMode: 0, // 0: awaken, 1: chase, 2: pull back, 3: full view
       constellationContraction: 0,
     };
 
     // 4. Master 9-Second GSAP Timeline
     const tl = gsap.timeline({
       onComplete: () => {
-        // Blackout cut for 250ms then finish
         if (blackoutRef.current) {
           blackoutRef.current.classList.add("active");
         }
@@ -555,75 +575,120 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
 
     // FASE 1 | 0 - 1.0s: O DESPERTAR
     // Point of light awakens, pulses twice gently
-    tl.to(animState, {
-      starGlowOpacity: 0.95,
-      starGlowScale: 1.1,
-      duration: 0.5,
-      ease: "power2.out",
-    }, 0);
-    tl.to(animState, {
-      starGlowScale: 0.55,
-      duration: 0.25,
-      ease: "sine.inOut",
-    }, 0.5);
-    tl.to(animState, {
-      starGlowScale: 1.6,
-      starGlowOpacity: 1.0,
-      duration: 0.25,
-      ease: "power2.in",
-    }, 0.75);
+    tl.to(
+      animState,
+      {
+        starGlowOpacity: 0.95,
+        starGlowScale: 1.1,
+        duration: 0.5,
+        ease: "power2.out",
+      },
+      0
+    );
+    tl.to(
+      animState,
+      {
+        starGlowScale: 0.55,
+        duration: 0.25,
+        ease: "sine.inOut",
+      },
+      0.5
+    );
+    tl.to(
+      animState,
+      {
+        starGlowScale: 1.6,
+        starGlowOpacity: 1.0,
+        duration: 0.25,
+        ease: "power2.in",
+      },
+      0.75
+    );
 
     // FASE 2 | 1.0 - 2.5s: ACELERAÇÃO
     // Dispara em curva 3D, passa perto da câmera, rastro luminoso
-    tl.to(animState, {
-      splineProgress: 0.28,
-      trailOpacity: 1.0,
-      cameraMode: 1, // transition to chase cam
-      duration: 1.5,
-      ease: "power2.inOut",
-    }, 1.0);
+    tl.to(
+      animState,
+      {
+        splineProgress: 0.22,
+        trailOpacity: 1.0,
+        cameraMode: 1, // transition to chase cam
+        duration: 1.5,
+        ease: "power2.inOut",
+      },
+      1.0
+    );
 
-    // FASE 3 | 2.5 - 4.5s: PERSEGUIÇÃO ESPACIAL
+    // FASE 3 | 2.5 - 3.8s: PERSEGUIÇÃO ESPACIAL
     // Câmera acompanha de perto, curvas cósmicas fluidas
-    tl.to(animState, {
-      splineProgress: 0.52,
-      duration: 2.0,
-      ease: "sine.inOut",
-    }, 2.5);
+    tl.to(
+      animState,
+      {
+        splineProgress: 0.36,
+        duration: 1.3,
+        ease: "sine.inOut",
+      },
+      2.5
+    );
 
-    // FASE 4 | 4.5 - 7.0s: O NASCIMENTO DA CONSTELAÇÃO
-    // Estrela desacelera, câmera afasta-se para revelar "JOÃO GOUVÊA"
-    tl.to(animState, {
-      splineProgress: 0.88,
-      cameraMode: 2, // pull back to reveal
-      constellationLinesOpacity: 0.75,
-      duration: 2.5,
-      ease: "power1.inOut",
-    }, 4.5);
+    // FASE 4 | 3.8 - 7.3s: O DESENHO DA CONSTELAÇÃO
+    // A estrela percorre fisicamente cada letra de "JOÃO GOUVÊA"!
+    // Câmera afasta-se suavemente para vista frontal orbital
+    tl.to(
+      animState,
+      {
+        cameraMode: 2, // pull back to frame constellation
+        duration: 0.8,
+        ease: "power2.out",
+      },
+      3.8
+    );
 
-    // FASE 5 | 7.0 - 8.0s: A REVELAÇÃO & CONTEMPLAÇÃO
-    // Constelação completa, cintilação sutil, subtítulo surge
-    tl.call(() => {
-      setSubtitleVisible(true);
-      playStellarChime(1.25);
-    }, undefined, 7.0);
+    tl.to(
+      animState,
+      {
+        splineProgress: 0.80, // desenha JOÃO e GOUVÊA
+        duration: 3.5,
+        ease: "none", // velocidade de escrita uniforme
+      },
+      3.8
+    );
 
-    tl.to(animState, {
-      splineProgress: 0.96,
-      cameraMode: 3, // stable constellation framing
-      duration: 1.0,
-      ease: "none",
-    }, 7.0);
+    // FASE 5 | 7.3 - 8.2s: A REVELAÇÃO & CONTEMPLAÇÃO
+    // Estrela sobe para o ápice central, subtítulo surge, constelação completa brilha
+    tl.to(
+      animState,
+      {
+        splineProgress: 0.92,
+        cameraMode: 3, // enquadramento contemplativo estável
+        duration: 0.9,
+        ease: "power2.out",
+      },
+      7.3
+    );
 
-    // FASE 6 | 8.0 - 9.0s: TRANSIÇÃO
+    tl.call(
+      () => {
+        setSubtitleVisible(true);
+        playStellarChime(1.25);
+      },
+      undefined,
+      7.4
+    );
+
+    // FASE 6 | 8.2 - 9.0s: TRANSIÇÃO
     // Brilho converge para a estrela central, prepara blackout
-    tl.to(animState, {
-      constellationContraction: 1.0,
-      trailOpacity: 0.1,
-      starGlowScale: 2.6,
-      duration: 0.75,
-      ease: "power3.in",
-    }, 8.0);
+    tl.to(
+      animState,
+      {
+        constellationContraction: 1.0,
+        trailOpacity: 0.1,
+        starGlowScale: 2.6,
+        duration: 0.75,
+        ease: "power3.in",
+      },
+      8.2
+    );
 
     // 5. Render Loop (Synchronized with Timeline & Three.js)
     let lastTime = performance.now();
@@ -638,7 +703,7 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
 
       const p = Math.max(0, Math.min(1, animState.splineProgress));
 
-      // Get current shooting star position & tangent
+      // Current shooting star position & tangent
       const currentStarPos = starFlightSpline.getPointAt(p);
       const tangent = starFlightSpline.getTangentAt(p).normalize();
 
@@ -654,7 +719,6 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
 
       // Update Trail Ribbon
       trailMat.opacity = animState.trailOpacity * 0.92;
-      // Shift trail positions backwards
       for (let i = TRAIL_LENGTH - 1; i > 0; i--) {
         trailPositions[i * 3] = trailPositions[(i - 1) * 3];
         trailPositions[i * 3 + 1] = trailPositions[(i - 1) * 3 + 1];
@@ -696,11 +760,10 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
 
       // Camera Rig Choreography
       if (animState.cameraMode === 0) {
-        // Awaken / Early view looking forward into deep space
-        camera.position.set(0, 0, 11.5);
+        camera.position.set(0, 0, cameraZ);
         camera.lookAt(0, 0, -25);
       } else if (animState.cameraMode === 1) {
-        // Space Chase Cam: trailing behind the shooting star with dynamic banking
+        // Space Chase Cam
         const chaseOffset = new THREE.Vector3()
           .copy(currentStarPos)
           .addScaledVector(tangent, -4.8)
@@ -713,49 +776,89 @@ export const TheConstellationIntro: React.FC<TheConstellationIntroProps> = ({
         camera.lookAt(lookTarget);
       } else if (animState.cameraMode === 2) {
         // Pull Back to Constellation Plane
-        const targetCam = new THREE.Vector3(0, 0, 11.8);
-        camera.position.lerp(targetCam, 0.05);
+        const targetCam = new THREE.Vector3(0, 0, cameraZ);
+        camera.position.lerp(targetCam, 0.08);
         camera.lookAt(0, 0, 0);
       } else {
         // Stable constellation framing with gentle cosmic drift
-        camera.position.set(0, 0, 11.8 + Math.sin(now * 0.0006) * 0.15);
+        camera.position.set(0, 0, cameraZ + Math.sin(now * 0.0006) * 0.15);
         camera.lookAt(0, 0, 0);
       }
 
-      // Constellation Stars Activation & Twinkle
+      // Progressive Constellation Lines Growth
+      // As the shooting star flies across the letters, lines physically grow behind it!
+      const edges = constellationData.edges;
+      const stars = constellationData.stars;
       const cContract = animState.constellationContraction;
 
-      starNodes.forEach((node) => {
-        // Check proximity to shooting star or progress order
-        const distToStar = currentStarPos.distanceTo(node.nodeGroupPos || (node.nodeGroupPos = new THREE.Vector3(node.data.x, node.data.y, node.data.z)));
-        const shouldIgnite = (p > 0.48 && (distToStar < 1.8 || p >= 0.72));
+      for (let i = 0; i < numEdges; i++) {
+        const edge = edges[i];
+        const sFrom = stars[edge.from];
+        const sTo = stars[edge.to];
 
-        if (shouldIgnite && !node.ignited) {
+        if (p < edge.drawStart) {
+          // Edge not yet drawn: collapsed at origin
+          linePositions[i * 6 + 0] = sFrom.x;
+          linePositions[i * 6 + 1] = sFrom.y;
+          linePositions[i * 6 + 2] = sFrom.z;
+          linePositions[i * 6 + 3] = sFrom.x;
+          linePositions[i * 6 + 4] = sFrom.y;
+          linePositions[i * 6 + 5] = sFrom.z;
+        } else if (p >= edge.drawEnd) {
+          // Edge fully drawn: connected
+          linePositions[i * 6 + 0] = sFrom.x;
+          linePositions[i * 6 + 1] = sFrom.y;
+          linePositions[i * 6 + 2] = sFrom.z;
+          linePositions[i * 6 + 3] = sTo.x;
+          linePositions[i * 6 + 4] = sTo.y;
+          linePositions[i * 6 + 5] = sTo.z;
+        } else {
+          // Edge currently being drawn by the shooting star: growing tip
+          const frac = (p - edge.drawStart) / Math.max(0.001, edge.drawEnd - edge.drawStart);
+          linePositions[i * 6 + 0] = sFrom.x;
+          linePositions[i * 6 + 1] = sFrom.y;
+          linePositions[i * 6 + 2] = sFrom.z;
+          linePositions[i * 6 + 3] = sFrom.x + (sTo.x - sFrom.x) * frac;
+          linePositions[i * 6 + 4] = sFrom.y + (sTo.y - sFrom.y) * frac;
+          linePositions[i * 6 + 5] = sFrom.z + (sTo.z - sFrom.z) * frac;
+        }
+      }
+      constLinePosAttr.needsUpdate = true;
+      constLineMat.opacity = Math.max(0, 0.95 * (1.0 - cContract * 1.5));
+
+      // Constellation Stars Activation & Twinkle in lockstep with shooting star
+      starNodes.forEach((node, idx) => {
+        const starData = stars[idx];
+        const isBorn = p >= starData.ignitionProgress;
+
+        if (isBorn && !node.ignited) {
           node.ignited = true;
           // Flare flash on ignition
           node.mesh.material.opacity = 1.0;
           node.flareMesh.material.opacity = 1.0;
-          node.mesh.scale.set(node.targetScale * 2.2, node.targetScale * 2.2, 1);
-          playStellarChime(0.8 + node.data.ignitionOrder * 0.7);
+          node.mesh.scale.set(node.targetScale * 2.5, node.targetScale * 2.5, 1);
+          node.light.intensity = 2.4;
+          playStellarChime(0.75 + (starData.ignitionProgress - 0.35) * 1.6);
         }
 
         if (node.ignited) {
+          // Settle scale smoothly down to target
+          node.mesh.scale.lerp(new THREE.Vector3(node.targetScale, node.targetScale, 1), 0.1);
+          node.light.intensity = THREE.MathUtils.lerp(node.light.intensity, 0.35, 0.08);
+
           // Subtle stellar twinkling & respiration
-          const twinkle = 0.82 + Math.sin(now * 0.003 + node.data.x * 2.5) * 0.18;
+          const twinkle = 0.85 + Math.sin(now * 0.003 + starData.x * 2.5) * 0.15;
           const targetOpacity = Math.max(0, 1.0 - cContract * 1.2) * twinkle;
 
-          node.mesh.material.opacity = THREE.MathUtils.lerp(node.mesh.material.opacity, targetOpacity, 0.08);
-          node.flareMesh.material.opacity = THREE.MathUtils.lerp(node.flareMesh.material.opacity, targetOpacity * 0.75, 0.08);
+          node.mesh.material.opacity = targetOpacity;
+          node.flareMesh.material.opacity = targetOpacity * 0.75;
 
           // Contract stars towards center at final phase
           if (cContract > 0) {
-            node.mesh.parent?.position.lerp(new THREE.Vector3(0, 0.2, 0), cContract * 0.08);
+            node.mesh.parent?.position.lerp(new THREE.Vector3(0, 0.35, 0), cContract * 0.08);
           }
         }
       });
-
-      // Update Constellation Lines Opacity & Contraction
-      constLineMat.opacity = Math.max(0, animState.constellationLinesOpacity * (1.0 - cContract * 1.5));
 
       // Background Starfield gentle rotation
       starfieldMesh.rotation.y = now * 0.00004;
