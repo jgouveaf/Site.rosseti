@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/Site.rosseti/" : "/",
+  base: process.env.VITE_BASE ?? (command === "build" ? "/Site.rosseti/" : "/"),
   build: {
     rollupOptions: {
       input: {
