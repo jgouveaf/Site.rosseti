@@ -1,25 +1,27 @@
 {
   "palette": {
-    "background": "#030304",
-    "walls": "#3a2737",
-    "neon": "#ff3ad0",
-    "neonAccent": "#cfff00",
-    "floor": "#2a080e"
+    "background": "#030308",
+    "walls": "#090b14",
+    "neonPrimary": "#cfff00",
+    "neonSecondary": "#00f0ff",
+    "neonAccent": "#ff2a9d",
+    "aura": ["#cfff00", "#00f0ff", "#ff2a9d", "#39ff14", "#00f0ff", "#cfff00"]
   },
   "structure": {
-    "length": 106,
-    "ringCount": 12,
-    "ringSpacing": 7,
-    "desktopRadius": 6.9,
-    "mobileRadius": 3.45
+    "segmentLength": 12,
+    "segmentCount": 14,
+    "desktopRadius": 5.4,
+    "mobileRadius": 3.4,
+    "radialSegments": 24,
+    "totalTravelZ": 120
   },
   "stops": [
-    { "year": 2017, "title": "Primeiros passos", "image": "media/photos/tunnel-2017.webp", "events": ["Infância", "Esporte"] },
-    { "year": 2018, "title": "O jogo começa", "image": "media/photos/tunnel-2018.webp", "events": ["Futsal", "Primeiras competições"] },
-    { "year": 2022, "title": "Novos desafios", "image": "media/photos/canguru-2022.webp", "events": ["Matemática", "Olimpíadas"] },
-    { "year": 2024, "title": "Competir e evoluir", "image": "media/photos/tunnel-2024.webp", "events": ["Tênis de mesa", "Pódio"] },
-    { "year": 2025, "title": "Criar também é jogar", "image": "media/photos/tunnel-2025.webp", "events": ["GameDev", "Projetos"] },
-    { "year": 2026, "title": "Próxima fase", "image": "media/photos/tunnel-2026.webp", "events": ["Formação", "Novos caminhos"] }
+    { "year": 2017, "title": "Primeiros passos", "image": "media/photos/tunnel-2017.webp", "events": ["Infância", "Esporte", "Curiosidade"] },
+    { "year": 2018, "title": "O jogo começa", "image": "media/photos/tunnel-2018.webp", "events": ["Futsal", "Primeiras competições", "Espírito de equipe"] },
+    { "year": 2022, "title": "Novos desafios", "image": "media/photos/canguru-2022.webp", "events": ["Matemática", "Olimpíadas", "Foco analítico"] },
+    { "year": 2024, "title": "Competir e evoluir", "image": "media/photos/tunnel-2024.webp", "events": ["Tênis de mesa", "Pódio", "Disciplina diária"] },
+    { "year": 2025, "title": "Criar também é jogar", "image": "media/photos/tunnel-2025.webp", "events": ["GameDev", "Unity", "Projetos interativos"] },
+    { "year": 2026, "title": "Próxima fase", "image": "media/photos/tunnel-2026.webp", "events": ["Formação FECAP", "IA", "Novos horizontes"] }
   ],
   "sideImages": [
     "media/photos/tunnel-art-eye.webp",
