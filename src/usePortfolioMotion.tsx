@@ -21,8 +21,37 @@ export function usePortfolioMotion() {
     let activeMagnet: HTMLElement | null = null;
     let magnetBounds: DOMRect | null = null;
     let currentTiltCard: HTMLElement | null = null;
+    let cachedCardRect: DOMRect | null = null;
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+    let tiltFrame = 0;
+
+    const animateTilt = () => {
+      tiltFrame = 0;
+      if (!currentTiltCard) return;
+
+      // Smooth lerp damping: responsive, instantaneous, and zero micro-jitter
+      currentTiltX += (targetTiltX - currentTiltX) * 0.22;
+      currentTiltY += (targetTiltY - currentTiltY) * 0.22;
+
+      currentTiltCard.style.setProperty("--mouse-tilt-x", `${currentTiltX.toFixed(2)}deg`);
+      currentTiltCard.style.setProperty("--mouse-tilt-y", `${currentTiltY.toFixed(2)}deg`);
+
+      if (
+        Math.abs(targetTiltX - currentTiltX) > 0.02 ||
+        Math.abs(targetTiltY - currentTiltY) > 0.02
+      ) {
+        tiltFrame = requestAnimationFrame(animateTilt);
+      }
+    };
 
     const resetTilt = () => {
+      if (tiltFrame) {
+        cancelAnimationFrame(tiltFrame);
+        tiltFrame = 0;
+      }
       if (currentTiltCard) {
         currentTiltCard.style.removeProperty("--mouse-tilt-x");
         currentTiltCard.style.removeProperty("--mouse-tilt-y");
@@ -31,6 +60,11 @@ export function usePortfolioMotion() {
         currentTiltCard.classList.remove("is-tilting");
         currentTiltCard = null;
       }
+      cachedCardRect = null;
+      targetTiltX = 0;
+      targetTiltY = 0;
+      currentTiltX = 0;
+      currentTiltY = 0;
     };
 
     const update = () => {
@@ -85,7 +119,7 @@ export function usePortfolioMotion() {
 
       // Real 3D Perspective Scroll Physics across cards throughout the site
       const cards3D = root.querySelectorAll<HTMLElement>(
-        ".pf-3d-card, .pf-game, .pf-project-card, .pf-italian-showcase, .pf-italian-photo-card, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature, .pf-history-card"
+        ".pf-3d-card, .pf-game, .pf-project-card, .pf-italian-photo-card, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature, .pf-history-card"
       );
       cards3D.forEach((card) => {
         const rect = card.getBoundingClientRect();
@@ -133,32 +167,41 @@ export function usePortfolioMotion() {
       magnetBounds = null;
     };
 
-    // Robust 3D Interactive Pointer Tilt Handler
+    // Robust 3D Interactive Pointer Tilt Handler with Rect Caching & Smooth Damping
     const onPointer = (event: PointerEvent) => {
       if (reduced.matches || event.pointerType === "touch" || !fine.matches) return;
       mouseX = event.clientX;
       mouseY = event.clientY;
       const target = event.target as HTMLElement;
 
-      // Find any 3D interactive element anywhere on the page
+      // Only tilt concrete interactive cards (not wrappers or hero text)
       const card = target.closest<HTMLElement>(
-        ".pf-3d-card, .pf-game, .pf-project-card, .pf-italian-photo-card, .pf-hero-title, .pf-hero-image, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature, .pf-history-card, .pf-italian-showcase"
+        ".pf-3d-card, .pf-game, .pf-project-card, .pf-italian-photo-card, .pf-real-portrait, .pf-stats > div, .pf-reel-card, .pf-obi-feature, .pf-history-card"
       );
 
-      if (card !== currentTiltCard) resetTilt();
+      if (card !== currentTiltCard) {
+        resetTilt();
+        if (card) {
+          currentTiltCard = card;
+          cachedCardRect = card.getBoundingClientRect();
+          card.classList.add("is-tilting");
+        }
+      }
 
-      if (card) {
-        currentTiltCard = card;
-        card.classList.add("is-tilting");
-        const b = card.getBoundingClientRect();
-        const px = (event.clientX - b.left) / Math.max(1, b.width);
-        const py = (event.clientY - b.top) / Math.max(1, b.height);
-        const rx = (0.5 - py) * 16; // 16 deg max tilt
-        const ry = (px - 0.5) * 16;
-        card.style.setProperty("--mouse-tilt-x", `${rx.toFixed(2)}deg`);
-        card.style.setProperty("--mouse-tilt-y", `${ry.toFixed(2)}deg`);
-        card.style.setProperty("--glare-x", `${(px * 100).toFixed(1)}%`);
-        card.style.setProperty("--glare-y", `${(py * 100).toFixed(1)}%`);
+      if (currentTiltCard && cachedCardRect) {
+        const b = cachedCardRect;
+        const px = Math.max(0, Math.min(1, (event.clientX - b.left) / Math.max(1, b.width)));
+        const py = Math.max(0, Math.min(1, (event.clientY - b.top) / Math.max(1, b.height)));
+        
+        // Sleek subtle tilt: max 8.5deg
+        targetTiltX = (0.5 - py) * 8.5;
+        targetTiltY = (px - 0.5) * 8.5;
+        currentTiltCard.style.setProperty("--glare-x", `${(px * 100).toFixed(1)}%`);
+        currentTiltCard.style.setProperty("--glare-y", `${(py * 100).toFixed(1)}%`);
+
+        if (!tiltFrame) {
+          tiltFrame = requestAnimationFrame(animateTilt);
+        }
       }
 
       const magnet = target.closest<HTMLElement>(".pf-hero-cta,.pf-pill");
@@ -210,6 +253,7 @@ export function usePortfolioMotion() {
 
     return () => {
       cancelAnimationFrame(frame);
+      if (tiltFrame) cancelAnimationFrame(tiltFrame);
       observer.disconnect();
       resize.disconnect();
       root.classList.remove("motion-ready");

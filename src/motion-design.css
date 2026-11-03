@@ -370,7 +370,10 @@
   height: 100svh;
   min-height: 700px;
   overflow: hidden;
-  padding: 55px 0 25px;
+  padding: clamp(35px, 5vh, 60px) 0 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .pf-reel-heading {
   padding: 0 5vw;
@@ -378,6 +381,8 @@
   grid-template-columns: 1fr 1fr;
   gap: 15px;
   align-items: end;
+  margin-bottom: clamp(2rem, 3.5vh, 3.5rem);
+  flex-shrink: 0;
 }
 .pf-reel-heading > .pf-kicker {
   grid-column: 1/-1;
@@ -400,8 +405,9 @@
   padding-bottom: 10px;
 }
 .pf-reel-window {
-  margin: 30px 5vw 0;
+  margin: 0 5vw;
   overflow: visible;
+  flex-grow: 1;
 }
 .pf-reel-track {
   position: relative;
@@ -739,6 +745,7 @@
 .pf-v2.motion-ready .motion-reveal.motion-visible,
 .pf-v2.motion-ready .motion-reveal:focus-within {
   opacity: 1;
+  transform: translateY(0);
   filter: none;
 }
 .pf-v2 .pf-reveal {
@@ -1043,6 +1050,7 @@
   .pf-reel-heading {
     display: block;
     padding-inline: 6vw;
+    margin-bottom: 2rem;
   }
   .pf-reel-heading h2 {
     font-size: 34px;
@@ -1059,7 +1067,7 @@
     font-size: 8px;
   }
   .pf-reel-window {
-    margin: 15px 0 0;
+    margin: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;

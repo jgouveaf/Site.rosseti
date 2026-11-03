@@ -1266,19 +1266,16 @@
 .pf-3d-card,
 .pf-game,
 .pf-project-card,
-.pf-italian-showcase,
 .pf-italian-photo-card,
 .pf-real-portrait,
 .pf-stats > div,
 .pf-reel-card,
 .pf-swimming,
 .pf-obi-feature,
-.pf-history-card,
-.pf-hero-title,
-.pf-hero-image {
+.pf-history-card {
   transform: perspective(1000px) rotateX(calc(var(--scroll-tilt-x, 0deg) + var(--mouse-tilt-x, 0deg))) rotateY(var(--mouse-tilt-y, 0deg)) translateZ(var(--scroll-depth, 0px)) !important;
   transform-style: preserve-3d !important;
-  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
   will-change: transform;
   position: relative;
 }
@@ -1287,17 +1284,25 @@
 .pf-game.is-tilting,
 .pf-project-card.is-tilting,
 .pf-italian-photo-card.is-tilting,
-.pf-hero-title.is-tilting,
-.pf-hero-image.is-tilting {
-  transition: transform 0.08s linear, box-shadow 0.2s ease !important;
+.pf-stats > div.is-tilting,
+.pf-reel-card.is-tilting,
+.pf-real-portrait.is-tilting,
+.pf-obi-feature.is-tilting,
+.pf-history-card.is-tilting {
+  /* No transform transition while moving: JS drives buttery smooth rAF interpolation */
+  transition: box-shadow 0.25s ease, border-color 0.25s ease !important;
   box-shadow: 0 35px 70px rgba(0, 0, 0, 0.65), 0 0 30px rgba(210, 255, 0, 0.25) !important;
+  z-index: 10;
 }
 
 /* Subtle dynamic glare overlay on 3D cards */
 .pf-3d-card::after,
 .pf-game::after,
 .pf-project-card::after,
-.pf-italian-photo-card::after {
+.pf-italian-photo-card::after,
+.pf-real-portrait::after,
+.pf-reel-card::after,
+.pf-stats > div::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1312,8 +1317,42 @@
 .pf-3d-card.is-tilting::after,
 .pf-game.is-tilting::after,
 .pf-project-card.is-tilting::after,
-.pf-italian-photo-card.is-tilting::after {
+.pf-italian-photo-card.is-tilting::after,
+.pf-real-portrait.is-tilting::after,
+.pf-reel-card.is-tilting::after,
+.pf-stats > div.is-tilting::after {
   opacity: 1;
+}
+
+/* ==========================================================================
+   PERFECT SPACING FIXES: SOBRE (PORTRAIT & LEAD) & MOMENTOS (REEL)
+   ========================================================================== */
+.pf-v2 .pf-real-portrait {
+  margin: 0 0 clamp(2.5rem, 4vw, 3.8rem) !important;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+}
+
+.pf-v2 .pf-real-portrait figcaption {
+  position: static !important;
+  padding: 1rem 1.25rem 0.6rem !important;
+  background: #111a14 !important;
+  color: #c9e0c5 !important;
+  font: 700 0.72rem var(--font-body) !important;
+  letter-spacing: 0.1em !important;
+}
+
+.pf-v2 .pf-about-grid > div {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.4rem !important;
+}
+
+.pf-v2 .pf-about-grid .pf-lead {
+  margin-top: clamp(1.2rem, 2vw, 2rem) !important;
+  margin-bottom: 1.2rem !important;
+  line-height: 1.45 !important;
 }
 
 /* ==========================================================================
