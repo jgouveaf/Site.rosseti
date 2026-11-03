@@ -211,16 +211,19 @@ function MilestoneExhibit({
     // Wall offset on normal
     const pos = new THREE.Vector3()
       .copy(center)
-      .addScaledVector(normal, side * (radius * 0.72))
-      .addScaledVector(binormal, 0.1);
+      .addScaledVector(normal, side * (radius * 0.70))
+      .addScaledVector(binormal, 0.08);
 
-    // Orient facing slightly towards tunnel center
+    // Orient facing towards tunnel center and oncoming camera
     const lookTarget = new THREE.Vector3()
       .copy(center)
-      .addScaledVector(tangent, 3.0);
+      .addScaledVector(tangent, -1.8);
 
-    const m = new THREE.Matrix4().lookAt(pos, lookTarget, binormal);
-    const rot = new THREE.Euler().setFromRotationMatrix(m);
+    const dummy = new THREE.Object3D();
+    dummy.position.copy(pos);
+    dummy.up.copy(binormal);
+    dummy.lookAt(lookTarget);
+    const rot = dummy.rotation.clone();
 
     return { position: pos, rotation: rot };
   }, [tunnelData, stop.t, side, radius]);
@@ -264,13 +267,13 @@ function MilestoneExhibit({
       {/* Glowing neon border plate */}
       <mesh position={[0, 0, -0.02]}>
         <planeGeometry args={[width + 0.14, height + 0.14]} />
-        <meshBasicMaterial color={borderAccent} toneMapped={false} />
+        <meshBasicMaterial color={borderAccent} toneMapped={false} side={THREE.DoubleSide} />
       </mesh>
 
       {/* High-res exhibit image */}
       <mesh position={[0, 0, 0.01]}>
         <planeGeometry args={[width, height]} />
-        <meshBasicMaterial ref={matRef} map={texture} transparent toneMapped={false} />
+        <meshBasicMaterial ref={matRef} map={texture} transparent toneMapped={false} side={THREE.DoubleSide} />
       </mesh>
 
       {/* Under-card red laser bar */}
@@ -286,11 +289,13 @@ function MilestoneExhibit({
 function AmbientExhibit({
   imageSrc,
   index,
+  totalCount,
   tunnelData,
   compact,
 }: {
   imageSrc: string;
   index: number;
+  totalCount: number;
   tunnelData: TunnelGeometryData;
   compact: boolean;
 }) {
@@ -300,15 +305,16 @@ function AmbientExhibit({
 
   const ratio = (texture.image?.width || 1) / (texture.image?.height || 1);
   const height = compact ? 1.6 : 2.2;
-  const width = Math.min(2.4, height * ratio);
+  const width = Math.min(compact ? 2.2 : 2.9, height * ratio);
 
-  // Distribute along curve parameters
-  const tVals = [0.17, 0.34, 0.52, 0.70, 0.86, 0.93, 0.98];
-  const t = tVals[index % tVals.length];
+  // Distribute along curve parameters smoothly
+  const t = 0.05 + (index / Math.max(1, totalCount - 1)) * 0.90;
   const side = index % 2 === 0 ? -1 : 1;
   const radius = compact ? mobileRadius : desktopRadius;
+  const yOffset = ((index % 3) - 1) * 0.22;
 
   const groupRef = useRef<THREE.Group>(null);
+  const matRef = useRef<THREE.MeshBasicMaterial>(null);
 
   const { position, rotation } = useMemo(() => {
     const curve = tunnelData.curve;
@@ -318,36 +324,57 @@ function AmbientExhibit({
     const normal = new THREE.Vector3().crossVectors(tangent, up).normalize();
     const binormal = new THREE.Vector3().crossVectors(normal, tangent).normalize();
 
+    // Wall offset on normal
     const pos = new THREE.Vector3()
       .copy(center)
-      .addScaledVector(normal, side * (radius * 0.74))
-      .addScaledVector(binormal, -0.2);
+      .addScaledVector(normal, side * (radius * 0.70))
+      .addScaledVector(binormal, yOffset);
 
-    const lookTarget = new THREE.Vector3().copy(center).addScaledVector(tangent, 2.5);
-    const m = new THREE.Matrix4().lookAt(pos, lookTarget, binormal);
-    const rot = new THREE.Euler().setFromRotationMatrix(m);
+    // Orient facing towards tunnel center and oncoming camera
+    const lookTarget = new THREE.Vector3().copy(center).addScaledVector(tangent, -1.8);
+    const dummy = new THREE.Object3D();
+    dummy.position.copy(pos);
+    dummy.up.copy(binormal);
+    dummy.lookAt(lookTarget);
+    const rot = dummy.rotation.clone();
 
     return { position: pos, rotation: rot };
-  }, [tunnelData, t, side, radius]);
+  }, [tunnelData, t, side, radius, yOffset]);
 
   useFrame(({ camera }) => {
     if (!groupRef.current) return;
     const camDist = camera.position.distanceTo(position);
-    groupRef.current.visible = camDist < 35;
+    // Smooth reveal when approaching
+    const approach = THREE.MathUtils.smoothstep(32 - camDist, 0, 18);
+    const leave = THREE.MathUtils.smoothstep(camDist, -5, 2);
+    const visibility = approach * leave;
+
+    groupRef.current.visible = visibility > 0.02;
+    if (matRef.current) {
+      matRef.current.opacity = Math.min(1, visibility * 1.6);
+    }
   });
 
   return (
     <group ref={groupRef} position={position} rotation={rotation}>
-      <mesh position={[0, 0, -0.04]}>
-        <planeGeometry args={[width + 0.08, height + 0.08]} />
+      {/* Dark backplate */}
+      <mesh position={[0, 0, -0.05]}>
+        <planeGeometry args={[width + 0.14, height + 0.14]} />
+        <meshBasicMaterial color="#090104" side={THREE.DoubleSide} />
+      </mesh>
+      {/* Glowing neon border */}
+      <mesh position={[0, 0, -0.02]}>
+        <planeGeometry args={[width + 0.06, height + 0.06]} />
         <meshBasicMaterial
           color={index % 2 === 0 ? neonSecondary : neonDeep}
           toneMapped={false}
+          side={THREE.DoubleSide}
         />
       </mesh>
+      {/* Exhibit image */}
       <mesh position={[0, 0, 0.01]}>
         <planeGeometry args={[width, height]} />
-        <meshBasicMaterial map={texture} toneMapped={false} />
+        <meshBasicMaterial ref={matRef} map={texture} transparent toneMapped={false} side={THREE.DoubleSide} />
       </mesh>
     </group>
   );
@@ -513,6 +540,7 @@ function HoyojerezScene({
           key={`ambient-${idx}`}
           imageSrc={src}
           index={idx}
+          totalCount={sideImages.length}
           tunnelData={tunnelData}
           compact={compact}
         />

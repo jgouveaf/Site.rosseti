@@ -382,10 +382,13 @@ export function Portfolio() {
                 {[
                   { id: "infancia", word: "COMEÇAR", label: "01 / PRIMEIROS PASSOS · FUTSAL", src: "media/photos/joao-infancia-futsal.webp", alt: "João Gouvêa criança com medalha em uma quadra de futsal" },
                   { id: "tenis", word: "EVOLUIR", label: "02 / TREINO E COMPETIÇÃO", src: "media/photos/joao-saque.webp", alt: "João Gouvêa se preparando para sacar" },
+                  { id: "arena", word: "INTENSIDADE", label: "03 / CIRCUITO E ARENA", src: "media/photos/joao-tenis-arena.webp", alt: "João Gouvêa em partida oficial de tênis de mesa com técnico Márcio Sousa" },
+                  { id: "trofeu", word: "VENCER", label: "04 / CONQUISTA NO PÓDIO", src: "media/photos/joao-trofeu-2026-a.webp", alt: "João Gouvêa com troféu conquistado no campeonato" },
+                  { id: "foco", word: "PERSISTIR", label: "05 / DEDICAÇÃO DIÁRIA", src: "media/photos/joao-conquista-2026-a.webp", alt: "João Gouvêa celebrando premiação de mérito" },
                   {
                     id: "desenho",
                     word: "IMAGINAR",
-                    label: "03 / DESENHO E CRIAÇÃO",
+                    label: "06 / DESENHO E CRIAÇÃO",
                     src: "media/photos/desenho-olhos.webp",
                     alt: "Desenho em preto e branco com olhos em espiral",
                   },

@@ -59,17 +59,24 @@
       "year": 2026,
       "t": 0.95,
       "title": "Próxima fase",
-      "image": "media/photos/tunnel-2026.webp",
-      "events": ["Formação FECAP", "IA", "Novos horizontes"]
+      "image": "media/photos/joao-trofeu-2026-a.webp",
+      "events": ["Títulos 2026", "Formação FECAP", "Novos horizontes"]
     }
   ],
   "sideImages": [
-    "media/photos/tunnel-art-eye.webp",
-    "media/photos/tunnel-art-flower.webp",
-    "media/photos/tunnel-study.webp",
-    "media/photos/tunnel-action.webp",
+    "media/photos/joao-tenis-arena.webp",
+    "media/photos/joao-trofeu-2026-a.webp",
+    "media/photos/joao-conquista-2026-a.webp",
+    "media/photos/joao-tenis-competicao.webp",
+    "media/photos/joao-trofeu-2026-b.webp",
+    "media/photos/joao-conquista-2026-b.webp",
+    "media/photos/joao-treino-noturno.webp",
     "media/photos/joao-saque.webp",
+    "media/photos/tunnel-action.webp",
     "media/photos/equipe-mancini.webp",
-    "media/photos/formatura-turma.webp"
+    "media/photos/tunnel-art-eye.webp",
+    "media/photos/formatura-turma.webp",
+    "media/photos/tunnel-art-flower.webp",
+    "media/photos/tunnel-study.webp"
   ]
 }
