@@ -1,17 +1,17 @@
 {
   "palette": {
-    "background": "#030308",
-    "walls": "#090b14",
+    "background": "#020306",
+    "walls": "#070912",
     "neonPrimary": "#cfff00",
     "neonSecondary": "#00f0ff",
     "neonAccent": "#ff2a9d",
     "aura": ["#cfff00", "#00f0ff", "#ff2a9d", "#39ff14", "#00f0ff", "#cfff00"]
   },
   "structure": {
-    "segmentLength": 12,
-    "segmentCount": 14,
-    "desktopRadius": 5.4,
-    "mobileRadius": 3.4,
+    "segmentLength": 8,
+    "segmentCount": 18,
+    "desktopRadius": 3.4,
+    "mobileRadius": 2.2,
     "radialSegments": 24,
     "totalTravelZ": 120
   },

@@ -11,25 +11,35 @@
 @keyframes pf-journey-flash { from { opacity: .48; } to { opacity: 0; } }
 .pf-journey-scan::after { content: ""; position: absolute; left: 0; right: 0; top: -18%; height: 18%; background: linear-gradient(transparent,#b9ff3917 70%,#dfff7440 99%,transparent); animation: pf-journey-sweep 7s linear infinite; }
 @keyframes pf-journey-sweep { to { transform: translateY(700%); } }
-.pf-journey-vignette { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,#020506da 0%,#02050670 35%,transparent 70%),linear-gradient(0deg,#020506ed,transparent 37%),radial-gradient(ellipse at 50% 50%,transparent 22%,#0205068c 100%); }
-@media (min-width: 901px) {
-  .pf-journey[data-photo-side="left"] .pf-journey-vignette { background: linear-gradient(270deg,#020506c7 0%,#02050661 35%,transparent 70%),linear-gradient(0deg,#020506d9,transparent 32%),radial-gradient(ellipse at 50% 50%,transparent 28%,#02050670 100%); }
+.pf-journey-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(2, 5, 6, 0.55) 100%),
+              linear-gradient(0deg, rgba(2, 5, 6, 0.7) 0%, transparent 16%);
 }
 .pf-journey-top { position: absolute; z-index: 3; left: clamp(1.25rem,4vw,4rem); right: clamp(1.25rem,4vw,4rem); top: clamp(1.25rem,3vw,3rem); display: flex; justify-content: space-between; gap: 1rem; font: 700 .75rem/1.2 var(--font-body); letter-spacing: .13em; color: #f5f7ed; }
 .pf-journey-top span:first-child { color: #cfff00; }
-.pf-journey-copy { position: absolute; left: clamp(1.25rem,5vw,6rem); bottom: clamp(7.5rem,13vh,11rem); z-index: 3; width: min(41vw,580px); animation: pf-journey-enter .55s cubic-bezier(.2,.8,.2,1) both; pointer-events: none; }
-.pf-journey-index { display: block; margin-bottom: .65rem; font: 700 .76rem var(--font-body); letter-spacing: .12em; color: #cfff00; }
-.pf-journey-copy strong { display: block; font: 400 clamp(6rem,13vw,14rem)/.7 var(--font-editorial); letter-spacing: -.07em; color: #fff; text-shadow: 0 7px 40px #000; }
-.pf-journey-copy h2 { margin: 1rem 0 .3rem; font: 400 clamp(2rem,4vw,4.7rem)/.98 var(--font-editorial); letter-spacing: -.04em; }
-.pf-journey-copy p { margin: 0; color: #d6dfd8; font: 500 clamp(.9rem,1.1vw,1.1rem)/1.5 var(--font-body); }
-@media (min-width: 901px) {
-  .pf-journey[data-photo-side="left"] .pf-journey-copy { left: auto; right: clamp(1.25rem,5vw,6rem); text-align: right; }
-  .pf-journey[data-photo-side="left"] .pf-journey-nav { right: auto; left: clamp(1.25rem,4vw,4rem); }
+.pf-journey-copy {
+  position: absolute;
+  left: clamp(1.25rem,4vw,4rem);
+  bottom: clamp(2.5rem,5vh,4rem);
+  z-index: 3;
+  width: min(85vw, 480px);
+  background: rgba(6, 8, 14, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-left: 3px solid #cfff00;
+  padding: 1rem 1.35rem;
+  border-radius: 0 14px 14px 0;
+  animation: pf-journey-enter .5s cubic-bezier(.2,.8,.2,1) both;
+  pointer-events: none;
 }
-.pf-journey-nav { position: absolute; right: clamp(1.25rem,4vw,4rem); bottom: clamp(3.5rem,8vh,6rem); z-index: 4; display: flex; align-items: flex-end; gap: .38rem; }
-.pf-journey-nav button { appearance: none; border: 1px solid #ffffff57; background: #101514cc; color: #f8f9f1; border-radius: 100px; min-height: 44px; min-width: 56px; padding: .7rem .8rem; font: 700 .76rem var(--font-body); cursor: pointer; transition: background .3s, color .3s, transform .45s cubic-bezier(.2,1.3,.4,1), border-color .3s; }
-.pf-journey-nav button:hover,.pf-journey-nav button:focus-visible { transform: translateY(-7px); border-color: #cfff00; outline: none; }
-.pf-journey-nav button.is-active { background: #cfff00; border-color: #cfff00; color: #10150c; transform: translateY(-7px); }
+.pf-journey-index { display: block; margin-bottom: .35rem; font: 700 .74rem var(--font-body); letter-spacing: .12em; color: #cfff00; }
+.pf-journey-copy strong { display: block; font: 400 clamp(3.5rem,8vw,7rem)/.8 var(--font-editorial); letter-spacing: -.06em; color: #fff; text-shadow: 0 4px 25px rgba(0,0,0,0.8); }
+.pf-journey-copy h2 { margin: .5rem 0 .25rem; font: 400 clamp(1.6rem,2.8vw,3.2rem)/1.05 var(--font-editorial); letter-spacing: -.03em; }
+.pf-journey-copy p { margin: 0; color: #d6dfd8; font: 500 clamp(.85rem,1vw,1rem)/1.5 var(--font-body); }
 .pf-journey-progress { position: absolute; z-index: 4; left: 0; bottom: 0; width: 100%; height: 5px; background: #cfff002e; }
 .pf-journey-progress i { display: block; width: 100%; height: 100%; background: #cfff00; transform-origin: left; transform: scaleX(var(--journey-progress,0)); }
 @keyframes pf-journey-enter { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
@@ -202,22 +212,21 @@
 
 @media (max-width: 900px) {
   .pf-journey-vignette { background: linear-gradient(0deg,#020506ee 0%,#020506ae 38%,transparent 85%),radial-gradient(ellipse at 50% 50%,transparent 20%,#0205067d 100%); }
-  .pf-journey-copy { width: min(80vw,560px); bottom: 11rem; }
-  .pf-journey-nav { left: 1.25rem; right: 1.25rem; bottom: 3.2rem; overflow-x: auto; padding: .5rem 0; }
-  .pf-journey-nav button { flex: 1 0 54px; }
+  .pf-journey-copy { width: min(90vw, 460px); bottom: 2.2rem; }
+
   .pf-timeline-archive-heading { grid-template-columns: 1fr; gap: 2rem; }
   .pf-v2 .pf-timeline-archive .pf-year ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (max-width: 700px) {
   .pf-journey-aura { opacity: .22; }
   .pf-journey-top { font-size: .61rem; }
-  .pf-journey-copy { bottom: 10.3rem; background: linear-gradient(90deg,#020506ea,#020506c0 82%,transparent); padding: .65rem .8rem .65rem .9rem; border-left: 2px solid #cfff00; }
+  .pf-journey-copy { bottom: 2rem; width: calc(100% - 2.5rem); }
   .pf-journey-copy strong { font-size: clamp(5rem,22vw,8rem); }
   .pf-journey-copy h2 { font-size: clamp(2.3rem,8vw,3.5rem); }
   .pf-v2 .pf-timeline-archive .pf-years { grid-template-columns: 1fr; }
   .pf-v2 .pf-timeline-archive .pf-year ul { grid-template-columns: 1fr; }
   .pf-v2 .pf-timeline-archive .pf-history-card { min-height: 185px; }
-  .pf-journey-nav button { flex-basis: 46px; min-width: 46px; padding-inline: .45rem; }
+
   .pf-timeline-archive-heading { padding: 2rem 0; }
   .pf-achievement-years { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding-bottom: 1.1rem; }
   .pf-achievement-years button { flex: none; }
@@ -235,7 +244,7 @@
   .pf-journey-scan::after { animation: none; }
   .pf-journey-flash { animation: none; opacity: 0; }
   .pf-journey-copy { animation: none; }
-  .pf-journey-nav button,.pf-v2 .pf-hero-cta { transition: none; }
+  .pf-v2 .pf-hero-cta { transition: none; }
   .pf-v2 .pf-timeline-archive .pf-history-card { transform: none; transition: none; }
   .pf-v2 .pf-timeline-archive .pf-achievement-deck .pf-history-item { transition: none; }
 }

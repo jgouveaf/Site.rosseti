@@ -10,31 +10,30 @@ const sideImages: string[] = tunnel.sideImages;
 const { segmentLength, segmentCount, desktopRadius, mobileRadius, radialSegments, totalTravelZ } = tunnel.structure;
 const { background, walls, neonPrimary, neonSecondary, neonAccent, aura } = tunnel.palette;
 
-/** Computes the procedural 3D tunnel centerline at any depth Z */
+/** Procedural 3D tunnel centerline at depth Z (tight, focused curvature) */
 function getTunnelCenter(z: number, compact: boolean): [number, number] {
-  const curveX = Math.sin(z * 0.035) * (compact ? 0.75 : 1.35);
-  const curveY = Math.cos(z * 0.028) * (compact ? 0.45 : 0.85);
+  const curveX = Math.sin(z * 0.032) * (compact ? 0.45 : 0.75);
+  const curveY = Math.cos(z * 0.026) * (compact ? 0.35 : 0.55);
   return [curveX, curveY];
 }
 
-/** Procedural repeating cyber-grid tunnel segments with object pooling */
+/** Enclosed procedural tunnel walls with 360-degree laser rails and portal rings */
 function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
   const radius = compact ? mobileRadius : desktopRadius;
   const segmentRefs = useRef<(THREE.Group | null)[]>([]);
 
-  // Procedural futuristic cyber texture with glowing grid lines
+  // High-tech procedural cyber-grid texture
   const cyberTexture = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = 512;
     canvas.height = 512;
     const ctx = canvas.getContext("2d");
     if (ctx) {
-      // Dark deep base
       ctx.fillStyle = walls;
       ctx.fillRect(0, 0, 512, 512);
 
-      // Longitudinal guide lines
-      ctx.strokeStyle = "rgba(0, 240, 255, 0.14)";
+      // Symmetrical longitudinal guide lines
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.16)";
       ctx.lineWidth = 1.5;
       for (let x = 0; x <= 512; x += 32) {
         ctx.beginPath();
@@ -43,8 +42,8 @@ function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
         ctx.stroke();
       }
 
-      // Latitudinal ribs
-      ctx.strokeStyle = "rgba(207, 255, 0, 0.12)";
+      // Circular rib markings
+      ctx.strokeStyle = "rgba(207, 255, 0, 0.14)";
       ctx.lineWidth = 2;
       for (let y = 0; y <= 512; y += 64) {
         ctx.beginPath();
@@ -53,11 +52,11 @@ function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
         ctx.stroke();
       }
 
-      // Subtle tech details
-      ctx.fillStyle = "rgba(255, 42, 157, 0.18)";
-      for (let i = 0; i < 40; i++) {
-        const px = ((i * 127) % 512);
-        const py = ((i * 73) % 512);
+      // Cyber tech telemetry dots
+      ctx.fillStyle = "rgba(255, 42, 157, 0.22)";
+      for (let i = 0; i < 48; i++) {
+        const px = (i * 131) % 512;
+        const py = (i * 79) % 512;
         ctx.fillRect(px, py, 6, 2);
       }
     }
@@ -70,21 +69,21 @@ function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
 
   useEffect(() => () => cyberTexture.dispose(), [cyberTexture]);
 
-  // Cylinder geometry with inside visible (BackSide)
+  // Cylinder with inner side rendered (THREE.BackSide)
   const cylinderGeo = useMemo(() => {
     const geo = new THREE.CylinderGeometry(radius, radius, segmentLength, radialSegments, 1, true);
     geo.rotateX(Math.PI / 2);
     return geo;
   }, [radius]);
 
-  // Neon portal ring
+  // Neon portal ring encircling the cylinder
   const ringGeo = useMemo(() => {
-    return new THREE.TorusGeometry(radius - 0.06, compact ? 0.032 : 0.048, 8, radialSegments);
+    return new THREE.TorusGeometry(radius - 0.05, compact ? 0.026 : 0.038, 8, radialSegments);
   }, [radius, compact]);
 
-  // Rails along tunnel walls (ceiling, floor, left, right)
+  // Laser rail running down the cylinder length
   const railGeo = useMemo(() => {
-    return new THREE.BoxGeometry(0.04, 0.04, segmentLength);
+    return new THREE.BoxGeometry(0.03, 0.03, segmentLength);
   }, []);
 
   useEffect(() => {
@@ -97,10 +96,10 @@ function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
 
   const neonColors = [neonPrimary, neonSecondary, neonAccent];
 
-  // Procedural recycling loop: segments ahead are continuously repositioned
+  // Procedural continuous recycling loop
   useFrame(({ camera }) => {
     const currentDist = -camera.position.z;
-    const startIdx = Math.floor((currentDist - 8) / segmentLength);
+    const startIdx = Math.floor((currentDist - 6) / segmentLength);
 
     for (let i = 0; i < segmentCount; i++) {
       const seg = segmentRefs.current[i];
@@ -111,7 +110,7 @@ function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
       const [cx, cy] = getTunnelCenter(z, compact);
       seg.position.x = cx;
       seg.position.y = cy;
-      seg.rotation.z = Math.sin(z * 0.035) * 0.12;
+      seg.rotation.z = Math.sin(z * 0.032) * 0.08;
     }
   });
 
@@ -131,31 +130,42 @@ function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
               <meshBasicMaterial
                 map={cyberTexture}
                 side={THREE.BackSide}
-                color="#808ca0"
+                color="#8592a8"
               />
             </mesh>
 
-            {/* Glowing neon portal ring at segment junction */}
+            {/* Glowing 360-degree portal ring */}
             <mesh geometry={ringGeo} position={[0, 0, segmentLength / 2]}>
-              <meshBasicMaterial
-                color={ringColor}
-                toneMapped={false}
-              />
+              <meshBasicMaterial color={ringColor} toneMapped={false} />
             </mesh>
 
-            {/* Longitudinal neon laser rails */}
-            <mesh geometry={railGeo} position={[0, radius * 0.94, 0]}>
-              <meshBasicMaterial color={neonPrimary} toneMapped={false} transparent opacity={0.65} />
-            </mesh>
-            <mesh geometry={railGeo} position={[0, -radius * 0.94, 0]}>
-              <meshBasicMaterial color={neonSecondary} toneMapped={false} transparent opacity={0.65} />
-            </mesh>
-            <mesh geometry={railGeo} position={[-radius * 0.94, 0, 0]}>
-              <meshBasicMaterial color={neonAccent} toneMapped={false} transparent opacity={0.5} />
-            </mesh>
-            <mesh geometry={railGeo} position={[radius * 0.94, 0, 0]}>
-              <meshBasicMaterial color={neonPrimary} toneMapped={false} transparent opacity={0.5} />
-            </mesh>
+            {/* 8 Symmetrical laser rails surrounding the entire tube (360 degrees) */}
+            {Array.from({ length: 8 }).map((_, rIdx) => {
+              const ang = (rIdx / 8) * Math.PI * 2;
+              const rx = Math.cos(ang) * (radius * 0.94);
+              const ry = Math.sin(ang) * (radius * 0.94);
+              const color =
+                rIdx % 4 === 0
+                  ? neonPrimary
+                  : rIdx % 4 === 2
+                  ? neonSecondary
+                  : neonAccent;
+              return (
+                <mesh
+                  key={`rail-${rIdx}`}
+                  geometry={railGeo}
+                  position={[rx, ry, 0]}
+                  rotation={[0, 0, ang]}
+                >
+                  <meshBasicMaterial
+                    color={color}
+                    toneMapped={false}
+                    transparent
+                    opacity={0.65}
+                  />
+                </mesh>
+              );
+            })}
           </group>
         );
       })}
@@ -178,9 +188,10 @@ function MilestoneCard({
   texture.anisotropy = 8;
 
   const ratio = (texture.image?.width || 4) / (texture.image?.height || 3);
-  const width = Math.min(compact ? 3.4 : 5.8, (compact ? 2.8 : 4.4) * ratio);
+  const width = Math.min(compact ? 2.5 : 3.8, (compact ? 2.1 : 3.0) * ratio);
   const height = width / ratio;
 
+  // Alternate sides symmetrically: 0=right, 1=left, 2=right, 3=left...
   const side = index % 2 === 0 ? 1 : -1;
   const radius = compact ? mobileRadius : desktopRadius;
   const targetZ = -14 - index * 21;
@@ -193,25 +204,22 @@ function MilestoneCard({
     const [cx, cy] = getTunnelCenter(targetZ, compact);
     const distance = camera.position.z - targetZ;
 
-    // Smooth reveal when approaching
-    const approach = THREE.MathUtils.smoothstep(32 - distance, 0, 22);
-    const leave = THREE.MathUtils.smoothstep(distance, -6, 2);
+    const approach = THREE.MathUtils.smoothstep(28 - distance, 0, 18);
+    const leave = THREE.MathUtils.smoothstep(distance, -5, 2);
     const visibility = approach * leave;
 
     cardRef.current.visible = visibility > 0.02;
 
-    // Positioned along the curved tunnel wall
-    const wallOffset = side * (radius * (compact ? 0.55 : 0.64));
+    const wallOffset = side * (radius * (compact ? 0.60 : 0.68));
     cardRef.current.position.x = cx + wallOffset;
-    cardRef.current.position.y = cy + (compact ? 0.35 : 0.15) + Math.sin(clock.elapsedTime * 0.8 + index) * 0.03;
+    cardRef.current.position.y = cy + (compact ? 0.25 : 0.1) + Math.sin(clock.elapsedTime * 0.8 + index) * 0.025;
     cardRef.current.position.z = targetZ;
 
-    // Inward facing angle towards center
-    cardRef.current.rotation.y = side * -0.26;
-    cardRef.current.rotation.z = Math.sin(targetZ * 0.035) * 0.08;
+    // Angled towards the center
+    cardRef.current.rotation.y = side * -0.28;
+    cardRef.current.rotation.z = Math.sin(targetZ * 0.032) * 0.06;
 
-    // Scale pop and brightness pulse
-    const scale = 0.82 + visibility * 0.18;
+    const scale = 0.85 + visibility * 0.15;
     cardRef.current.scale.set(scale, scale, 1);
 
     if (matRef.current) {
@@ -223,34 +231,34 @@ function MilestoneCard({
 
   return (
     <group ref={cardRef}>
-      {/* Dark backplate */}
-      <mesh position={[0, 0, -0.15]}>
-        <boxGeometry args={[width + 0.45, height + 0.52, 0.22]} />
-        <meshBasicMaterial color="#0c0e18" />
+      {/* Backplate */}
+      <mesh position={[0, 0, -0.12]}>
+        <boxGeometry args={[width + 0.35, height + 0.42, 0.18]} />
+        <meshBasicMaterial color="#080a14" />
       </mesh>
 
-      {/* Glowing neon border plate */}
-      <mesh position={[0, 0, -0.04]}>
-        <planeGeometry args={[width + 0.16, height + 0.16]} />
+      {/* Glowing frame border */}
+      <mesh position={[0, 0, -0.03]}>
+        <planeGeometry args={[width + 0.14, height + 0.14]} />
         <meshBasicMaterial color={frameAccent} toneMapped={false} />
       </mesh>
 
-      {/* High-res photo */}
+      {/* Photo */}
       <mesh position={[0, 0, 0.01]}>
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial ref={matRef} map={texture} transparent toneMapped={false} />
       </mesh>
 
-      {/* Cyber highlight bottom laser bar */}
-      <mesh position={[0, -height / 2 - 0.16, 0.04]}>
-        <boxGeometry args={[width + 0.24, 0.03, 0.03]} />
+      {/* Cyber highlight bottom bar */}
+      <mesh position={[0, -height / 2 - 0.12, 0.03]}>
+        <boxGeometry args={[width + 0.2, 0.025, 0.025]} />
         <meshBasicMaterial color={neonPrimary} toneMapped={false} />
       </mesh>
     </group>
   );
 }
 
-/** Ambient side panel displays interspersed between milestones */
+/** Ambient side panel displays on alternating walls */
 function AmbientPanel({
   index,
   compact,
@@ -263,9 +271,10 @@ function AmbientPanel({
   texture.anisotropy = 8;
 
   const ratio = (texture.image?.width || 1) / (texture.image?.height || 1);
-  const height = compact ? 2.0 : 2.7;
-  const width = Math.min(3.2, height * ratio);
+  const height = compact ? 1.7 : 2.2;
+  const width = Math.min(2.4, height * ratio);
 
+  // Alternate symmetrically with milestones
   const side = index % 2 === 0 ? -1 : 1;
   const radius = compact ? mobileRadius : desktopRadius;
   const targetZ = -24 - index * 16;
@@ -277,23 +286,23 @@ function AmbientPanel({
     const [cx, cy] = getTunnelCenter(targetZ, compact);
     const distance = camera.position.z - targetZ;
 
-    const visible = distance > -5 && distance < 38;
+    const visible = distance > -5 && distance < 35;
     panelRef.current.visible = visible;
     if (!visible) return;
 
-    const wallOffset = side * (radius * (compact ? 0.62 : 0.72));
+    const wallOffset = side * (radius * (compact ? 0.65 : 0.72));
     panelRef.current.position.x = cx + wallOffset;
-    panelRef.current.position.y = cy + (compact ? -0.4 : -0.2) + Math.cos(clock.elapsedTime * 0.7 + index) * 0.025;
+    panelRef.current.position.y = cy + (compact ? -0.3 : -0.15) + Math.cos(clock.elapsedTime * 0.7 + index) * 0.02;
     panelRef.current.position.z = targetZ;
 
     panelRef.current.rotation.y = side * -0.32;
-    panelRef.current.rotation.z = Math.sin(targetZ * 0.035) * 0.06;
+    panelRef.current.rotation.z = Math.sin(targetZ * 0.032) * 0.05;
   });
 
   return (
     <group ref={panelRef}>
-      <mesh position={[0, 0, -0.05]}>
-        <planeGeometry args={[width + 0.12, height + 0.12]} />
+      <mesh position={[0, 0, -0.04]}>
+        <planeGeometry args={[width + 0.1, height + 0.1]} />
         <meshBasicMaterial color={index % 2 === 0 ? neonSecondary : neonAccent} toneMapped={false} />
       </mesh>
       <mesh position={[0, 0, 0.01]}>
@@ -304,20 +313,21 @@ function AmbientPanel({
   );
 }
 
-/** 3D cyber dust particles floating in the tunnel */
-function CyberParticles() {
-  const count = 240;
+/** 3D cyber dust particles floating evenly throughout the tunnel volume */
+function CyberParticles({ compact }: { compact: boolean }) {
+  const count = 280;
+  const radius = compact ? mobileRadius : desktopRadius;
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2 * 7;
-      const r = 0.8 + Math.random() * 3.6;
+      const angle = Math.random() * Math.PI * 2;
+      const r = 0.5 + Math.random() * (radius * 0.85);
       arr[i * 3] = Math.cos(angle) * r;
       arr[i * 3 + 1] = Math.sin(angle) * r;
-      arr[i * 3 + 2] = -Math.random() * (totalTravelZ + 25);
+      arr[i * 3 + 2] = -Math.random() * (totalTravelZ + 20);
     }
     return arr;
-  }, []);
+  }, [radius]);
 
   return (
     <points>
@@ -326,9 +336,9 @@ function CyberParticles() {
       </bufferGeometry>
       <pointsMaterial
         color={neonPrimary}
-        size={0.045}
+        size={compact ? 0.035 : 0.042}
         transparent
-        opacity={0.55}
+        opacity={0.6}
         sizeAttenuation
       />
     </points>
@@ -347,28 +357,27 @@ function ProceduralCorridor({ progress }: { progress: MutableRefObject<number> }
     prevProgress.current = progress.current;
     velocity.current = THREE.MathUtils.damp(velocity.current, vel, 3.5, safeDelta);
 
-    // Target Z position from scroll
     const targetZ = -progress.current * totalTravelZ;
     camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 4.2, safeDelta);
 
     const curZ = camera.position.z;
     const [curveX, curveY] = getTunnelCenter(curZ, compact);
 
-    // Camera travels down center of curved tunnel + mouse parallax
-    const targetX = curveX + pointer.x * (compact ? 0.16 : 0.42);
-    const targetY = curveY + pointer.y * (compact ? 0.12 : 0.26);
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 3.8, safeDelta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 3.8, safeDelta);
+    // Camera travels in center of enclosed tunnel + gentle mouse parallax
+    const targetX = curveX + pointer.x * (compact ? 0.12 : 0.28);
+    const targetY = curveY + pointer.y * (compact ? 0.08 : 0.18);
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 4.0, safeDelta);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 4.0, safeDelta);
 
-    // Look ahead down the curving wormhole
-    const lookAheadZ = curZ - 18;
+    // Look ahead down tunnel centerline
+    const lookAheadZ = curZ - 16;
     const [lookX, lookY] = getTunnelCenter(lookAheadZ, compact);
     camera.lookAt(lookX, lookY, lookAheadZ);
 
-    // FPV Banking roll on turns
-    camera.rotation.z += Math.sin(curZ * 0.035) * 0.08 - pointer.x * 0.025;
+    // Subtle banking roll
+    camera.rotation.z += Math.sin(curZ * 0.032) * 0.06 - pointer.x * 0.02;
 
-    // Warp speed dynamic FOV
+    // Speed FOV warp
     if (camera instanceof THREE.PerspectiveCamera) {
       const warpFov = 68 + Math.min(10, velocity.current * 7.5);
       camera.fov = THREE.MathUtils.damp(camera.fov, warpFov, 3.0, safeDelta);
@@ -379,17 +388,17 @@ function ProceduralCorridor({ progress }: { progress: MutableRefObject<number> }
   return (
     <>
       <color attach="background" args={[background]} />
-      <fog attach="fog" args={[background, 14, 90]} />
-      <ambientLight intensity={0.9} />
-      <pointLight position={[0, 0, 2]} intensity={2.2} distance={32} color={neonPrimary} />
+      <fog attach="fog" args={[background, 10, 85]} />
+      <ambientLight intensity={0.95} />
+      <pointLight position={[0, 0, 1]} intensity={2.4} distance={28} color={neonPrimary} />
 
-      {/* Infinite Procedural Tunnel Walls */}
+      {/* Enclosed Procedural Tunnel Walls with 360-degree laser rails */}
       <ProceduralTunnelWalls compact={compact} />
 
       {/* Floating Cyber Dust */}
-      <CyberParticles />
+      <CyberParticles compact={compact} />
 
-      {/* 6 Milestone Exhibit Cards */}
+      {/* 6 Milestone Exhibit Cards on alternating walls */}
       {stops.map((stop, index) => (
         <MilestoneCard key={stop.year} stop={stop} index={index} compact={compact} />
       ))}
@@ -402,7 +411,7 @@ function ProceduralCorridor({ progress }: { progress: MutableRefObject<number> }
   );
 }
 
-/** User-facing Hoyojerez-style Trajectory Tunnel Component */
+/** User-facing Hoyojerez-style Trajectory Tunnel Component (clean, button-free) */
 export function PortfolioTunnel() {
   const root = useRef<HTMLElement>(null);
   const progress = useRef(0);
@@ -444,22 +453,12 @@ export function PortfolioTunnel() {
     };
   }, []);
 
-  const jump = (index: number) => {
-    if (!root.current) return;
-    const top = root.current.getBoundingClientRect().top + scrollY;
-    scrollTo({
-      top: top + (index / (stops.length - 1)) * (root.current.offsetHeight - innerHeight),
-      behavior: "smooth",
-    });
-  };
-
   const activeAura = aura[active % aura.length] || neonPrimary;
 
   return (
     <section
       className="pf-journey"
       ref={root}
-      data-photo-side={active % 2 ? "right" : "left"}
       aria-label="Trajetória em um túnel 3D procedural"
     >
       <div
@@ -483,7 +482,7 @@ export function PortfolioTunnel() {
           )}
         </div>
 
-        {/* Ambient Hologram Overlays */}
+        {/* Subtle Symmetrical Ambient Overlays (no one-sided blackout) */}
         <div className="pf-journey-aura" aria-hidden="true" />
         <div className="pf-journey-scan" aria-hidden="true" />
         <div className="pf-journey-flash" aria-hidden="true" key={active} />
@@ -491,11 +490,11 @@ export function PortfolioTunnel() {
 
         {/* Top telemetry header */}
         <div className="pf-journey-top">
-          <span>JG / TRAJETÓRIA PROCEDURAL 3D</span>
-          <span>ROLE PARA NAVEGAR NO TÚNEL ↓</span>
+          <span>JG / TRAJETÓRIA</span>
+          <span>ROLE PARA AVANÇAR NO TÚNEL ↓</span>
         </div>
 
-        {/* Active Milestone Card Information */}
+        {/* Active Milestone Card Information (clean bottom HUD) */}
         <div className="pf-journey-copy" aria-live="polite" key={active}>
           <span className="pf-journey-index">
             {String(active + 1).padStart(2, "0")} / {String(stops.length).padStart(2, "0")} · ARQUIVO PESSOAL
@@ -504,22 +503,6 @@ export function PortfolioTunnel() {
           <h2>{stops[active].title}</h2>
           <p>{stops[active].events.join(" · ")}</p>
         </div>
-
-        {/* Interactive Year Navigation Pills */}
-        <nav className="pf-journey-nav" aria-label="Navegar pelos anos da trajetória">
-          {stops.map((stop, index) => (
-            <button
-              key={stop.year}
-              type="button"
-              className={index === active ? "is-active" : ""}
-              onClick={() => jump(index)}
-              aria-label={`Ir para ${stop.year}`}
-              aria-current={index === active ? "step" : undefined}
-            >
-              <span>{stop.year}</span>
-            </button>
-          ))}
-        </nav>
 
         {/* Bottom progress laser line */}
         <div className="pf-journey-progress" aria-hidden="true">
