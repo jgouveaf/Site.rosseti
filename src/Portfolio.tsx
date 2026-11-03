@@ -602,6 +602,13 @@ export function Portfolio() {
         <a href="https://github.com/jgouveaf" target="_blank" rel="noreferrer">
           GitHub ↗
         </a>
+        <button
+          type="button"
+          className="pf-replay-btn"
+          onClick={() => window.dispatchEvent(new CustomEvent("replay-constellation-intro"))}
+        >
+          Rever constelação ✦
+        </button>
         <a href="#inicio">Voltar ao topo ↑</a>
       </footer>
     </div>

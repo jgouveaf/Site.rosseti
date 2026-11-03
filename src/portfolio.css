@@ -1283,3 +1283,35 @@ body:has(.pf) {
     transform: none;
   }
 }
+
+
+/* Constellation Replay Button in Footer */
+.pf-replay-btn {
+  background: transparent;
+  border: 1px solid rgba(223, 184, 120, 0.35);
+  color: #dfb878;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pf-replay-btn:hover {
+  background: rgba(223, 184, 120, 0.15);
+  color: #f8f5e9;
+  border-color: rgba(223, 184, 120, 0.7);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(223, 184, 120, 0.2);
+}
+
+.pf-replay-btn:active {
+  transform: translateY(0);
+}
