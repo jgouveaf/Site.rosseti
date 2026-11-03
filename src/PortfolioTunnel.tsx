@@ -1,186 +1,184 @@
 import { Suspense, useEffect, useMemo, useRef, useState, type CSSProperties, type MutableRefObject } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import tunnel from "./data/tunnel.json";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 
-type Stop = { year: number; title: string; image: string; events: string[] };
+import tunnelData from "./data/tunnel.json";
+import { createHoyojerezTunnel, type TunnelGeometryData } from "./TunnelGenerator";
 
-const stops: Stop[] = tunnel.stops;
-const sideImages: string[] = tunnel.sideImages;
-const { segmentLength, segmentCount, desktopRadius, mobileRadius, radialSegments, totalTravelZ } = tunnel.structure;
-const { background, walls, neonPrimary, neonSecondary, neonAccent, aura } = tunnel.palette;
+type Stop = {
+  year: number;
+  t: number;
+  title: string;
+  image: string;
+  events: string[];
+};
 
-/** Procedural 3D tunnel centerline at depth Z (tight, focused curvature) */
-function getTunnelCenter(z: number, compact: boolean): [number, number] {
-  const curveX = Math.sin(z * 0.032) * (compact ? 0.45 : 0.75);
-  const curveY = Math.cos(z * 0.026) * (compact ? 0.35 : 0.55);
-  return [curveX, curveY];
+const stops: Stop[] = tunnelData.stops;
+const sideImages: string[] = tunnelData.sideImages;
+const {
+  desktopRadius,
+  mobileRadius,
+  tubularSegments,
+  radialSegments,
+  length: tunnelLength,
+  bloomStrength,
+  bloomRadius,
+  bloomThreshold,
+} = tunnelData.structure;
+
+const {
+  background,
+  neonPrimary,
+  neonSecondary,
+  neonAccent,
+  neonDeep,
+  fog: fogColor,
+  aura,
+} = tunnelData.palette;
+
+/** UnrealBloom Postprocessing Pass for the authentic burning red/rose neon look */
+function PostProcessingBloom() {
+  const { gl, scene, camera, size } = useThree();
+
+  const composer = useMemo(() => {
+    const comp = new EffectComposer(gl);
+    comp.renderToScreen = true;
+    const renderPass = new RenderPass(scene, camera);
+    comp.addPass(renderPass);
+
+    const bloom = new UnrealBloomPass(
+      new THREE.Vector2(size.width, size.height),
+      bloomStrength,
+      bloomRadius,
+      bloomThreshold
+    );
+    comp.addPass(bloom);
+
+    const outputPass = new OutputPass();
+    comp.addPass(outputPass);
+
+    return comp;
+  }, [gl, scene, camera, size.width, size.height]);
+
+  useEffect(() => {
+    composer.setSize(size.width, size.height);
+  }, [composer, size]);
+
+  useFrame(() => {
+    composer.render();
+  }, 1);
+
+  return null;
 }
 
-/** Enclosed procedural tunnel walls with 360-degree laser rails and portal rings */
-function ProceduralTunnelWalls({ compact }: { compact: boolean }) {
-  const radius = compact ? mobileRadius : desktopRadius;
-  const segmentRefs = useRef<(THREE.Group | null)[]>([]);
+/** Procedural wireframe tunnel mesh (rails, rib rings, and translucent membrane) */
+function WireframeTunnelStructure({
+  tunnelData,
+}: {
+  tunnelData: TunnelGeometryData;
+}) {
+  const { longitudinalGeometry, ringGeometries, tubeGeometry } = tunnelData;
 
-  // High-tech procedural cyber-grid texture
-  const cyberTexture = useMemo(() => {
-    const canvas = document.createElement("canvas");
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext("2d");
-    if (ctx) {
-      ctx.fillStyle = walls;
-      ctx.fillRect(0, 0, 512, 512);
+  const longMat = useMemo(
+    () =>
+      new THREE.LineBasicMaterial({
+        color: neonPrimary,
+        toneMapped: false,
+        transparent: true,
+        opacity: 0.85,
+      }),
+    []
+  );
 
-      // Symmetrical longitudinal guide lines
-      ctx.strokeStyle = "rgba(0, 240, 255, 0.16)";
-      ctx.lineWidth = 1.5;
-      for (let x = 0; x <= 512; x += 32) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, 512);
-        ctx.stroke();
-      }
+  const ringMatA = useMemo(
+    () =>
+      new THREE.LineBasicMaterial({
+        color: neonSecondary,
+        toneMapped: false,
+        transparent: true,
+        opacity: 0.95,
+      }),
+    []
+  );
 
-      // Circular rib markings
-      ctx.strokeStyle = "rgba(207, 255, 0, 0.14)";
-      ctx.lineWidth = 2;
-      for (let y = 0; y <= 512; y += 64) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(512, y);
-        ctx.stroke();
-      }
+  const ringMatB = useMemo(
+    () =>
+      new THREE.LineBasicMaterial({
+        color: neonPrimary,
+        toneMapped: false,
+        transparent: true,
+        opacity: 0.75,
+      }),
+    []
+  );
 
-      // Cyber tech telemetry dots
-      ctx.fillStyle = "rgba(255, 42, 157, 0.22)";
-      for (let i = 0; i < 48; i++) {
-        const px = (i * 131) % 512;
-        const py = (i * 79) % 512;
-        ctx.fillRect(px, py, 6, 2);
-      }
-    }
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(4, 2);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    return texture;
-  }, []);
+  const ringMatC = useMemo(
+    () =>
+      new THREE.LineBasicMaterial({
+        color: neonAccent,
+        toneMapped: false,
+        transparent: true,
+        opacity: 0.85,
+      }),
+    []
+  );
 
-  useEffect(() => () => cyberTexture.dispose(), [cyberTexture]);
-
-  // Cylinder with inner side rendered (THREE.BackSide)
-  const cylinderGeo = useMemo(() => {
-    const geo = new THREE.CylinderGeometry(radius, radius, segmentLength, radialSegments, 1, true);
-    geo.rotateX(Math.PI / 2);
-    return geo;
-  }, [radius]);
-
-  // Neon portal ring encircling the cylinder
-  const ringGeo = useMemo(() => {
-    return new THREE.TorusGeometry(radius - 0.05, compact ? 0.026 : 0.038, 8, radialSegments);
-  }, [radius, compact]);
-
-  // Laser rail running down the cylinder length
-  const railGeo = useMemo(() => {
-    return new THREE.BoxGeometry(0.03, 0.03, segmentLength);
-  }, []);
+  const membraneMat = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: "#180209",
+        side: THREE.BackSide,
+        transparent: true,
+        opacity: 0.18,
+        depthWrite: false,
+      }),
+    []
+  );
 
   useEffect(() => {
     return () => {
-      cylinderGeo.dispose();
-      ringGeo.dispose();
-      railGeo.dispose();
+      longMat.dispose();
+      ringMatA.dispose();
+      ringMatB.dispose();
+      ringMatC.dispose();
+      membraneMat.dispose();
     };
-  }, [cylinderGeo, ringGeo, railGeo]);
-
-  const neonColors = [neonPrimary, neonSecondary, neonAccent];
-
-  // Procedural continuous recycling loop
-  useFrame(({ camera }) => {
-    const currentDist = -camera.position.z;
-    const startIdx = Math.floor((currentDist - 6) / segmentLength);
-
-    for (let i = 0; i < segmentCount; i++) {
-      const seg = segmentRefs.current[i];
-      if (!seg) continue;
-      const z = -((startIdx + i) * segmentLength);
-      seg.position.z = z;
-
-      const [cx, cy] = getTunnelCenter(z, compact);
-      seg.position.x = cx;
-      seg.position.y = cy;
-      seg.rotation.z = Math.sin(z * 0.032) * 0.08;
-    }
-  });
+  }, [longMat, ringMatA, ringMatB, ringMatC, membraneMat]);
 
   return (
-    <>
-      {Array.from({ length: segmentCount }).map((_, i) => {
-        const ringColor = neonColors[i % neonColors.length];
-        return (
-          <group
-            key={`seg-${i}`}
-            ref={(el) => {
-              segmentRefs.current[i] = el;
-            }}
-          >
-            {/* Cylinder inner wall */}
-            <mesh geometry={cylinderGeo}>
-              <meshBasicMaterial
-                map={cyberTexture}
-                side={THREE.BackSide}
-                color="#8592a8"
-              />
-            </mesh>
+    <group>
+      {/* Translucent depth membrane */}
+      <mesh geometry={tubeGeometry} material={membraneMat} />
 
-            {/* Glowing 360-degree portal ring */}
-            <mesh geometry={ringGeo} position={[0, 0, segmentLength / 2]}>
-              <meshBasicMaterial color={ringColor} toneMapped={false} />
-            </mesh>
+      {/* Longitudinal converging rails */}
+      <lineSegments geometry={longitudinalGeometry} material={longMat} />
 
-            {/* 8 Symmetrical laser rails surrounding the entire tube (360 degrees) */}
-            {Array.from({ length: 8 }).map((_, rIdx) => {
-              const ang = (rIdx / 8) * Math.PI * 2;
-              const rx = Math.cos(ang) * (radius * 0.94);
-              const ry = Math.sin(ang) * (radius * 0.94);
-              const color =
-                rIdx % 4 === 0
-                  ? neonPrimary
-                  : rIdx % 4 === 2
-                  ? neonSecondary
-                  : neonAccent;
-              return (
-                <mesh
-                  key={`rail-${rIdx}`}
-                  geometry={railGeo}
-                  position={[rx, ry, 0]}
-                  rotation={[0, 0, ang]}
-                >
-                  <meshBasicMaterial
-                    color={color}
-                    toneMapped={false}
-                    transparent
-                    opacity={0.65}
-                  />
-                </mesh>
-              );
-            })}
-          </group>
-        );
-      })}
-    </>
+      {/* Transverse rib rings encircling the spline */}
+      {ringGeometries.map((geo, idx) => (
+        <lineLoop
+          key={`ring-${idx}`}
+          geometry={geo}
+          material={idx % 3 === 0 ? ringMatA : idx % 3 === 1 ? ringMatB : ringMatC}
+        />
+      ))}
+    </group>
   );
 }
 
-/** Milestone photo card mounted on tunnel wall */
-function MilestoneCard({
-  index,
+/** Floating holographic milestone card attached tangentially to the tunnel wall */
+function MilestoneExhibit({
   stop,
+  index,
+  tunnelData,
   compact,
 }: {
-  index: number;
   stop: Stop;
+  index: number;
+  tunnelData: TunnelGeometryData;
   compact: boolean;
 }) {
   const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + stop.image);
@@ -191,119 +189,161 @@ function MilestoneCard({
   const width = Math.min(compact ? 2.5 : 3.8, (compact ? 2.1 : 3.0) * ratio);
   const height = width / ratio;
 
-  // Alternate sides symmetrically: 0=right, 1=left, 2=right, 3=left...
   const side = index % 2 === 0 ? 1 : -1;
   const radius = compact ? mobileRadius : desktopRadius;
-  const targetZ = -14 - index * 21;
 
-  const cardRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const matRef = useRef<THREE.MeshBasicMaterial>(null);
+  const [hovered, setHovered] = useState(false);
 
-  useFrame(({ camera, clock }) => {
-    if (!cardRef.current) return;
-    const [cx, cy] = getTunnelCenter(targetZ, compact);
-    const distance = camera.position.z - targetZ;
+  // Compute position & orientation along CatmullRomCurve3
+  const { position, rotation } = useMemo(() => {
+    const curve = tunnelData.curve;
+    const t = stop.t;
+    const center = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
 
-    const approach = THREE.MathUtils.smoothstep(28 - distance, 0, 18);
-    const leave = THREE.MathUtils.smoothstep(distance, -5, 2);
+    // Normal & Binormal
+    const up = new THREE.Vector3(0, 1, 0);
+    const normal = new THREE.Vector3().crossVectors(tangent, up).normalize();
+    const binormal = new THREE.Vector3().crossVectors(normal, tangent).normalize();
+
+    // Wall offset on normal
+    const pos = new THREE.Vector3()
+      .copy(center)
+      .addScaledVector(normal, side * (radius * 0.72))
+      .addScaledVector(binormal, 0.1);
+
+    // Orient facing slightly towards tunnel center
+    const lookTarget = new THREE.Vector3()
+      .copy(center)
+      .addScaledVector(tangent, 3.0);
+
+    const m = new THREE.Matrix4().lookAt(pos, lookTarget, binormal);
+    const rot = new THREE.Euler().setFromRotationMatrix(m);
+
+    return { position: pos, rotation: rot };
+  }, [tunnelData, stop.t, side, radius]);
+
+  useFrame(({ camera }) => {
+    if (!groupRef.current) return;
+    const camDist = camera.position.distanceTo(position);
+
+    // Smooth reveal when approaching
+    const approach = THREE.MathUtils.smoothstep(32 - camDist, 0, 20);
+    const leave = THREE.MathUtils.smoothstep(camDist, -5, 2);
     const visibility = approach * leave;
 
-    cardRef.current.visible = visibility > 0.02;
+    groupRef.current.visible = visibility > 0.02;
 
-    const wallOffset = side * (radius * (compact ? 0.60 : 0.68));
-    cardRef.current.position.x = cx + wallOffset;
-    cardRef.current.position.y = cy + (compact ? 0.25 : 0.1) + Math.sin(clock.elapsedTime * 0.8 + index) * 0.025;
-    cardRef.current.position.z = targetZ;
-
-    // Angled towards the center
-    cardRef.current.rotation.y = side * -0.28;
-    cardRef.current.rotation.z = Math.sin(targetZ * 0.032) * 0.06;
-
-    const scale = 0.85 + visibility * 0.15;
-    cardRef.current.scale.set(scale, scale, 1);
+    const baseScale = 0.88 + visibility * 0.12;
+    const targetScale = hovered ? baseScale * 1.06 : baseScale;
+    groupRef.current.scale.set(targetScale, targetScale, 1);
 
     if (matRef.current) {
       matRef.current.opacity = Math.min(1, visibility * 1.8);
     }
   });
 
-  const frameAccent = index % 2 === 0 ? neonPrimary : neonSecondary;
+  const borderAccent = hovered ? "#ffffff" : index % 2 === 0 ? neonPrimary : neonSecondary;
 
   return (
-    <group ref={cardRef}>
-      {/* Backplate */}
-      <mesh position={[0, 0, -0.12]}>
-        <boxGeometry args={[width + 0.35, height + 0.42, 0.18]} />
-        <meshBasicMaterial color="#080a14" />
+    <group
+      ref={groupRef}
+      position={position}
+      rotation={rotation}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
+      {/* Dark backplate */}
+      <mesh position={[0, 0, -0.09]}>
+        <boxGeometry args={[width + 0.32, height + 0.38, 0.14]} />
+        <meshBasicMaterial color="#090104" />
       </mesh>
 
-      {/* Glowing frame border */}
-      <mesh position={[0, 0, -0.03]}>
+      {/* Glowing neon border plate */}
+      <mesh position={[0, 0, -0.02]}>
         <planeGeometry args={[width + 0.14, height + 0.14]} />
-        <meshBasicMaterial color={frameAccent} toneMapped={false} />
+        <meshBasicMaterial color={borderAccent} toneMapped={false} />
       </mesh>
 
-      {/* Photo */}
+      {/* High-res exhibit image */}
       <mesh position={[0, 0, 0.01]}>
         <planeGeometry args={[width, height]} />
         <meshBasicMaterial ref={matRef} map={texture} transparent toneMapped={false} />
       </mesh>
 
-      {/* Cyber highlight bottom bar */}
-      <mesh position={[0, -height / 2 - 0.12, 0.03]}>
-        <boxGeometry args={[width + 0.2, 0.025, 0.025]} />
+      {/* Under-card red laser bar */}
+      <mesh position={[0, -height / 2 - 0.11, 0.02]}>
+        <boxGeometry args={[width + 0.22, 0.025, 0.025]} />
         <meshBasicMaterial color={neonPrimary} toneMapped={false} />
       </mesh>
     </group>
   );
 }
 
-/** Ambient side panel displays on alternating walls */
-function AmbientPanel({
+/** Ambient archival panel displays interspersed between milestones */
+function AmbientExhibit({
+  imageSrc,
   index,
+  tunnelData,
   compact,
 }: {
+  imageSrc: string;
   index: number;
+  tunnelData: TunnelGeometryData;
   compact: boolean;
 }) {
-  const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + sideImages[index]);
+  const texture = useLoader(THREE.TextureLoader, import.meta.env.BASE_URL + imageSrc);
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = 8;
 
   const ratio = (texture.image?.width || 1) / (texture.image?.height || 1);
-  const height = compact ? 1.7 : 2.2;
+  const height = compact ? 1.6 : 2.2;
   const width = Math.min(2.4, height * ratio);
 
-  // Alternate symmetrically with milestones
+  // Distribute along curve parameters
+  const tVals = [0.17, 0.34, 0.52, 0.70, 0.86, 0.93, 0.98];
+  const t = tVals[index % tVals.length];
   const side = index % 2 === 0 ? -1 : 1;
   const radius = compact ? mobileRadius : desktopRadius;
-  const targetZ = -24 - index * 16;
 
-  const panelRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
 
-  useFrame(({ camera, clock }) => {
-    if (!panelRef.current) return;
-    const [cx, cy] = getTunnelCenter(targetZ, compact);
-    const distance = camera.position.z - targetZ;
+  const { position, rotation } = useMemo(() => {
+    const curve = tunnelData.curve;
+    const center = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const up = new THREE.Vector3(0, 1, 0);
+    const normal = new THREE.Vector3().crossVectors(tangent, up).normalize();
+    const binormal = new THREE.Vector3().crossVectors(normal, tangent).normalize();
 
-    const visible = distance > -5 && distance < 35;
-    panelRef.current.visible = visible;
-    if (!visible) return;
+    const pos = new THREE.Vector3()
+      .copy(center)
+      .addScaledVector(normal, side * (radius * 0.74))
+      .addScaledVector(binormal, -0.2);
 
-    const wallOffset = side * (radius * (compact ? 0.65 : 0.72));
-    panelRef.current.position.x = cx + wallOffset;
-    panelRef.current.position.y = cy + (compact ? -0.3 : -0.15) + Math.cos(clock.elapsedTime * 0.7 + index) * 0.02;
-    panelRef.current.position.z = targetZ;
+    const lookTarget = new THREE.Vector3().copy(center).addScaledVector(tangent, 2.5);
+    const m = new THREE.Matrix4().lookAt(pos, lookTarget, binormal);
+    const rot = new THREE.Euler().setFromRotationMatrix(m);
 
-    panelRef.current.rotation.y = side * -0.32;
-    panelRef.current.rotation.z = Math.sin(targetZ * 0.032) * 0.05;
+    return { position: pos, rotation: rot };
+  }, [tunnelData, t, side, radius]);
+
+  useFrame(({ camera }) => {
+    if (!groupRef.current) return;
+    const camDist = camera.position.distanceTo(position);
+    groupRef.current.visible = camDist < 35;
   });
 
   return (
-    <group ref={panelRef}>
+    <group ref={groupRef} position={position} rotation={rotation}>
       <mesh position={[0, 0, -0.04]}>
-        <planeGeometry args={[width + 0.1, height + 0.1]} />
-        <meshBasicMaterial color={index % 2 === 0 ? neonSecondary : neonAccent} toneMapped={false} />
+        <planeGeometry args={[width + 0.08, height + 0.08]} />
+        <meshBasicMaterial
+          color={index % 2 === 0 ? neonSecondary : neonDeep}
+          toneMapped={false}
+        />
       </mesh>
       <mesh position={[0, 0, 0.01]}>
         <planeGeometry args={[width, height]} />
@@ -313,21 +353,32 @@ function AmbientPanel({
   );
 }
 
-/** 3D cyber dust particles floating evenly throughout the tunnel volume */
-function CyberParticles({ compact }: { compact: boolean }) {
-  const count = 280;
+/** 3D cyber dust floating through the curved tunnel */
+function CurvedCyberParticles({
+  tunnelData,
+  compact,
+}: {
+  tunnelData: TunnelGeometryData;
+  compact: boolean;
+}) {
+  const count = 320;
   const radius = compact ? mobileRadius : desktopRadius;
+
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
+    const curve = tunnelData.curve;
+
     for (let i = 0; i < count; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const r = 0.5 + Math.random() * (radius * 0.85);
-      arr[i * 3] = Math.cos(angle) * r;
-      arr[i * 3 + 1] = Math.sin(angle) * r;
-      arr[i * 3 + 2] = -Math.random() * (totalTravelZ + 20);
+      const u = (i / count);
+      const center = curve.getPointAt(u);
+      const angle = (i * 17.31) % (Math.PI * 2);
+      const r = 0.4 + (i % 7) * (radius * 0.11);
+      arr[i * 3] = center.x + Math.cos(angle) * r;
+      arr[i * 3 + 1] = center.y + Math.sin(angle) * r;
+      arr[i * 3 + 2] = center.z;
     }
     return arr;
-  }, [radius]);
+  }, [tunnelData, radius]);
 
   return (
     <points>
@@ -335,21 +386,29 @@ function CyberParticles({ compact }: { compact: boolean }) {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        color={neonPrimary}
-        size={compact ? 0.035 : 0.042}
+        color={neonSecondary}
+        size={compact ? 0.038 : 0.046}
         transparent
-        opacity={0.6}
+        opacity={0.65}
         sizeAttenuation
+        toneMapped={false}
       />
     </points>
   );
 }
 
-/** Master 3D scene with camera flight choreography */
-function ProceduralCorridor({ progress }: { progress: MutableRefObject<number> }) {
+/** Camera flight controller moving continuously down the CatmullRomCurve3 spline */
+function CameraFlightController({
+  progress,
+  tunnelData,
+}: {
+  progress: MutableRefObject<number>;
+  tunnelData: TunnelGeometryData;
+}) {
   const compact = useThree((state) => state.size.width < 700);
   const prevProgress = useRef(0);
   const velocity = useRef(0);
+  const currentT = useRef(0);
 
   useFrame(({ camera, pointer }, delta) => {
     const safeDelta = Math.max(0.008, Math.min(0.05, delta));
@@ -357,27 +416,38 @@ function ProceduralCorridor({ progress }: { progress: MutableRefObject<number> }
     prevProgress.current = progress.current;
     velocity.current = THREE.MathUtils.damp(velocity.current, vel, 3.5, safeDelta);
 
-    const targetZ = -progress.current * totalTravelZ;
-    camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 4.2, safeDelta);
+    // Target spline parameter t in [0.001, 0.995]
+    const targetT = Math.max(0.001, Math.min(0.995, progress.current));
 
-    const curZ = camera.position.z;
-    const [curveX, curveY] = getTunnelCenter(curZ, compact);
+    // Smooth physical damping
+    currentT.current = THREE.MathUtils.damp(currentT.current, targetT, 4.5, safeDelta);
+    const t = currentT.current;
 
-    // Camera travels in center of enclosed tunnel + gentle mouse parallax
-    const targetX = curveX + pointer.x * (compact ? 0.12 : 0.28);
-    const targetY = curveY + pointer.y * (compact ? 0.08 : 0.18);
-    camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 4.0, safeDelta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 4.0, safeDelta);
+    const curve = tunnelData.curve;
+    const center = curve.getPointAt(t);
+    const tangent = curve.getTangentAt(t).normalize();
+    const up = new THREE.Vector3(0, 1, 0);
+    const normal = new THREE.Vector3().crossVectors(tangent, up).normalize();
+    const binormal = new THREE.Vector3().crossVectors(normal, tangent).normalize();
 
-    // Look ahead down tunnel centerline
-    const lookAheadZ = curZ - 16;
-    const [lookX, lookY] = getTunnelCenter(lookAheadZ, compact);
-    camera.lookAt(lookX, lookY, lookAheadZ);
+    // Camera rides along center + subtle mouse parallax
+    const targetPos = new THREE.Vector3()
+      .copy(center)
+      .addScaledVector(normal, pointer.x * (compact ? 0.12 : 0.28))
+      .addScaledVector(binormal, pointer.y * (compact ? 0.08 : 0.18));
 
-    // Subtle banking roll
-    camera.rotation.z += Math.sin(curZ * 0.032) * 0.06 - pointer.x * 0.02;
+    camera.position.copy(targetPos);
 
-    // Speed FOV warp
+    // Look ahead down the curve tangent
+    const lookT = Math.min(0.999, t + 0.035);
+    const lookCenter = curve.getPointAt(lookT);
+    camera.lookAt(lookCenter);
+
+    // FPV Banking roll
+    const curveRoll = Math.sin(t * Math.PI * 4) * 0.06 - pointer.x * 0.02;
+    camera.rotation.z += curveRoll;
+
+    // Dynamic FOV warp on scroll speed
     if (camera instanceof THREE.PerspectiveCamera) {
       const warpFov = 68 + Math.min(10, velocity.current * 7.5);
       camera.fov = THREE.MathUtils.damp(camera.fov, warpFov, 3.0, safeDelta);
@@ -385,33 +455,76 @@ function ProceduralCorridor({ progress }: { progress: MutableRefObject<number> }
     }
   });
 
+  return null;
+}
+
+/** Main Three.js Scene Composition */
+function HoyojerezScene({
+  progress,
+}: {
+  progress: MutableRefObject<number>;
+}) {
+  const compact = useThree((state) => state.size.width < 700);
+
+  // Generate procedural organic CatmullRomCurve3 tunnel geometry
+  const tunnelData = useMemo(() => {
+    const radius = compact ? mobileRadius : desktopRadius;
+    return createHoyojerezTunnel(radius, tubularSegments, radialSegments, tunnelLength);
+  }, [compact]);
+
+  useEffect(() => {
+    return () => {
+      tunnelData.tubeGeometry.dispose();
+      tunnelData.longitudinalGeometry.dispose();
+      tunnelData.ringGeometries.forEach((g) => g.dispose());
+    };
+  }, [tunnelData]);
+
   return (
     <>
       <color attach="background" args={[background]} />
-      <fog attach="fog" args={[background, 10, 85]} />
-      <ambientLight intensity={0.95} />
-      <pointLight position={[0, 0, 1]} intensity={2.4} distance={28} color={neonPrimary} />
+      <fogExp2 attach="fog" args={[fogColor, 0.016]} />
+      <ambientLight intensity={0.8} />
+      <pointLight position={[0, 0, 1]} intensity={2.6} distance={30} color={neonPrimary} />
 
-      {/* Enclosed Procedural Tunnel Walls with 360-degree laser rails */}
-      <ProceduralTunnelWalls compact={compact} />
+      {/* Camera Flight along CatmullRomCurve3 */}
+      <CameraFlightController progress={progress} tunnelData={tunnelData} />
 
-      {/* Floating Cyber Dust */}
-      <CyberParticles compact={compact} />
+      {/* Hoyojerez Wireframe Tubular Structure */}
+      <WireframeTunnelStructure tunnelData={tunnelData} />
 
-      {/* 6 Milestone Exhibit Cards on alternating walls */}
-      {stops.map((stop, index) => (
-        <MilestoneCard key={stop.year} stop={stop} index={index} compact={compact} />
+      {/* Swirling Cyber Dust */}
+      <CurvedCyberParticles tunnelData={tunnelData} compact={compact} />
+
+      {/* 6 Milestone Exhibits */}
+      {stops.map((stop, idx) => (
+        <MilestoneExhibit
+          key={stop.year}
+          stop={stop}
+          index={idx}
+          tunnelData={tunnelData}
+          compact={compact}
+        />
       ))}
 
       {/* Ambient Archival Panels */}
-      {sideImages.map((_, index) => (
-        <AmbientPanel key={`ambient-${index}`} index={index} compact={compact} />
+      {sideImages.map((src, idx) => (
+        <AmbientExhibit
+          key={`ambient-${idx}`}
+          imageSrc={src}
+          index={idx}
+          tunnelData={tunnelData}
+          compact={compact}
+        />
       ))}
+
+      {/* UnrealBloom Postprocessing Pass */}
+      <PostProcessingBloom />
     </>
   );
 }
 
-/** User-facing Hoyojerez-style Trajectory Tunnel Component (clean, button-free) */
+/** User-Facing Hoyojerez 3D Procedural Tunnel Component */
 export function PortfolioTunnel() {
   const root = useRef<HTMLElement>(null);
   const progress = useRef(0);
@@ -435,8 +548,15 @@ export function PortfolioTunnel() {
       const p = Math.max(0, Math.min(1, -rect.top / Math.max(1, rect.height - innerHeight)));
       progress.current = p;
       root.current.style.setProperty("--journey-progress", String(p));
-      const stopIndex = Math.min(stops.length - 1, Math.max(0, Math.round(p * (stops.length - 1))));
-      setActive(stopIndex);
+
+      // Calculate active milestone based on curve t parameter
+      let currentIdx = 0;
+      for (let i = 0; i < stops.length; i++) {
+        if (p >= stops[i].t - 0.08) {
+          currentIdx = i;
+        }
+      }
+      setActive(currentIdx);
     };
 
     const request = () => {
@@ -459,7 +579,7 @@ export function PortfolioTunnel() {
     <section
       className="pf-journey"
       ref={root}
-      aria-label="Trajetória em um túnel 3D procedural"
+      aria-label="Trajetória em um túnel 3D procedural estilo Hoyojerez"
     >
       <div
         className="pf-journey-stage"
@@ -470,11 +590,16 @@ export function PortfolioTunnel() {
             <Suspense fallback={<div className="pf-journey-fallback" />}>
               <Canvas
                 fallback={<div className="pf-journey-fallback" />}
-                dpr={[1, 1.5]}
-                camera={{ position: [0, 0, 2], fov: 68, near: 0.1, far: 110 }}
-                gl={{ antialias: true, powerPreference: "high-performance" }}
+                dpr={[1, 1.75]}
+                camera={{ position: [0, 0, 2], fov: 68, near: 0.1, far: 180 }}
+                gl={{
+                  antialias: true,
+                  powerPreference: "high-performance",
+                  toneMapping: THREE.ACESFilmicToneMapping,
+                  toneMappingExposure: 1.15,
+                }}
               >
-                <ProceduralCorridor progress={progress} />
+                <HoyojerezScene progress={progress} />
               </Canvas>
             </Suspense>
           ) : (
@@ -482,7 +607,7 @@ export function PortfolioTunnel() {
           )}
         </div>
 
-        {/* Subtle Symmetrical Ambient Overlays (no one-sided blackout) */}
+        {/* Ambient Subtle Aura and Scanlines */}
         <div className="pf-journey-aura" aria-hidden="true" />
         <div className="pf-journey-scan" aria-hidden="true" />
         <div className="pf-journey-flash" aria-hidden="true" key={active} />
@@ -490,11 +615,11 @@ export function PortfolioTunnel() {
 
         {/* Top telemetry header */}
         <div className="pf-journey-top">
-          <span>JG / TRAJETÓRIA</span>
-          <span>ROLE PARA AVANÇAR NO TÚNEL ↓</span>
+          <span>JG / TRAJETÓRIA PROCEDURAL 3D</span>
+          <span>ROLE PARA NAVEGAR NO TÚNEL ↓</span>
         </div>
 
-        {/* Active Milestone Card Information (clean bottom HUD) */}
+        {/* Active Milestone HUD Card (anchored at bottom-left in translucent glass) */}
         <div className="pf-journey-copy" aria-live="polite" key={active}>
           <span className="pf-journey-index">
             {String(active + 1).padStart(2, "0")} / {String(stops.length).padStart(2, "0")} · ARQUIVO PESSOAL
@@ -504,7 +629,7 @@ export function PortfolioTunnel() {
           <p>{stops[active].events.join(" · ")}</p>
         </div>
 
-        {/* Bottom progress laser line */}
+        {/* Bottom progress line */}
         <div className="pf-journey-progress" aria-hidden="true">
           <i />
         </div>

@@ -1,27 +1,67 @@
 {
   "palette": {
-    "background": "#020306",
-    "walls": "#070912",
-    "neonPrimary": "#cfff00",
-    "neonSecondary": "#00f0ff",
-    "neonAccent": "#ff2a9d",
-    "aura": ["#cfff00", "#00f0ff", "#ff2a9d", "#39ff14", "#00f0ff", "#cfff00"]
+    "background": "#020104",
+    "walls": "#0f0206",
+    "neonPrimary": "#ff0044",
+    "neonSecondary": "#ff1a75",
+    "neonAccent": "#ff007f",
+    "neonDeep": "#800020",
+    "fog": "#020104",
+    "aura": ["#ff0044", "#ff1a75", "#ff007f", "#e60039", "#ff3366", "#ff0044"]
   },
   "structure": {
-    "segmentLength": 8,
-    "segmentCount": 18,
-    "desktopRadius": 3.4,
-    "mobileRadius": 2.2,
-    "radialSegments": 24,
-    "totalTravelZ": 120
+    "desktopRadius": 3.6,
+    "mobileRadius": 2.5,
+    "tubularSegments": 110,
+    "radialSegments": 20,
+    "length": 160,
+    "bloomStrength": 1.15,
+    "bloomRadius": 0.45,
+    "bloomThreshold": 0.76
   },
   "stops": [
-    { "year": 2017, "title": "Primeiros passos", "image": "media/photos/tunnel-2017.webp", "events": ["Infância", "Esporte", "Curiosidade"] },
-    { "year": 2018, "title": "O jogo começa", "image": "media/photos/tunnel-2018.webp", "events": ["Futsal", "Primeiras competições", "Espírito de equipe"] },
-    { "year": 2022, "title": "Novos desafios", "image": "media/photos/canguru-2022.webp", "events": ["Matemática", "Olimpíadas", "Foco analítico"] },
-    { "year": 2024, "title": "Competir e evoluir", "image": "media/photos/tunnel-2024.webp", "events": ["Tênis de mesa", "Pódio", "Disciplina diária"] },
-    { "year": 2025, "title": "Criar também é jogar", "image": "media/photos/tunnel-2025.webp", "events": ["GameDev", "Unity", "Projetos interativos"] },
-    { "year": 2026, "title": "Próxima fase", "image": "media/photos/tunnel-2026.webp", "events": ["Formação FECAP", "IA", "Novos horizontes"] }
+    {
+      "year": 2017,
+      "t": 0.09,
+      "title": "Primeiros passos",
+      "image": "media/photos/tunnel-2017.webp",
+      "events": ["Infância", "Esporte", "Curiosidade"]
+    },
+    {
+      "year": 2018,
+      "t": 0.25,
+      "title": "O jogo começa",
+      "image": "media/photos/tunnel-2018.webp",
+      "events": ["Futsal", "Primeiras competições", "Espírito de equipe"]
+    },
+    {
+      "year": 2022,
+      "t": 0.43,
+      "title": "Novos desafios",
+      "image": "media/photos/canguru-2022.webp",
+      "events": ["Matemática", "Olimpíadas", "Foco analítico"]
+    },
+    {
+      "year": 2024,
+      "t": 0.61,
+      "title": "Competir e evoluir",
+      "image": "media/photos/tunnel-2024.webp",
+      "events": ["Tênis de mesa", "Pódio", "Disciplina diária"]
+    },
+    {
+      "year": 2025,
+      "t": 0.79,
+      "title": "Criar também é jogar",
+      "image": "media/photos/tunnel-2025.webp",
+      "events": ["GameDev", "Unity", "Projetos interativos"]
+    },
+    {
+      "year": 2026,
+      "t": 0.95,
+      "title": "Próxima fase",
+      "image": "media/photos/tunnel-2026.webp",
+      "events": ["Formação FECAP", "IA", "Novos horizontes"]
+    }
   ],
   "sideImages": [
     "media/photos/tunnel-art-eye.webp",
